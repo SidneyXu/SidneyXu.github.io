@@ -1,14 +1,20 @@
-baseurl = "http://spf13.com/"
-title = "Hacking Management"
-languageCode = "en-us"
-disqusShortname = "spf13"
-copyright = "Copyright (c) 2008 - 2014, Steve Francia; all rights reserved."
+baseurl = "http://git.bookislife.com/"
+title = "Pixel Space"
+languageCode = "zh-cn"
+disqusShortname = "gitpixelspace"
+copyright = "Copyright (c) 2015, Sidney Xu; all rights reserved."
 MetaDataFormat = "yaml"
-
+paginate = 10
+ 
 [author]
-    name = "Steve Francia"
+    name = "Sidney Xu"
+    #DisplayName = "abc"
 
 [indexes]
     tag = "tags"
     topic = "topics"
 
+[params]
+    description = "Book is life"
+    twitter = "abc"
+    facebook = "df"
