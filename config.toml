@@ -1,6 +1,6 @@
 baseurl = "http://git.bookislife.com/"
 title = "Pixel Space"
-languageCode = "zh-cn"
+languageCode = "zh"
 disqusShortname = "gitpixelspace"
 copyright = "Copyright (c) 2015, Sidney Xu; all rights reserved."
 MetaDataFormat = "yaml"
@@ -8,7 +8,6 @@ paginate = 10
  
 [author]
     name = "Sidney Xu"
-    #DisplayName = "abc"
 
 [indexes]
     tag = "tags"
@@ -18,3 +17,21 @@ paginate = 10
     description = "Book is life"
     twitter = "abc"
     facebook = "df"
+    linkedin = ""
+    github = ""
+    gplus = ""
+    slideshare = ""
+    googleAnalytics = "UA-66541663-1"
+    dateformater = "Mon Jan 2, 2006"
+
+ [params.i18n]
+ 	[params.i18n.en]
+ 		readAbout = "Read In About"
+ 		min = "Min"
+ 		words = "Words"
+ 	[params.i18n.zh]
+		readAbout = "阅读了大约"
+		min = "分钟"
+		words = "单词"
+
+

@@ -1,9 +1,12 @@
 {{ $baseurl := .Site.BaseUrl }}
     <div>
         <section id="datecount">
-          <h4 id="date"> {{ .Date.Format "Mon Jan 2, 2006" }} </h4>
-          <h5 id="wc"> {{ .FuzzyWordCount }} Words </h5>
-          <h5 id="readtime"> Read in about {{ .ReadingTime }} Min </h5>
+          {{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
+          <h4 id="date"> {{ .Date.Format .Site.Params.dateformater }} </h4>
+          <h5 id="wc"> {{ .FuzzyWordCount }} {{ $i18n.words }} </h5>
+          <h5 id="readtime">
+            {{ $i18n.readAbout }}  {{ .ReadingTime }} {{ $i18n.min }}
+        </h5>
         </section>
         <ul id="categories">
           {{ range .Params.topics }}
