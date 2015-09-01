@@ -14,5 +14,8 @@
 
 {{ partial "meta_aside.html" . }}
 
-{{ partial "disqus.html" . }}
+{{ if not (eq .Params.comments false) }}
+	{{ partial "disqus.html" . }}
+{{ end }}
+
 {{ partial "footer.html" . }}

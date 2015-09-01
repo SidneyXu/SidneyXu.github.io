@@ -1,4 +1,5 @@
 <aside id=comments>
-    <div><h2> Comments </h2></div>
+	{{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
+    <div><h2> {{$i18n.comments }} </h2></div>
     {{ template "_internal/disqus.html" . }}
 </aside>

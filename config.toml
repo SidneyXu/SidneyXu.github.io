@@ -32,6 +32,7 @@ paginate = 10
  		more = "Read More"
  		authorLabel = "About The Author"
  		authorInfo = "abc<a href='aa'>http://www.baidu.com</a>![abc](www.baidu.com)"
+ 		comments = "Comments"
  	[params.i18n.zh]
 		readAbout = "阅读了大约"
 		min = "分钟"
@@ -39,6 +40,5 @@ paginate = 10
 		more = "阅读更多"
 		authorLabel = "关于作者"
  		authorInfo = "abc<a href='aa'>http://www.baidu.com</a>![abc](www.baidu.com)"
-
-
+ 		comments = "评论"
 

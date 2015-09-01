@@ -30,6 +30,8 @@
 
     <div>
         <section id="author">
+         
+
             {{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
              <h4>About the Author:</h4> 
              {{ $i18n.authorInfo | markdownify}}

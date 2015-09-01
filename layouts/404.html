@@ -4,6 +4,11 @@
 <section id="main">
   <div>
    <h1 id="title">{{ .Title }}</h1>
+   <p>That doesn't seem to exist! Recent articles are below.</p>
+   <hr>
+    {{ range first 5 .Data.Pages }}
+       {{ .Render "summary"}}
+    {{ end }}
   </div>
 </section>
 

@@ -112,3 +112,12 @@ If you only want to build from source, it's even easier.
 ## License
 
 Hugo is released under the Simple Public License. See [LICENSE.md](https://github.com/spf13/hugo/blob/master/LICENSE.md).
+
+```java
+class Person{
+    public static void main(String[] args) {
+        String str = "abc";
+        System.out.println(str);
+    }
+}
+```

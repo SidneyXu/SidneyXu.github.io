@@ -8,8 +8,9 @@ title: about
 topics:
 - Development
 - golang
+comments: false
 ---
 
 ## A headline
 
-Some content
+Some content about me
