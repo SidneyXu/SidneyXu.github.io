@@ -6,7 +6,7 @@
 
     {{ .Summary }}
     <footer>
-    	{{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
+    	{{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
         <a href='{{ .Permalink }}'><nobr>{{ $i18n.more }} →</nobr></a>
     </footer>
 </article>

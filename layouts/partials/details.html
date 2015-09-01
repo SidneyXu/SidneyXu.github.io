@@ -1,7 +1,7 @@
 {{ $baseurl := .Site.BaseUrl }}
     <div>
         <section id="datecount">
-          {{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
+          {{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
           <h4 id="date"> {{ .Date.Format .Site.Params.dateformater }} </h4>
           <h5 id="wc"> {{ .FuzzyWordCount }} {{ $i18n.words }} </h5>
           <h5 id="readtime">
@@ -32,7 +32,7 @@
         <section id="author">
          
 
-            {{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
+            {{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
              <h4>About the Author:</h4> 
              {{ $i18n.authorInfo | markdownify}}
             <p>
