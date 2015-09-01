@@ -30,7 +30,9 @@
 
     <div>
         <section id="author">
+            {{ $i18n := index .Site.Params.i18n .Site.LanguageCode }}
              <h4>About the Author:</h4> 
+             {{ $i18n.authorInfo | markdownify}}
             <p>
             Steve Francia has been responsible for two of the largest commercial open
             source projects as the current Chief Operator of the <a href="http://docker.com">Docker Project</a> and the

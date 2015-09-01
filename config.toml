@@ -22,16 +22,23 @@ paginate = 10
     gplus = ""
     slideshare = ""
     googleAnalytics = "UA-66541663-1"
-    dateformater = "Mon Jan 2, 2006"
+    dateformater = "2006/01/01"
 
  [params.i18n]
  	[params.i18n.en]
  		readAbout = "Read In About"
  		min = "Min"
  		words = "Words"
+ 		more = "Read More"
+ 		authorLabel = "About The Author"
+ 		authorInfo = "abc<a href='aa'>http://www.baidu.com</a>![abc](www.baidu.com)"
  	[params.i18n.zh]
 		readAbout = "阅读了大约"
 		min = "分钟"
 		words = "单词"
+		more = "阅读更多"
+		authorLabel = "关于作者"
+ 		authorInfo = "abc<a href='aa'>http://www.baidu.com</a>![abc](www.baidu.com)"
+
 
 
