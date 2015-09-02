@@ -3,7 +3,38 @@
 {{ partial "subheader.html" . }}
 {{ $baseurl := .Site.BaseUrl }}
 
+<!-- TODO -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','gtFszt63oN72WxGPHkhp','2.0.0');
+</script>
+
+
 <section id="main">
+<input type="text" class="st-default-search-input">
+
+
+  <script>
+  (function() {
+    var cx = '011614671695698843520:o7sgyeinrpy';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<br>
+<gcse:search></gcse:search>
+
+
+
   <h1 itemprop="name" id="title">{{ .Title }}</h1>
   <div id="toc">
     {{ .TableOfContents }}

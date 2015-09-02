@@ -21,8 +21,8 @@
         {{ with .Params.project_description }}
         <em itemprop="name"> {{.}} </em><br>
         {{ end }}
-        <span class="smaller" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            by <span itemprop="name">Steve Francia.</span></span><br>
+        {{ if isset .Params "project_author" }}<span class="smaller" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            by <span itemprop="name">{{ .Params.project_author }}.</span></span><br>{{ end }}
         {{ with .Params.official_url }} <a href="{{.}}">{{.}}</a> {{end}}<br>
         {{if isset .Params "download_url" }} <a id="download_link" class="pure-button" href="{{ index .Params "download_url" }}">
             <i class="icon-cloud-download"></i> Download{{if isset .Params "version" }}<span itemprop="softwareVersion"> {{ index .Params "version" }}</span>{{end}}
@@ -48,6 +48,10 @@
 <div id="ribbon">
     <a href="{{ index .Params "project_url" }}" rel="me">Fork me on GitHub</a>
 </div> </div>
+{{ end }}
+
+{{ if not (eq .Params.comments false) }}
+    {{ partial "disqus.html" . }}
 {{ end }}
 
 {{ partial "footer.html" . }}

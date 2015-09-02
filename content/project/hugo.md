@@ -23,6 +23,7 @@ project_name: Hugo
 project_url: http://github.com/spf13/hugo
 release_date: 2013-11-15
 version: "0.9"
+project_author : "abc"
 ---
 
 {{% img src="/media/hugo.png" class="hid" caption="Hugo Website" %}}
