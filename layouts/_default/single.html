@@ -5,6 +5,13 @@
 
 <section id="main">
   <h1 itemprop="name" id="title">{{ .Title }}</h1>
+  <div id="toc">
+    {{ .TableOfContents }}
+  </div>
+  <!-- TODO -->
+  <i class="fa fa-camera-retro"></i> fa-camera-retro
+  <i class="fa fa-spinner fa-spin"></i>
+
   <div>
         <article itemprop="articleBody" id="content">
            {{ .Content }}
