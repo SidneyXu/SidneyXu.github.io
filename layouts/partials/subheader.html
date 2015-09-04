@@ -1,6 +1,8 @@
 <header id="header">
     <figure>
-      <a href="/" border=0 id="logolink"><div class="icon-spf13-3" id="logo"> </div></a>
+      {{ if isset .Site.Params "avatar" }}
+		<a href="/" border=0 id="logolink"><img id="logo" src="{{ .Site.Params.avatar }}"></a>
+      {{ end }}
     </figure>
     <div id="byline">by {{.Site.Author.name}}</div>
     <nav id="nav">

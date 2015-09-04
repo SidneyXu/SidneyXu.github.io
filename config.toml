@@ -5,7 +5,7 @@ disqusShortname = "gitpixelspace"
 copyright = "Copyright (c) 2015, Sidney Xu; all rights reserved."
 MetaDataFormat = "yaml"
 paginate = 10
- 
+
 [author]
     name = "Sidney Xu"
 
@@ -14,7 +14,9 @@ paginate = 10
     topic = "topics"
 
 [params]
+    avatar = "https://avatars1.githubusercontent.com/u/6219353?v=3&s=460"
     description = "Book is life"
+    since = "2015"
     twitter = "abc"
     facebook = "df"
     linkedin = ""
@@ -22,5 +24,6 @@ paginate = 10
     gplus = ""
     slideshare = "siriuseddy"
     googleAnalytics = "UA-66541663-1"
+    baiduAnalytics = "1dcca96f408870b7c0b33bb3ad210577"
     dateformater = "2006/01/01"
 

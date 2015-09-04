@@ -1,7 +1,7 @@
 <footer>
   <div>
     <p>
-    &copy; 2013-14 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+    &copy; {{ .Site.Params.since }} <span itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">{{ .Site.Author.name }}.</span></span>
     <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
     please attribute properly and link back. <br>
@@ -25,6 +25,17 @@ fitText(document.getElementById('title'), 1)
     ga('require', 'displayfeatures');
     ga('send', 'pageview');
   </script>
+{{ end }}
+{{ if isset .Site.Params "baiduAnalytics" }}
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?{{ .Site.Params.baiduAnalytics }}";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
 {{ end }}
 </body>
 </html>
