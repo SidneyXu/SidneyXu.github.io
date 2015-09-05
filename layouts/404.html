@@ -1,0 +1,16 @@
+{{ partial "header.html" . }}
+{{ partial "subheader.html" . }}
+
+<section id="main">
+  <div>
+   <h1 id="title">{{ .Title }}</h1>
+   <a href="{{ .Site.BaseUrl }}"><img src="/404.jpg" alt="Constructocat by https://github.com/jasoncostello" style="width: 200px;margin:auto;display:block;"/></a>
+    <p style="text-align:center;">That doesn't seem to exist! Recent articles are below.</p>
+   <hr>
+    {{ range first 5 .Data.Pages }}
+       {{ .Render "summary"}}
+    {{ end }}
+  </div>
+</section>
+
+{{ partial "footer.html" . }}
