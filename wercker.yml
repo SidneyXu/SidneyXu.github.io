@@ -20,9 +20,7 @@ build:
     # Read more about steps on our dev center:
     # http://devcenter.wercker.com/docs/steps/index.html
     steps:
-        - arjen/hugo-build:
-            version: 1.5.0
-            flags: --buildDrafts=false
+        - arjen/hugo-build@1.5.0
 deploy:
     steps:
         - lukevivier/gh-pages@0.2.1:
