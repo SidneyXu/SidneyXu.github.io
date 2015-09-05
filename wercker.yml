@@ -23,9 +23,9 @@ build:
         - arjen/hugo-build@1.5.0
         - script:
             name: install git
-            code: |-
-            apt-get update
-            apt-get install git -y
+            code: |
+                apt-get update
+                apt-get install git -y
 deploy:
     steps:
         - lukevivier/gh-pages@0.2.1:
