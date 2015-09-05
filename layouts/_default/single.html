@@ -1,0 +1,32 @@
+{{ partial "header.html" . }}
+<body lang="{{ .Site.LanguageCode }}" itemscope itemtype="http://schema.org/Article">
+{{ partial "subheader.html" . }}
+{{ $baseurl := .Site.BaseUrl }}
+
+<section id="main">
+  <h1 itemprop="name" id="title">{{ .Title }}</h1>
+  <!-- TOC -->
+  {{ if not (eq .Params.toc false) }}
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    {{ .TableOfContents }}
+  </div>
+  {{ end }}
+  <!-- TODO -->
+  <i class="fa fa-camera-retro"></i> fa-camera-retro
+  <i class="fa fa-spinner fa-spin"></i>
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           {{ .Content }}
+        </article>
+  </div> 
+</section>
+
+{{ partial "meta_aside.html" . }}
+
+{{ if not (eq .Params.comments false) }}
+	{{ partial "disqus.html" . }}
+{{ end }}
+
+{{ partial "footer.html" . }}
