@@ -1,0 +1,6 @@
+box: debian
+build:
+	steps:
+  		- arjen/hugo-build
+  			version: 1.5.0
+  			flags: --buildDrafts=false
