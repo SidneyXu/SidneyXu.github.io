@@ -23,7 +23,7 @@ build:
         - arjen/hugo-build@1.5.0
         - script:
             name: install git
-            code: |
+            code: |-
             apt-get update
             apt-get install git -y
 deploy:
