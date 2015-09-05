@@ -1,13 +1,19 @@
 +++
-Title = "Viper : Go configuration management with Fangs"
-Date = "2014-04-07"
-Description = ""
-Tags = ["Development", "golang"]
-Topics = ["Development", "GoLang"]
-download_url = "http://github.com/spf13/PROJECTNAME"
+title = ""
+date = ""
+description = ""
+keywords = []
+tags = []
+topics= []
+download_url = ""
+official_url = ""
 project_description = "DESC"
 project_name = "PROJECTNAME"
 project_url = "URL"
+project_author = ""
 release_date = "DATE"
-version = "0.2"
+version = "0.1"
+toc = true
+comments = true
+draft = true
 +++

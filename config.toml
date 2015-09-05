@@ -25,7 +25,7 @@ paginate = 10
     slideshare = "siriuseddy"
     googleAnalytics = "UA-66541663-1"
     baiduAnalytics = "1dcca96f408870b7c0b33bb3ad210577"
-    dateformater = "2006/01/01"
+    dateformater = "2006-01-02"
     #swiftType = ""
     flagcounter = "1fWDHae"
 

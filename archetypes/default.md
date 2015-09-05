@@ -1,12 +1,12 @@
 +++
 title = ""
 description = ""
-tags = [
-    "go",
-    "development",
-]
-topics = [
-    "Development",
-    "golang",
-]
+url = ""
+tags = []
+topics = []
+date = ""
+keywords = []
+toc = true
+comments = true
+draft = true
 +++
