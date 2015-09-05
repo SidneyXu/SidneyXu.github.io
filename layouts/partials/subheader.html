@@ -1,7 +1,7 @@
 <header id="header">
     <figure>
       {{ if isset .Site.Params "avatar" }}
-		<a href="/" border=0 id="logolink"><img id="logo" src="{{ .Site.Params.avatar }}"></a>
+		<a href="/" border=0 id="logolink"><div id="log"><img src="{{ .Site.Params.avatar }}"></div></a>
       {{ end }}
     </figure>
     <div id="byline">by {{.Site.Author.name}}</div>

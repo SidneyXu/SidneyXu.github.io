@@ -27,5 +27,5 @@ paginate = 10
     baiduAnalytics = "1dcca96f408870b7c0b33bb3ad210577"
     dateformater = "2006/01/01"
     #swiftType = ""
-    flagcounter = "1fWDHae"
+    flagcounter = true
 

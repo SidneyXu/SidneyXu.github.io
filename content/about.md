@@ -1,16 +1,14 @@
 ---
 date: 2015-08-30T07:56:47+08:00
-description: ""
-tags:
-- go
-- development
-title: about
-topics:
-- Development
-- golang
+description: "about me"
+title: About me
 comments: false
 ---
 
-## A headline
+<img src="https://avatars1.githubusercontent.com/u/6219353?v=3&s=460" class="third right"/>
 
-Some content about me
+I am Sidney Xu, a web and mobile developer lived in Shanghai.
+
+I program mainly with Java, JavaScript, PHP, Groovy and Scala. These days I'm interested in Go and Kotlin. In my spare time I watch movies, play video games and read kinds of books.
+
+My personal blog site is [bookislife](www.bookislife.com)

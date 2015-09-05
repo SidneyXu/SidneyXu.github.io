@@ -1651,3 +1651,50 @@ body>section:after,body>aside:after,body>.content:after,body>footer:after,#comme
 .icon-headphones:before {
 	content:"\e014"
 }
+
+/* custom */
+.toc ul li {
+  list-style-type: none;
+  list-style-position: outside;
+  margin-left: 1em;
+  padding: 0;
+}
+.toc a:hover{
+	background: #efefef;
+}
+.toc a:link{
+	color: #4a4a4a;
+	text-decoration: none;
+}
+.toc a:visited{
+	color: #4a4a4a;
+	text-decoration: none;
+}
+.toc a{
+	display: block;
+	padding: 3px 10px !important;
+}
+ul.pagination {
+	list-style-type: none;
+	list-style-position: outside;
+	padding: 0;
+	text-align: center;
+}
+ul.pagination > li{
+	display:inline;
+}
+ul.pagination > li.active a{
+	border: #a0a0a0 1px solid;
+	background-color: #dcdcdc;
+}
+ul.pagination a:hover{
+	border: #a0a0a0 1px solid;
+	background-color: #dcdcdc;
+}
+ul.pagination a{
+	border: #ddd 1px solid;
+	margin-right: 2px;
+	color: #aaa;
+	text-decoration: none;
+	padding: 2px 5px 2px 5px;
+}

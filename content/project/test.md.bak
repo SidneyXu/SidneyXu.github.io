@@ -1,16 +1,24 @@
 ---
-Date: 2015-08-29
+date: 2015-08-29
 description: "a description"
 keywords:
 - development
 tags:
 - go
 - development
-title: Post Sample
-url: post/post-sample
+title: Project Sample
 topics:
 - Development
 - golang
+draft: false
+download_url: http://www.baidu.com
+official_url: http://www.bookislife.com
+project_description: a test project
+project_name: hello world
+project_url: http://git.bookislife.com
+project_authror: "Sidney"
+release_date: 2015-09-10
+version: "0.1"
 ---
 
 ## one
@@ -57,29 +65,8 @@ i18n
 {{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
 ```
 
-## 测试标题
 
-### A
 
-#### A1
-
-##### A1-1
-
-#### A2
-
-### B
-
-#### B1
-
-#### B2
-
-### C
-
-#### C1
-
-#### C2
-
-#### C3
 
 
 
