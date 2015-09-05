@@ -1,0 +1,41 @@
+{{ $baseurl := .Site.BaseUrl }}
+    <div>
+        <section id="datecount">
+          {{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
+          <h4 id="date"> {{ .Date.Format .Site.Params.dateformater }} </h4>
+          <h5 id="wc"> {{ .FuzzyWordCount }} {{ $i18n.words }} </h5>
+          <h5 id="readtime">
+            {{ $i18n.readAbout }}  {{ .ReadingTime }} {{ $i18n.min }}
+        </h5>
+        </section>
+        <ul id="categories">
+          {{ range .Params.topics }}
+            <li><a href="{{ $baseurl }}/topics/{{ . | urlize }}">{{ . }}</a> </li>
+          {{ end }}
+        </ul>
+        <ul id="tags">
+          {{ range .Params.tags }}
+            <li> <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a> </li>
+          {{ end }}
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;{{if .Prev}}<a class="previous" href="{{.Prev.Permalink}}"><i class="icon-arrow-left"></i> {{.Prev.Title}}</a><br>{{end}}
+        </section><section id="next">
+            &nbsp;{{if .Next}}<a class="next" href="{{.Next.Permalink}}">{{.Next.Title}} <i class="icon-arrow-right"></i></a>{{end}}
+        </section>
+    </div>
+
+    {{ $i18n := index .Site.Data.i18n .Site.LanguageCode }}
+    {{ if isset $i18n "authorInfo" }}
+    <div>
+        <section id="author">
+            <h4>{{ $i18n.authorLabel }}:</h4> 
+            <p>
+              {{ $i18n.authorInfo | markdownify}}
+            </p>
+        </section>
+    </div>
+    {{ end }}
