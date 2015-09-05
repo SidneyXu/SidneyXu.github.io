@@ -1,6 +1,12 @@
 box: debian
 build:
 	steps:
-  		- arjen/hugo-build
+  		- arjen/hugo-build:
   			version: 1.5.0
   			flags: --buildDrafts=false
+deploy:
+	steps:
+  		- lukevivier/gh-pages@0.2.1:
+  			token: $GIT_TOKEN
+  			domain: hugo-wercker.ig.nore.me
+  			basedir: public
