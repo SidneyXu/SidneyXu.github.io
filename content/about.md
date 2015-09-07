@@ -3,6 +3,7 @@ date: 2015-08-30T07:56:47+08:00
 description: "about me"
 title: About me
 comments: false
+toc: false
 ---
 
 <img src="https://avatars1.githubusercontent.com/u/6219353?v=3&s=460" class="third right"/>
