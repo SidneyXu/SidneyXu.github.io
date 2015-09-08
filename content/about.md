@@ -4,6 +4,7 @@ description: "about me"
 title: About me
 comments: false
 toc: false
+page: true
 ---
 
 <img src="https://avatars1.githubusercontent.com/u/6219353?v=3&s=460" class="third right"/>

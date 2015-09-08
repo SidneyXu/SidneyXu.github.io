@@ -1,8 +1,10 @@
 {{ $baseurl := .Site.BaseURL }}
 
+{{ if not(eq .Params.page true) }}
 <aside id="meta">
 {{ partial "details.html" . }}
 </aside>
+{{ end }}
 
 <meta itemprop="wordCount" content="{{ .WordCount }}">
 <meta itemprop="datePublished" content="{{ .Date.Format "2006-01-02" }}">
