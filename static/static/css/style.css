@@ -63,6 +63,12 @@ table {
 	border-collapse:collapse;
 	border-spacing:0
 }
+table tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+code {
+	background-color: #f0f0f0;
+}
 * {
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;

@@ -13,42 +13,42 @@ title: Intellj IDEA 的使用
 toc: true
 topics:
 - Dev
-url: "post/usage-of-idea"
+slug: "usage-of-idea"
 ---
-
-# Intellj IDEA 的使用
 
 ## 快捷键
 
-|              快捷键 |        说明        | 
-| ---------------: | :--------------: | 
-|            cmd+n |       查找类        | 
-|        control+n |       生成代码       | 
-|        cmd+alt+l |       格式化        | 
-|            cmd+f |       查找文本       | 
-|            cmd+r |       查找替换       | 
-|            cmd+p |      方法参数提示      | 
-|        control+j |    quick doc     | 
-|      cmd+shift+n |       查找文件       | 
-|  cmd+alt+shift+n |     查找类中的成员      | 
-|         shift+f6 |       重命名        | 
-|            cmd+y |       删除行        | 
-|            cmd+o |      重载父类方法      | 
-|            cmd+e |      最近访问列表      | 
-|            cmd+b |      跳转到声明       | 
-|            cmd+] |     跳转到括号的结尾     | 
-|      alt+shift+c |      对比最近代码      | 
-|            cmd+w |    选择词，行，代码块     | 
-|        control+h |     查看类的继承层次     | 
-|        cmd+alt+t |  surround with   | 
-|     ctrl+shift+t | 建立测试类或者在类与测试类中跳转 | 
-| shift+cmd+delete |      上次编辑位置      | 
-|        cmd+alt+m |     提取代码块为方法     | 
-|        cmd+alt+p |     提取变量为参数      | 
-|        cmd+alt+v |     提取为局部变量      | 
-| control+option+h |      显示方法树       | 
-|     fn+option+f7 |     显示变量的调用处     | 
-|      cmd+shift+a |   显示action 窗口    | 
+快捷键  | 说明 |
+-------------: | :-------------: |
+            cmd+n |       查找类        |
+        control+n |       生成代码     |
+      cmd+alt+l |       格式化        | 
+            cmd+f |       查找文本       | 
+            cmd+r |       查找替换       | 
+            cmd+p |      方法参数提示      | 
+       control+j |    quick doc     | 
+     cmd+shift+n |       查找文件       | 
+cmd+alt+shift+n |     查找类中的成员      | 
+         shift+f6 |       重命名        | 
+            cmd+y |       删除行        | 
+           cmd+o |      重载父类方法      | 
+           cmd+e |      最近访问列表      | 
+            cmd+b |      跳转到声明       | 
+            cmd+] |     跳转到括号的结尾     | 
+     alt+shift+c |      对比最近代码      | 
+           cmd+w |    选择词，行，代码块     |         
+           control+h |     查看类的继承层次     | 
+        cmd+alt+t |  surround with   | 
+    ctrl+shift+t | 建立测试类<br>或者在类与测试类中跳转 | 
+ shift+cmd+delete |      上次编辑位置      | 
+       cmd+alt+m |     提取代码块为方法     | 
+        cmd+alt+p |     提取变量为参数      | 
+       cmd+alt+v |     提取为局部变量      | 
+ control+option+h |      显示方法树       | 
+     fn+option+f7 |     显示变量的调用处     | 
+      cmd+shift+a |   显示action 窗口    | 
+
+<!--more-->
 
 ## 常用设置
 
@@ -91,7 +91,7 @@ IDEA 通过 `ctrl+n` 快捷键可以自动生成 `toString()`方法，但是默�
 
 IDEA 或 Android Studio 在生成 Android 项目时会自动生成 `.gitignore` 文件，但是默认的文件通常都不符合需求，每次都手动改也非常麻烦，这时可以修改默认的 `.gitignore` 模板。
 
-Mac 平台下 `.gitignore `模板位置为 `/Applications/Android Studio.app(或 IDEA.app)/Contents/plugins/android/lib/templates/gradle-projects/NewAndroidProject/root/project_ignore`
+Mac 平台下 `.gitignore ` 模板位置为 `/Applications/Android Studio.app(或 IDEA.app)/Contents/plugins/android/lib/templates/gradle-projects/NewAndroidProject/root/project_ignore`
 
 ### 建立 Live Template
 
@@ -101,7 +101,7 @@ Mac 平台下 `.gitignore `模板位置为 `/Applications/Android Studio.app(或
 
 1. 选择 `Editor -> Live Templates`
    
-   ![](images/2/template.png)
+   ![](/images/2/template.png)
    
 2. 点击右边的 `+` 号，选择 `Template Group`，输入 `group name` 为 "android"
    

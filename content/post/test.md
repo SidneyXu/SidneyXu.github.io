@@ -7,7 +7,7 @@ tags:
 - go
 - development
 title: Post Sample
-url: post/post-sample
+slug: post-sample
 topics:
 - Development
 - golang

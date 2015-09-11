@@ -1,6 +1,6 @@
 {{ $baseurl := .Site.BaseURL }}
 
-{{ if not(eq .Params.page true) }}
+{{ if not (eq .Params.page true) }}
 <aside id="meta">
 {{ partial "details.html" . }}
 </aside>

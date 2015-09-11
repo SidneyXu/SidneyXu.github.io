@@ -6,6 +6,10 @@ copyright = "Copyright (c) 2015, Sidney Xu; all rights reserved."
 MetaDataFormat = "yaml"
 paginate = 10
 
+[permalinks]
+    post = "/:section/:year/:slug/"
+    project = "/:section/:year/:slug/"
+
 [author]
     name = "Sidney Xu"
 

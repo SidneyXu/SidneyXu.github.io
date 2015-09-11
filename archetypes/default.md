@@ -1,12 +1,14 @@
 +++
 title = ""
 description = ""
-url = ""
+slug = ""
 tags = []
-topics = []
+topics = [
+    "Dev"
+]
 date = ""
 keywords = []
 toc = true
 comments = true
-draft = true
+draft = false
 +++
