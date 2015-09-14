@@ -54,6 +54,9 @@ topics:
 	> 注意，如果将以上地址中的 “en" 替换成 “zh_CN" 或者通过百度自行搜索会下载绑定百度垃圾组件的Java安装程序，小心不要中招。
 
 	- Windows 具体安装步骤参照这里：[this](https://www.java.com/zh_CN/download/help/windows_offline_download.xml#download)
+    	- 环境变量配置：
+      		- JAVA_HOME=C:\Program Files\Java\jdk1.8.0_25
+      		- Path=%PATH%;%JAVA_HOME%\bin
 
 	- Mac 具体安装步骤参照这里：[this](https://www.java.com/zh_CN/download/help/mac_install.xml)
 
@@ -61,9 +64,12 @@ topics:
 
 - Groovy
 
-	Windows 安装包下载 [this](http://www.groovy-lang.org/download.html)
+	- Windows 安装包下载 [this](http://www.groovy-lang.org/download.html)
+		- 环境变量配置：
+			- GROOVY_HOME=D:\Program Files (x86)\Groovy\Groovy-2.4.4
+			- Path=%PATH%;%GROOVY_HOME%\bin
 
-	Mac 直接使用如下命令安装
+	- Mac 直接使用如下命令安装
 
 	```bash
 	brew install groovy
@@ -73,7 +79,13 @@ topics:
 	
 	安装包下载 [this](http://www.scala-lang.org/download/)
 
-	环境变量设置 [this](http://www.scala-lang.org/download/install.html)
+	环境变量设置
+    - Windows
+        - SCALA_HOME=D:\Program Files (x86)\scala
+        - Path=%PATH;%JAVA_HOME%\bin
+    - Mac
+        - SCALA_HOME=/usr/local/share/scala
+        - Path=$PATH:$SCALA_HOME/bin
 
 - Kotlin
 
