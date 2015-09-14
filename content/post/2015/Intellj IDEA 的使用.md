@@ -100,37 +100,36 @@ Mac 平台下 `.gitignore ` 模板位置为 `/Applications/Android Studio.app(�
 以下以建立一个Android的Fragment模板来介绍如何建立 Live Template：
 
 1. 选择 `Editor -> Live Templates`
-   
-   ![](/images/2/template.png)
-   
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/template.png)
+
 2. 点击右边的 `+` 号，选择 `Template Group`，输入 `group name` 为 "android"
    
 3. 选择刚生成的 `android group`，继续点击 `+` 号，选择 `Live Template`，下方的 `Abbreviation` 表示快捷键，在这里输入 "nfr”，`Description` 输入 "create new fragment"
    
 4. 在 `Template text` 输入以下文字，其中 "$" 开头的字符表示变量
+  ``` java
+  private static final String $ARG_PARAM$ = "$CLASS_NAME$.$ARG_PARAM$";
 
-``` java
-private static final String $ARG_PARAM$ = "$CLASS_NAME$.$ARG_PARAM$";
+  private $ARG_CLASS_DITTO$ m$INST_VAR$;
 
-private $ARG_CLASS_DITTO$ m$INST_VAR$;
+  public static $CLASS_NAME$ newInstance($ARG_CLASS$ $ARG_VAR$) {
+      $CLASS_NAME$ fragment = new $CLASS_NAME$();
+      Bundle args = new Bundle();
+      args.put$ARG_CLASS$($ARG_PARAM$, $ARG_VAR$);
+      fragment.setArguments(args);
+      return fragment;
+  }
 
-public static $CLASS_NAME$ newInstance($ARG_CLASS$ $ARG_VAR$) {
-    $CLASS_NAME$ fragment = new $CLASS_NAME$();
-    Bundle args = new Bundle();
-    args.put$ARG_CLASS$($ARG_PARAM$, $ARG_VAR$);
-    fragment.setArguments(args);
-    return fragment;
-}
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      m$INST_VAR$ = getArguments().get$ARG_CLASS$($ARG_PARAM$);
+  }
+  ```
 
-@Override
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    m$INST_VAR$ = getArguments().get$ARG_CLASS$($ARG_PARAM$);
-}
-```
+5. 下方的 `No applicable contexts` 点击 `Define` 按钮，选择 `Java` - `Declaration`，这个选项表示在什么文件的什么位置允许使用该快捷方式，之所以只选择 "Declaration" 是因为我们需要建立的是方法的定义，所以这个快捷方式不应该出现在 "Comments"，"String" 或者其它方法内部。
 
-1. 下方的 `No applicable contexts` 点击 `Define` 按钮，选择 `Java` - `Declaration`，这个选项表示在什么文件的什么位置允许使用该快捷方式，之所以只选择 "Declaration" 是因为我们需要建立的是方法的定义，所以这个快捷方式不应该出现在 "Comments"，"String" 或者其它方法内部。
-2. 修改完毕后随意建立一个 Java 文件，输入 "nfr" 就可以直接生成上面模板定义的代码，并且光标自动定位到第一个变量处，修改变量名后按下回车就可以跳转到下一个变量处。
+6. 修改完毕后随意建立一个 Java 文件，输入 "nfr" 就可以直接生成上面模板定义的代码，并且光标自动定位到第一个变量处，修改变量名后按下回车就可以跳转到下一个变量处。
 
 ### 添加 File Template
 
@@ -143,7 +142,6 @@ Live Template 主要用于在文件中生成代码，而 File Template 则是用
 2. 单击 `+`号，`Name` 输入 “Singleton”，`Extension` 输入 `java`
    
 3. 内容处输入以下文本，点击 `OK`按钮
-   
    ``` java
    #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
    #parse("File Header.java")
@@ -159,4 +157,4 @@ Live Template 主要用于在文件中生成代码，而 File Template 则是用
    }
    ```
    
-4. 在工程任意目录单击右键，选择 `New` - `Java Class`，在弹出的对话框中 `Kind` 选择刚才建立的 “Singeleton” 就完成了所有操作
+4. 在工程任意目录单击右键，选择 `New` - `Java Class`，在弹出的对话框中 `Kind` 选择刚才建立的 “Singeleton” 就完成了所有操作。

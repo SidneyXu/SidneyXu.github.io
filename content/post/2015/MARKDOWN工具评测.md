@@ -39,7 +39,7 @@ topics:
 
 ## Ulysses
 
-![](/images/0/ulysses.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/write.png)
 
 [下载链接](https://itunes.apple.com/cn/app/ulysses/id623795237?mt=12&ign-mpt=uo%3D4)
 
@@ -49,27 +49,27 @@ Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文�
 
 ## Byword
 
-![](/images/0/byword.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/byword.png)
 
 [下载链接](https://itunes.apple.com/app/byword/id420212497?mt=12)
 
 仅支持Mac，¥78.00
 
-可以看做轻量级的Ulysses，没有代码高亮，也没有实时预览，虽然不适合码农，但是价格比Ulysses低不少。
+可以看做轻量级的Ulysses，没有代码高亮，也没有实时预览，虽然不适合码农，但是价格比Ulysses低不少。写完文章后也可以支持发布到 Wordpress，Blogger 和 Evernote 上，
 
 ## Write
 
-![](/images/0/write.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/write.png)
 
 [下载链接](http://writeapp.net/mac/download/)
 
 仅支持Mac，¥68.00
 
-不支持代码高亮，也没有实时预览，不过却支持文档管理，搜索功能，添加标签。但是默认创建的Markdown的保存格式居然是 `.txt`而不是`.md`非常让人难以理解，当然正常的`.md`文件也是可以使用的。还有一个亮点是其写完文章后可以自动发布到 Wordpress 上，但是如果修改再次发布并不会修改原来的文章，而是作为新的一篇来发布。 Write 价格与上面两款相比更为低廉，纯写作的话可以考虑入手。
+不支持代码高亮，也没有实时预览，但是却支持文档管理，搜索功能和添加标签。默认创建的文件是 `txt` 格式，需要手动进入设置修改为 `md` 后缀，这也就说明了这款软件本质上在 markdown 功能上并不抢眼。还有一个亮点是其写完文章后也可以自动发布到 Wordpress 上，但是如果修改再次发布并不会修改原来的文章，而是作为新的一篇来发布。 Write 价格与上面两款相比更为低廉，纯写作的话可以考虑入手。
 
 ## Markdown Plus
 
-![](/images/0/markdownplus.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/markdownplus.png)
 
 [下载链接](https://tylingsoft.com/mdp)
 
@@ -79,7 +79,7 @@ Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文�
 
 ## Texts
 
-![](/images/0/texts.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/texts.png)
 
 [下载链接](http://www.texts.io/)
 
@@ -89,7 +89,7 @@ Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文�
 
 ## Haroopad
 
-![](/images/0/haroopad.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/haroopad.png)
 
 [下载链接](http://pad.haroopress.com/user.html)
 
@@ -99,7 +99,7 @@ Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文�
 
 ## Typora
 
-![](/images/0/typora.png)
+![](http://7xlqqp.com1.z0.glb.clouddn.com/typora.png)
 
 [下载链接](http://typora.io/)
 

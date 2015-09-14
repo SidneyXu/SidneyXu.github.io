@@ -16,9 +16,6 @@ topics:
 - Dev
 ---
 
-
-# 如何使用 Hugo 搭建个人博客
-
 ## 相关网站
 
 - [官网](http://gohugo.io/)
@@ -146,34 +143,28 @@ Wercker 和 TravisCI 一样都是免费的 CI 服务。Wercker 建立在Docker�
 2. 注册账号
    
 3. 选择 `settings` -> `Git Connection` -> 选择 `github` 后连接到你的github账号
-   
-   ![](/images/1/wercker-git-connections.png)
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-git-connections.png)
    
 4. 点击 `create` 按钮，创建你的应用
-   
-   ![](/images/1/wercker-add-app.png)
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-add-app.png)
    
 5. 选择在 Github 上需要作为静态网站的仓库
-   
-   ![](/images/1/wercker-select-repository.png)
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-repository.png)
    
 6. 选择仓库的拥有者，通常只要选择你自己的账号就可以了
-   
-   ![](/images/1/wercker-select-owner.png)
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-owner.png)
    
 7. 配置访问权限 (Configure access)，直接选择默认的选择 [Next step]
    
 8. 前面都执行后到这一步时 Wercker 会显示 `wercker.yml` 文件的代码模板，直接在作为静态网站的工程的根路径建立 `wercker.yml` 文件，拷贝网页上显示的代码到该文件并保存，选择 `Next Step`。
-   
-   ![](/images/1/werckeryml.png)
+   ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09werckeryml.png)
    
 9. `Make my app public` 保持原样，选择 `Finish`
    
 10. 此时项目已经初步设置完毕，画面上会显示 `Build now` 按钮，不过还没有到 build 的时间，接下来需要修改 `wercker.yml` 文件
     
 11. 选择 `Registry`，检索 `hugo build`
-    
-    ![](/images/1/wercker-search.png)
+    ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-search.png)
     
 12. 根据提示将代码粘帖到 `wercker.yml` 文件
     
@@ -203,11 +194,11 @@ Wercker 和 TravisCI 一样都是免费的 CI 服务。Wercker 建立在Docker�
     
 15. 选择应用 -> `Settings` -> `Deploy targets` -> `Add deploy targets`
     
-    ![](/images/1/adding-a-github-pages-step.png)
+    ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09adding-a-github-pages-step.png)
     
 16. 按照下图进行配置，其中 `Deploy target name` 可以任意填写，`GIT_TOKEN` 变量对应的 text 需要填写你在 github 上建立的 token，具体可参照 [Github help](https://help.github.com/articles/creating-an-access-token-for-command-line-use/)
     
-    ![](/images/1/configure-the-deploy-step.png)
+    ![](http://7xlqqp.com1.z0.glb.clouddn.com/2015/09configure-the-deploy-step.png)
     
 17. 选择 `OK` 完成所有设置并提交 `wercker.yml` 文件，此时 wercker 应该会自动进行b uild 后并将 `public` 文件夹下的文件同步到 `gh-pages` 分支下。
 
