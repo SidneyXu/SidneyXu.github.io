@@ -2,12 +2,16 @@
 title = ""
 description = ""
 slug = ""
-tags = []
+tags = [
+     "java", "groovy", "scala", "kotlin"
+]
 topics = [
     "Dev"
 ]
 date = ""
-keywords = []
+keywords = [
+    "java", "groovy", "scala", "kotlin"
+]
 toc = true
 comments = true
 draft = false

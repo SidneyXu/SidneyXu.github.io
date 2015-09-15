@@ -25,6 +25,7 @@ topics:
 ## Overview
 
 本系列主要是对 Java，Groovy，Scala 和 Kotlin 这四种 JVM 上的语言做一些粗浅的对比。主要使用的开发环境为 Windows 和 Mac，IDE 为 IDEA 和 Eclipse，构建工具为 Maven 和 Gradle。
+<!--more-->
 
 ## 开发环境
 
@@ -59,8 +60,6 @@ topics:
       		- Path=%PATH%;%JAVA_HOME%\bin
 
 	- Mac 具体安装步骤参照这里：[this](https://www.java.com/zh_CN/download/help/mac_install.xml)
-
-<!--more-->
 
 - Groovy
 
