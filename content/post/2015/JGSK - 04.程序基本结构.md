@@ -120,6 +120,14 @@ fun main(args: Array<String>) {
 - 打印语句更加简单
 - 所有语句结尾可以没有 `;` 
 
+
+## 总结
+
+- 所有语言都有一个 `main()` 方法作为程序的入口
+- 除 Java 外，其它语言都可以省略结尾的分号
+- 除 Java 外，其它语言都可以使用 `println()` 作为打印语句
+
+
 ---
 
 项目源码见 [JGSK/_04_hello](https://github.com/SidneyXu/JGSK)

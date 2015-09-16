@@ -17,7 +17,7 @@ tags:
 title: JGSK - 05.数据类型
 toc: true
 topics:
-- Dev
+- JGSK
 ---
 
 
@@ -85,14 +85,18 @@ Java 使用关键字 `isInstanceof` 来判断变量的类型
 例：
 
 ```java
-Object foo = "foo";
-if (foo instanceof String) {
-    String fooString = (String) foo;
-    System.out.println(fooString.toUpperCase());
+private static void bar(Object foo) {
+    if (foo instanceof String) {
+        String fooString = (String) foo;
+        System.out.println(fooString.toUpperCase());
+    }
 }
+
+Object foo = "foo";
+bar(foo);
 ```
 
-从以上例子可以看到，"foo" 已经通过类型判断知道是 `String` 类型了，但是还需要进行强制类型转换，并且再声明一个变量，这一做法稍显多余。稍后可以看到 Kotlin 的做法要优雅得多。
+从以上例子可以看到，"foo" 已经通过类型判断知道是 `String` 类型了，但是还需要进行强制类型转换，并且再声明一个变量，这一做法稍显多余。稍后可以看到 Groovy 的做法要优雅得多。
 
 ## Groovy 篇
 
@@ -145,7 +149,7 @@ dynamicDate = 2
 
 ### BigDecimal
 
-与 Java 不同，Groovy 中定义一个浮点类型就是使用 BigDecimal 的字符串构造器，所以 Groovy 中不需要做任何额外操作直接就可以做精确的浮点运算。
+与 Java 不同，Groovy 中定义一个浮点类型数据实际就是使用 BigDecimal 的字符串构造器定义一个 BigDecimal，所以 Groovy 中不需要做任何额外操作直接就可以做精确的浮点运算。
 
 ```groovy
 println(2.0 - 1.8);	//0.2
@@ -166,22 +170,44 @@ int i = 99.98.toInteger()
 "99.12".toDouble()
 ```
 
-//TODO
-但是 Groovy 并没有提供到 "char" 类型的转换方法，所以 "char" 类型还是需要使用 Java 样式的转换方式。
+但是 Groovy 并没有提供到 "char" 类型的转换方法，所以 "char" 类型还是需要使用 Java 样式的转换方式或者使用另一种方式的类型转换：
 
-对于引用类型的话则类似 Java。
+```groovy
+char c = 99 as char
+```
+
+对于引用类型的话则转换方式则类似 Java。
 
 #### 类型推断
 
-同 Java
+对于引用类型而言，Groovy 也使用关键字 `instanceof` 做类型推断，但是 Groovy 也提供了 `isXXX()` 的语法糖来进行基本类型的推断。
 
-## Scala
+可以看到，通过 `instanceof` 进行判断以后，变量就可以直接调用其真实类型的方法，无需再声明另一个变量并进行强制类型转换，这一做法相比 Java 方便很多。但是如果使用的是 `isXXX()` 的话则不支持此特性。
 
-Scala 中一切皆对象。Scala类型分为AnyVal 和 AnyRef，两者都是 Any 的子类。
+```groovy
+def static bar(foo) {
+    if (foo instanceof String) {
+        println(foo.toUpperCase())
+    }
+    if (foo instanceof Double) {
+        println(foo.intValue())
+    }
+    if (foo.isDouble()) {
+        println(foo.toDouble())
+    }
+}
+
+def foo = "foo"
+bar(foo)
+```
+
+## Scala 篇
+
+Scala 中并不存在基本类型，所有数据都是对象，且都继承自 `Any` 类。Scala 类型主要分为 `AnyVal` 和 `AnyRef`，两者都是 `Any` 的子类。
 
 ### AnyVal
 
-AnyVal 有点像 Java 的基本类型的包装类，有 Int, Long, Float, Double, Boolean, Char, Byte 几种。
+AnyVal 分为 Int, Long, Float, Double, Boolean, Char, Byte，Unit 几种类型。除了最后一种，其它可以看做是 Java 上的基本类型的包装类。而 Unit 则相对于 Java 平台上的 `Void`，即表示没有返回值。
 
 ```scala
 var x: Int = 2
@@ -191,11 +217,11 @@ var flag: Boolean = false
 
 ### AnyRef
 
-AnyRef 类似 Java 中除基本类型的包装类以外的所有引用类型。
+AnyRef 是 Scala 中所有引用类的基类，本质上就是 Java 中的 Object 类。
 
 ### BigDecimal
 
-Scala 中的 BigDecimal 虽然没有 Groovy 那么方便，但是不会像 Java 那样产生迷惑
+Scala 中的 BigDecimal 虽然没有 Groovy 那么方便，但是也不像 Java 那样反人类。
 
 ```scala
 println(BigDecimal(2) - BigDecimal(1.8))
@@ -209,14 +235,14 @@ println(BigDecimal(2) - BigDecimal(1.8))
 
 #### 显式转换
 
-类似 Groovy，使用方法进行AnyVal的显式转换
+对于 AnyVal 类型，Scala 使用方法进行类型转换
 
 ```scala
 var i:Int = 99.98.toInt
 "99.12".toDouble
 ```
 
-对于 AnyRef类型，则使用方法 `asInstanceOf()`
+对于 AnyRef类型，Scala 则使用方法 `asInstanceOf()` 类进行类型转换
 
 ```scala
 val fooString: String = foo.asInstanceOf[String]
@@ -224,34 +250,37 @@ val fooString: String = foo.asInstanceOf[String]
 
 #### 类型推断
 
-Scala 使用 `isInstanceOf` 来进行类型推断
+Scala 使用 `isInstanceOf` 来进行类型推断，整个过程与 Java 基本一样，需要额外定义变量并显式进行类型转换。
 
 ```scala
-if (foo.isInstanceOf[String]) {
-  val fooString: String = foo.asInstanceOf[String]
+def bar(foo: Any): Unit = {
+  if (foo.isInstanceOf[String]) {
+    val fooString: String = foo.asInstanceOf[String]
+    println(fooString.toUpperCase)
+  }
 }
 ```
 
 
-## Kotlin
+## Kotlin 篇
 
-Kotlin 中一切皆对象。
+Kotlin 中一切皆对象，`Any` 为所有类的基类。
 
 ### 数据类型
 
-Kotlin 中的所有类型都是引用类型，但是其中的 Char 类型不属于数值类型
+Kotlin 中的所有类型都是引用类型，但是与其它几门语言不一样，Kotlin 中的 Char 类型不属于数值类型。
 
 ```kotlin
 var x: Int = 2
 var y: Float = 0.1f
 var flag: Boolean = false
 
-val c: Char = 1	//错误，Char 不是数值类型
+val c: Char = 1	//  错误，Char 不是数值类型
 ```
 
 ### BigDecimal
 
-Kotlin 并没有专门的 BigDecimal 类，需要使用 Java 一样的方法
+Kotlin 并没有专门的 BigDecimal 类，需要调用 Java 来完成计算
 
 ```kotlin
 println(BigDecimal("2").subtract(BigDecimal("1.8")));
@@ -261,31 +290,51 @@ println(BigDecimal("2").subtract(BigDecimal("1.8")));
 
 #### 隐式转换
 
-Kotlin 只支持使用字面值给变量赋值时的隐式转换，不支持自动向上转型
+Kotlin 只支持使用字面值给变量赋值时的隐式转换，不支持自动向上转型，这点上比其它几门语言都要严格不少。
 
 ```kotlin
 var b: Byte = 1
 
-//错误，不支持自动向上转型
+//  错误，不支持自动向上转型
 val i: Int = b
 ```
 
 #### 显式转换
 
-类似 Scala 的写法
+Kotlin 也使用方法进行内置类型的转换
 
 ```kotlin
 val i:Int = 99.98.toInt()
 "99.12".toDouble()
 ```
 
-#### 类型推断
-
-Kotlin 使用关键字 "is" 来进行类型判断
+对于其它类型的数据，Kotlin 使用 `as` 关键字进行类型转换。
 
 ```kotlin
-val foo = "foo";
-if (foo is String) {
-    val fooString: String = foo as String
-}
+val fooString: String = foo as String
 ```
+
+#### 类型推断
+
+Kotlin 使用关键字 "is" 来进行类型判断，且在类型判断后数据会被隐式转换为真正的类型，所以可以直接调用该类型的所有方法而无需手动强制转换，Kotlin 称这一过程为 "Smart Cast"。
+
+```kotlin
+fun bar(foo: Any) {
+    if (foo is String) {
+        println(foo.toUpperCase())
+    }
+}
+
+val foo = "foo"
+bar(foo)
+```
+
+## 总结
+
+- 除了 Java 之外，其它语言都含有一切皆对象这一概念
+- 每种语言都有自己的基类：Java->Object, Grooy->Object, Scala->Any, Kotlin->Any
+- 除了 Java 之外，其它语言都使用方法来完成内置类型的强制类型转换
+
+---
+
+项目源码见 [JGSK/_05_datatype](https://github.com/SidneyXu/JGSK)
