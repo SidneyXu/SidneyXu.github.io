@@ -1,6 +1,6 @@
 ---
 comments: true
-date: 2015-09-16T07:08:26+08:00
+date: 2015-09-17T07:55:16+08:00
 description: ""
 draft: true
 keywords:
@@ -8,13 +8,13 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-07-String"
+slug: "JGSK-09-null"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: JGSK - 07.String
+title: JGSK - 09.Null
 toc: true
 topics:
 - JGSK
