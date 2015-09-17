@@ -157,7 +157,6 @@ val constant = "foo"
 
 Kotlin 在声明变量和值时与 Scala 几乎一样。
 
-## 总结
 
 ## 总结
 
