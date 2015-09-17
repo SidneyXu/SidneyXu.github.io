@@ -1,6 +1,6 @@
 ---
 comments: true
-date: 2015-09-17T11:06:44+08:00
+date: 2015-09-18T06:42:11+08:00
 description: ""
 draft: true
 keywords:
@@ -8,24 +8,15 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-10-script"
+slug: "JGSK-14-map-and-turple"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: "JGSK - 10.脚本"
+title: JGSK - 14.映射与元祖
 toc: true
 topics:
 - JGSK
 ---
-
-## Java 篇
-
-## Groovy 篇
-
-## Scala 篇
-
-## Kotlin 篇
-
 

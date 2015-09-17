@@ -11,7 +11,7 @@ slug: "how-to-upload-library-to-maven-central"
 tags:
 - maven
 - gradle
-title: "如何上传library到maven仓库"
+title: "如何上传 Library 到 Maven 仓库"
 toc: true
 topics:
 - Tools
