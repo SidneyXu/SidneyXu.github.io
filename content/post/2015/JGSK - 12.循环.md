@@ -36,6 +36,8 @@ for (int i = 0; i < 3; i++) {
 }
 ```
 
+<!--more-->
+
 for-each 语句
 
 ``` java
@@ -308,12 +310,19 @@ for (a in 0..5 step 2)
   println("Repeat Range with Step $a")
 ```
 
+## 共通篇
+
+### break 与  continue
+
+`break` 与 `continue` 用于在循环中进行程序流程的控制，除了 Scala 外其它语言都支持这两种关键字。
+
 ## 总结
 
-- Java 与 Groovy 的`for`语句相似，Scala 与 Kotlin 的`for` 语句相似。
+- Java 与 Groovy 的`for`语句相似，Scala 与 Kotlin 的`for` 语句相似
 - Groovy 不支持 `do-while` 语句
 - 除了 Java 之外，其它语言都支持基于 Range 的增强型 `for` 循环
 - Scala 的 `for` 循环功能最强大
+- 除了 Scala 之外，其它语言都支持 `break` 和 `continue`
 
 
 ---
