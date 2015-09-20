@@ -3,6 +3,7 @@ Date: 2015-08-29
 description: "a description"
 keywords:
 - development
+draft: true
 tags:
 - go
 - development
