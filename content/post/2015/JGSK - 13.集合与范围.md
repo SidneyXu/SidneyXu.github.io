@@ -20,7 +20,7 @@ topics:
 - JGSK
 ---
 
-## 共同篇
+## 共通篇
 
 数组在程序中用于表示一组特定的值，通常来说数组的大小是预先指定的，数组的元素类型也是统一的，所以访问数组时可以通过偏移量快速访问任意一个元素。
 
@@ -62,7 +62,19 @@ arr[0] = 10;
 System.out.println(arr[0]);
 ```
 
+获得数组长度
 
+```java
+System.out.println(arr.length);
+```
+
+遍历数组
+
+```java
+for (int a : arr2) {
+    System.out.println("Traverse " + a);
+}
+```
 
 ### 集合
 
@@ -164,6 +176,25 @@ List<String> immuatbleList = Collections.unmodifiableList(list);
 
 以上方法实际是返回了一个 `UnmodifiableCollection` 的实例，该实例使用委托方式调用传入的 `list` 对象，一旦发现执行了任何修改操作就立即抛出异常。
 
+#### 其它操作
+
+获得 List 长度
+
+```java
+System.out.println(list.size());
+```
+
+注意，列表使用 `size()` ，数组使用 `length`，这种设计一直都是 Java 程序员的槽点之一。
+
+遍历 List
+
+```java
+for (String lang : list) {
+    System.out.println("Traverse " + lang);
+}
+```
+
+
 #### Set
 
 Set 最常用的是其子类 `HashSet`，本质上其实是一个 key-value 都一致的 `HashMap`。由于用法类似，本系列就不详细举例了。
@@ -192,15 +223,31 @@ def arr2 = [1, 2, 3] as int[]
 
 修改元素
 
-```java
+```groovy
 arr[0] = 10
 ```
 
 读取元素
 
-```java
+```groovy
 println(arr[0])
 ```
+
+获得数组长度
+
+```groovy
+println(arr.length)
+```
+
+遍历数组
+
+```groovy
+for (int a : arr2) {
+    println("Traverse " + a);
+}
+```
+
+
 
 ### 集合
 
@@ -299,6 +346,24 @@ println(numbers)            //[1, 2, 3, 4, 3, 4]
 println(numbers2)           //[11, 12, 13, 14, 13, 14]
 ```
 
+#### 其它操作
+
+获得 List 长度
+
+```groovy
+println(list.size())
+```
+
+遍历 List
+
+```groovy
+for (lang in list) {
+    println("Traverse " + lang);
+}
+```
+
+
+
 #### Set
 
 同 Java
@@ -363,6 +428,20 @@ arr(0) = 10
 
 ```scala
 println(arr(0))
+```
+
+获得数组长度
+
+```scala
+println(arr2.length)
+```
+
+遍历数组
+
+```scala
+for (a <- arr2) {
+  println(s"Traverse $a")
+}
 ```
 
 #### ArrayBuffer
@@ -543,6 +622,24 @@ ListBuffer -> List
 listBuffer.toList
 ```
 
+#### 其它操作
+
+获得 List 长度
+
+```scala
+println(list.length)
+```
+
+注意，Scala 中列表和数组都使用了 `length`，解决了 Java 中那个愚蠢的问题。
+
+遍历 List
+
+```scala
+for (lang <- list) {
+  println(s"Traverse $lang")
+}
+```
+
 #### Set
 
 Set 使用方式类似 List，这里就不细说了。
@@ -614,6 +711,20 @@ arr[0] = 10
 println(arr[0])
 ```
 
+获得数组长度
+
+```kotlin
+println(arr.size())
+```
+
+遍历数组
+
+```kotlin
+for (a in arr2) {
+    println("Traverse $a")
+}
+```
+
 ### 集合
 
 #### List
@@ -641,6 +752,7 @@ val list = listOf("Groovy", "Java", "Scala")
 ```kotlin
 println(list(2)) // Scala
 ```
+
 #### 可变List
 
 同 Scala 一样，Kotlin 的可变 List 就是 `LinkedList`。
@@ -666,6 +778,24 @@ println(mutableList(1))
 ```
 
 尽管称作可变 List，但是由于其本身是 `LinkedList`，所以并不支持删除任一索引的元素
+
+#### 其它操作
+
+获得 kotlin 长度
+
+```java
+println(list.size())
+```
+
+注意，Kotlin 和 Scala 一样也统一了用法，但是 Kotlin 使用的是 `size()`。
+
+遍历 List
+
+```kotlin
+for (lang in list) {
+    println("Traverse $lang")
+}
+```
 
 #### Set
 
@@ -702,6 +832,7 @@ println(rng3)   //  1..5 step 2
 - Scala 与 Kotlin 默认集合为不可变形式
 - Scala 有可变数组和不可变数组两种数组
 - Scala 有 Mutable List, Immutable List 和 ListBuffer 三种列表
+- Java 和 Groovy 访问数组长度和列表长度分为为 `length` 和 `size()`，Scala 访问数组和列表长度都使用 `length`，Kotlin 都使用 `size()` ╮(╯_╰)╭
 
 
 ---
