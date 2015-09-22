@@ -1,6 +1,6 @@
 ---
 comments: true
-date: 2015-09-20T20:45:58+08:00
+date: 2015-09-22T00:31:39+08:00
 description: ""
 draft: true
 keywords:
@@ -8,26 +8,15 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-15-expression"
+slug: "JSGK-16-class-scala"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: JGSK - 15.表达式
+title: JGSK - 16.类 - Scala 篇
 toc: true
 topics:
 - JGSK
 ---
 
-## 共通篇
-
-
-
-## Java 篇
-
-## Groovy 篇
-
-## Scala 篇
-
-## Kotlin 篇
