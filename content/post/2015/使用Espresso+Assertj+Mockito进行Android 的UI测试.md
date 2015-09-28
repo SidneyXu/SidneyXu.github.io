@@ -46,6 +46,8 @@ dependencies {
 }
 ```
 
+<!--more-->
+
 ## 编写测试代码
 
 ``` java
