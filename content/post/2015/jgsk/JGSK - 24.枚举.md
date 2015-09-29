@@ -1,6 +1,6 @@
 ---
 comments: true
-date: 2015-09-22T12:25:45+08:00
+date: 2015-09-29T09:55:44+08:00
 description: ""
 draft: true
 keywords:
@@ -8,17 +8,18 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-19-abstract-and-interface"
+slug: "JGSK-24-enum"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: "JGSK - 19.抽象类与接口"
+title: "JGSK - 24.枚举"
 toc: true
 topics:
 - JGSK
 ---
+
 
 
 ## Java 篇
