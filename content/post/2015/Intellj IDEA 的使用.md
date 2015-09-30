@@ -47,6 +47,7 @@ cmd+alt+shift+n |     查找类中的成员      |
  control+option+h |      显示方法树       | 
      fn+option+f7 |     显示变量的调用处     | 
       cmd+shift+a |   显示action 窗口    | 
+      option+enter| 创建Intention Actions |
 
 <!--more-->
 
@@ -76,6 +77,14 @@ cmd+alt+shift+n |     查找类中的成员      |
 
 `Appearance & Behavior -> Keymap -> Main Menu -> Code -> Completion -> 修改 Basic 的值`
 
+### 显示 Quick Document
+
+`Editor -> General -> Show quick doc on mouse Delay`
+
+### 多行 Tab 页
+
+`Editor -> General -> Editor Tabs ->  去掉 Show tabs in single row 的勾，在 Tab limit 一栏填入最大的 Tab 个数`
+
 ## 使用技巧
 
 ### 在命令行中通过 IDEA 打开指定文件
@@ -86,6 +95,14 @@ cmd+alt+shift+n |     查找类中的成员      |
 ### 修改 toString() 实现方式
 
 IDEA 通过 `ctrl+n` 快捷键可以自动生成 `toString()`方法，但是默认的实现方式是通过加号进行字符串连接，因此不适合字段特别多的类。要想提高效率，可以在生成时 Template 属性选择 `StringBuilder (JDK1.5)` 来使用 StringBuilder 替换。
+
+### 查看最近更改过的文件和内容
+
+最近更改过的文件：`View → Recently Changed Files`
+
+最近的变更点：`View → Recent Changes`
+
+最近访问过的文件：`View → Recent Files`
 
 ### 修改默认 .gitignore
 
