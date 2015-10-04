@@ -85,6 +85,10 @@ cmd+alt+shift+n |     查找类中的成员      |
 
 `Editor -> General -> Editor Tabs ->  去掉 Show tabs in single row 的勾，在 Tab limit 一栏填入最大的 Tab 个数`
 
+### 配置 Quick Lists
+
+`Appearance & Behavior -> Quick Lists 设置自己的 Quick Lists`，然后到 `Keymap` 中设置对应的快捷键
+
 ## 使用技巧
 
 ### 在命令行中通过 IDEA 打开指定文件
