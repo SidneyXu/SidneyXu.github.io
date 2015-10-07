@@ -116,6 +116,8 @@ assert person.age == 20
 
 当我们再次修改 `privateAge` 的值为 `14` 时，由于自定义的 Setter 方法不允许年龄被减少，所以这次修改并没成功。这一例子也证明了调用属性其实是调用方法。
 
+>Groovy 中当你定义了一个没有访问控制符的属性时，语言会自动提供 Setter 和 Getter 方法，此时这种属性在 Groovy 中被称作为 `Properties`。而如果属性本身就声明为 public 的话，则不会提供 Setter 和 Getter，这种属性被称作 `Fields`。本系列中都统一称作为属性，因为 `Public Fields` 本身就并不建议使用。
+
 ## 构造方法
 
 Groovy 中不用像 Java 那样手动创建一个个构造方法，Groovy 会自动为我们生成。
