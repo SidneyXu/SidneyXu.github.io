@@ -2,7 +2,7 @@
 comments: true
 date: 2015-10-04T21:26:22+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
 - groovy
@@ -25,6 +25,8 @@ topics:
 ### 基本概念
 
 泛型是 Java 1.5才引进的特性。泛型使类型参数化变得可能。在声明类或接口时，可以使用自定义的占位符来表示类型，在运行时由传入的具体类型进行替换。泛型的引入让集合变得更加好用，使很多错误在编译时就能被发现，也省去了一些强制转换的麻烦。
+
+<!--more-->
 
 没有泛型的时候使用一个持有特定类型的值的类的时候是非常麻烦的
 
@@ -89,9 +91,11 @@ assert "Hi".equals(stringCapture.get());
 
 Java 的泛型是在编译器层次实现的，所以运行时有关泛型的信息都会被丢失，这被称作类型擦除。也就是说上节例子中的 `Capture<Integer>` 和 `Capture<String>` 在运行时都是 `Capture` 类型，没有任何区别。
 
-### 协变
+### 协变与逆变
 
-如果 Capture<String> 被看做是 Capture<Object> 的子类型，则称这种特性为协变。
+如果 Capture<String> 被看做是 Capture<Object> 的子类型，则称这种特性为协变。相反情况则称为逆变。
+
+#### 协变
 
 在 Java 中，协变是默认支持，所以可以写出以下例子：
 
@@ -114,6 +118,10 @@ objects2[0] = "str";
 List<Date> dateList = new ArrayList<>();
 List<Object> objectList = dateList;
 ```
+
+#### 逆变
+
+Java 不支持逆变。
 
 ### 类型通配符
 
@@ -161,6 +169,8 @@ private static void foo4(List<? super Num> list) {
 }
 ```
 
+
+>上下边界在这里实际是起到了协变和逆变的作用，具体可以对比 Kotlin 的例子。
 
 ---
 

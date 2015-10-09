@@ -14,7 +14,7 @@ tags:
 - groovy
 - scala
 - kotlin
-title: JGSK - 27.正则表达式 - Scala篇
+title: JGSK - 27.泛型 - Scala篇
 toc: true
 topics:
 - JGSK
@@ -26,6 +26,8 @@ topics:
 ### 基本概念
 
 基本概念同 Java。
+
+<!--more-->
 
 ### 创建泛型
 
@@ -55,15 +57,19 @@ println(strHi)
 如果 Capture<String> 被看做是 Capture<Object> 的子类型，则称这种特性为协变。相反情况则称为逆变。
 在 Scala 中，这两种特性都是默认不支持的。
 
+注意，函数的参数是逆变的，函数的返回值是协变的。
+
 #### 使用协变
 
 使用协变需要在类型前加上 `+`。
 
-定义一个支持协变的类
+定义一个支持协变的类，协变类型参数只能用作输出，所以可以作为返回值类型但是无法作为入参的类型
 
 ```scala
-class CovariantHolder[+A](a: A) {
-  def info = println(a)
+class CovariantHolder[+A](val a: A) {
+  def foo(): A = {
+    a
+  }
 }
 ```
 
@@ -83,11 +89,12 @@ anyCo = strCo
 
 使用逆变需要在类型前加上 `-`。
 
-定义一个支持逆变的类
+定义一个支持逆变的类，逆变类型参数只能用作输入，所以可以作为入参的类型但是无法作为返回值类型
 
 ```scala
-class ContravarintHolder[-A](a: A) {
-  def info = println(a)
+class ContravarintHolder[-A](val a: A) {
+  def foo(p: A): Unit = {
+  }
 }
 ```
 
@@ -102,7 +109,6 @@ var anyDCo = new ContravarintHolder[AnyRef]("b")
 // strDCo = anyDCo
 strDCo = anyDCo
 ```
-
 
 ### 类型通配符
 
