@@ -92,7 +92,7 @@ anyCo = strCo
 定义一个支持逆变的类，逆变类型参数只能用作输入，所以可以作为入参的类型但是无法作为返回值类型
 
 ```scala
-class ContravarintHolder[-A](val a: A) {
+class ContravarintHolder[-A]() {
   def foo(p: A): Unit = {
   }
 }
@@ -101,9 +101,9 @@ class ContravarintHolder[-A](val a: A) {
 使用该类
 
 ```scala
-var strDCo = new ContravarintHolder[String]("a")
-var intDCo = new ContravarintHolder[Int](3)
-var anyDCo = new ContravarintHolder[AnyRef]("b")
+var strDCo = new ContravarintHolder[String]()
+var intDCo = new ContravarintHolder[Int]()
+var anyDCo = new ContravarintHolder[AnyRef]()
 
 //  Wrong!! AnyRef 不是 Int 的超类
 // strDCo = anyDCo
