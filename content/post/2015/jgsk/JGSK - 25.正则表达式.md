@@ -318,9 +318,9 @@ println(result)
 
 ## 总结
 
-- Scala 的包声明与其它语言都不一样
-- Scala 和 Kotlin 导入包时支持指定别名
-- Scala 和 Kotlin 的访问权限与另两种有很大区别
+- Java 和 Scala 都支持带名分组。
+- Scala 和 Kotlin 可以只使用 Regex 对象完成正则匹配。
+- Scala 的模式匹配也可以用于正则表达式。
 
 
 ---
