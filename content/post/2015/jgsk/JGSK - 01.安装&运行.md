@@ -27,6 +27,8 @@ topics:
 本系列主要是对 Java，Groovy，Scala 和 Kotlin 这四种 JVM 上的语言做一些粗浅的对比。对于那些语言本身提供但是却不提倡使用的功能本系列大都不会提。本系列主要使用的开发环境为 Windows 和 Mac，IDE 为 IDEA 和 Eclipse，构建工具为 Maven 和 Gradle。
 <!--more-->
 
+>除了以上四种 JVM 上的语言，JVM 上还有 Clojure 和 Eclipse 推行的 Xtend 两种语言有一定知名度。其中 Clojure 与其它语言差别过大，不太容易被传统的 Java 程序员接受，我也没学过，所以不放在本系列讨论。而 Xtend 与 Groovy 之类的很相似，但是其一些语法个人不太喜欢（比如说用 "[]" 代替 "{}"，用 "|" 代替 ->" ），总觉得容易误导人，所以也没有深究。
+
 ## 开发环境
 
 本系列的主要开发环境如下
