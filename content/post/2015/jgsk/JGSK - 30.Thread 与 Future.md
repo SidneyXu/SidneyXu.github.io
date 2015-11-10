@@ -24,7 +24,7 @@ topics:
 
 ### Thread
 
-线程主要用于执行并发任务，提高 CPU 的运行效率。Java 中线程相关的概念主要有两个： Thread 和 Runnable。
+线程主要用于执行并发任务，提高 CPU 的运行效率。在各种参考中都有线程相关的各种概念，在这里就补多废话了。在Java 中线程相关的概念主要有两个： Thread 和 Runnable。
 
 <!--more-->
 
@@ -82,12 +82,92 @@ Thread.sleep(1000);
 timer.cancel();
 ```
 
+### CompletableFuture
 
-线程还有很多复杂的概念，很难在一节中介绍清楚，所以本节只介绍基本的内容，其余的请看各种参考书。
+#### 概念
+
+CompletableFuture 是 Java 1.8 新加入的类，提供了事件驱动的编程模型，能够大幅简化异步调用的繁琐过程从而避免陷入回调地狱。
+
+CompletableFuture 继承自 Future，所以也表示未来的值，但是 CompletableFuture 表示的未来的值可以是预期的，即你可以明确表明你知道将会发生什么。
+
+#### 创建 CompletableFuture
+
+创建一个最简单的 CompletableFuture 的实例
+
+```java
+CompletableFuture<Integer> firstFuture = new CompletableFuture<>();
+firstFuture.complete(10);
+int value = firstFuture.get();
+System.out.println(value);  //  10
+```
+
+以上调用 `complete()` 表示我知道这个 Future 会返回 10。这个例子是最简单的同步调用方式，下面使用工厂类创建一个支持异步调用的 CompletableFuture 实例。
+
+```java
+ ExecutorService service = Executors.newFixedThreadPool(10);
+ CompletableFuture<Integer> secondFuture = CompletableFuture.supplyAsync(() -> {
+      //  long running
+      return new Random().nextInt(1000);
+  }, service);
+```
+
+以上 `supplyAsync()` 创建了一个支持异步调用的 CompletableFuture，该 CompletableFuture 的任务运行在指定的线程池中。
+
+#### 在同一个 CompletableFuture 上执行链式操作
+
+CompletableFuture 的用法类似 Javascript 的 Promise 编程的概念。使用 `thenApplyAsync()` 或 `thenApply()` 可以在同一个 CompletableFuture 上可以执行多个链式操作，前一个操作完成后才能执行下一个操作。
+
+```java
+CompletableFuture<String> thirdFuture = secondFuture.thenApplyAsync(integer -> {
+    if (integer < 900) {
+        throw new IllegalArgumentException();
+    }
+    return "" + integer;
+});
+```
+
+#### 完成 CompletableFuture
+
+`thenAcceptAsync()` 或 `thenAccept()` 可以在一个 CompletableFuture 完成所有操作后执行收尾操作。
+
+```java
+CompletableFuture<Void> lastFuture = thirdFuture.thenAcceptAsync(s -> System.out.println("Result is " + s));
+```
+
+#### 异常处理
+
+`exceptionally()` 方法会在 CompletableFuture 执行中发生异常时被调用，可以在该方法中处理异常。
+
+```java
+CompletableFuture<String> safe1 = thirdFuture.exceptionally(throwable -> {
+        //  throwable is CompletionException
+        if (throwable != null && (throwable.getCause() instanceof IllegalArgumentException)) {
+            return "Too small.";
+        } else if (throwable != null) {
+            return throwable.getMessage();
+        }
+        return null;
+    });
+```
+
+或者也可以使用 `handleAsync()` 方法，无论异常是否发生，该方法都会被调用，所以即可以在返回前处理异常也可以处理返回值。
+
+```java
+CompletableFuture<String> safe2 = thirdFuture.handleAsync((s, throwable) -> {
+    //  throwable is CompletionException
+    if (throwable != null && (throwable.getCause() instanceof IllegalArgumentException)) {
+        return "Result is too small.";
+    } else if (throwable != null) {
+        return throwable.getMessage();
+    }
+    return s;
+});
+```
+
 
 ## Groovy
 
-与 Java 相同。
+与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的 Lamda 表达式，所以一些代码写起来会比 Java 麻烦。 
 
 ## Scala
 
@@ -109,13 +189,15 @@ service.execute(new Runnable {
 })
 ```
 
-除此之外，Scala 还有一个全局的默认线程池 `scala.concurrent.ExecutionContext.Implicits.global`，通常来说这个线程池仅用于测试。因为你不知道其它人或者你引用的其它库中是否有使用默认的线程池进行大量长时间操作或者 Block 操作。
+以上例子定义了一个容量为 1 的线程池，并且通过隐式转换（具体见 Scala 的隐式转换一章）使 ExecutionContext 运行在该线程池中。
+
+除了自定义线程池之外，Scala 还有一个全局的默认线程池 `scala.concurrent.ExecutionContext.Implicits.global`，通常来说这个线程池仅用于测试。因为你不知道其它人或者你引用的其它库中是否有使用默认的线程池进行大量长时间操作。
 
 ### Future 与 Promise
 
 #### Future
 
-Future 的概念与 Java 相似，用于从线程中取出执行结果。
+Future 的概念与 Java 相似，可以用于从线程中取出执行结果。
 
 ```scala
 val s = "Hello"
@@ -134,16 +216,22 @@ val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
 println(result)
 ```
 
+以上 `onSuccess` 仅在 `Future` 运行成功后执行代码，`onComplete` 无论是否成功都会被执行。
+
 #### Promise
 
-Promise 与 Future 不同，Future 提供了读取计算值的接口，而 Promise 提供了写入计算值的接口。
+Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 提供了写入计算值的接口，Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。
+
+```scala
+
+```
 
 
 ## Kotlin
 
-### Thread
+Kotlin 基本就是直接调用 Java 代码，但是由于 Kotlin 对部分方法进行了包装，所以可以节省一定的代码量。
 
-Kotlin 用法与 Java 相同，但是由于 Kotlin 对部分方法进行了包装，所以可以节省一定的代码量。
+### Thread
 
 定义一个简单的线程
 
@@ -189,6 +277,20 @@ Thread.sleep(1000)
 fixedRateTimer.cancel()
 ```
 
+### CompletableFuture
+
+```kotlin
+val firstFuture = CompletableFuture<Int>()
+firstFuture.complete(10)
+println(firstFuture.get())
+
+service = Executors.newFixedThreadPool(10)
+val secondFuture = CompletableFuture.supplyAsync(Supplier {
+    Random().nextInt(1000)
+}, service)
+println(secondFuture.get())
+service.shutdown()
+```
 
 ## 总结
 
