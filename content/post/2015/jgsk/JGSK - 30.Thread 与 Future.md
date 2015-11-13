@@ -193,32 +193,172 @@ service.execute(new Runnable {
 
 除了自定义线程池之外，Scala 还有一个全局的默认线程池 `scala.concurrent.ExecutionContext.Implicits.global`，通常来说这个线程池仅用于测试。因为你不知道其它人或者你引用的其它库中是否有使用默认的线程池进行大量长时间操作。
 
-### Future 与 Promise
+### Future
 
-#### Future
+Scala 中的 Future 表示尚未完成的计算结果，执行在指定的 ExecutionContext 中。一个 Future 一旦被赋值后就不可被改变，可以用于编写高效的并行代码。
 
-Future 的概念与 Java 相似，可以用于从线程中取出执行结果。
+#### 创建 Future
+
+使用 `Future{}` 创建 Future 对象
 
 ```scala
 val s = "Hello"
 val f1: Future[String] = Future {
   s + " future!"
 }
+```
+
+#### 回调
+
+Future 支持三种回调方式
+
+- `onSuccess` 用于在 Future 完成后对计算结果进行某些操作
+- `onFailure` 用于处理在 Future 计算过程中发生的异常
+- `onComplete` 用于在 Future 处理完成后进行某些操作，其接收的参数为 Try[T] 类型，子类为 Success[T] 和 Failure[T]，所以可以在其方法体内同时完成成功和失败的后续处理。
+
+```scala
+val s = "Hello"
+//	使用 Future{} 创建 Future 对象
+val f1: Future[String] = Future {
+  s + " future!"
+}
 f1 onSuccess {
-  case msg =>
-    println(msg, Thread.currentThread().getName)
-    msg
+    case msg =>
+        println(msg)
+}
+f1 onFailure {
+    case e =>
+        e.printStackTrace()
 }
 f1 onComplete {
-  case msg => println("onComplete")
+    case Success(msg) => println(s"Success $msg")
+    case Failure(e) => println(s"Failure ${e.getMessage}")
 }
 val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
 println(result)
 ```
 
-以上 `onSuccess` 仅在 `Future` 运行成功后执行代码，`onComplete` 无论是否成功都会被执行。
+一个 Future 上 可以定义多个 `onSuccess` 等类型的回调方法，但是所有的回调方法返回值都是 `Unit` 所以无法进行链式操作，同时执行多个回调的顺序的也不保证。
 
-#### Promise
+```java
+val f2 = Future {
+    Thread.sleep(10)
+}
+f2 onSuccess {
+    case _ => println("a")
+}
+f2 onSuccess {
+    case _ => println("b")
+}
+f2 onSuccess {
+    case _ => println("c")
+}
+```
+
+#### 组合
+
+Callback 虽然方便，但是在复杂场景下光使用 Callback 很容易陷入回调地狱。
+
+最简单的回调地狱
+
+```scala
+Future {
+    1
+} onSuccess {
+    case x => Future {
+        x + 3
+    } onSuccess {
+        case x => Future {
+            x * 10
+        } onSuccess {
+            case x =>
+                println(s"Result of callback hell is $x") //  40
+        }
+    }
+}
+```
+
+为此 Scala 为 Future 提供了多种组合方式。
+
+**map**
+
+`map` 用于在 Future 执行完毕后产生新的 Future 并执行后续操作，无论异常是否会发生，Future 的结果都会进行传递。
+
+```scala
+val f1 = Future {
+    1	//	or 1/0
+}
+val f2 = f1 map { x =>
+    x + 3
+}
+f2 map { x =>
+    x * 10
+} onComplete {
+    case Success(x) => println(s"Result of map is $x") //  40
+    case Failure(e) => e.printStackTrace()
+}
+```
+
+**Recovery**
+
+`recover` 用于在 Future 执行过程中发生异常时进行一些拯救工作。
+
+```scala
+Future {
+    1 / 0
+} recover {
+    case e: ArithmeticException => 0
+} map { x =>
+    x + 3
+} map { x =>
+    x * 10
+} onComplete {
+    case Success(x) => println(s"Result of recover is $x") //  30
+    case Failure(e) => e.printStackTrace()
+}
+```
+
+**Fallback**
+
+`fallback` 用于在 Future 执行过程中发生异常时执行另一个 Future。如果异常没有发生，原始 Future 的结果会被返回。如果原始 Future 发生异常，新 Future 成功执行则返回新 Future 的结果，如果新 Future 中也发生异常，则原始 Future 的异常会被返回。
+
+```scala
+val f3 = Future {
+    1 / 0
+}
+val f4 = Future {
+    10
+}
+f3 fallbackTo f4 map { x =>
+    x + 3
+} onComplete {
+    case Success(x) => println(s"Result of fallback is $x") //  13
+    case Failure(e) => e.printStackTrace()
+}
+```
+
+**Then**
+
+`then` 听起来容易让人混淆，以为是连续多个 Future，前一个执行完的结果会被传递到后一个。但是实际 `then` 是为了解决副作用的问题，即 `then` 连接的多个 Furtue 总是返回初始 Future 的结果。
+
+```scala
+Future {
+    1
+} andThen {
+    case Success(x) =>
+        x + 1
+} andThen {
+    case Success(x) =>
+        x + 10
+} andThen {
+    case Success(x) =>
+        println(s"Result of then is $x") //  1
+}
+```
+
+由以上例子可知 `x` 的值并没有发生改变。
+
+### Promise
 
 Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 提供了写入计算值的接口，Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。
 
