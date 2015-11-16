@@ -1,8 +1,8 @@
----
+n---
 comments: true
 date: 2015-11-06T14:26:07+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
 - groovy
@@ -499,7 +499,8 @@ service.shutdown()
 
 ## 总结
 
-- 
+- 不同语言的内部实现都是依赖 Java API，所以非常相似
+- Scala 的 Future 和 Promise 和 Java 1.8 引入的 CompletableFuture 可以更好的写出异步代码
 
 
 ---

@@ -8,21 +8,23 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-18-class:object-scala"
+slug: "JGSK-18-class:object-scala&kotlin"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: JGSK - 18.类相关:Object - Scala 篇
+title: JGSK - 18.类相关:Object - Scala & Kotlin篇
 toc: true
 topics:
 - JGSK
 ---
 
-## Object
+## Scala 篇
 
-### 单例对象
+### Object
+
+#### 单例对象
 
 在 Java 中实现单例对象通常需要自己实现一个类并创建 `getInstance()` 的方法然后在该方法里使用两次同步块或者使用更为优雅的基于 `enum` 的方式。而 Scala 中则更加简单，只要使用 `object` 声明就能创建一个单例对象。实际上之前我们创建的拥有 `main()` 方法的都是单例对象。
 
@@ -96,7 +98,7 @@ object Companion {
 
 ```scala
 //  通过伴生对象的 apply() 方法创建类的实例
-def account = Companion(30)
+val account = Companion(30)
 
 //  在类中调用伴生对象的私有方法
 assert(1 == account.id)
@@ -148,6 +150,127 @@ object Hello extends App {
 }
 ```
 
+
+## Kotlin 篇
+
+### Object
+
+Kotlin 中的 Object 用法类似 Scala，但与 Scala 中的 Object 的最大区别是 Kotlin 不允许 Object 和类同名。
+
+#### 单例对象
+
+```kotlin
+object Singleton {
+    private var num = 0
+
+    fun sequence(): Int {
+        num += 1
+        return num
+    }
+}
+```
+
+同 Scala 一样，Kotlin 也通过 Object 来实现静态方法的功能。
+
+例
+
+```kotlin
+assert(1 == Singleton.sequence())
+assert(2 == Singleton.sequence())
+assert(3 == Singleton.sequence())
+```
+
+#### 伴生对象
+
+伴生对象的概念与 Scala 基本一致，但是 Kotlin 的伴生对象是通过关键字 `companion object` 定义在类中，而不是类外，伴生对象不与类同名。
+
+创建类和伴生对象
+
+```kotlin
+class Companion(private var balance: Int = 0) {
+    //  Access private method of companion object
+    val id = Companion.sequence()
+
+    companion object Factory {
+        private var num = 0
+
+        fun getInfo(account: Companion): String {
+            return "Balance is " + account.balance
+        }
+
+        fun create(initBalance: Int): Companion {
+            return Companion(initBalance)
+        }
+
+        private fun sequence(): Int {
+            num += 1
+            return num
+        }
+    }
+}
+```
+
+使用类与伴生对象
+
+```scala
+//  通过伴生对象的方法创建类的实例
+val account = Companion.create(30)
+
+//  在类中调用伴生对象的私有方法
+assert(1 == account.id)
+
+//  在伴生对象中访问类的私有属性
+assert("Balance is 30" == Companion.getInfo(account))
+```
+
+#### object 表达式
+
+object 表达式用于扩展类的功能，使用时类似 Java 中的匿名内部类。
+
+定义一个类和接口
+
+```kotlin
+open class A(x: Int) {
+    public open val y: Int = x
+}
+
+interface B {
+    fun info()
+}
+```
+
+使用 object 表达式扩展类和接口
+
+```kotlin
+val ab = object : A(1), B {
+    override fun info() {
+        println("info")
+    }
+
+    override val y: Int
+        get() = 15
+}
+println(ab.y)
+println(ab.javaClass)
+```
+
+以上示例本质上是生成了一个实现类和接口的匿名内部类的对象。在 Kotlin 中也可以不指定任何父类，直接产生匿名内部类：
+
+```kotlin
+val obj = object {
+    val x = 10
+    val y = 20
+}
+println(obj.x)
+println(obj.javaClass)
+```
+
+
+## 总结
+
+- Scala 和 Kotlin 使用单例对象来提供其它语言中的全局常量和静态方法的特性
+- Scala 的伴生对象与类同名且平级，Kotlin 的伴生对象定义在类中且不同名
+- Kotlin 的 object 表达式可以实现简单的继承功能
 
 ---
 
