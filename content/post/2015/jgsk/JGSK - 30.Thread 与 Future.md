@@ -167,7 +167,7 @@ CompletableFuture<String> safe2 = thirdFuture.handleAsync((s, throwable) -> {
 
 ## Groovy
 
-与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的 Lamda 表达式，所以一些代码写起来会比 Java 麻烦。 
+与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的新增特性，所以一些代码写起来会比 Java 麻烦。 
 
 ## Scala
 
@@ -234,8 +234,6 @@ f1 onComplete {
     case Success(msg) => println(s"Success $msg")
     case Failure(e) => println(s"Failure ${e.getMessage}")
 }
-val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
-println(result)
 ```
 
 一个 Future 上 可以定义多个 `onSuccess` 等类型的回调方法，但是所有的回调方法返回值都是 `Unit` 所以无法进行链式操作，同时执行多个回调的顺序的也不保证。
@@ -358,14 +356,81 @@ Future {
 
 由以上例子可知 `x` 的值并没有发生改变。
 
-### Promise
+#### Blocking
 
-Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 提供了写入计算值的接口，Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。
+Future 可以像 Java 的 Future 一样通过阻塞操作获得执行结果。
 
 ```scala
-
+val f1 = Future {
+  1
+}
+val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
+println(result) 
 ```
 
+### Promise
+
+Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 是一个拥有单个 Future 的容器，提供了写入计算值的接口。Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。
+
+Promise 可以通过调用 `success()`，`complete()`，`failure()` 来直接调用其内部 Future 对应的 `onSuccess()` 等方法。
+
+```scala
+val p1 = Promise[Int]()
+val f1 = p1.future
+Future {
+  val i = Random.nextInt(100)
+  p1.success(i)
+}
+Future {
+  f1 onSuccess {
+    case x => println(x)
+  }
+}
+```
+
+Promise 在计算完成后就不允许再进行计算，否则会抛出异常，所以可以使用 `tryXXX()` 版本来替换以上版本来避免异常的发生。
+
+```scala
+p1.trySuccess(1)
+```
+
+Promise 也可以使用 `completeWith()` 方法来调用其它 Future 来代替其内置的 Future 进行计算
+
+```scala
+ def heavyFuture = {
+  val p = Promise[Int]()
+  val f = Future {
+    1000
+  }
+  p completeWith f
+  p.future
+}
+
+val f = heavyFuture
+f onSuccess { case x => println(x) } // 1000
+```
+
+### SyncVar
+
+SyncVar 负责存储单一值，其所有操作都是同步的，所以可以通过它安全地访问各种可变对象。
+
+其最主要的由三个方法：`get()`，`take()`，`put()`，其中 `get()` 和 `take()` 都负责从对象中获取值，且提供了无参版本和有超时时间的版本，区别是 `get()` 仅仅取出数据，而 `take()` 取出后会把原来的数据删除。
+
+```scala
+val v = new SyncVar[Int]
+Future {
+  Thread.sleep(10)
+  v.put(3)
+}
+var result = v.get
+println("result", result, Thread.currentThread().getName) //(result,3,main)
+
+result = v.take()
+println("take", result, Thread.currentThread().getName) //(take,3,main)
+
+//  以下代码由于值已经被取出所以会一直阻塞下去
+v.get
+```
 
 ## Kotlin
 
