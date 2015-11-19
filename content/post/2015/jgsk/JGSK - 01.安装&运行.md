@@ -40,7 +40,7 @@ topics:
   	- Java 1.8.0_25
   	- Groovy 2.4.4
   	- Scala 2.11.5
-  	- Kotlin 0.12.613
+  	- Kotlin 1.0.0-beta-1038
   
 - IDE
   	- IDEA 或 Eclipse
