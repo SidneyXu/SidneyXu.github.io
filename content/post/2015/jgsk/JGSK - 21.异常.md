@@ -269,7 +269,7 @@ Kotlin 中所有异常也都为非检查异常。
 尽管没有必要，如果你希望的话，也可以通过注解声明抛出异常
 
 ```kotlin
-@throws(MyException::class, FileNotFoundException::class)
+@Throws(MyException::class, FileNotFoundException::class)
 fun test() {
 }
 ```

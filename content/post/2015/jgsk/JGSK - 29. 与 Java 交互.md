@@ -283,7 +283,7 @@ class KotlinBean(val name: String) {
     }
 
     companion object {
-        platformStatic fun hello(bean: KotlinBean) {
+         @JvmStatic fun hello(bean: KotlinBean) {
             println("Hello, this is ${bean.name}")
         }
 
@@ -294,7 +294,7 @@ class KotlinBean(val name: String) {
 }
 
 object KotlinUtils {
-    platformStatic fun foo() {
+     @JvmStatic fun foo() {
         println("Foo...")
     }
 
@@ -320,12 +320,12 @@ public class JavaCallKotlin {
 
         //  Object
         KotlinUtils.foo();
-        KotlinUtils.INSTANCE$.bar();
+        KotlinUtils.INSTANCE.bar();
     }
 }
 ```
 
-以上示例中使用了 `platformStatic` 注解，该注解用于生成静态方法，如果没有使用该注解的话就必须使用隐式的单例对象 `INSTANCE$` 来调用 `object` 中的方法。这种处理方式与 Scala 非常相似，只是 Scala 是自动生成的罢了。
+以上示例中使用了 `JvmStatic` 注解，该注解用于生成静态方法，如果没有使用该注解的话就必须使用隐式的单例对象 `INSTANCE$` 来调用 `object` 中的方法。这种处理方式与 Scala 非常相似，只是 Scala 是自动生成的罢了。
 
 #### fun
 
@@ -353,7 +353,7 @@ Kotlin 不存在检查异常，但是 Java 中却到处都是检查异常，如�
 Kotlin 代码
 
 ```kotlin
-@throws(IOException::class) fun declaredThrowAnException() {
+@Throws(IOException::class) fun declaredThrowAnException() {
     throw IOException()
 }
 ```
@@ -374,7 +374,7 @@ Kotlin 拥有方法默认值和带名参数的特点，所以只需要定义一�
 Kotlin 代码
 
 ```kotlin
-jvmOverloads fun f(a: String, b: Int = 0, c: String = "c") {
+@JvmOverloads fun f(a: String, b: Int = 0, c: String = "c") {
     println("a=$a b=$b c=$c")
 }
 ```

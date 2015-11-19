@@ -714,7 +714,7 @@ println(arr[0])
 获得数组长度
 
 ```kotlin
-println(arr.size())
+println(arr.size
 ```
 
 遍历数组
@@ -784,7 +784,7 @@ println(mutableList(1))
 获得 kotlin 长度
 
 ```java
-println(list.size())
+println(list.size)
 ```
 
 注意，Kotlin 和 Scala 一样也统一了用法，但是 Kotlin 使用的是 `size()`。

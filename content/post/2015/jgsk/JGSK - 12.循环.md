@@ -270,7 +270,7 @@ for (i in arr.indices) {
 ``` kotlin
 val arr = intArrayOf(1, 2, 3)
 var i = 0
-while ( i < arr.size()) {
+while ( i < arr.size {
   println("Repeat While ${arr[i++]}")
 }
 i = 0
@@ -293,13 +293,6 @@ for (a in 0..3)
 
 ``` kotlin
 for (a in 3 downTo 0)
-  println("Repeat Reverse-Range $a")
-```
-
-或者
-
-``` kotlin
-for (a in (1..4).reversed())
   println("Repeat Reverse-Range $a")
 ```
 

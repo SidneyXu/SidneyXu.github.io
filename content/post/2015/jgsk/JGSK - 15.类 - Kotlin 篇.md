@@ -102,7 +102,7 @@ var setterVisiblity: String = "foo"
 
 ## Backing 域
 
-由于调用属性就是调用方法，所以如果上节改写为如下形式的话会陷入自己调用自己的无限循环中
+由于无法直接访问属性，调用属性实质就是调用方法，所以如果上节改写为如下形式的话会陷入自己调用自己的无限循环中
 
 ```kotlin
 var age: Int
@@ -114,16 +114,15 @@ var age: Int
     }
 ```
 
-为此，Kotlin 提供了 Backing 域来直接调用属性而不是方法，Backing 声明时只要添加符号 `$` 到指定的属性前就可以了。
+为此，Kotlin 提供了 Backing 域来直接访问，以前的 Backing 域是以 `$` 开头的特殊字符串，但是从 `1.0` 开始 Backing 域就是关键字 `field`。
 
 例
 
 ```kotlin
 var backAge: Int = 0
-    get() = $backAge
     set(pAge) {
-        if (pAge > $backAge) {
-            $backAge = pAge
+        if (pAge > field) {
+            field = pAge
         }
     }
 ```

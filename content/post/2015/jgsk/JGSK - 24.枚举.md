@@ -213,7 +213,7 @@ Kotlin 中的枚举基本与 Java 一样。
 ```kotlin
 enum class WeekDay(val abbr: String) {
     Monday("Mon"), Tuesday("Tue"), Wednesday("Wed"), Thursday("Thu"),
-    Friday("Fri"), Saturday("Sat"), Sunday("Sun")
+    Friday("Fri"), Saturday("Sat"), Sunday("Sun");
 
     fun isWorkingDay(): Boolean {
         return !(this == Saturday || this == Sunday)
@@ -231,7 +231,7 @@ val monday = WeekDay.Monday
 //  通过名字获得枚举
 val monday = WeekDay.valueOf("Monday")
 println(monday)
-println(monday.name())
+println(monday.name
 
 //  调用枚举中的方法
 println(WeekDay.Tuesday.isWorkingDay())
