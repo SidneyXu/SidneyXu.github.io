@@ -2,7 +2,7 @@
 comments: true
 date: 2015-11-22T22:49:33+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
 - groovy
@@ -27,6 +27,8 @@ topics:
 测试过程通常有 N 种分类，一般常说的有那么几种： UT，IT(CT)，ST，MT。
 
 UT 单元测试属于白盒测试，是测试中的最小单元，一般用于测试单独的方法，检测方法的正确性。
+
+<!--more-->
 
 IT 集成测试（又可称为 CT 结合测试），属于灰盒测试，在单元测试之后进行，一般用于测试各个接口之间的数据传递功能，由数个单元测试的对象组成。
 

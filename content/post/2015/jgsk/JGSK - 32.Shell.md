@@ -2,7 +2,7 @@
 comments: true
 date: 2015-11-24T07:00:22+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
 - groovy
@@ -25,6 +25,8 @@ topics:
 ### 执行 Shell 命令
 
 Java 中执行 Shell 命令主要依靠 Runtime 和 Process 两个类。
+
+<!--more-->
 
 ```java
  try {
