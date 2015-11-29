@@ -2,7 +2,7 @@
 comments: true
 date: 2015-11-26T11:24:40+08:00
 description: ""
-draft: true
+draft:  false
 keywords:
 - java
 - groovy
@@ -37,6 +37,8 @@ public @interface Bean {
 ```
 
 以上创建了一个名为 `Bean` 的注解。该注解上使用了标示此自定义注解的两个 JVM 的内置注解：`Retention` 和 `Target`。
+
+<!--more-->
 
 `Rentention` 表示应该将该注解信息保存在哪里，有 `RUNTIME`，`CLASS`，`SOURCE` 三种。其中 `CLASS` 为默认值，只有标示为 `RUNTIME` 的注解才可以被反射。
 
@@ -354,14 +356,220 @@ clazz.declaredMethods.findAll {
 
 ## Scala
 
+### 注解
+
+Scala 大多情况下直接使用 Java 的注解即可。Scala 本身虽然也提供了Scala 风格的注解功能，但功能很弱，完全可以使用 Java 的进行替代。
+
+#### 创建一个注解
+
+Scala 创建注解需要继承 ClassfileAnnotation 或 StaticAnnotation。前者类似 Java 中的 Runtime，可以被反射，后者则无法被反射。
+
+```scala
+class Bean(val name: String) extends ClassfileAnnotation
+```
+
+#### 使用注解
+
+创建三个注解
+
+```scala
+class Bean(val name: String) extends ClassfileAnnotation
+class BeanField extends StaticAnnotation
+class BeanMethod(val alias: String = "") extends StaticAnnotation
+```
+
+定义一个使用以上注解的类
+
+```scala
+@Bean(name = "t_person")
+class Person {
+	@BeanField
+	private var privateAge: Int = 0
+    
+    @BeanMethod(alias = "trueAge")
+    def age_=(pAge: Int) {
+      privateAge = pAge
+    }
+
+    def age = privateAge
+
+    @BeanMethod
+    def sayHello(message: String) = println(s"hello $message")
+}
+```
+
+### 反射
+
+Scala 有自己的反射 Api，功能比 Java 要更丰富，但是个人感觉非常难用，还是直接使用 Java 的更加方便。对 Scala 的 Api 有兴趣的可以直接去官网查看文档。
+
+下面列一个简单的根据类生成对象的 Scala 原生 Api 的例子，体验一下有多难用
+
+```scala
+val classLoaderMirror = runtimeMirror(getClass.getClassLoader)
+val typePerson = typeOf[Person]
+val classPerson = typePerson.typeSymbol.asClass
+val classMirror = classLoaderMirror.reflectClass(classPerson)
+val methodSymbol = typePerson.decl(termNames.CONSTRUCTOR).asMethod
+val methodMirror = classMirror.reflectConstructor(methodSymbol)
+val p: Person = methodMirror(10).asInstanceOf[Person]
+p.age = 16
+println(p.age)
+```
+
 
 ## Kotlin
 
+### 注解
+
+Kotlin 用法类似 Java，但还是有很大区别。
+
+#### 创建一个注解
+
+`AnnotationRetention` 类似 Java 的 `RetentionPolicy`。`AnnotationTarget` 类似 Java 的 `ElementType`，但是由于 Kotlin 的特性，其值有 `FIELD`，`PROPERTY_GETTER` 等种类。
+
+```kotlin
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+```
+
+#### 使用注解
+
+创建三个注解
+
+```kotlin
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FIELD)
+annotation class BeanField
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.FUNCTION)
+annotation class BeanMethod(val alias: String = "")
+```
+
+定义一个使用以上注解的类
+
+```kotlin
+@Bean(name = "t_person")
+class Person {
+    @BeanField var age: Int = 0
+        @BeanMethod(alias = "trueAge") get() = field
+
+    @BeanMethod(alias = "hello") fun sayHello(message: String) {
+        println("hello $message")
+    }
+}
+```
+
+### 反射
+
+Kotlin 中的反射可以通过符号 `::` 直接对各种类和成员进行引用，但是如果想通过字符串进行引用的话就非常麻烦。
+
+#### 类的引用
+
+```kotlin
+val clazz = Person::class
+```
+
+#### 函数的引用
+
+```kotlin
+val sayHello = Person::sayHello
+```
+
+执行该函数
+
+```kotlin
+println(sayHello.invoke(person, "world"))
+```
+
+就像类中的函数一样也可以直接对定义在类外的函数进行引用，并将该引用作为参数进行传递
+
+```kotlin
+fun isOdd(x: Int) = x % 2 != 0
+val numbers = listOf(1, 2, 3)
+println(numbers.filter(::isOdd))
+```
+
+#### 属性的引用
+
+```kotlin
+var name = Person::age
+```
+
+获得属性的值
+
+```kotlin
+name.get(person)
+```
+
+同样也可以对类外的属性进行引用
+
+```kotlin
+var x = 2
+println(::x.get())
+::x.set(3)
+println(x)
+```
+
+
+#### 构造方法的引用
+
+```kotlin
+::Person
+```
+
+使用该引用
+
+```kotlin
+fun factory(f: () -> Person) {
+    val p = f()
+}
+factory(::Person)
+```
+
+#### 遍历类的成员
+
+```kotlin
+val bean = clazz.annotations.first {
+    it.annotationType().typeName == Bean::class.qualifiedName
+} as Bean
+println("name is ${bean.name}") //  t_person
+
+val properties = clazz.declaredMemberProperties
+properties.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.annotations[0].annotationType().name)
+}
+
+val functions = clazz.declaredMemberFunctions
+functions.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.name)
+    println(it.annotations[0].annotationType().name)    //  BeanMethod
+
+    val beanMethod = it.annotations[0] as BeanMethod
+    println("alias is ${beanMethod.alias}") //  hello
+}
+
+```
 
 ## 总结
 
-- 
+- 注解使用场景很多，但是一般只要理解内置注解的作用，很少需要自己定义注解
+- 反射 Api 大都比较难用，但是实际使用场景并不多
 
 ---
 
 项目源码见 [JGSK/_33_reflect_annotation](https://github.com/SidneyXu/JGSK)
+
