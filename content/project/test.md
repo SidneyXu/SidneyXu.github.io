@@ -10,7 +10,7 @@ title: Project Sample
 topics:
 - Development
 - golang
-draft: false
+draft: true
 download_url: http://www.baidu.com
 official_url: http://www.bookislife.com
 project_description: a test project

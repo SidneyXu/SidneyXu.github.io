@@ -760,7 +760,7 @@ println(list(2)) // Scala
 创建一个可变 List
 
 ```kotlin
-var mutableList = new mutable.MutableList[Int]
+var mutableList = linkedListOf<String>()
 ```
 
 可变 List 可以使用方法 `add()` 添加新元素，使用方法 `remove()` 删除元素

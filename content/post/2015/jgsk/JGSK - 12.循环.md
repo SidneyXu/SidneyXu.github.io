@@ -270,7 +270,7 @@ for (i in arr.indices) {
 ``` kotlin
 val arr = intArrayOf(1, 2, 3)
 var i = 0
-while ( i < arr.size {
+while ( i < arr.size ) {
   println("Repeat While ${arr[i++]}")
 }
 i = 0

@@ -274,7 +274,9 @@ dependencies {
 - [Android NDK Preview](http://tools.android.com/tech-docs/android-ndk-preview)
 - [Experimental Plugin User Guide](http://tools.android.com/tech-docs/new-build-system/gradle-experimental)
 
+完整的 Android 示例见 [hello-jni][04]
+
 [01]: http://7xlqqp.com1.z0.glb.clouddn.com/jni/sdk.png
 [02]: http://7xlqqp.com1.z0.glb.clouddn.com/jni/config.png
 [03]: http://7xlqqp.com1.z0.glb.clouddn.com/jni/debug.png
-
+[04]: https://github.com/SidneyXu/templates/tree/master/hello-jni   
