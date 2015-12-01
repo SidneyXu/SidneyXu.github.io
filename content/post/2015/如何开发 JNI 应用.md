@@ -273,6 +273,7 @@ dependencies {
 
 - [Android NDK Preview](http://tools.android.com/tech-docs/android-ndk-preview)
 - [Experimental Plugin User Guide](http://tools.android.com/tech-docs/new-build-system/gradle-experimental)
+- [Android StudioのNDK開発機能を使おう！](http://qiita.com/eaglesakura/items/c4af7989b03904d66ebe)
 
 完整的 Android 示例见 [hello-jni][04]
 

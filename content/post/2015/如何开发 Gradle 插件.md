@@ -99,10 +99,24 @@ apply from: "greeting.gradle"
 在 plugin 工程下执行以下语句
 
 ```bash
+gradle tasks
+```
+
+可以看到控制台有输出语句
+
+```
+Other tasks
+-----------
+hello
+```
+
+这就是刚才创建的 Gradle Task。接着执行以下语句运行该 Task：
+
+```bash
 gradle -q hello
 ```
 
-成功的话控制台会输出 "Hi from Gradle"。接下来为了在其它工程中使用我们可以将插件发布到本地路径。
+成功的话控制台会输出 "Hi from Gradle"。至此一个简单的插件已经开发完毕，接下来为了在其它工程中使用我们可以将插件发布到本地路径。
 
 ### 发布插件
 
