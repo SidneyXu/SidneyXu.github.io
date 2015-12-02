@@ -146,14 +146,14 @@ implementation-class=com.bookislife.example.GreetingPlugin
 
 #### 发布插件到本地
 
-修改 `build.gradle` 文件，追加以下代码
+修改 plugin 下的 `build.gradle` 文件，追加以下代码
 
 ```gradle
 group "com.test"
 version "1.0-SNAPSHOT"
 ```
 
-以上指定了插件发布的 group 和 version，继续修改 `build.gradle` 追加 maven 发布插件
+以上指定了插件发布的 group 和 version，而插件的 name 则默认为模块名，即 `plugin`，继续修改 `build.gradle` 追加 maven 发布插件
 
 ```gradle
 apply plugin: 'maven'
@@ -189,6 +189,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        //  group:name:version
         classpath 'com.test:plugin:1.0-SNAPSHOT'
     }
 }
@@ -197,17 +198,17 @@ apply plugin: 'greeting'
 
 greeting {
     message = 'Hello'
-    greeter = 'test'
+    greeter = 'a test module'
 }
 ```
 
-接着在控制台执行以下语句
+接着定位到 test 工程下，在控制台执行以下语句
 
 ```bash
 gradle -q hello
 ```
 
-成功的话可以看到控制台输出 `Hello from This is a test`。
+成功的话可以看到控制台输出 `Hello from  a test module`。
 
 ## Debug 插件
 
@@ -219,5 +220,6 @@ gradle -q hello
 3. 选择 IDEA 的 `Run Configurations` -> 建立 `Remote`，创建完后点击 `Debug` 按钮，程序就会在断点处中断运行了。
 
 
+完整的 Gradle Plugin 示例见 [hello-gradle][https://github.com/SidneyXu/templates/tree/master/hello-gradle]
 
 
