@@ -210,6 +210,34 @@ gradle -q hello
 
 成功的话可以看到控制台输出 `Hello from  a test module`。
 
+## Log 系统
+
+在开发 Gradle 插件时可以使用 Gradle 自身的日志系统进行输出，如 `project.logger.error(msg)`。
+
+Log 共有以下几个级别
+
+- quiet
+- error
+- warn
+- lifecycle
+- info
+- debug
+- trace
+
+运行时可以通过加上级别或其缩写来只输出某个级别以上的日志，如
+
+```bash
+gradle -q build
+```
+
+或
+
+```bash
+gradle --quiet build
+```
+
+同时也可以使用内置的 `println()` 方法进行输出，Gradle 内部会将其重定向为 quiet 级别的日志。
+
 ## Debug 插件
 
 1. 在对应的代码处打上断点
