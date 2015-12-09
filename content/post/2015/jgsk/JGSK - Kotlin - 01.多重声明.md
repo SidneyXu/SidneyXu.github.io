@@ -60,4 +60,4 @@ println(n)  //  Jane
 
 ---
 
-项目源码见 [JGSK/k02_extension](https://github.com/SidneyXu/JGSK)
+项目源码见 [JGSK/k01_mulitdeclartion](https://github.com/SidneyXu/JGSK)
