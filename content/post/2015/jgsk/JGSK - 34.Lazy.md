@@ -155,6 +155,16 @@ println("Hello 1, ${a.fooField}")
 println("Hello 2, ${a.fooField}")
 ```
 
+Kotlin 中使用惰性加载时还能指定线程安全的模式，默认惰性加载是同步的（LazyThreadSafetyMode.SYNCHRONIZED，只能有一个线程进行修改，结果对所有线程可见），但是也可以指定为公开的(PUBLICATION，所有线程可以同时进行计算，但是只有第一个完成计算的线程会被作为结果) ， 或者不加任何限制(NONE，没有任何线程安全的措施，效率最高，适合本来就是单线程执行计算的程序)。
+
+```kotlin
+val fooField2: Long by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    println("Compute...")
+    Thread.sleep(3000)
+    System.currentTimeMillis()
+}
+```
+
 ## 总结
 
 - 除了 Java 之外，其它三种语言都默认支持惰性加载。
