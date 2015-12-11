@@ -45,7 +45,7 @@ def person = new Person()
 
 ## Setter 与 Getter
 
-与 Java 不同，默认当你在 Groovy 类中定义了属性的同时 Groovy 提供了对应的 Setter 与 Getter 方法。且当你直接使用属性时其实就是调用这些方法。
+与 Java 不同，默认当你在 Groovy 类中定义了属性的同时 Groovy 提供了对应的 Setter 与 Getter 方法，且当你直接使用属性时其实就是调用这些方法。
 
 例
 
@@ -60,7 +60,7 @@ person.setAge(12)
 assert person.age == 12
 ```
 
-可以看到为 `Person` 类定义了属性 `age` 后，无论直接调用属性 还是调用方法都改变了 `age` 的值。
+可以看到为 `Person` 类定义了属性 `age` 后，无论直接调用属性还是调用方法都改变了 `age` 的值。
 
 实际上以上的 `Person` 会被翻译成如下代码
 
@@ -129,10 +129,9 @@ class Man {
     private def from = "USA"
     def description = "none"
 }
-
 ```
 
-在创建时可以通过 `propertyName: propertyValue`指定使用哪个属性来构造实例
+在创建时可以通过 `propertyName: propertyValue` 指定使用哪个属性来构造实例
 
 ```groovy
 def fred = new Man(name: "Fred", age: 21)

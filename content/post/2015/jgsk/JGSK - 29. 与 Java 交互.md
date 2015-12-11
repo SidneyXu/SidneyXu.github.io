@@ -246,7 +246,7 @@ public class JavaBean {
 ```kotlin
 fun main(args: Array<String>) {
     val javaBean = JavaBean("JavaBean")
-    println(javaBean.getName())     //  JavaBean
+    println(javaBean.name)     //  JavaBean
     println(javaBean.calc(2, 3))    //  5
 
     JavaBean.hello(javaBean)        //  Hello, this is Peter
@@ -261,10 +261,10 @@ fun main(args: Array<String>) {
 ```kotlin
 val list = ArrayList<JavaBean>()
 list.add(javaBean)
-val nullable: JavaBean? = list.get(0)
-val notNull: JavaBean = list.get(0)
-nullable?.getName()
-notNull.getName()
+val nullable: JavaBean? = list[0]
+val notNull: JavaBean = list[0]
+nullable?.name
+notNull.name
 ```
 
 ### Java 调用 Kotlin

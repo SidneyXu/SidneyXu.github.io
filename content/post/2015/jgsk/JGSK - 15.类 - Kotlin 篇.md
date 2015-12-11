@@ -22,7 +22,7 @@ topics:
 
 ## 定义一个类
 
-Kotlin 同 Scala 一样使用关键字 `class` 来定义类，同时类的属性必须明确指明初始值
+Kotlin 同 Scala 一样使用关键字 `class` 来定义类，同时类的属性必须明确指明初始值。
 
 ```kotlin
 class Person {
@@ -37,13 +37,13 @@ class Person {
 
 <!--more-->
 
-新建一个类的实例无需 `new` 关键字
+新建一个类的实例无需像 Java 一样使用 `new` 关键字
 
 ```kotlin
 val person = Person()
 ```
 
->Kotlin 文件中可以定义多个类
+Kotlin 文件中可以定义多个类。
 
 ## Setter 与 Getter
 

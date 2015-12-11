@@ -391,7 +391,7 @@ println(mutableMap.getOrElse("height") { 170 })
 获得长度
 
 ```kotlin
-println(mutableMap.size())
+println(mutableMap.size)
 ```
 
 遍历映射

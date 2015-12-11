@@ -69,7 +69,7 @@ class CovariantHolder<out A>(val a: A) {
 使用该类
 
 ```kotlin
-var strCo: CovariantHolder<String> = CovariantHolder<String>("a")
+var strCo: CovariantHolder<String> = CovariantHolder("a")
 var anyCo: CovariantHolder<Any> = CovariantHolder<Any>("b")
 anyCo = strCo
 ```
@@ -90,7 +90,7 @@ class ContravarintHolder<in A>(a: A) {
 使用该类
 
 ```kotlin
-var strDCo = ContravarintHolder<String>("a")
+var strDCo = ContravarintHolder("a")
 var anyDCo = ContravarintHolder<Any>("b")
 strDCo = anyDCo
 ```

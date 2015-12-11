@@ -335,7 +335,7 @@ class Employee(name: String) : Person(name) {
         super.bar()
     }
     override fun toString(): String {
-        return super.toString() + javaClass.getName()
+        return super.toString() + javaClass.name
     }
 }
 ```
@@ -393,7 +393,6 @@ interface OnClickListener {
 实现接口
 
 ```kotlin
-
 class Button(val text: String, width: Int, height: Int) : View(width, height), OnClickListener {
 
     override fun onClick() {
@@ -413,28 +412,6 @@ class Button(val text: String, width: Int, height: Int) : View(width, height), O
 以上属性 `prop` 实现了 `OnClickListener` 接口的抽象属性。而在 `onClick()` 方法中可以通过 `super<接口或类名>.方法名` 来指定调用的父类方法的具体源头。
 
 
-
-
-### 使用闭包实现接口和抽象类
-
-Groovy 中可以通过定义一个包含需要实现的类或接口的方法的闭包来实现抽象类或接口。
-
-例
-
-```groovy
-def textview = [getDescription: { -> }] as View
-textview.metaClass.getDescription = { -> "This is a TextView." }
-println(textview.getDescription())
-```
-
-以上例子通过定义了一个包含 `getDescription()` 方法闭包来实现抽象类 `View`。
-
-同样该方法也适用于接口
-
-```groovy
-def listener = [onClick: { -> println("Trigger click event.") }] as OnClickListener
-listener.onClick()
-```
 
 
 ## 总结

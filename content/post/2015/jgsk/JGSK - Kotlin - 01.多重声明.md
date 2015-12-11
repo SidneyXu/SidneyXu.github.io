@@ -18,17 +18,17 @@ topics:
 
 多重声明类似 Scala 中的 `unapply`，主要用于对对象进行拆箱。
 
-实现多重声明只要在任意类内部定义了 `componentN()` 方法（N 为任意自然数）即可。
+实现多重声明只要在任意类内部定义了 `componentN()` 方法（N 为任意自然数）即可并加上 `operator` 关键字即可。
 
 <!--more-->
 
 ```kotlin
 class Person(val name: String, val age: Int) {
-    fun component1(): String {
+    operator fun component1(): String {
         return name
     }
 
-    fun component2(): Int {
+    operator fun component2(): Int {
         return age
     }
 }

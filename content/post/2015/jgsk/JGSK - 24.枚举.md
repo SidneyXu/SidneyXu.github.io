@@ -231,13 +231,13 @@ val monday = WeekDay.Monday
 //  通过名字获得枚举
 val monday = WeekDay.valueOf("Monday")
 println(monday)
-println(monday.name
+println(monday.name)
 
 //  调用枚举中的方法
 println(WeekDay.Tuesday.isWorkingDay())
 
 //  获得一个枚举值的索引
-println(monday.ordinal())
+println(monday.ordinal
 
 //  通过索引获得枚举值
 println(WeekDay.values()[0])

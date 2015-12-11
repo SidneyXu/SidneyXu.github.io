@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-10T11:21:38+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - kotlin
 slug: "JGSK-Kotlin-04.this"
@@ -18,6 +18,8 @@ topics:
 
 - 在 Java 中 `this` 通常用于指代当前对象，而在 Kotlin 中由于拥有闭包，扩展等特性，`this` 的指代变得更加复杂。
 - 就像 Java 可以使用 `类名.this` 类指代外部类的对象，Kotlin 中可以使用 ``this@类名` 来达到同样效果。 
+
+<!--more-->
 
 一般来说，Kotlin 中的 `this` 有以下原则
 

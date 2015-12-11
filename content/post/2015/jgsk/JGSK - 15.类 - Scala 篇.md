@@ -22,7 +22,7 @@ topics:
 
 ## 定义一个类
 
-Scala 中也使用关键字 `class` 来定义类，但是类的属性必须明确指明初始值，而不是像 Java 和 Groovy 一样有默认值
+Scala 中也使用关键字 `class` 来定义类，但是类的属性必须明确指明初始值，而不是像 Java 和 Groovy 一样有默认值。
 
 ```scala
 class Person {
@@ -47,7 +47,7 @@ val person = new Person()
 val person = new Person
 ```
 
->Scala 类文件中可以定义多个类
+Scala 类文件中可以定义多个类。
 
 ## Setter 与 Getter
 

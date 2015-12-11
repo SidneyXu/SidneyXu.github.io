@@ -149,10 +149,10 @@ println("x.eq(y): " + x.eq(y)) //  false
 
 ### 相等
 
-和 Groovy，Scala 一样，`==` 也是调用 `equals()`，比较地址使用的是 `identityEquals()`，三种语言这一方法名各不相同也是够了。
+和 Groovy，Scala 一样，`==` 也是调用 `equals()`，比较地址使用的是 `===`（类似 Javascript），三种语言这一方法名各不相同也是够了。
 
 ```kotlin
-println("x.identityEquals(y): " + x.identityEquals(y)) //  false
+println("x===y : " + (x === y)) //  false
 ```
 
 
