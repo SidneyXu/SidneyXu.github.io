@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-11T12:13:45+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
 - groovy
@@ -19,6 +19,7 @@ toc: true
 topics:
 - JGSK
 ---
+
 
 
 ## Java 篇
@@ -101,9 +102,9 @@ public int add(int x, int y) {
 
 ### Lambda 表达式
 
-Lambda 表达式是 Java 1.8 新提供的功能。尽管它有些看起来像闭包，但是 Lambda 表达式并不是闭包，它的功能也比闭包弱很多。Java 1.8 之所以提供 Lambda 表达式是因为原来 Java 繁琐的语法已经跟不上现在的潮流了，而之所以没有把闭包作为 1.8 的功能很可能是为了兼容以前的 Java 程序。
+所谓的 Lambda 表达式其实就是一个匿名函数。Java 中由于不能有独立于类的函数存在，所以匿名函数一直都是通过定义一个包含抽象方法的匿名内部类来实现的。而 Java 1.8 后引入的 Lambda 表达式其实只是原来实现方式的一种语法糖。
 
-Java 1.8 以前的代码
+Java 1.8 以前使用匿名内部类的代码
 
 ``` java
   button.addActionListener(new ActionListener() {
@@ -114,15 +115,19 @@ Java 1.8 以前的代码
 });
 ```
 
-Java 1.8 的代码
+Java 1.8 使用 Lambda 的代码
 
 ``` java
 button.addActionListener(e -> System.out.println("Perform Click"));
 ```
 
-#### 函数接口
+#### SAM 类型与函数接口
 
-Java 中的 Lambda 表达式主要是通过函数接口来实现的。所谓的函数接口就是普通的接口，但是该接口里有且仅有一个方法。实现该接口的具体方法可以被改写成 Lambda 语句。
+SAM （Single Abstract Method）是有且仅有一个抽象方法的类型，该类型可以是抽象类也可以是接口。
+
+函数接口是 Java 1.8 中引入的概念，其实就是一个普通的接口，但是该接口中有且仅有一个抽象方法。所以函数接口就是一种  SAM 类型。
+
+Java 中的 Lambda 表达式就是通过函数接口来实现的，所以其与 1.8 以前使用匿名内部类的最大区别就是匿名内部类中可以定义多个抽象方法，而要使用 Lambda 表达式则只能定义一个抽象方法。
 
 定义一个函数接口
 
@@ -207,7 +212,9 @@ System.out.println(convert.convert(1, 2));  //  1 plus 2 is 3
 
 #### 变参
 
-在 Lambda 表达式中也一样可以使用变参，具体例子如下
+在 Lambda 表达式中也一样可以使用变参
+
+例
 
 定义一个含有变参的接口
 
@@ -230,7 +237,7 @@ contact.accept("Java", "Groovy", "Scala", "Kotlin");
 
 ##### Predicate
 
-Predicate 接口用于接收一个参数并返回 Boolean 值，主要用于处理逻辑动词。该接口还有一个默认方法 `negate()` 用于进行逻辑取反。（Java 1.8 以前接口不能定义默认行为，相关内容会在接口那一章谈到）
+Predicate 接口用于接收一个参数并返回 Boolean 值，主要用于处理逻辑动词。该接口还有一个默认方法 `negate()` 用于进行逻辑取反。
 
 ``` java
 Predicate<String> predicate = (s) -> s.length() > 0;
@@ -304,3 +311,44 @@ int maxValue = max(new int[]{3, 10, 2, 40}, (s) -> {
 });
 assert maxValue == 40;
 ```
+
+
+
+### 闭包
+
+#### 概念
+
+闭包是一种带有自由变量的代码块，其最显著的特性就是能够扩大局部变量的生命周期。
+
+#### 闭包与 Lambda 表达式
+
+闭包与 Lambda 表达式的概念非常容易让人混淆，但两者确实是不同的东西。Lambda 表达式是匿名函数，而闭包则是实现函数是第一类对象的一种手段。两者的直接关系是 Lambda 表达式可以作为闭包的一种表现形式，但闭包除了 Lambda 表达式也可以表现为多种形式，这也就是在各种语言中闭包的写法会有很多差别的原因。
+
+#### 闭包与方法
+
+闭包和方法的最大区别是方法执行完毕后其内部的变量便会被释放，而闭包不会。闭包可以进行嵌套，而方法不行。
+
+#### Java 中的闭包
+
+Java 中和闭包相近的概念就是匿名类以及本章所说的 Lambda 表达式。但是这两种都不是真正意义上的闭包。
+
+先看一个例子
+
+``` java
+interface Excite {
+    String accept(String from);
+}
+private static Excite excite(String s) {
+  Excite e = from -> {
+    from = "from=" + from;
+    return from + "," + s;
+  };
+  return e;
+}
+Excite excite = excite("hello");
+System.out.println(excite.accept("world")); //  from=world,hello
+```
+
+以上例子中 `e` 为 Lambda 表达式，其定义在 `excite()` 方法中并且访问了该方法的参数列表。按照生命周期，`excite()` 的参数 `s` 应该在方法被调用后就自动释放，即 `Excite excite = excite("hello")` 调用后就不存在参数 `hello` 了，但实际打印语句还是打印出来了。
+
+这一表现形式非常像闭包，因为参数明显在其生命周期外还存活。但是如果我们在 Lambda 表达式内试图修改参数 `s` 的值后编译器会报 `s` 必须为 `final` ，这就是说该变量实际并不是自由变量，所以并不是真正的闭包。
