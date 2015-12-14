@@ -8,13 +8,13 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-16-method-lambda-java"
+slug: "JGSK-16-method-lambda-closure-java"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: "JGSK - 16.方法与Lambda 表达式 - Java 篇"
+title: "JGSK - 16.方法 vsLambda 表达式 vs 闭包 - Java 篇"
 toc: true
 topics:
 - JGSK
@@ -29,6 +29,8 @@ topics:
 #### 定义方法
 
 完整的 Java 定义语法为
+
+<!--more-->
 
 ``` 
 [访问控制符] [static] [返回值类型] 方法名(参数列表)
@@ -76,7 +78,7 @@ Calculator calculator = new Calculator();
 calculator.sum(1, 2, 3);
 ```
 
-#### 参数默认值
+#### b
 
 Java 不支持参数默认值，所以调用时必须为每一个参数赋值
 
@@ -140,7 +142,7 @@ interface Excite {
 
 以上使用了注解 `@FunctionalInterface`，在 Java 1.8 的初期版本这个注解用于标示一个接口为函数接口，但在现在的版本已经可以省略这个注解了。
 
-#### 使用 Lamda 表达式
+#### 使用 Lambda 表达式
 
 Lambda 表达式的基本语法为
 
@@ -352,3 +354,7 @@ System.out.println(excite.accept("world")); //  from=world,hello
 以上例子中 `e` 为 Lambda 表达式，其定义在 `excite()` 方法中并且访问了该方法的参数列表。按照生命周期，`excite()` 的参数 `s` 应该在方法被调用后就自动释放，即 `Excite excite = excite("hello")` 调用后就不存在参数 `hello` 了，但实际打印语句还是打印出来了。
 
 这一表现形式非常像闭包，因为参数明显在其生命周期外还存活。但是如果我们在 Lambda 表达式内试图修改参数 `s` 的值后编译器会报 `s` 必须为 `final` ，这就是说该变量实际并不是自由变量，所以并不是真正的闭包。
+
+如果查看 Groovy 的闭包形式你可以发现 Groovy 实际也是通过实现继承自 `Closure` 类的匿名内部类来实现闭包形式的，这一点与 Java 一致。所以理论上 Java 也能实现真正的闭包，至于 1.8 为什么没有这么做就不得而知了。
+
+
