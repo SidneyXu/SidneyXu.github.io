@@ -78,7 +78,7 @@ Calculator calculator = new Calculator();
 calculator.sum(1, 2, 3);
 ```
 
-#### b
+#### 参数默认值
 
 Java 不支持参数默认值，所以调用时必须为每一个参数赋值
 

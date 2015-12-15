@@ -14,7 +14,7 @@ tags:
 - groovy
 - scala
 - kotlin
-title: "JGSK - 16.方法 vsLambda 表达式 vs 闭包 - Groovy 篇"
+title: "JGSK - 16.方法 vs Lambda 表达式 vs 闭包 - Groovy 篇"
 toc: true
 topics:
 - JGSK
