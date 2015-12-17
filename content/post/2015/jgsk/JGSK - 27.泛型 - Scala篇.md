@@ -155,11 +155,3 @@ def foo5(capture: Capture[_ >: Nothing]): Unit = {
 ---
 
 项目源码见 [JGSK/_27_generics](https://github.com/SidneyXu/JGSK)
-
-
-
-
-
-
-
-

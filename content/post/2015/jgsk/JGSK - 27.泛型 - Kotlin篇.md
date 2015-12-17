@@ -132,13 +132,3 @@ fun foo4(list: MutableList<in Num>) {
 ---
 
 项目源码见 [JGSK/_27_generics](https://github.com/SidneyXu/JGSK)
-
-
-
-
-
-
-
-
-
-

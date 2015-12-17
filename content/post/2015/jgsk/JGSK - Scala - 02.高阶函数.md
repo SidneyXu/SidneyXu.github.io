@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-16T01:10:31+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - scala
 slug: "jgsk-scala-02-high-order-function"
@@ -18,9 +18,9 @@ topics:
 
 ## 高阶函数
 
-
-
 ### 函数字面量
+
+<!--more-->
 
 所谓的函数字面量指的将函数本身赋值给一个变量。通过函数字面量，可以使函数本身表现得和普通变量一样。
 
@@ -162,6 +162,54 @@ Scala 中使用符号 `_` 表示暂时不应用的参数，需要注意这些参
 
 
 
+### 偏函数
+
+函数指对于所有给定类型的输入，总是存在特定类型的输出。
+
+偏函数指对于某些给定类型的输入，可能没有对应的输出，即偏函数无法处理给定类型范围内的所有值。
+
+Scala 中偏函数使用 trait `PartialFunction` 表示，该函数是个一元函数，以模式匹配的结果作为函数的最终结果
+
+定义一个偏函数
+
+``` java
+val isEven: PartialFunction[Int, String] = {
+  case x if x != 0 && x % 2 == 0 => x + " is even"
+}
+```
+
+以上偏函数虽然接收 `Int` 类型作为参数，但是只能处理 `Int` 不为 0 或者参数为奇数的情况。
+
+使用偏函数
+
+``` scala
+isEven(20)
+```
+
+偏函数可以通过 `isDefinedAt()` 方法来判断其是否能够处理传入的参数
+
+``` scala
+println(isEven.isDefinedAt(4))  //  true
+println(isEven.isDefinedAt(3))  //  false
+```
+
+当某个偏函数无法处理输入的值后可以通过链式操作将其传递给其它偏函数进行处理
+
+``` scala
+val isOdd: PartialFunction[Int, String] = {
+    case x if x % 2 != 0 => x + " is odd"
+}
+val other: PartialFunction[Int, String] = {
+    case _ => "else"
+}
+val partial = isEven orElse isOdd orElse other
+println(partial(3)) //  3 is odd
+println(partial(0)) //  else
+```
+
+
+
+
 ### 柯里化函数 (Currying Function)与部分应用函数(Partial Applied Function)与偏函数 (Partial Function)
 
 #### 柯里化函数与部分应用函数
@@ -178,5 +226,6 @@ Scala 中使用符号 `_` 表示暂时不应用的参数，需要注意这些参
 
 这两个名词虽然是不同的东西，但是由于英文名和部分应用函数的另一个名字（偏函数应用）非常相似所以不注意也容易搞混。
 
-部分应用函数上一节已经讲过了。
+部分应用函数是固定多参数函数的部分参数得到一个新函数。
 
+偏函数则表示算式无法处理传入的参数类型的某些特定值。
