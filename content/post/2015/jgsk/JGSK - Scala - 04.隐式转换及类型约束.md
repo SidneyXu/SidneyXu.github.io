@@ -5,10 +5,10 @@ description: ""
 draft: true
 keywords:
 - scala
-slug: "jgsk-scala-03-implict"
+slug: "jgsk-scala-04-implict"
 tags:
 - scala
-title: JGSK - Scala - 03.隐式转换及类型约束
+title: JGSK - Scala - 04.隐式转换及类型约束
 toc: true
 topics:
 - JGSK
@@ -287,5 +287,3 @@ persons.foreach { p => println(p.name) }
 ```
 
 以上的例子即表示对于类型 `Person` 来说，必须存在一个隐式转换能够将 `Person` 转换为 `ArrayBuffer[Person]`。
-
-
