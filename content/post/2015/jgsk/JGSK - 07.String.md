@@ -75,6 +75,22 @@ System.out.println(s.charAt(2));    //  l
 System.out.println(s.substring(6, 9));  //  Wor
 ```
 
+
+### StringBuilder
+
+由于 Java 中字符串是不可变的，所以直接连接字符串会创建大量对象。因此 Java 提供了非同步版本的 `StringBuilder` 和同步的 `StringBuffer` 来用于创建字符串池。
+
+```java
+StringBuilder content = new StringBuilder();
+content.append("hello");
+content.append(",");
+content.append("\nworld");
+content.append("!").append("!");
+System.out.println(content);
+```
+
+需要注意不要使用 `append("foo" + "bar")` 这样的形式而是使用 `append("foo").append("bar")`，前者完全丧失了 `StringBuffer` 的功能。
+
 ## Groovy 篇
 
 ### 声明字面量
@@ -130,6 +146,18 @@ println(s[6..<9])   //  Wor
 
 //  返回从字符串中减去某一部分的新字符串
 println(s - "l" - "World")  //  Helo
+```
+
+### StringBuilder
+
+Groovy 可以使用 `<<` 进行追加。
+
+```groovy
+def content = new StringBuilder()
+content.append "hello"
+content << ","
+content << "\nworld"
+content << "!" << "!"
 ```
 
 
@@ -193,6 +221,20 @@ println(s.charAt(2))  //  l
 println(s.substring(6,9)) //  Wor
 ```
 
+### StringBuilder
+
+Scala 中除了 `append()` 方法也可以用重载的操作符进行修改。
+
+```scala
+val content = new StringBuilder
+ content append "hello"
+ content += ','
+ content ++= "\nworld"
+ content ++= "!" ++= "!"
+```
+
+`+=` 用于添加字符，由于 Scala 中将字符串视为字符的集合所以可以用 `++=` 添加字符串。
+
 ## Kotlin 篇
 
 ### 声明字面量
@@ -228,6 +270,19 @@ println(str)    //  name=Peter, 5
 
 Kotlin 模板基于与 Groovy 一致。
 
+### StringBuilder
+
+Kotlin 中可以直接使用 Lambda 表达式来生成可变字符串。
+
+```kotlin
+val content = buildString {
+    append("hello")
+    appendln(',') // 添加换行
+    append("world")
+    append("!", "!") // 添加多参数
+}
+```
+
 ### 常用方法
 
 ```kotlin
@@ -247,5 +302,3 @@ println(s.substring(5, 8))
 ---
 
 项目源码见 [JGSK/_07_string](https://github.com/SidneyXu/JGSK)
-
-

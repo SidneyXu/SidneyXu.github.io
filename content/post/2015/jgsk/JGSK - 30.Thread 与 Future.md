@@ -167,7 +167,7 @@ CompletableFuture<String> safe2 = thirdFuture.handleAsync((s, throwable) -> {
 
 ## Groovy
 
-与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的新增特性，所以一些代码写起来会比 Java 麻烦。 
+与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的新增特性，所以一些代码写起来会比 Java 麻烦。
 
 ## Scala
 
@@ -365,7 +365,7 @@ val f1 = Future {
   1
 }
 val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
-println(result) 
+println(result)
 ```
 
 ### Promise
@@ -438,14 +438,25 @@ Kotlin 基本就是直接调用 Java 代码，但是由于 Kotlin 对部分方�
 
 ### Thread
 
-定义一个简单的线程
+定义一个简单自动启动的线程
 
 ```kotlin
-thread() {
+thread {
     println("async")
 }
 println("sync")
 ```
+
+Kotlin 可以直接使用 Lambda 表达式生成 Thread，在创建时也可以像以下方法一样传入默认参数。
+
+```kotlin
+thread(start = false,
+        daemon = true,
+        name = "t1") {
+    println("running")
+}.start()
+```
+
 
 ### Thread Pool
 

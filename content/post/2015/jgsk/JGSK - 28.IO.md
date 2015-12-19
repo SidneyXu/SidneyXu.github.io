@@ -189,42 +189,17 @@ source.close()
 
 ### 写入操作
 
-Kotlin 也没有提供自动关闭资源的实现，而且今后估计也不会提供，具体相关讨论见[Kotlin needs try-with-resources](https://devnet.jetbrains.com/message/5547628)。
-
 ```kotlin
 var fos = source.outputStream();
 fos.write("hello kotlin".toByteArray())
 fos.close()
 ```
 
-使用以上网址的建议构建支持自动关闭资源的实现
+Kotlin 目前也支持了自动关闭资源的功能，所以以上代码可以改为以下形式。
 
 ```kotlin
-class ResourceHolder : AutoCloseable {
-    val resources = arrayListOf<AutoCloseable>()
-
-    fun <T : AutoCloseable> T.autoClose(): T {
-        resources.add(this)
-        return this
-    }
-
-    override fun close() {
-        resources.reversed().forEach { it.close() }
-    }
-}
-
-fun <R> using(block: ResourceHolder.() -> R): R {
-    val holder = ResourceHolder()
-    try {
-        return holder.block()
-    } finally {
-        holder.close()
-    }
-}
-
-using {
-    fos = source.outputStream().autoClose()
-    fos.write("hello kotlin".toByteArray())
+source.outputStream().use {
+    it.write("hello kotlin".toByteArray())
 }
 ```
 
@@ -251,7 +226,7 @@ println(contents)
 
 ## 总结
 
-- Java 和 Groovy 支持自动关闭资源，Scala 和 Kotlin 需要自己编写闭包来实现此功能
+- Java, Groovy 和 Kotlin 支持自动关闭资源，Scala 需要自己编写闭包来实现此功能
 - 其它三种语言事实上都是通过 Java API 进行读写操作的
 
 
