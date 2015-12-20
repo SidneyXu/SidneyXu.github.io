@@ -301,7 +301,7 @@ val t3 = (1, "abc", List(10, 20, 30), Map("name" -> "Peter", "age" -> 12))
 
 获取数据
 
-元组访问时使用属性 `_n` 
+元组访问时使用属性 `_n`
 
 ```scala
 println(t3._1)
@@ -403,9 +403,21 @@ for ((k, v) in mutableMap) {
 ```
 
 
-### 元组
+### 元组, Pair 和 Triple
 
-Kotlin 曾经支持元组，不过后来整个功能都被溢移除了，因为 Kotlin 开发团队认为 Tuple 的作用并不大，具体讨论可以见 [Dropping tuples](http://kotlin-developers.1258.x6.nabble.com/Dropping-tuples-td4999859.html) 和 [Migrating Tuples](http://blog.jetbrains.com/kotlin/migrating-tuples/)。
+Kotlin 曾经支持 过元组，不过后来整个功能都被移除了，因为 Kotlin 开发团队认为 Tuple 的作用并不大，具体讨论可以见 [Dropping tuples](http://kotlin-developers.1258.x6.nabble.com/Dropping-tuples-td4999859.html) 和 [Migrating Tuples](http://blog.jetbrains.com/kotlin/migrating-tuples/)。
+
+替代的可以使用可以包含两个参数的 Pair 或三个参数的 Triple 来实现类似的功能。
+
+```kotlin
+//  Pair
+val pair = Pair(1, "abc")
+println(pair.first)
+
+//  Triple
+val triple = Triple(1, "abc", 2)
+println(triple.second)
+```
 
 
 ## 总结
@@ -418,4 +430,3 @@ Kotlin 曾经支持元组，不过后来整个功能都被溢移除了，因为 
 ---
 
 项目源码见 [JGSK/_14_map](https://github.com/SidneyXu/JGSK)
-
