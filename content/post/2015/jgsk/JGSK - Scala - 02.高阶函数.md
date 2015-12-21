@@ -66,7 +66,7 @@ println(multi(3, 4)) //  12
 
 定义一个参数为函数类型的函数
 
-``` groovy
+``` scala
 def add10(f: (Int) => Int) = f(10)
 ```
 
@@ -74,13 +74,13 @@ def add10(f: (Int) => Int) = f(10)
 
 调用以上方法
 
-``` groovy
+``` scala
 add10({ i => i + 2 })	//	12
 ```
 
 以上代码可以简写成以下形式，省略掉参数外的括号
 
-``` groovy
+``` scala
 add10({ i => i + 2 })	//	12
 ```
 
@@ -94,7 +94,7 @@ add10(_ + 2)
 
 #### 函数作为返回值
 
-``` groovy
+``` scala
 def scale(factor: Double) = (x: Double) => x * factor
 ```
 
@@ -142,13 +142,13 @@ minusCurr(5)(3)
 
 定义一个多参数的函数
 
-``` groovy
+``` scala
 def show(prefix: String, msg: String, postfix: String) = prefix + msg + postfix
 ```
 
 部分应用
 
-``` groovy
+``` scala
 val applyPrefix = show("(", _: String, _: String)
 println(applyPrefix("foo", ")")) //  (foo)
 
@@ -208,7 +208,57 @@ println(partial(0)) //  else
 ```
 
 
+### 按名称传递
 
+定义这样一个函数
+
+```scala
+def assert(predicate: () => Boolean) =
+   if (assertionsEnabled && !predicate())
+     println("assert failed")
+```
+
+该函数需要以以下方式使用
+
+```scala
+assert(() => 1 == 2)
+```
+
+按名称传递时省略定义时的 `()`
+
+```scala
+def byNameAssert(predicate: => Boolean) =
+    if (assertionsEnabled && !predicate)
+      println("assert failed")
+```
+
+调用时
+
+```scala
+byNameAssert(1 == 2)
+```
+
+相比较而言，按名称传递看起来就像直接传入参数一样，但实质是传入一个函数。
+
+和普通的按值传递的区别
+
+```scala
+var assertionsEnabled = false
+def booleanAssert(predicate: Boolean) =
+    if (assertionsEnabled && !predicate)
+      println("assert failed")
+```
+
+以下第一行不会报错，第二行会直接奔溃
+
+```scala
+byNameAssert(1 / 0 == 0)
+booleanAssert(1 / 0 == 0)
+```
+
+### 控制抽象
+
+以上高级函数，柯理化，按名称传递等在 Scala 中都属于控制抽象的实现方式。个人觉得这名字很拗口，只要知道就行了。
 
 ### 柯里化函数 (Currying Function)与部分应用函数(Partial Applied Function)与偏函数 (Partial Function)
 

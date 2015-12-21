@@ -231,7 +231,7 @@ for (i <- list if i != 2; if i > 1) {
 
 #### Yield
 
-`yield` 用于从 `for` 循环抽取所有符合特定条件的值。
+`yield` 用于从 `for` 循环抽取所有符合特定条件的值，这种 `for` 循环被称作为 for 推导式。
 
 ``` scala
 val list = List(1, 2, 3)

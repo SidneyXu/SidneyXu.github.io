@@ -100,6 +100,8 @@ println("Hello 2, ${a.lazyField}")
 
 ## Scala
 
+### lazy
+
 Scala 中通过 `lazy` 关键字来实现惰性加载的功能。
 
 ```scala
@@ -130,6 +132,42 @@ println(s"Hello 2, ${a.fooField}")
 println(s"Hello 1, ${a.lazyField}")
 println(s"Hello 2, ${a.lazyField}")
 ```
+
+### var, val, lazy val, def 的区别
+
+`var`, `val`, `lazy val`, `def` 这四个在有些时候用法看起来有些相似，很容易让人搞混。接下来通过一个例子来进行区分：
+
+例
+
+```scala
+class A {
+  var max = 100
+  def init(m: Int) = max = m
+  val valValue = Random.nextInt(max)
+  var varValue = Random.nextInt(max)
+  lazy val lazyValValue = Random.nextInt(max)
+  def defValue = Random.nextInt(max)
+}
+
+val a = new A()
+a.init(1000000)
+println(s"val=${a.valValue}") //  96
+println(s"var=${a.varValue}") //  9
+println(s"lazy val=${a.lazyValValue}") //  117261
+println(s"def=${a.defValue}") //  798062
+
+println(s"val=${a.valValue}") //  96
+println(s"var=${a.varValue}") //  9
+println(s"lazy val=${a.lazyValValue}") //  117261
+println(s"def=${a.defValue}") //  937263
+```
+
+从以上的例子中可以知道这四个有以下的区别
+
+- `var` 定义变量，在类初始化时的同时被初始化，除非被手动赋值，再次访问时会直接使用之前的值
+- `val` 定义值（常量），在类初始化时的同时被初始化，无法被修改，再次访问时会直接使用之前的值
+- `lazy val` 定义惰性加载值，在第一次使用被初始化，无法被修改，再次访问时会直接使用之前的值
+- `def` 定义函数，单行时看起来很像定义变量，但是访问时实际是调用函数，所以多次调用时值会重新计算
 
 ## Kotlin
 
