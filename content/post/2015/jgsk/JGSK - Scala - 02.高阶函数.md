@@ -38,6 +38,17 @@ val sum2: (Int, Int) => Int = (x, y) => x + y
 
 以上函数的返回值类型为 `(Int, Int) => Int`，表示函数有两个整型的输入和一个整型的返回值，所以定义参数 `x` 和 `y` 时可以省略参数类型。
 
+Scala 中实现函数字面量的方法比较特别，是通过一个名为 `FunctionN` (n 为 0 到 22 的整数)的特质的 `apply()` 来实现的。其中 `Functon0` 代表没有参数，`Function1` 代表 1 个参数，以此类推。
+
+所以以上 `sum2` 实质上是
+
+```scala
+val sum2: Function2[Int, Int, Int] = new Function2[Int, Int, Int] {
+  override def apply(x: Int, y: Int): Int = x + y
+}
+```
+
+
 Scala 还有一个强大的特性就是可以通过符号 `_` 获得一个已经定义好的方法的函数字面量。
 
 在类中定义一个方法
