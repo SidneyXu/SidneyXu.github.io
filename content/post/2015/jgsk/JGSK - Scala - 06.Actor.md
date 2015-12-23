@@ -139,13 +139,14 @@ val echoServers = (1 to 10).map(x =>
 implicit val executionContext = system.dispatchers.lookup("my-dispatcher")
 ``` 
 
+### Actor 间通信
 
-### 
+todo
 
 
-### 同步返回
+### 同步返回结果
 
-Actor 非常适合于较耗时的操作。比如获取网络资源。
+Actor 可以同步获得执行结果。要等待消息的处理完成只需要在创建 Actor 后使用 `ask()` 代替 `!` 发送消息就可以了。
 
 ```scala
 import akka.actor.ActorDSL._
@@ -173,11 +174,9 @@ system.shutdown
 
 `Future` 像 `Option` 一样有很多高阶方法，可以使用 `foreach` 查看结果。
 
-### 异步返回
+### 异步返回结果
 
-异步操作可以最大发挥效能。Scala 的 `Futrue` 很强大，可以异步返回。
-
-可以实现 `Futrue` 的 `onComplete` 方法。当 `Futrue` 结束的时候就会回调。
+异步操作可以提供程序的运行效率。Scala 中可以通过实习 Actor 返回的 `Futrue` 实例的 `onComplete` 等方法来实现。
 
 ```scala
 import akka.actor.ActorDSL._
