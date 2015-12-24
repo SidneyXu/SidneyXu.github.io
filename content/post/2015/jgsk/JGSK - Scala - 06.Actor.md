@@ -141,12 +141,31 @@ implicit val executionContext = system.dispatchers.lookup("my-dispatcher")
 
 ### Actor 间通信
 
-todo
+Actor 间使用样本类可以发送更丰富的消息内容也能够轻易完成 Actor 间的通信。
+
+定义作为消息的样本类，最后一个参数为发送消息的 Actor 的引用
+
+```scala
+case class Message[T <: ActorRef](content: String, sender: T)
+```
+
+使用该 Actor
+
+```scala
+implicit val system = ActorSystem()
+val pingActor = actor(new Act {
+  become {
+    case Message(msg: String, sender: ActorRef) =>
+      println(s"$msg pang")
+  }
+})
+pingActor ! Message("ping", pingActor)
+```
 
 
-### 同步返回结果
+### 获得处理结果
 
-Actor 可以同步获得执行结果。要等待消息的处理完成只需要在创建 Actor 后使用 `ask()` 代替 `!` 发送消息就可以了。
+Actor 发送消息后可以获得处理该消息的 Actor 的处理结果。要实现这功能，只需要使用 `ask()` 代替 `!` 发送消息就可以获得用于获得结果的 `Future` 对象。
 
 ```scala
 import akka.actor.ActorDSL._
@@ -164,62 +183,31 @@ val fromURL = actor(new Act {
   }
 })
 
-val version = fromURL.ask(versionUrl)(akka.util.Timeout(5 * 1000))
-version.foreach(println _)
-
-system.shutdown
+val versionFuture = fromURL.ask(versionUrl)(akka.util.Timeout(5, TimeUnit.SECONDS))
 ```
 
 这个例子通过调用 `ask` 函数来获取一个 `Future`。`ask` 内部也是用 `!` 来传递消息，但是其可以同时设置超时时间。
 
-`Future` 像 `Option` 一样有很多高阶方法，可以使用 `foreach` 查看结果。
+通过调用 `Future` 的不同方法可以实现同步和异步操作：
 
-### 异步返回结果
-
-异步操作可以提供程序的运行效率。Scala 中可以通过实习 Actor 返回的 `Futrue` 实例的 `onComplete` 等方法来实现。
+获得同步结果
 
 ```scala
-import akka.actor.ActorDSL._
-import akka.pattern.ask
+versionFuture.foreach(println)
+```
 
-implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
-implicit val system = akka.actor.ActorSystem()
+获得异步结果
 
-val versionUrl = "https://github.com/SidneyXu"
-
-val fromURL = actor(new Act {
-  become {
-    case url: String => sender ! scala.io.Source.fromURL(url)
-      .getLines().mkString("\n")
-  }
-})
-
-val version = fromURL.ask(versionUrl)(akka.util.Timeout(5 * 1000))
-version onComplete {
-  case msg => println(msg); system.shutdown
+```scala
+versionFuture onComplete {
+  case msg => println(msg)
 }
 ```
 
-### 并行集合
-
-```scala
-val urls = List("http://scala-lang.org",
-  "https://github.com/SidneyXu")
-
-def fromURL(url: String) = scala.io.Source.fromURL(url)
-  .getLines().mkString("\n")
-
-val t = System.currentTimeMillis()
-urls.map(fromURL(_))
-println("time: " + (System.currentTimeMillis - t) + "ms")
-```
-
-这个例子是访问若干 URL，并记录时间。如果能并行访问，就可以大幅提高性能。
-
-尝试将 `urls.map` 修改为 `urls.par.map`，这样每个 map 中的函数都可以并发执行。
-
 
 ### 远程 Actor
+
+Actor 可以进行远程调用，实现 RMI 的功能。
 
 **服务端**
 
@@ -243,7 +231,7 @@ object RemoteServer extends App {
 
 application.conf
 
-```javascript
+```json
 akka {
   actor {
     provider = "akka.remote.RemoteActorRefProvider"
@@ -280,7 +268,7 @@ object Client extends App {
 
 client.conf
 
-```javascript
+```json
 akka {
   actor {
     provider = "akka.remote.RemoteActorRefProvider"
