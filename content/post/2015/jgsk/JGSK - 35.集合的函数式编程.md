@@ -43,7 +43,7 @@ Stream.of(numbers1);
 
 ### Map 操作
 
-Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。
+Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。
 
 ```java
 Stream<Integer> mapResult = numbers1.stream().map(x -> x * x);
@@ -149,7 +149,8 @@ numbers1.each { println(it) }
 
 ### Map 操作
 
-Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。
+Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。
+
 
 ```scala
 val numbers1 = List(1, 2, 3, 4, 5, 6)	
@@ -294,7 +295,8 @@ println(parallelResult)
 
 ### Map 操作
 
-Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。
+Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。
+
 
 ```kotlin
 val numbers1 = listOf(1, 2, 3, 4, 5, 6)
