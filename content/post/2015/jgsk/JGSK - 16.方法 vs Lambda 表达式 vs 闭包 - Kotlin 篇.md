@@ -89,6 +89,21 @@ fun add(x: Int, y: Int): Int {
 }
 ```
 
+#### 方法嵌套
+
+Kotlin 支持方法嵌套，即一个方法可以定义在另一个方法中，且内层方法可以访问外层方法的成员。
+
+```kotlin
+fun testMethod() {
+    var x = 1
+    fun add(y: Int): Int {
+        return x + y
+    }
+    println(add(100))
+}
+```
+
+
 ### Lambda 表达式
 
 同 Scala 一样，闭包和 Lambda 也合在一节讲。

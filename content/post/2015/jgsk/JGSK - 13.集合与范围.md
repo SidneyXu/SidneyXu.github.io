@@ -76,6 +76,14 @@ for (int a : arr2) {
 }
 ```
 
+打印数组
+
+默认 `toString()` 只会打印出数组的地址，要想打印数组的内容需要使用工具类 `Arrays`。
+
+```java
+System.out.println(Arrays.toString(arr2));
+```
+
 ### 集合
 
 #### List
@@ -444,9 +452,18 @@ for (a <- arr2) {
 }
 ```
 
+打印数组
+
+默认 `toString()` 只会打印出数组的地址，要想打印数组的内容需要使用 `mkString()`。
+
+```scala
+println(arr2.mkString(","))
+```
+
+
 #### ArrayBuffer
 
-ArrayBuffer 在 Scala 中属于变长数组，相比较数组而言其最大的缺点就是删除元素时的效率较低。
+ArrayBuffer 在 Scala 中属于变长数组，相比较数组而言其最大的缺点就是删除元素时的效率较低，使用时相当于 Java 的 ArrayList。
 
 定义 ArrayBuffer
 

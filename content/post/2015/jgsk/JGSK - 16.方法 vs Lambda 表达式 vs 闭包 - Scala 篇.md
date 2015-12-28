@@ -122,6 +122,20 @@ def echo(): Unit = {}
 def echo() = {}
 ```
 
+#### 方法嵌套
+
+Scala 支持方法嵌套，即一个方法可以定义在另一个方法中，且内层方法可以访问外层方法的成员。
+
+```scala
+def testMethod(): Unit = {
+  var x = 1
+  def add(y: Int): Int = {
+    x + y
+  }
+  println(add(100))
+}
+```
+
 ### Lambda 表达式
 
 同 Groovy 一样，闭包和 Lambda 也合在一节讲。

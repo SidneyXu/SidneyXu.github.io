@@ -68,6 +68,28 @@ do {
 } while (i < arr.length);
 ```
 
+### Continue 和 Break
+
+Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。
+
+Continue 
+
+```java
+for (int i : Arrays.asList(1, 2, 3, 4, 5)) {
+    if (i == 3) continue;
+    System.out.println("Continue " + i);    //  1 2 4 5
+}
+```
+
+Break
+
+```java
+for (int i : Arrays.asList(1, 2, 3, 4, 5)) {
+    if (i == 3) break;
+    System.out.println("Break " + i);   //  1 2
+}
+```
+
 
 
 ## Groovy 篇
@@ -127,6 +149,30 @@ for (a in 0..<3) {
   println "Repeat Range ${a}"
 }
 ```
+
+### Continue 和 Break
+
+Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。
+
+Continue 
+
+```groovy
+for (i in 1..5) {
+    if (i == 3) continue
+    println("Continue $i")
+}
+```
+
+Break
+
+```groovy
+for (i in 1..5) {
+    if (i == 3) break
+    println("Break $i")
+}
+```
+
+
 
 ## Scala 篇
 
@@ -243,6 +289,40 @@ println(s"Repeat with Yield $ret")
 
 以上返回结果 `ret` 为一个 `List` 对象，其内容为所有符合循环条件的 `i` 的值，即 `1, 2, 4, 5`。
 
+### Continue 和 Break
+
+Scala 和其它语言不同，其并没有提供 `break` 和 `continue` 作为关键字。直到 Scala 2.8 以前都必须手动实现这些功能，Scala 2.8 以后引入了 `Breaks` 工具类可以完成 Continue 和 Break 的功能。
+
+`Breaks` 拥有两个方法：`breakable()` 用于定义控制的语句块，`break()` 用于从 `breakable()` 定义的语句块中跳出。
+
+Continue 
+
+循环体内的 `breakable` 实现了 Continue 的功能
+
+```scala
+for (i <- 1 to 5) {
+  Breaks.breakable {
+    if (i == 3) Breaks.break()
+    println("Continue " + i)
+  }
+}
+```
+
+Break
+
+包裹循环体的 `breakable` 实现了 Break 的功能
+
+```scala
+Breaks.breakable {
+  for (i <- 1 to 5) {
+    if (i == 3) Breaks.break()
+    println("Break " + i)
+  }
+}
+```
+
+
+
 ## Kotlin 篇
 
 ### For
@@ -303,11 +383,31 @@ for (a in 0..5 step 2)
   println("Repeat Range with Step $a")
 ```
 
-## 共通篇
 
-### break 与  continue
+### Continue 和 Break
 
-`break` 与 `continue` 用于在循环中进行程序流程的控制，除了 Scala 外其它语言都支持这两种关键字。
+Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。
+
+Continue 
+
+```kotlin
+for (i in 1..5) {
+    if (i == 3) continue
+    println("Continue $i")
+}
+```
+
+Break
+
+```kotlin
+for (i in 1..5) {
+    if (i == 3) break
+    println("Break $i")
+}
+```
+
+
+
 
 ## 总结
 
@@ -315,7 +415,7 @@ for (a in 0..5 step 2)
 - Groovy 不支持 `do-while` 语句
 - 除了 Java 之外，其它语言都支持基于 Range 的增强型 `for` 循环
 - Scala 的 `for` 循环功能最强大
-- 除了 Scala 之外，其它语言都支持 `break` 和 `continue`
+- 除了 Scala 之外，其它语言都支持 `break` 和 `continue`，Scala 则必须使用 `Breaks` 工具类
 
 
 ---
