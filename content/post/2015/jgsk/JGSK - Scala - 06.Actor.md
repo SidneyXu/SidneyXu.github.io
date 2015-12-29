@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-18T00:29:31+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - scala
 slug: "jgsk-scala-06-actor"
@@ -20,6 +20,8 @@ topics:
 ### 概念
 
 Actor 是 Scala 的并发模型。在 2.10 之后的版本中，Scala 抛弃了自身的 Actor 而是使用了 `Akka` 作为其推荐的 `Actor` 实现。
+
+<!--more-->
 
 ### 使用 Actor 
 

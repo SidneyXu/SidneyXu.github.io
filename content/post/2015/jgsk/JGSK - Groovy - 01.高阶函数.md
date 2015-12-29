@@ -69,8 +69,18 @@ def scale(factor) {
 
 ### 柯里化
 
-柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。很可惜，由于 Groovy 本身只是对 Java 做了一层分装，并不是真正支持函数式编程的语言，所以不支持柯里化技术。
+柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。Groovy 没有柯里化的语法糖，所以必须自己实现层层嵌套的比较丑陋的语法结构。
 
+```groovy
+def show2(String prefix) {
+    return { String msg ->
+        return { String postfix ->
+            return prefix + msg + postfix
+        }
+    }
+}
+show2("(")("foobar")(")"
+```
 
 
 ### 函数的部分应用
