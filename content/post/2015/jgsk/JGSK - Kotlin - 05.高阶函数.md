@@ -2,10 +2,10 @@
 comments: true
 date: 2015-12-29T12:22:04+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - kotlin
-slug: "jgsk-kotlin=05-high-order-function"
+slug: "jgsk-kotlin-05-high-order-function"
 tags:
 - kotlin
 title: "JGSK - Kotlin - 05.高阶函数"
