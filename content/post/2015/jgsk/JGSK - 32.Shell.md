@@ -87,6 +87,13 @@ try {
 
 相比较直接执行命令而言，只是 `runtime.exec()` 这个方法的参数有了变化。
 
+### 从控制台读取输入
+
+```java
+Scanner scanner = new Scanner(System.in);
+System.out.println(scanner.nextLine());
+```
+
 ## Groovy
 
 ### 执行 Shell 命令
@@ -117,6 +124,13 @@ if (exitValue != 0) {
     return
 }
 println "${p3.text}"
+```
+
+### 从控制台读取输入
+
+```groovy
+def scanner = new Scanner(System.in)
+println(scanner.nextLine())
 ```
 
 
@@ -155,6 +169,12 @@ Scala 进行 Pipe 操作非常接近实际在 Shell 中执行的命令，只是�
 "ls -al .." #>> new File("shell.txt") !
 ```
 
+### 从控制台读取输入
+
+```scala
+println(StdIn.readLine())
+```
+
 
 ## Kotlin
 
@@ -175,6 +195,13 @@ process.inputStream.bufferedReader().lines().forEach {
     println(it)
 }
 ```
+
+### 从控制台读取输入
+
+```kotlin
+println(readLine())
+```
+
 
 ## 总结
 
