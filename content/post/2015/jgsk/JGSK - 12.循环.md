@@ -343,7 +343,7 @@ for (i in arr.indices) {
 }
 ```
 
-#### While
+### While
 
 `while` 语句的用法也与 Scala 相似.
 
@@ -360,7 +360,7 @@ do {
 } while (i < 5)
 ```
 
-#### Range
+### Range
 
 Kotlin 的增强型 `for` 也基于 `Range` 对象。
 
@@ -381,6 +381,16 @@ for (a in 3 downTo 0)
 ``` kotlin
 for (a in 0..5 step 2)
   println("Repeat Range with Step $a")
+```
+
+### Repeat
+
+在 Kotlin 中还可以通过 `repeat` 操作来实现重复指定次数的操作。
+
+```kotlin
+repeat(3) {
+    println("Repeat $it times")
+}
 ```
 
 
