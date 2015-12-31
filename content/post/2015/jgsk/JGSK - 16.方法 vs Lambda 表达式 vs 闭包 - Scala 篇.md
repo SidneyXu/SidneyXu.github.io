@@ -86,6 +86,14 @@ val calculator = new Calculator
 calculator.sum(1, 2, 3)
 ```
 
+#### _*
+
+如果希望将一个 Sequence 作为参数传入上一节的 `sum()` 方法的话编辑器会报参数不匹配。此时可以使用 `_*` 操作符，`_*` 可以将一个 Sequence 展开为多个参数进行传递。
+
+```scala
+calculator.sum(1 to 3: _*)
+```
+
 #### 参数默认值
 
 Scala 同 Groovy 一样支持参数默认值，但是一旦使用参数默认值时，参数列表的最后一个或最后几个参数都必须有默认值。

@@ -263,7 +263,7 @@ def limitViewOld[A <% Person](a: Person) {}
 
 #### 上下文边界
 
-上下文边界用于限定对于类型 `[A: Bound]` 来说，必须存在一个隐式转换可以使类型 `[A: Bound]` 变为类型 `Bound[A]`。上下文边界实际是 `def f[A](a: A)(implicit ev: Bound[A])` 的语法糖。
+上下文边界用于限定对于类型 `[A: Bound]` 来说，必须存在一个隐式值 `Bound[A]`。上下文边界实际是 `def f[A](a: A)(implicit ev: Bound[A])` 的语法糖。
 
 例
 
