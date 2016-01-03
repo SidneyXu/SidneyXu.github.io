@@ -245,11 +245,15 @@ abstract class View(val width: Int, val height: Int) {
 ，而 `toString` 则重写了普通方法，所以必须加 `override`。
 
 ```scala
-class Button(val text: String, override val width: Int, override val height: Int) extends View(width, height) {
+class Button(val text: String, width: Int, override val height: Int) extends View(width, height) {
   def getDescription(): String = text
   override def toString: String = getDescription()
 }
 ```
+
+注意
+
+子类继承父类时，子类构造方法中定义的参数如果和父类相同无需添加 `val` 或 `var` 修饰符（上述例子中的 `width`），否则的话相当于覆盖(上述例子中的 `height`)。
 
 ### 接口
 
