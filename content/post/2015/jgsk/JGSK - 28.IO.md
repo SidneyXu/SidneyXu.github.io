@@ -168,7 +168,7 @@ try {
 
 ```scala
 var source = Source.fromFile(file)
-    val lineIterator = source.getLines()
+val lineIterator = source.getLines()
 for (l <- lineIterator) {
   println(l)
 }

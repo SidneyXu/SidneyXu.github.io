@@ -256,6 +256,7 @@ topics:
 ---
 
 项目源码见 [JGSK](https://github.com/SidneyXu/JGSK)
+完整 [Pom.xml](https://github.com/SidneyXu/JGSK/blob/master/pom.xml)
 
 [01]:   http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/new_project.png
 [02]:   http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/create_maven_01.png
