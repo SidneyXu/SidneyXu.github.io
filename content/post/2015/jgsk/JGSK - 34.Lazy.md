@@ -8,13 +8,13 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-50-lazy"
+slug: "JGSK-34-lazy"
 tags:
 - java
 - groovy
 - scala
 - kotlin
-title: JGSK - 50.Lazy
+title: JGSK - 34.Lazy
 toc: true
 topics:
 - JGSK

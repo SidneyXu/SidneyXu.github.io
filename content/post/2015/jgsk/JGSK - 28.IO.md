@@ -14,7 +14,7 @@ tags:
 - groovy
 - scala
 - kotlin
-title: JGSK - 28.IO.
+title: JGSK - 28.IO
 toc: true
 topics:
 - JGSK

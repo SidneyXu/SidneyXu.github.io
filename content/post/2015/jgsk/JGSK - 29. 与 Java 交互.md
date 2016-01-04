@@ -8,7 +8,7 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: "JGSK-29-与 Java 交互"
+slug: "JGSK-29-with-Java"
 tags:
 - java
 - groovy
