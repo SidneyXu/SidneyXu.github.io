@@ -17,7 +17,7 @@ tags:
 title: "JGSK - 18.类相关:Data类 - Kotlin 篇"
 toc: true
 topics:
-- Dev
+- JGSK
 ---
 
 ## Data Class
