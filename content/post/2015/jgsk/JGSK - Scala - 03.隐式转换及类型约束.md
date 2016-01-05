@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-17T07:28:35+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - scala
 slug: "jgsk-scala-03-implict"
@@ -22,6 +22,8 @@ topics:
 #### 隐式转换
 
 隐式转换是通过在指定的上下文环境中定义一个类型转换的函数来在必要时完成变量的自动类型转换。和子类到父类的自动类型转换不同，隐式转换是通过函数来实现的，所以原类型和目标类型可以没有任何关系。
+
+<!--more-->
 
 Scala 中定义一个隐式转换函数只要在普通函数前加上关键字 `implicit` 就可以了。
 

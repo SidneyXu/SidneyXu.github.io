@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-09T10:43:05+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - scala
 slug: "JGSK-Scala-01.apply"
@@ -19,6 +19,9 @@ topics:
 ### apply
 
 `apply` 是 Scala 中的特殊方法。当代码中使用了 `f(arg1,arg2...)` 这样形式的语句，如果 `f` 不是函数或方法时，则 Scala 会自动调用 `f.apply(arg1,arg2...)`。且当 `f` 为 class 时调用的是 object 的 `apply()` 方法，`f` 为 object 时调用的是 class 的 `apply()` 方法。
+
+<!--more-->
+
 
 在 class 和 object 各自定义一个 `apply()` 方法
 

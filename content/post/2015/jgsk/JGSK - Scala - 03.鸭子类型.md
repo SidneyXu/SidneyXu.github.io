@@ -2,7 +2,7 @@
 comments: true
 date: 2015-12-18T00:31:35+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - scala
 slug: "jgsk-scala-03-duck-type"
@@ -17,6 +17,8 @@ topics:
 ## 鸭子类型
 
 Scala 中的鸭子类型其实就是结构类型。通过使用鸭子类型可以限定方法的参数只需要包含某种结构就行，而无需像 Java 一样为所有能传入方法的类型定义一个统一的父类。
+
+<!--more-->
 
 定义一个包含鸭子类型作为参数的方法
 
