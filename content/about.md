@@ -13,4 +13,4 @@ I am Sidney Xu, a web and mobile developer lived in Shanghai.
 
 I program mainly with Java, JavaScript, PHP, Groovy and Scala. These days I'm interested in Go and Kotlin. In my spare time I watch movies, play video games and read kinds of books.
 
-My personal blog site is [bookislife](www.bookislife.com)
+My personal blog site is [bookislife](http://www.bookislife.com).

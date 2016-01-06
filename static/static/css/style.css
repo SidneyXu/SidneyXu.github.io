@@ -598,12 +598,13 @@ span.subcount {
 	width:100%;
 	height:100%
 }
+/* 代码块字体 */
 pre {
 	margin-bottom:1em;
 	background-color:ghostwhite;
 	padding:1em;
 	line-height:1.4;
-	font-size:larger
+	font-size:smaller
 }
 header,section,footer,aside,.content {
 	margin:0 0
