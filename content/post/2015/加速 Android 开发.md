@@ -119,7 +119,28 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
 然后在电脑上的 Chrome 地址栏输入 `chrome://inspect` ，接着就能像调试普通的 Web 页面一样调试 WebView 里的页面了。
 
+### UI 的 Debug
 
+开源项目 [Scalpel](https://github.com/JakeWharton/scalpel) 可以以 3D 的方式显示界面的层次，方便进行 UI 的 Debug。
+
+使用时需要将自己的 layout 包裹在 `ScalpelFrameLayout` 中
+
+```xml
+<com.jakewharton.scalpel.ScalpelFrameLayout
+    android:id="@+id/scalpel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    ...
+</com.jakewharton.scalpel.ScalpelFrameLayout>
+```
+
+然后在代码中调用以下代码显示 3D 效果
+
+```java
+scalpelFrameLayout.setLayerInteractionEnabled(true);
+scalpelFrameLayout.setDrawViews(true);
+scalpelFrameLayout.setDrawIds(true);
+```
 
 
 [01]: http://7xlqqp.com1.z0.glb.clouddn.com/livetemplate.png
