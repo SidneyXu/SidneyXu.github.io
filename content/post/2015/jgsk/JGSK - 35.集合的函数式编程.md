@@ -121,20 +121,64 @@ System.out.println(getString(parallelResult));
 
 ## Groovy
 
-Groovy 本身只提供了少量的集合的函数式编程的 API，但是由于可以调用 Java 代码所以也可以使用 Stream，不过目前 Groovy 对 Java 1.8 的支持并不好，所以写出的代码会非常难看。
+Groovy 也提供了部分函数式操作的方法，不过这些方法的命名和其它语言相比都比较奇特，需要额外注意。
 
-### Stream 操作
+### Map 操作
 
-Groovy 由于目前不支持 Java 1.8 的 Lambda 表达式，所以使用 Stream 时会非常繁琐。
+Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。Groovy 中的 Map 操作称为 `collect`，不要与 Scala 中的 Collect 操作搞混。
 
 ```groovy
 def numbers1 = [1, 2, 3, 4, 5, 6]
-def mapResult = numbers1.stream().map(new Function<Integer, Integer>() {
-    @Override
-    Integer apply(Integer x) {
-        x * x
-    }
-})
+def numbers2 = [10, 20, 30]
+def numbers3 = [numbers1, numbers2]
+def mapResult = numbers1.collect { it * it }
+println("map => ${mapResult}")    //  [1, 4, 9, 16, 25, 36]
+```
+
+### FlatMap 操作
+
+FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。Groovy 中的 FlatMap 操作被称为 `collectMany`。
+
+```groovy
+def flatMapResult = numbers3.collectMany { it.collect { it * 10 } }
+println("flatMap => ${flatMapResult}")    //   [10, 20, 30, 40, 50, 60, 100, 200, 300]              
+```
+
+如果只是想简单的抽出的话，可以直接使用更简单的 `flatten()` 方法。
+
+```groovy
+println("flatten => ${numbers3.flatten()}")    //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+```
+
+### Zip 操作
+
+Zip 操作用于连接两个集合，新的集合以最短的集合为准。Groovy 中的 Zip 操作被称作 `transpose`。
+
+```groovy
+def zipResult1 = [numbers1, numbers2].transpose()
+println("zip1 => $zipResult1")    //  [[1, 10], [2, 20], [3, 30]]
+
+def zipResult2 = [numbers2, numbers1].transpose()
+println("zip2 => $zipResult2")  //  [[10, 1], [20, 2], [30, 3]]
+```
+
+### Fold 操作
+
+Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。Groovy 中的 Fold 操作被称为 `inject`，只有从左开始的版本。
+
+```groovy
+def foldLeftResult = numbers1.inject(2) { n1, n2 -> n1 - n2 }
+println("foldLeft => $foldLeftResult")  //  -19
+```
+
+
+### Filter 操作
+
+Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 `true` 的新的集合。Groovy 中的 Filter 操作被称为 `findAll`。
+
+```groovy
+def filterResult = numbers1.findAll { it % 2 == 0 }
+println("filter => $filterResult")  //  [2, 4, 6]
 ```
 
 ### ForEach 操作
@@ -144,6 +188,10 @@ ForEach 操作用于对集合进行遍历。
 ```groovy
 numbers1.each { println(it) }
 ```
+
+### Parallel 操作
+
+Groovy 中的并发集合操作需要依赖于 `GPars` 包，而且比较难用，所以不在本系列介绍范围中。
 
 ## Scala
 
@@ -388,7 +436,6 @@ Kotlin 目前并没有并行集合，不过官方计划在将来实现。
 
 ## 总结
 
-- 除了 Groovy，其它语言都支持大量集合的函数式操作的 API，但是 Java 必须为 1.8 以上
 - Java 1.8 和 Scala 支持并行集合，但是效果完全不同
 
 ---

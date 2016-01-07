@@ -98,7 +98,7 @@ println "Hello World"
 
 ### 相等
 
-Groovy 认为比较内容的使用场合要远远大于比较地址，所以 Groovy 中的 `=` 实际就是调用 `equals()` 方法。
+Groovy 认为比较内容的使用场合要远远大于比较地址，所以 Groovy 中的 `==` 实际就是调用 `equals()` 方法。
 
 ```groovy
 println("x==y: " + (x == y))    //  true
