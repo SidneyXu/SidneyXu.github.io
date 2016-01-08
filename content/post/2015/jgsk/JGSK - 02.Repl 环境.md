@@ -66,6 +66,7 @@ groovyConsole
 
 在打开的 GUI 界面中输入语句 `2+3` 后回车就可以立即看到结果。
 
+除此之外，JetBrains 也提供了一个 [在线交互式环境](http://try.kotlinlang.org/) 可以在线编写程序并且能够保存结果。
 
 [01]:	http://7xlqqp.com1.z0.glb.clouddn.com/2015/09/jgsk/01.png
 [02]:	http://7xlqqp.com1.z0.glb.clouddn.com/2015/09/jgsk/02.png
