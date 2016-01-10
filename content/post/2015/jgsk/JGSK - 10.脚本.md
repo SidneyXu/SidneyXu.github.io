@@ -181,13 +181,34 @@ scala scriptTest.scala Peter
 
 ## Kotlin 篇
 
-不支持
+### 编写脚本
+
+Kotlin 脚本后缀为 `.kts`，是 1.0 新增加的功能。
+
+例
+
+编写一个脚本文件，`scriptTest.kts`
+
+```kotlin
+println("Hello World, ${if (args.isNotEmpty()) args[0] else ""}")
+```
+
+在命令行执行以下代码
+
+```
+kotlinc -script scriptTest.kts Peter
+```
+
+成功的话会输出 "Hello World, Peter"。
+
+可以看到 Kotlin 脚本中使用数组 `args` 来存储输入的参数。
+
 
 
 ## 总结
 
-- Groovy 和 Scala 支持脚本操作，但是 Groovy 的功能更加强大
-- Idea 可以直接运行 Groovy 脚本，但不支持直接运行 Scala 脚本
+- Groovy ,Scala, Kotlin 支持脚本操作，但是 Groovy 的功能最为强大
+- Idea 可以直接运行 Groovy 和 Kotlin 脚本，但不支持直接运行 Scala 脚本
 
 
 ---

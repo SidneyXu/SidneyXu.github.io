@@ -18,6 +18,8 @@ topics:
 - Dev
 ---
 
+# Kotlin Android
+
 ## 场景
 
 之前介绍了使用 Groovy 开发 Android 程序，本节主要介绍如何使用 Kotlin 开发 Android 程序。
@@ -88,7 +90,7 @@ topics:
 
 ### 使用 Kotlin 的语法
 
-使用 Groovy 后可以省略分号，也可以使用更优雅的类型转换方式。
+使用 Kotlin 后可以省略分号，也可以使用更优雅的类型转换方式。
 
 Java 的写法
 
@@ -132,7 +134,7 @@ button1.text = "hello world"
 而不使用此功能的话则需要使用以下代码，麻烦了很多
 
 ```java
-((TextView)findViewById(R.id.button1)).setText("hello world");
+((Button)findViewById(R.id.button1)).setText("hello world");
 ```
 
 ### 使用闭包替代匿名类
@@ -197,7 +199,7 @@ void findCountries(doneCallback: (List<String>?, Exception?) -> Unit) {
 }
 //  调用该方法
 findCountries{ list, e ->
-});
+})
 ```
 
 可以看到使用闭包后无需预先定义回调接口，方便很多。
