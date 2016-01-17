@@ -35,7 +35,7 @@ topics:
 例
 
 ```java
-        int i    = 5 + 5;
+int i = 5 + 5;
 switch (i) {
     case 1:
         System.out.println("i is 1");
