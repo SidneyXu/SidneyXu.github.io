@@ -152,7 +152,7 @@ findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener()
 
 闭包的写法
 
-```groovy
+```kotlin
 button1.setOnClickListener {
     startActivity(new Intent(this, CountryListActivity.class))
 }
@@ -189,7 +189,7 @@ Kotlin 的方式
 
 ```kotlin
 //  定义耗时任务
-void findCountries(doneCallback: (List<String>?, Exception?) -> Unit) {
+fun findCountries(doneCallback: (List<String>?, Exception?) -> Unit) {
     try {
         //  耗时任务
         doneCallback(results, null)
@@ -199,7 +199,7 @@ void findCountries(doneCallback: (List<String>?, Exception?) -> Unit) {
 }
 //  调用该方法
 findCountries{ list, e ->
-})
+}
 ```
 
 可以看到使用闭包后无需预先定义回调接口，方便很多。

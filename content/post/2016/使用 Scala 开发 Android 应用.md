@@ -218,20 +218,20 @@ findCountries(new FindCallback(){
 });
 ```
 
-Kotlin 的方式
+Scala 的方式
 
-```kotlin
+```scala
 //  定义耗时任务
-void findCountries(doneCallback: (ArrayBuffer[String], Exception) => Unit) {
+def findCountries(doneCallback: (ArrayBuffer[String], Exception) => Unit):Unit = {
     try {
         //  耗时任务
         doneCallback(results, null)
-    } catch (e: Exception) {
-        doneCallback(null, e)
+    } catch {
+        case e: Exception => callback(null, e)
     }
 }
 //  调用该方法
-findCountries((list, e) =>
+findCountries((names: ArrayBuffer[String], e: Exception) =>
 )
 ```
 
