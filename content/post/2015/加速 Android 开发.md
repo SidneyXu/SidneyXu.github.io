@@ -87,11 +87,17 @@ alias screenshot='screenshot2 $TMPDIR/screenshot.png; open $TMPDIR/screenshot.pn
 
 ### 方法统计
 
+#### 统计 APK 方法数量
+
 访问 [APK method count](http://inloop.github.io/apk-method-count/)，直接将apk 文件拖到中间区域就可以直接显示对应的代码行数。
 
 ![][05]
 
+#### 统计依赖的方法数量
 
+安装 `IDEA` 或 `Android Studio` 插件 `Android Methods Count` ([官网](http://www.methodscount.com/))后就可以在 `build.gradle` 文件中直接查看方法数。
+
+![][07]
 
 ### 动画预览
 
@@ -149,3 +155,4 @@ scalpelFrameLayout.setDrawIds(true);
 [04]: http://7xlqqp.com1.z0.glb.clouddn.com/installapp.png
 [05]: http://7xlqqp.com1.z0.glb.clouddn.com/methodcount.png
 [06]: http://7xlqqp.com1.z0.glb.clouddn.com/interpolator.png
+[07]: http://www.methodscount.com/images/methods-count-plugin-1.png
