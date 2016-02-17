@@ -244,6 +244,6 @@ kotlinc-jvm com/bookislife/langlabs/kotlin/_01_hello/hello.kt -include-runtime -
 java -jar hello.jar
 ```
 
-成功的话可以看到命令行输出 "Hello, Groovy!" 字符串。
+成功的话可以看到命令行输出 "Hello, Kotlin!" 字符串。
 
 可以看到 Kotlin 编译与执行与以上其它语言都不相同，它需要将 Kotlin 源文件打包成可执行的 jar 包后再运行，且所打的包包括了 Kotlin 的运行环境。

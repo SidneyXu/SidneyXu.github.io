@@ -263,7 +263,7 @@ val text =
 ### 模板 Template
 
 ```kotlin
-val name = "Peter";
+val name = "Peter"
 val str = "name=${name}, ${if (name.length > 10) 10 else name.length}"
 println(str)    //  name=Peter, 5
 ```
