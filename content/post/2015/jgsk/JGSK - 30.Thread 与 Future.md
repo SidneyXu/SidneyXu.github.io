@@ -451,7 +451,7 @@ Kotlin 可以直接使用 Lambda 表达式生成 Thread，在创建时也可以�
 
 ```kotlin
 thread(start = false,
-        daemon = true,
+        isDaemon = true,
         name = "t1") {
     println("running")
 }.start()

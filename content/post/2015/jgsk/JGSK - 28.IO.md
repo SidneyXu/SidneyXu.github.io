@@ -215,12 +215,12 @@ source.appendBytes("hello world".toByteArray())
 注意以下这些读取操作都会自动关闭资源
 
 ```kotlin
-val lines = source.readLines("UTF-8")
+val lines = source.readLines(Charsets.UTF_8)
 for (l in lines) {
     println(l)
 }
 
-val contents = source.readText("UTF-8")
+val contents = source.readText(Charsets.UTF_8)
 println(contents)
 ```
 

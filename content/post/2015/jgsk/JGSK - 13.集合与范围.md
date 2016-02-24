@@ -568,6 +568,7 @@ val all = list ::: days
 ```scala
 println(list(2)) // Scala
 ```
+
 #### 可变List
 
 可变 List 位于 `scala.collection.mutable` 包下，本质上是 `LinkedList`。
@@ -770,14 +771,14 @@ val list = listOf("Groovy", "Java", "Scala")
 println(list(2)) // Scala
 ```
 
-#### 可变List
+#### 可变 List
 
-同 Scala 一样，Kotlin 的可变 List 就是 `LinkedList`。
+Kotlin 从前版本的可变 List 就是 `LinkedList`，但是 1.0 版本变成了 `ArrayList`，api 也跟着改变了。
 
 创建一个可变 List
 
 ```kotlin
-var mutableList = linkedListOf<String>()
+var mutableList = mutableListOf<String>()
 ```
 
 可变 List 可以使用方法 `add()` 添加新元素，使用方法 `remove()` 删除元素
@@ -793,8 +794,6 @@ mList.remove("Java")
 ```kotlin
 println(mutableList(1))
 ```
-
-尽管称作可变 List，但是由于其本身是 `LinkedList`，所以并不支持删除任一索引的元素
 
 #### 其它操作
 
