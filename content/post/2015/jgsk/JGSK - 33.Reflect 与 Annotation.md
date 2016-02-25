@@ -548,7 +548,7 @@ val properties = clazz.declaredMemberProperties
 properties.filter {
     it.annotations.isNotEmpty()
 }.forEach {
-    println(it.annotations[0].annotationType().name)
+    println(it.annotations[0].annotationClass.simpleName)
 }
 
 val functions = clazz.declaredMemberFunctions
@@ -556,7 +556,7 @@ functions.filter {
     it.annotations.isNotEmpty()
 }.forEach {
     println(it.name)
-    println(it.annotations[0].annotationType().name)    //  BeanMethod
+    println(it.annotations[0].annotationClass.simpleName)    //  BeanMethod
 
     val beanMethod = it.annotations[0] as BeanMethod
     println("alias is ${beanMethod.alias}") //  hello
