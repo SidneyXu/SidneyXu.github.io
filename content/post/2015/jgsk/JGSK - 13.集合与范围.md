@@ -799,7 +799,7 @@ println(mutableList(1))
 
 获得 kotlin 长度
 
-```java
+```kotlin
 println(list.size)
 ```
 
