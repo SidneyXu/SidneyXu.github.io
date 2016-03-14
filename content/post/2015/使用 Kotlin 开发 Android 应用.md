@@ -38,7 +38,7 @@ topics:
 
     ```groovy
     buildscript {
-        ext.kotlin_version = '1.0.0-beta-2423'
+        ext.kotlin_version = '1.0.0'
         repositories {
             jcenter()
             mavenCentral()
