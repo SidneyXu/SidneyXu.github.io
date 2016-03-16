@@ -212,7 +212,7 @@ class Companion(private var balance: Int = 0) {
 
 使用类与伴生对象
 
-```scala
+```kotlin
 //  通过伴生对象的方法创建类的实例
 val account = Companion.create(30)
 
