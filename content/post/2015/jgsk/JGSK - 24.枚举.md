@@ -237,7 +237,7 @@ println(monday.name)
 println(WeekDay.Tuesday.isWorkingDay())
 
 //  获得一个枚举值的索引
-println(monday.ordinal
+println(monday.ordinal)
 
 //  通过索引获得枚举值
 println(WeekDay.values()[0])
