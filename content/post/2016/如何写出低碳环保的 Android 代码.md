@@ -214,6 +214,7 @@ Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 And
 - Google Android 项目组也对 Kotlin 感兴趣，目前我们常使用的 Databinding 的编译器就是 Kotlin 写的。
 - Kotlin 的运行库只有不到 7000 个方法，这意味着它比 v4 还要小。
 - Google 目前和 Oracle 的官司越演越烈，以前有传言 Google 会使用 Go 作为 Android 的一类语言，但是目前从发展速度来看可能性很小。近日又有传言 Google 会使用 Swift 来代替 Java，个人觉得相比较而言不如说 Kotlin 可能性更大。
+- Kotlin 学习 Clojure 也分为 Kotlin on JVM 和 Kotlin on JavaScript 两个版本。其中 Kotlin on JavaScript 目前内置了 JQuery，但是本身功能很弱，只能写些原始的 JS 代码。如果发展起来的话，说不定将来可以用于编写 ReactNative 代码。
 
 就我个人开发中常使用的 Kotlin 功能有这么几种：
 - 方法扩展，该功能可以给已存在的类添加方法，本质上其实现类似 Scala 中的隐式类。所以你可以直接给 Activity 添加 toast, alert 功能。
