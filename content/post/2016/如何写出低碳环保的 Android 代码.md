@@ -36,6 +36,7 @@ topics:
 此外 Android 存在 65536 问题，这个坑体现在以下两点：
 
 1）Android 机器在应用的安装过程中，系统会运行 `dexopt` 工具，将 `.dex` 文件优化为 `.odex` 文件，其中 `dexopt` 工具使用了固定的缓冲区大小来保存方法的元信息，低版本的 Android 机器上该缓冲区非常小，所以一旦方法数过多会直接导致  `dexopt` 崩溃，应用无法运行。
+
 2）Dalvik 指令集对于一个 `.dex` 文件只能保存 65536 个方法的索引，所以一个 `.dex` 文件即使可以拥有很多方法，但是那些多余的方法也都是无法运行的。详细信息可以阅读官方的 [dalvik-bytecode](https://source.android.com/devices/tech/dalvik/dalvik-bytecode.html) 的 `invoke-kind {vC, vD, vE, vF, vG}, meth@BBBB` 条目。
 
 因此选择 Android 的第三库需要严格注意控制方法的总数量。
@@ -91,7 +92,7 @@ topics:
 
 而 Jack 与 Jill 就是在 Android M 时 Google 为了简化以上流程而推出的构建工具。
 
-原以前的主要流程
+以前的主要流程
 
 为了减小 I/O 读取的次数，dx 工具将所有 `.class` 文件合并成 `.dex` 文件
 
@@ -195,7 +196,7 @@ ReactNative 由 Facebook 在去年发布，一经发布瞬间成为 Github 上�
 
 Groovy 官方从 2.4 开始就支持了 Android 开发。Groovy 本身是动态语言，效率较低。但是可以通过开启静态编译来提高效率。由于 Groovy 在处理 XML 方面是一绝，所以如果你的应用服务器是基于 SOAP 的话，那么使用 Groovy 替换 Java 无疑是更好的选择，原生的 DOM，SAX，PULL 方式使用起来都太痛苦了。
 
-替换成 Groovy 后最大的优点就是上手没有任何什么难度， 毕竟所有 Android 开发者都写过 Groovy （build.gradle 实际就是 Groovy 源文件），而缺点就是编译速度会更慢。
+替换成 Groovy 后最大的优点就是上手没有任何什么难度， 毕竟所有 Android 开发者都写过 Groovy （`build.gradle` 实际就是 Groovy 源文件），而缺点就是编译速度会更慢。
 
 #### Scala
 
@@ -205,7 +206,7 @@ Android 应用中常常需要将上下文传来传去，所以很多人都会在
 
 #### Kotlin
 
-Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 Android 开发，语法和其之后发布的 Swift 非常相似，详细对比可以见[这里]([Swift is like Kotlin](https://nilhcem.github.io/swift-is-like-kotlin/)。Kotlin 的语法可以看做是 Scala++--，其语法借鉴了 Scala，但是也去除了 Scala 中大量复杂的概念。
+Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 Android 开发，语法和其之后发布的 Swift 非常相似，详细对比可以见[Swift is like Kotlin](https://nilhcem.github.io/swift-is-like-kotlin/)。Kotlin 的语法可以看做是 Scala++--，其语法借鉴了 Scala，但是也去除了 Scala 中大量复杂的概念。
 
 在所有 JVM 语言中，目前个人最推荐使用 Kotlin 进行 Android 开发。有以下几个原因：
 - Kotlin 由 JetBrain 开发，所以对 Android Studio 有很好的支持。
