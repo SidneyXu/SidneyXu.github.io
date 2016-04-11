@@ -66,11 +66,11 @@ topics:
 
 - 使用 Android DataBinding，尽管你不一定喜欢它的数据绑定方式。但是使用了 DataBinding 后你无需调用 `findViewById` 后再强制进行类型转换，也不用使用 Butter Knife 之类的库编写各种注解。
 
-- 对于图像加载注重质量和包大小可以使用 Picasso，注重加载速度或者需要支持 GIF 类型和大图片可以使用 Google 人出品的 Glide。除此之外还有老牌的 Universal Image Loader 和相对较新的 Facebook 出品的 Fresco（Fresco 在这里面是重量级选手，无论是功能还是体积，刚推出时坑不少，还有严重的内存泄露，现在不知道都解决了么）
+- 对于图像加载注重质量和包大小可以使用 Picasso，注重加载速度或者需要支持 GIF 类型和大图片可以使用 Google 人出品的 Glide。除此之外还有老牌的 Universal Image Loader 和相对较新的 Facebook 出品的 Fresco（Fresco 在这里面是重量级选手，无论是功能还是体积，刚推出时坑不少，还有非常严重的内存泄露，目前该库已经作为 React Native 的图片加载库，不知道这些问题都解决了么）
 
 - 使用 IDEA Live Template 保存常用的类或方法的模板，有些时候这样可以减少近一半的工作量。
 
-- 强制竖屏，Android 上除了视频播放和游戏大部分情况下竖屏足以，根据 28 法很多时候专门适配横屏是很大的资源浪费
+- 强制竖屏，Android 上除了视频播放和游戏大部分情况下竖屏足以，根据 2-8 法则很多时候专门适配横屏是很大的资源浪费
 
 ## 从语言本身来说
 
@@ -116,7 +116,7 @@ Jill (.class --> .jayce)
 
 此外由于 Java 8 提供的 Lambda 表达式实际就是通过函数式接口实现的，所以在使用 Jack 与 Jill 后这一功能也可以直接使用在 Android N 以前的平台，而不用使用 Retrolambda 这些第三方工具（当然其它的 Java 8 功能都不支持）
 
-目前来说 Jack 与 Jill 有一个很大的缺点就是速度较慢，此外由于不生成中间状态的字节码文件，所以开启 Jack 与 Jill 后基于字节码的各种工具（如 JaCoCo， Mockito）都无法使用。
+目前来说 Jack 与 Jill 有一个很大的缺点就是速度较慢，不支持 Instant Run。此外由于不生成中间状态的字节码文件，所以开启 Jack 与 Jill 后基于字节码的各种工具（如 JaCoCo， Mockito）都将无法使用。
 
 ### 换种语言
 
@@ -225,7 +225,7 @@ Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 And
 
 以上 Go 和 Ruby 编写 Android 应用的示例可以见 [AndroidDemoInOtherLanguages](https://github.com/SidneyXu/AndroidDemoInOtherLanguages)。其它 JVM 语言编写 Android 应用的示例可以见 [AndroidDemoIn4Languages](https://github.com/SidneyXu/AndroidDemoIn4Languages)。
 
-扯了这么多可能有很多人觉得就这些怎么可能实现低碳环保的编程。没错，你想的很对，要实现低碳环保的编程方式说到底只有唯一一个有效的方法就是说服你的项目经理或者其他有话语权的人取消或修改掉那些不环保的需要，仅此而已。
+扯了这么多可能有很多人觉得就这些怎么可能实现低碳环保的编程。没错，你想的很对，要实现低碳环保的编程方式说到底只有唯一一个有效的方法就是说服你的项目经理或者其他有话语权的人取消或修改掉那些不环保的需要，仅此而已。本次扯淡到此为止。
 
 本文作者来自 MaxLeap 游民：SidneyXu
 
