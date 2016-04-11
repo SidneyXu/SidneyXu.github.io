@@ -222,6 +222,40 @@ Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 And
 - internal 访问权限。我们知道 Java 中包与包是没有任何关系的，这意味这 a.b 和 a.b.c 实际是两个包。所以在分层时 a.b.c 中不得不暴露大量的 public 方法给 a.b 包中所在的类。而在 SDK 开发中为了有良好的封装性，尽量暴露更少的接口，所以往往不得不将大部分类都放在同一个包中，然后通过 default 访问权限来限制外部访问。类少的时候还能够忍受，类的一多的话就会非常混乱。Kotlin 中的 internal 访问权限可以限制只能属于同一个模块中的类进行访问，其它模块无法访问。那么什么是模块？在 Kotlin 中就是一个 jar 包，所以这功能对 SDK 来说就是神器。
 - Kotlin Android Extension。使用后无需修改任何代码，直接就可以在代码中使用 Xml 中声明的任何的控件。
 
+
+最后附上一段简单的 kotlin 代码
+
+```kotlin
+relativeLayout {
+    textView {
+        id = android.R.id.text1
+        text = "Loading..."
+    }.lparams {
+        centerInParent()
+    }
+    editText {
+        id = android.R.id.edit
+        hint = "Page Count for retain"
+        inputType = InputType.TYPE_NUMBER_VARIATION_NORMAL
+    }.lparams {
+        below(android.R.id.text1)
+        centerInParent()
+    }
+    button("click") {
+
+    }.lparams {
+        below(android.R.id.edit)
+        centerInParent()
+    }.onClick {
+        println("hello world")
+    }
+}.style {
+    when(it){
+        is TextView -> it.textSize = 20f
+    }
+}
+```
+
 ---
 
 以上 Go 和 Ruby 编写 Android 应用的示例可以见 [AndroidDemoInOtherLanguages](https://github.com/SidneyXu/AndroidDemoInOtherLanguages)。其它 JVM 语言编写 Android 应用的示例可以见 [AndroidDemoIn4Languages](https://github.com/SidneyXu/AndroidDemoIn4Languages)。
