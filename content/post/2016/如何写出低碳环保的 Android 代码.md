@@ -116,7 +116,7 @@ Jill (.class --> .jayce)
 
 此外由于 Java 8 提供的 Lambda 表达式实际就是通过函数式接口实现的，所以在使用 Jack 与 Jill 后这一功能也可以直接使用在 Android N 以前的平台，而不用使用 Retrolambda 这些第三方工具（当然其它的 Java 8 功能都不支持）
 
-目前来说 Jack 与 Jill 有一个很大的缺点就是速度较慢，不支持 Instant Run。此外由于不生成中间状态的字节码文件，所以开启 Jack 与 Jill 后基于字节码的各种工具（如 JaCoCo， Mockito）都将无法使用。
+目前来说 Jack 与 Jill 有一个很大的缺点就是速度较慢，不支持 Instant Run。此外由于不生成中间状态的字节码文件，所以开启 Jack 与 Jill 后基于字节码的各种工具（如 JaCoCo， Mockito）都将无法使用。（注：Gradle 插件在 1.5 版本提供了 Transform API，可以让我们直接对生成的 dex 文件进行处理，但是目前 Jack 与 Jill 不支持，所以使用该种方式 JaCoCo 仍然无法使用）
 
 ### 换种语言
 
@@ -140,7 +140,7 @@ Go 从 1.5 版本开始同时支持 Android 和 iOS 开发。由于 Go 是 Googl
 
 缺点：
 
-- 文档奇缺，发展缓慢，很大可能性会成为悲剧。
+- 文档奇缺，发展缓慢剧。
 - 目前只支持 arm 架构。
 - 有 Bug，我写的代码编译版本选择 API 22 正常运行，选择 API 23 上直接奔溃。
 
@@ -171,7 +171,7 @@ ReactNative 由 Facebook 在去年发布，一经发布瞬间成为 Github 上�
 优点：
 
 - 使用 JavaScript 编写，ES 6 语法对于 Java 程序员可能更有亲和力。
-- Flex 布局和 Android 原生布局方式非常相近，很多属性几乎就是换个名字。
+- Flex 布局和 JSX 语法和 Android 原生布局方式非常相近，很多属性几乎就是换个名字，容易上手。
 - 支持 HotLoad，写个界面刷一下就行了，Android 开发者终于不用忍受 Gradle 那漫长的编译过程。
 
 缺点：
@@ -180,7 +180,7 @@ ReactNative 由 Facebook 在去年发布，一经发布瞬间成为 Github 上�
 - 如果碰到框架本身 Bug，基本没有修复的可能性，只能被动等待官方出解决方案或者切换为 Java 平台。
 - 原生 Android 开发就有各种兼容性问题，特别是对于国内小米，华为，魅族等平台，国外的 React Native 是否能处理得好不得而知。
 - ReactNative 框架自身绑定了不少第三方库，虽然这些库都挺有名的，但也不能保证人人喜欢，人人用得到。
-- 没有组件重用机制，导致 ListView 效率问题。
+- 没有重用机制，导致 ListView 效率问题。
 - 没有布局管理器，组件间嵌套严重，实际代码中会有大量 `<View>` 嵌套 `<View>` 的情况，不适合写复杂的布局。
 - Android 有多种类型 Resource 文件，还有 10 多种限定修饰符，React Native 基本都无法使用，意味着在面对屏幕适配，i18n，切换主题等问题时会非常蛋疼。
 - 目前只支持老式的 Drawable 目录下的图片资源，不支持 5.0 以后的 Mipmap 目录下的资源。
@@ -213,7 +213,7 @@ Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 And
 - Android 界举足轻重的 Jake Wharton 大神和其所在的公司 Square 都很欣赏 Kotlin，将一些 Android 库改写为了 Kotlin 版本。
 - Google Android 项目组也对 Kotlin 感兴趣，目前我们常使用的 Databinding 的编译器就是 Kotlin 写的。
 - Kotlin 的运行库只有不到 7000 个方法，这意味着它比 v4 还要小。
-- Google 目前和 Oracle 的官司越演越烈，以前有传言 Google 会使用 Go 作为 Android 的一类语言，但是目前从发展速度来看可能性很小。近日又有传言 Google 会使用 Swift 来代替 Java，个人觉得相比较而言不如说 Kotlin 可能性更大。
+- Google 目前和 Oracle 的官司越演越烈，以前有传言 Google 会使用 Go 作为 Android 的一类语言，但是目前从发展速度来看可能性很小。近日又有传言 Google 会使用 Swift 来代替 Java，个人觉得相比较而言不如说 Kotlin 可能性更大。（补：写完这段不久后 Swift 就仓库就出现了 For Android 的 Pull Request，看了下这玩意是基于 JNI 的，属于上面说的 Java + Native 的开发方式，对于编写应用来说用处不大，不过相信会被不少人炒作一段时间）
 - Kotlin 学习 Clojure 也分为 Kotlin on JVM 和 Kotlin on JavaScript 两个版本。其中 Kotlin on JavaScript 目前内置了 JQuery，但是本身功能很弱，只能写些原始的 JS 代码。如果发展起来的话，说不定将来可以用于编写 ReactNative 代码。
 
 就我个人开发中常使用的 Kotlin 功能有这么几种：
