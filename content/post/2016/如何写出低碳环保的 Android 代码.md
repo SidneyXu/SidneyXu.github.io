@@ -88,7 +88,7 @@ topics:
 
 在介绍 Jack 与 Jill 之前先来看看 Android 那坑爹的构建系统，以下图片来自 Google 官方文档，请注意这只是一个大纲，而且有些过时，实际更复杂，想想如果没有 IDE 自己手动敲的痛苦吧：
 
-![A Detailed Look at the Build Process](http://developer.android.com/images/build.png)
+![A Detailed Look at the Build Process](http://7xlqqp.com1.z0.glb.clouddn.com/android%20build.png)
 
 而 Jack 与 Jill 就是在 Android M 时 Google 为了简化以上流程而推出的构建工具。
 
@@ -206,7 +206,7 @@ Android 应用中常常需要将上下文传来传去，所以很多人都会在
 
 #### Kotlin
 
-Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 Android 开发，语法和其之后发布的 Swift 非常相似，详细对比可以见[Swift is like Kotlin](https://nilhcem.github.io/swift-is-like-kotlin/)。Kotlin 的语法可以看做是 Scala++--，其语法借鉴了 Scala，但是也去除了 Scala 中大量复杂的概念。
+Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 Android 开发，语法和其之后发布的 Swift 非常相似，所以也有人开发出了 Kotlin 2Swift 的工具，详细对比可以见[Swift is like Kotlin](https://nilhcem.github.io/swift-is-like-kotlin/)。Kotlin 的语法可以看做是 Scala++--，其语法借鉴了 Scala，但是也去除了 Scala 中大量复杂的概念。
 
 在所有 JVM 语言中，目前个人最推荐使用 Kotlin 进行 Android 开发。有以下几个原因：
 - Kotlin 由 JetBrain 开发，所以对 Android Studio 有很好的支持。
@@ -215,6 +215,9 @@ Kotlin 是 JetBrain 研发的一门运行在 JVM 上的语言，官方支持 And
 - Kotlin 的运行库只有不到 7000 个方法，这意味着它比 v4 还要小。
 - Google 目前和 Oracle 的官司越演越烈，以前有传言 Google 会使用 Go 作为 Android 的一类语言，但是目前从发展速度来看可能性很小。近日又有传言 Google 会使用 Swift 来代替 Java，个人觉得相比较而言不如说 Kotlin 可能性更大。（补：写完这段不久后 Swift 就仓库就出现了 For Android 的 Pull Request，看了下这玩意是基于 JNI 的，属于上面说的 Java + Native 的开发方式，对于编写应用来说用处不大，不过相信会被不少人炒作一段时间）
 - Kotlin 学习 Clojure 也分为 Kotlin on JVM 和 Kotlin on JavaScript 两个版本。其中 Kotlin on JavaScript 目前内置了 JQuery，但是本身功能很弱，只能写些原始的 JS 代码。如果发展起来的话，说不定将来可以用于编写 ReactNative 代码。
+- Kotlin 没有什么历史负担，增加新特性时无需像 Java 一样思考再三。以下为 Kotlin 目前的 RoadMap，可以看到诸如协程之类的功能 Kotlin 都会在语言层面实现，而不用像 Java 一样必须依赖 Quasar 这种第三方库在字节码方面做文章才行。如果等 Java 实现的话搞不好需要等到 Java 20.
+
+![Kotlin RoadMap](http://7xlqqp.com1.z0.glb.clouddn.com/kotlin%20roadmap.png)
 
 就我个人开发中常使用的 Kotlin 功能有这么几种：
 - 方法扩展，该功能可以给已存在的类添加方法，本质上其实现类似 Scala 中的隐式类。所以你可以直接给 Activity 添加 toast, alert 功能。
