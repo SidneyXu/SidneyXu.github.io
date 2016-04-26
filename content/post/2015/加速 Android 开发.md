@@ -14,8 +14,23 @@ topics:
 - Dev
 ---
 
+### IDEA 技巧
 
-### IDEA Live Template
+#### 使用 Action
+
+快捷键为 `cmd+shift+a`，在弹出的 Action 对话框中可以输入任意 Action，比如说开启自动导入包的功能 `auto import`。
+
+#### 搜索
+
+- `cmd+n` 搜索所有类文件
+- `shift+cmd+n` 搜索所有文件
+- `shift+shift` 在任何地方进行搜索
+
+#### 替换
+
+当一个对象调用一个方法时（如 a.foo()），如果你需要替换当前方法的话，通常做法是在 `.` 后根据提示追加新方法（如 a.bfoo()），此时按空格的话提示会直接追加到当前位置(a.barfoo())，而使用 tab 键则会进行替换（a.bar()）。
+
+#### IDEA Live Template
 
 Live Template 可以减少键入的字母数量，比如说可以只键入 `logd` 就表示输入 `Log.d(TAG, String)`。
 
@@ -32,6 +47,8 @@ Live Template 可以减少键入的字母数量，比如说可以只键入 `logd
 - **OS X:** `~/Library/Preferences/<product name><version number>/templates`
 
 比如说我使用的是 Mac 平台的 IDEA 14，那么我的 templates 目录就在 `/Users/sidneyxu/Library/Preferences/IdeaIC14/templates` 下。
+
+IDEA LiveTemplate 不仅可以直接用于代码补完，也可以作用在代码上，比如说要遍历一个列表，正确的做法应该是输入 `列表名.` 后按下 `cmd+j` 后输入 `for` 即可自动生成 `for-each` 形式的代码块。
 
 ### PID Cat
 
