@@ -301,7 +301,7 @@ Kotlin 不支持命名分组，只支持使用索引。
 
 ```kotlin
 """(\d{4})-(\d{2})""".toRegex().findAll("2015-10").forEach {
-    println(it.groups.size
+    println(it.groups.size)
     for (rs in it.groups) {
         println(rs?.value)  //  [2015-10, 2015, 10]
     }
