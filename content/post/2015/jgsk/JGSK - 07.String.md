@@ -260,6 +260,20 @@ val text =
     "x, "y", "z""""
 ```
 
+在使用多行文本时可以设置前缀边距符号以便进行更便捷的排版方式
+
+```kotlin
+val textWithMargin =
+            """
+            |Tell me and I forget.
+    |Teach me and I remember.
+|Involve me and I learn.
+    |(Benjamin Franklin)
+            """.trimMargin()
+```
+
+默认边距符号为 `|`，在文本中使用其对齐文本后再使用 `trimMargin()` 方法去除符号。
+
 ### 模板 Template
 
 ```kotlin
@@ -268,7 +282,11 @@ val str = "name=${name}, ${if (name.length > 10) 10 else name.length}"
 println(str)    //  name=Peter, 5
 ```
 
-Kotlin 模板基于与 Groovy 一致。
+如果希望在字符串模板中使用 `$` 符号需要使用 `${'$'}` 这样的形式才可以正常显示
+
+```kotlin
+"name=${'$'}{name}"
+```
 
 ### StringBuilder
 
