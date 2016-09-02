@@ -1,4 +1,4 @@
----
+	---
 comments: true
 date: 2015-11-23T12:15:41+08:00
 description: ""
@@ -25,6 +25,7 @@ topics:
 - `cmd+n` 搜索所有类文件
 - `shift+cmd+n` 搜索所有文件
 - `shift+shift` 在任何地方进行搜索
+- `cmd+f12` 大纲
 
 #### 替换
 
@@ -49,6 +50,11 @@ Live Template 可以减少键入的字母数量，比如说可以只键入 `logd
 比如说我使用的是 Mac 平台的 IDEA 14，那么我的 templates 目录就在 `/Users/sidneyxu/Library/Preferences/IdeaIC14/templates` 下。
 
 IDEA LiveTemplate 不仅可以直接用于代码补完，也可以作用在代码上，比如说要遍历一个列表，正确的做法应该是输入 `列表名.` 后按下 `cmd+j` 后输入 `for` 即可自动生成 `for-each` 形式的代码块。
+
+默认的几个 Live Template
+
+- for 循环：`obj.for`, `obj.fori`
+- 检查空值：`obj.null`, `obj.nn`
 
 ### PID Cat
 
