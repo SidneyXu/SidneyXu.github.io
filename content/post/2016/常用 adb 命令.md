@@ -2,23 +2,23 @@
 comments: true
 date: 2016-03-19T13:22:59+08:00
 description: ""
-draft: true
+draft: false
 keywords:
 - java
-- groovy
-- scala
-- kotlin
-slug: ""
+- android
+slug: "adb-command"
 tags:
-- java
-- groovy
-- scala
-- kotlin
+- android
 title: 常用 adb 命令
 toc: true
 topics:
 - Dev
 ---
+
+ADB 命令很多，本文只介绍实际常用的那些命令
+
+<!--more-->
+
 
 ## 常用 adb 命令
 
