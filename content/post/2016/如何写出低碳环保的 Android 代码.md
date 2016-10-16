@@ -8,12 +8,9 @@ keywords:
 - groovy
 - scala
 - kotlin
-slug: ""
+slug: "how-to-dev-android"
 tags:
-- java
-- groovy
-- scala
-- kotlin
+- android
 title: 如何写出低碳环保的 Android 代码
 toc: true
 topics:
@@ -21,9 +18,9 @@ topics:
 ---
 
 
-# 如何写出低碳环保的 Android 代码
-
 随着环境问题越来越严重，人们越来越重视低碳环保的生活方式。作为码农的我们自然也应该为环保做出应有的贡献。那么什么是低碳环保，简而言之就是就是低能量、低消耗、低开支的生活方式，映射到我们的工作中就是以最低的消耗的来完成组织交给我们的任务。
+
+<!--more-->
 
 以下就以 Android 开发为例从库和语言两方面来讨论如何实现低碳环保的编程方式。
 
