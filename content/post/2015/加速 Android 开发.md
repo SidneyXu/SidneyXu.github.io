@@ -56,6 +56,14 @@ IDEA LiveTemplate 不仅可以直接用于代码补完，也可以作用在代�
 - for 循环：`obj.for`, `obj.fori`
 - 检查空值：`obj.null`, `obj.nn`
 
+#### 查看模块依赖
+
+在界面左下角的 `Build Variants` 中点击感叹号就能查看所选模块依赖了哪些模块
+
+#### 删除无用的资源
+
+选择工程，右键 `Refactor` -> `Remove Unused Resources...` 可以将无用的资源进行删除
+
 ### PID Cat
 
 普通的 `adb logcat` 命令打印出的 log 信息全是白色的一堆，很难从中找到有用的信息。PID Cat 可以为 log 信息进行着色，以便于查看。
@@ -106,7 +114,28 @@ alias screenshot='screenshot2 $TMPDIR/screenshot.png; open $TMPDIR/screenshot.pn
 
 之后执行 `screenshot` 就会在 `$TMPDIR` 目录生成截图文件并打开
 
+### nimbledroid
 
+[nimbledroid](https://nimbledroid.com/) 是一个在线 APK 分析网站，可以分析 APK 中的各种文件的大小，方法数量，占用内存大小等等。不过因为是在线网站，所以只能为了安全起见，不要上传还在开发中的应用。
+
+### Stetho
+
+Stetho 可以用于通过 Chrome 查看当前应用布局，使用文档见 [http://facebook.github.io/stetho/](http://facebook.github.io/stetho/)
+
+使用
+
+在 `build.gradle` 中添加依赖
+
+```groovy
+compile 'com.facebook.stetho:stetho:1.4.1'
+compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
+```
+
+在 Application 中进行初始化
+
+```java
+Stetho.initializeWithDefaults(this)
+```
 
 ### 方法统计
 
