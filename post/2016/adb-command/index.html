@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, android, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="常用 adb 命令"/>
+<meta property="og:site_name" content="常用 adb 命令"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2016/adb-command/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2016-03-19"/>
+<meta property="article:modified_time" content="2016-03-19"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="android">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="常用 adb 命令">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> 常用 adb 命令 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2016/adb-command/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=%e5%b8%b8%e7%94%a8%20adb%20%e5%91%bd%e4%bb%a4-http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f&title=%e5%b8%b8%e7%94%a8%20adb%20%e5%91%bd%e4%bb%a4&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fadb-command%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">常用 adb 命令</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#常用-adb-命令:274207f69d1414b83d961bffbbaaab6f">常用 adb 命令</a>
+<ul>
+<li><a href="#基本操作:274207f69d1414b83d961bffbbaaab6f">基本操作</a></li>
+<li><a href="#应用相关:274207f69d1414b83d961bffbbaaab6f">应用相关</a></li>
+<li><a href="#文件操作:274207f69d1414b83d961bffbbaaab6f">文件操作</a></li>
+<li><a href="#截图:274207f69d1414b83d961bffbbaaab6f">截图</a></li>
+<li><a href="#wakelock:274207f69d1414b83d961bffbbaaab6f">wakelock</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<p>ADB 命令很多，本文只介绍实际常用的那些命令</p>
+
+<h2 id="常用-adb-命令:274207f69d1414b83d961bffbbaaab6f">常用 adb 命令</h2>
+
+<h3 id="基本操作:274207f69d1414b83d961bffbbaaab6f">基本操作</h3>
+
+<p>列出当前所有设备名，包含真机和模拟器</p>
+
+<pre><code class="language-bash">adb devices
+</code></pre>
+
+<p>开启 adb 调试桥</p>
+
+<pre><code class="language-bash">start-server
+</code></pre>
+
+<p>关闭 adb 调试桥，当 Logcat 显示设备 offline 时可用通过重启调试桥恢复功能</p>
+
+<pre><code class="language-bash">kill-server
+</code></pre>
+
+<p>显示手机硬件信息，包括 device model 等</p>
+
+<pre><code class="language-bash">adb shell cat system/build.prop
+</code></pre>
+
+<h3 id="应用相关:274207f69d1414b83d961bffbbaaab6f">应用相关</h3>
+
+<p>安装应用</p>
+
+<pre><code class="language-bash">adb install &lt;apk&gt;
+</code></pre>
+
+<p>卸载应用</p>
+
+<pre><code class="language-bash">uninstall &lt;packageName&gt;
+</code></pre>
+
+<p>显示所有安装的应用</p>
+
+<pre><code class="language-bash">adb shell pm list packages
+</code></pre>
+
+<p>打开 Schema</p>
+
+<pre><code class="language-bash">adb shell am start -W -a android.intent.action.VIEW -d &lt;schema&gt; &lt;packageName&gt;
+</code></pre>
+
+<ul>
+<li><code>-a</code> 指定 action</li>
+<li><code>-d</code> 指定 data uri</li>
+</ul>
+
+<p>打开 Activity</p>
+
+<pre><code class="language-bash">adb shell am start -n &lt;packageName&gt;/&lt;targetActivity&gt; [-e somekey somevalue]
+</code></pre>
+
+<ul>
+<li><code>-e</code> 相当于向 intent 放入 String 类型的 extra 参数，<code>-ei</code> 则为 int 类型 value，<code>-el</code> 为 long 类型 value，其它类推</li>
+</ul>
+
+<blockquote>
+<p>注意：如果该 Activity 不是 Main Activity 的话，则必须设置 <code>android:export=“true”</code> ，否则会报没有权限</p>
+</blockquote>
+
+<h3 id="文件操作:274207f69d1414b83d961bffbbaaab6f">文件操作</h3>
+
+<p>拷贝文件到手机</p>
+
+<pre><code class="language-bash">adb push &lt;local_path&gt; &lt;remote_path&gt;
+</code></pre>
+
+<p>从手机拷贝文件</p>
+
+<pre><code class="language-bash">adb pull &lt;remote_path&gt; &lt;local_path&gt;
+</code></pre>
+
+<h3 id="截图:274207f69d1414b83d961bffbbaaab6f">截图</h3>
+
+<pre><code class="language-bash">adb shell screencap -p &lt;filename&gt;
+</code></pre>
+
+<ul>
+<li><code>-p</code> 表示保存为 png 格式，不指定的话 filename 必须指定后缀名。</li>
+</ul>
+
+<h3 id="wakelock:274207f69d1414b83d961bffbbaaab6f">wakelock</h3>
+
+<p>显示所有 wakelock 情况</p>
+
+<pre><code class="language-bash">adb shell cat /sys/kernel/debug/wakeup_sources
+</code></pre>
+
+<p>显示电源状况</p>
+
+<pre><code class="language-bash">adb shell dumpsys power
+</code></pre>
+
+<p>查找一个应用是否错误地占用了 wakelock</p>
+
+<ol>
+<li>按下电源键关闭屏幕</li>
+<li>等待 20s</li>
+<li>执行 <code>adb shell dumpsys power | grep PARTIAL</code>，查看输出结果是否有这样的形式 <code>PARTIAL_WAKE_LOCK ‘AudioOut_2’ activated(minState=0, uid=1013, pid=157)</code></li>
+<li>重复 2-4 多次，如果还是一直能获得该锁则证明其存在 Bug，没有正常释放锁</li>
+</ol>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2016-03-19 </h4>
+          <h5 id="wc"> 200 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  1 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/dev">Dev</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/android">android</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2016/dev-android-using-scala/">使用 Scala 开发 Android 应用 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="155">
+<meta itemprop="datePublished" content="2016-03-19">
+<meta itemprop="url" content="http://git.bookislife.com/post/2016/adb-command/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2016\/adb-command\/';
+    var disqus_title = '常用 adb 命令';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2016\/adb-command\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

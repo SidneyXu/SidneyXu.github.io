@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 15.类 - Scala 篇"/>
+<meta property="og:site_name" content="JGSK - 15.类 - Scala 篇"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jsgk-15-class-scala/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-22"/>
+<meta property="article:modified_time" content="2015-09-22"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 15.类 - Scala 篇">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 15.类 - Scala 篇 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jsgk-15-class-scala/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2015.%e7%b1%bb%20-%20Scala%20%e7%af%87-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f&title=JGSK%20-%2015.%e7%b1%bb%20-%20Scala%20%e7%af%87&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjsgk-15-class-scala%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 15.类 - Scala 篇</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#定义一个类:a4ea093d37928a3c4120d27d412ecd69">定义一个类</a></li>
+<li><a href="#setter-与-getter:a4ea093d37928a3c4120d27d412ecd69">Setter 与 Getter</a></li>
+<li><a href="#对象私有域:a4ea093d37928a3c4120d27d412ecd69">对象私有域</a></li>
+<li><a href="#构造方法:a4ea093d37928a3c4120d27d412ecd69">构造方法</a>
+<ul>
+<li><a href="#主构造方法:a4ea093d37928a3c4120d27d412ecd69">主构造方法</a></li>
+<li><a href="#副构造方法:a4ea093d37928a3c4120d27d412ecd69">副构造方法</a></li>
+<li><a href="#深入构造方法:a4ea093d37928a3c4120d27d412ecd69">深入构造方法</a></li>
+<li><a href="#私有主构造方法:a4ea093d37928a3c4120d27d412ecd69">私有主构造方法</a></li>
+</ul></li>
+<li><a href="#java-风格的-bean:a4ea093d37928a3c4120d27d412ecd69">Java 风格的 Bean</a></li>
+<li><a href="#不可变对象:a4ea093d37928a3c4120d27d412ecd69">不可变对象</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="定义一个类:a4ea093d37928a3c4120d27d412ecd69">定义一个类</h2>
+
+<p>Scala 中也使用关键字 <code>class</code> 来定义类，但是类的属性必须明确指明初始值，而不是像 Java 和 Groovy 一样有默认值。</p>
+
+<pre><code class="language-scala">class Person {
+    //  属性
+    var age = 0
+    //  行为
+    def say(message: String) {
+      println(message)
+    }
+}
+</code></pre>
+
+<p>新建一个类的实例同 Java，但是如果调用无参构造方式时可以省略小括号</p>
+
+<pre><code class="language-scala">val person = new Person()
+
+//  或
+
+val person = new Person
+</code></pre>
+
+<p>Scala 类文件中可以定义多个类。</p>
+
+<h2 id="setter-与-getter:a4ea093d37928a3c4120d27d412ecd69">Setter 与 Getter</h2>
+
+<p>与 Groovy 一样，Scala 也提供了默认 Setter 和 Getter 方法，只是这些方法的名字比较特别。Scala 中 默认 Setter 方法名为 <code>属性名_=</code>，Getter 方法名为 <code>属性名</code>。同 Groovy 一样，当你直接使用属性时其实就是调用这些方法。</p>
+
+<p>例</p>
+
+<pre><code class="language-scala">val person = new Person
+//  修改 age,实际调用的是 person.age_=(10)
+person.age = 10
+
+//  读取 age，实际调用的是 person.age()
+println(person.age)
+</code></pre>
+
+<p>当然你也可以在类中自定义 Setter 和 Getter 方法，且自定义的方式与 Groovy 完全不一样。</p>
+
+<p>Scala 中自定义 Setter 和 Getter 的步骤如下</p>
+
+<ul>
+<li>声明属性为 <code>private</code></li>
+<li>提供修改该属性的 Setter 方法 <code>_=</code></li>
+<li>提供访问该属性的 Getter 方法</li>
+</ul>
+
+<p>例</p>
+
+<pre><code class="language-scala">class Person {
+
+  private var privateAge = 0
+
+  def trueAge = privateAge
+  def trueAge_=(pAge: Int) {
+    if (pAge &gt; privateAge) {
+      privateAge = pAge
+    }
+  }
+}
+</code></pre>
+
+<p>调用自定义的 Setter 和 Getter</p>
+
+<pre><code class="language-scala">person.trueAge = 20
+person.trueAge = 14
+println(person.trueAge) //20
+</code></pre>
+
+<p>如果一个属性被声明为值的话，则 Scala 只会为其提供默认的 Getter 方法，而没有 Setter 方法。</p>
+
+<p>例</p>
+
+<pre><code class="language-scala">val birthday = new Date()
+</code></pre>
+
+<h2 id="对象私有域:a4ea093d37928a3c4120d27d412ecd69">对象私有域</h2>
+
+<p>对象私有域是一个 Scala 比较特别的地方，它可以控制一个属性只能在该对象内部调用。</p>
+
+<p>可能理解起来比较困难，我们先看一个一般的例子</p>
+
+<pre><code class="language-scala">class Person {
+  var age = 0
+  def isYounger(other: Person) = age &lt; other.age
+}
+</code></pre>
+
+<p>在以上代码中，<code>isYounger()</code> 方法接收类的另一个实例，并且将这个实例的 <code>age</code> 属性与当前实例的 <code>age</code> 属性进行比较。如果使用对象私有域修饰 <code>age</code> 的话则<code>isYounger()</code> 可以接收另一个实例，但无法调用传入的实例的 <code>age</code> 属性，只能调用自己 <code>age</code> 属性。</p>
+
+<p>这种对象私有域在 Scala 中使用 <code>private[this]</code> 来声明</p>
+
+<p>例</p>
+
+<pre><code class="language-scala">class Person {
+  private[this] var age = 0
+  //    此时以下调用方式就会报错
+  //    def isYounger(other: Person) = age &lt; other.age
+}
+</code></pre>
+
+<h2 id="构造方法:a4ea093d37928a3c4120d27d412ecd69">构造方法</h2>
+
+<p>Scala 中构造方法分为主构造方法和副构造方法。</p>
+
+<h3 id="主构造方法:a4ea093d37928a3c4120d27d412ecd69">主构造方法</h3>
+
+<p>主构造方法紧跟在类的声明之后</p>
+
+<pre><code class="language-scala">class Man(val name: String, var age: Int){}
+</code></pre>
+
+<p>主构造方法的参数可以声明为 <code>val</code> 或 <code>var</code> ，使用方法与其声明为成员变量时相同。</p>
+
+<p>此外，类中的所有可执行语句都属于主构造器，在对象被创建时都会被调用。 所以以上类可以改写为</p>
+
+<pre><code class="language-scala">class Man(val name: String, var age: Int){
+    println(&quot;Sentences in Main Constructor&quot;)
+}
+</code></pre>
+
+<p>每创建一个 <code>Man</code> 的实例，语句 &ldquo;Sentences in Main Constructor&rdquo; 都会被打印。</p>
+
+<h3 id="副构造方法:a4ea093d37928a3c4120d27d412ecd69">副构造方法</h3>
+
+<p>副构造方法使用 <code>this()</code> 声明。所有副构造方法必须在第一行调用主构造方法或其它副构造方法。</p>
+
+<p>例</p>
+
+<pre><code class="language-scala">//  主构造方法
+class Man(val name: String, var age: Int) {
+
+  //  副构造方法
+  def this(name: String) {
+    //  调用主构造方法
+    this(name, 0)
+  }
+
+  def this(age: Int) {
+    //  调用主构造方法
+    this(&quot;Default Name&quot;, age)
+  }
+
+  def this() {
+    //  调用其它副构造方法 
+    this(&quot;Default Name&quot;)
+  }
+}
+</code></pre>
+
+<p>创建实例时可以使用主构造方法也可以使用副构造方法</p>
+
+<pre><code class="language-scala">val fred = new Man(&quot;Fred&quot;, 21) // Main Constructor
+val peter = new Man(&quot;Fred&quot;) //  Slave Constructor
+val jack = new Man(21) //  Slave Constructor
+</code></pre>
+
+<p>如果声明时不添加 <code>val</code> 或 <code>var</code> 修饰符则其相当于声明了一个对象私有域。</p>
+
+<pre><code class="language-scala">class Man(val name: String,
+          var age: Int,
+          description: String) {}
+</code></pre>
+
+<h3 id="深入构造方法:a4ea093d37928a3c4120d27d412ecd69">深入构造方法</h3>
+
+<p>在使用构造方法时我们也可以为每个参数指定默认值</p>
+
+<pre><code class="language-scala">class Man(val name: String = &quot;Default Name&quot;,
+          var age: Int = 0){}
+</code></pre>
+
+<p>在声明构造方法的参数时我们也可以像在类中添加成员一样添加限定符</p>
+
+<pre><code class="language-scala">class Man(val name: String,
+          var age: Int,
+          private var from: String = &quot;USA&quot;) {}
+</code></pre>
+
+<p>也可以不加任何限定符，此时就相当于定义了一个对象私有域</p>
+
+<pre><code class="language-scala">class Man(val name: String,
+          var age: Int,
+          description: String = &quot;none&quot;) {}
+</code></pre>
+
+<h3 id="私有主构造方法:a4ea093d37928a3c4120d27d412ecd69">私有主构造方法</h3>
+
+<p>我们可以为主构造方法添加关键字 <code>private</code> 从而声明主构造方法为私有权限，此时类只能通过副构造方法进行创建。</p>
+
+<pre><code class="language-scala">class Woman private(val name: String, val age: Int) {
+  def this(name: String) {
+    this(name, 0)
+  }
+}
+
+//  Wrong!! 无法调用私有主构造方法
+//  val mary = new Woman(&quot;Mary&quot;,21)
+
+val jane = new Woman(&quot;Jane&quot;)
+</code></pre>
+
+<h2 id="java-风格的-bean:a4ea093d37928a3c4120d27d412ecd69">Java 风格的 Bean</h2>
+
+<p>如果希望生成的 Bean 也能被 Java 代码使用，那么Scala 允许你生成 Java 风格的 Setter 与 Getter。只需要在指定的属性上添加注解 <code>BeanProperty</code> ，在Boolean 型属性上添加注解 <code>BooleanBeanProperty</code>。</p>
+
+<pre><code class="language-scala">class Model {
+
+  @BeanProperty
+  var name = &quot;&quot;
+
+  @BooleanBeanProperty
+  var visible = false
+}
+
+</code></pre>
+
+<h2 id="不可变对象:a4ea093d37928a3c4120d27d412ecd69">不可变对象</h2>
+
+<p>Scala 并没有直接提供这样一种类（尽管样本类之类的看起来有那么点像）。但是由于 Scala 本身提供了大量不可变类作为默认实现，且 Scala 官方建议总是使用 <code>val</code> 声明变量，<code>var</code> 只应该用在不得不的情况下，所以你只要遵守这些规定那么编写不可变对象也不是件难事。</p>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_15_class</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-22 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jsgk-15-class-kotlin/"><i class="icon-arrow-left"></i> JGSK - 15.类 - Kotlin 篇</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jsgk-15-class-groovy/">JGSK - 15.类 - Groovy 篇 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="460">
+<meta itemprop="datePublished" content="2015-09-22">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jsgk-15-class-scala/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jsgk-15-class-scala\/';
+    var disqus_title = 'JGSK - 15.类 - Scala 篇';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jsgk-15-class-scala\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 23.Trait"/>
+<meta property="og:site_name" content="JGSK - 23.Trait"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-23-trait/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-29"/>
+<meta property="article:modified_time" content="2015-09-29"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 23.Trait">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 23.Trait </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-23-trait/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2023.Trait-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f&title=JGSK%20-%2023.Trait&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-23-trait%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 23.Trait</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:89c750ad1906317a6fca07a73363441c">共通篇</a></li>
+<li><a href="#java-篇:89c750ad1906317a6fca07a73363441c">Java 篇</a></li>
+<li><a href="#groovy-篇:89c750ad1906317a6fca07a73363441c">Groovy 篇</a>
+<ul>
+<li><a href="#创建特质:89c750ad1906317a6fca07a73363441c">创建特质</a></li>
+<li><a href="#使用特质:89c750ad1906317a6fca07a73363441c">使用特质</a></li>
+<li><a href="#实现接口与特质:89c750ad1906317a6fca07a73363441c">实现接口与特质</a></li>
+<li><a href="#带有特质的对象:89c750ad1906317a6fca07a73363441c">带有特质的对象</a></li>
+<li><a href="#diamond-problems:89c750ad1906317a6fca07a73363441c">Diamond Problems</a></li>
+<li><a href="#链式操作:89c750ad1906317a6fca07a73363441c">链式操作</a></li>
+</ul></li>
+<li><a href="#scala-篇:89c750ad1906317a6fca07a73363441c">Scala 篇</a>
+<ul>
+<li><a href="#创建特质-1:89c750ad1906317a6fca07a73363441c">创建特质</a></li>
+<li><a href="#使用特质-1:89c750ad1906317a6fca07a73363441c">使用特质</a></li>
+<li><a href="#实现特质:89c750ad1906317a6fca07a73363441c">实现特质</a></li>
+<li><a href="#带有特质的对象-1:89c750ad1906317a6fca07a73363441c">带有特质的对象</a></li>
+<li><a href="#diamond-problems-1:89c750ad1906317a6fca07a73363441c">Diamond Problems</a></li>
+<li><a href="#特质的构造顺序:89c750ad1906317a6fca07a73363441c">特质的构造顺序</a></li>
+<li><a href="#链式操作-1:89c750ad1906317a6fca07a73363441c">链式操作</a></li>
+<li><a href="#什么时候应该使用特质而不是抽象类:89c750ad1906317a6fca07a73363441c">什么时候应该使用特质而不是抽象类？</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:89c750ad1906317a6fca07a73363441c">Kotlin 篇</a></li>
+<li><a href="#总结:89c750ad1906317a6fca07a73363441c">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:89c750ad1906317a6fca07a73363441c">共通篇</h2>
+
+<p>Trait 中文名为特质。特质是字段和行为的集合，可以拥有抽象成员也可以拥有普通成员。特质可以看做是一种特殊形式的接口，但是特质主要用于实现多重继承。</p>
+
+<p>多重继承虽然便利，但是会带来 Diamond Problem，即 B 和 C 都实现了 A 的某个方法，而 D 继承了 B 和 C 但是没有重写该方法，此时调用 D 持有的该方法到底来自于 B 还是 C。因此过分使用特质会让程序本身难以理解。</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Diamond_inheritance.svg/440px-Diamond_inheritance.svg.png" alt="" />
+</p>
+
+<h2 id="java-篇:89c750ad1906317a6fca07a73363441c">Java 篇</h2>
+
+<p>Java 诞生时就倡导语法本身应该简单容易学习，所以设计时 Java 就只支持单继承，因此 Java 并不支持特质，不过可以通过内部类实现类似多重继承的功能。</p>
+
+<h2 id="groovy-篇:89c750ad1906317a6fca07a73363441c">Groovy 篇</h2>
+
+<h3 id="创建特质:89c750ad1906317a6fca07a73363441c">创建特质</h3>
+
+<p>特质使用关键字 <code>trait</code> 声明，可以拥有普通成员和抽象成员。</p>
+
+<pre><code class="language-groovy">trait MessageHandler {
+    //  属性
+    int minLenght
+
+    //  方法
+    //  普通方法
+    void echo(String msg) {
+        println(msg)
+    }
+
+    //  抽象方法
+    abstract void show(String msg)
+}
+</code></pre>
+
+<blockquote>
+<p>Groovy 中特质本质上是运行时对接口的实现，所以其方法的访问控制符只支持 <code>public</code> 和 <code>private</code>。</p>
+</blockquote>
+
+<h3 id="使用特质:89c750ad1906317a6fca07a73363441c">使用特质</h3>
+
+<p>特质就像接口一样使用关键字 <code>implements</code> 进行实现。</p>
+
+<pre><code class="language-groovy">class DefaultMessageHandler implements MessageHandler {
+
+    @Override
+    void show(String msg) {
+        println(msg)
+    }
+}
+
+def handler = new DefaultMessageHandler()
+handler.show(&quot;foo&quot;)
+</code></pre>
+
+<h3 id="实现接口与特质:89c750ad1906317a6fca07a73363441c">实现接口与特质</h3>
+
+<p>特质可以实现接口。</p>
+
+<pre><code class="language-groovy">interface Named {
+    String name()
+}
+trait Greetable implements Named {
+    String greeting() { &quot;Hello, ${name()}!&quot; }
+}
+</code></pre>
+
+<p>特质也可以实现其它特质。</p>
+
+<pre><code class="language-groovy">trait OutputLogger implements Logger{
+    @Override
+    void log(String msg) {
+        super.log(msg)
+    }
+}
+</code></pre>
+
+<p>多重继承时使用 <code>,</code> 作为分隔符，这点和接口一样</p>
+
+<pre><code class="language-groovy">class Duck implements FlyingAbility, SpeakingAbility {}
+</code></pre>
+
+<blockquote>
+<p>特质实现接口和特质使用的是关键字 <code>implements</code>，而接口实现接口使用的则是关键字 <code>extends</code>。</p>
+</blockquote>
+
+<h3 id="带有特质的对象:89c750ad1906317a6fca07a73363441c">带有特质的对象</h3>
+
+<p>使用 <code>withTraits</code> 可以动态通过对象实现特质而不用在类上定义特质。</p>
+
+<pre><code class="language-groovy">def logger2 = new BasicLogger().withTraits(OutputLogger)
+logger2.log(&quot;hello world&quot;)
+</code></pre>
+
+<p><code>withTraits</code> 中可以包含多个特质，每个特质以 <code>,</code> 分隔。</p>
+
+<h3 id="diamond-problems:89c750ad1906317a6fca07a73363441c">Diamond Problems</h3>
+
+<p>对于 Diamond Problems，Groovy 采用的是最右边定义的赢的规则。即一个类实现了多个包含同名方法的特质时，总是调用最右边的特质定义的方法。</p>
+
+<p>定义特质 A,B 和实现特质的类 C</p>
+
+<pre><code class="language-groovy">trait A {
+    void echo() {
+        println(&quot;A&quot;)
+    }
+}
+
+trait B {
+    void echo() {
+        println(&quot;B&quot;)
+    }
+}
+
+class C {}
+</code></pre>
+
+<p>调用 C</p>
+
+<pre><code class="language-groovy">def c1 = new C().withTraits(A, B)
+c1.echo()   //  B
+def c2 = new C().withTraits(B, A)
+c2.echo()   //  A
+</code></pre>
+
+<h3 id="链式操作:89c750ad1906317a6fca07a73363441c">链式操作</h3>
+
+<p>链式操作即实现多个特质时，每个特质可以通过 <code>super</code> 调用上一个特质的实现。特质的链式操作可以说是一个比较复杂的概念，建议使用 Debug 进行跟踪来进行理解。简单来说就是基于 &ldquo;最右为赢&rdquo; 的原则，总是调用最右边的特质，在该特质调用 <code>super</code> 后就调用其左边的特质的实现。</p>
+
+<p>以下是一个链式操作的完整的例子</p>
+
+<p>定义一个 Logger 接口</p>
+
+<pre><code class="language-groovy">interface Logger {
+    void log(String msg)
+}
+</code></pre>
+
+<blockquote>
+<p>链式操作时最上层定义的必须为接口，而不能是拥有抽象类的特质 <code>trait Logger {abstract void log(String msg}</code>。</p>
+</blockquote>
+
+<p>定义实现该接口的几个特质</p>
+
+<pre><code class="language-groovy">trait OutputLogger implements Logger {
+
+    @Override
+    void log(String msg) {
+        println(&quot;--&gt; Seeing msg in OutputLogger.&quot;)
+        println(msg)
+    }
+}
+
+trait ShortLogger implements Logger {
+
+    final int maxLength = 15
+
+    @Override
+    void log(String msg) {
+        println(&quot;--&gt; Seeing msg in ShortLogger.&quot;)
+        if (msg.length() &lt;= maxLength)
+            super.log(msg)
+        else
+            super.log(msg.substring(0, maxLength - 3) + &quot;...&quot;)
+
+    }
+}
+
+trait TimeStampLogger implements Logger {
+    @Override
+    void log(String msg) {
+        println(&quot;--&gt; Seeing msg in TimeStampLogger.&quot;)
+        super.log(new Date().toString() + &quot; &quot; + msg)
+    }
+
+}
+</code></pre>
+
+<p>以上定义了三个特质，其中 <code>OutputLogger</code> 用于执行打印操作，<code>ShortLogger</code> 限制传入的消息长度为15，<code>TimeStampLogger</code> 用于在消息前追加当前时间。</p>
+
+<p>执行链式操作</p>
+
+<pre><code class="language-groovy">public class BasicLogger {
+}
+
+def loggerX = new BasicLogger().withTraits(OutputLogger, TimeStampLogger, ShortLogger)
+loggerX.log(&quot;hello world loggerX&quot;)  //  Mon Oct 05 12:01:49 CST 2015 hello world ...
+
+def loggerY = new BasicLogger().withTraits(OutputLogger, ShortLogger, TimeStampLogger)
+loggerY.log(&quot;hello world loggerY&quot;)  //  Mon Oct 05 1...
+</code></pre>
+
+<p>以上 loggerX 先进行了截取操作再追加时间，而 loggerY 先追加时间再进行截取。</p>
+
+<h2 id="scala-篇:89c750ad1906317a6fca07a73363441c">Scala 篇</h2>
+
+<h3 id="创建特质-1:89c750ad1906317a6fca07a73363441c">创建特质</h3>
+
+<p>Scala 中特质也使用关键字 <code>trait</code> 声明，可以拥有普通成员和抽象成员。</p>
+
+<pre><code class="language-scala">trait MessageHandler {
+    //  属性
+    val minLength: Int
+
+    //  方法
+    //  普通方法
+    def echo(msg: String) {
+        println(msg)
+    }
+
+    //  抽象方法
+    def show(msg: String)
+}
+</code></pre>
+
+<h3 id="使用特质-1:89c750ad1906317a6fca07a73363441c">使用特质</h3>
+
+<p>Scala 中只实现一个特质时使用关键字 <code>extends</code> 。</p>
+
+<pre><code class="language-scala">class DefaultMessageHandler extends MessageHandler {
+    override val minLength: Int = 100
+    override def show(msg: String): Unit = {
+        println(msg)
+    }
+}
+
+val handler = new DefaultMessageHandler
+handler.show(&quot;foo&quot;)
+</code></pre>
+
+<h3 id="实现特质:89c750ad1906317a6fca07a73363441c">实现特质</h3>
+
+<p>一个特质可以实现其它特质。</p>
+
+<pre><code class="language-scala">trait OutputLogger extends Logger {
+    override def log(msg: String): Unit = println(msg)
+}
+</code></pre>
+
+<p>实现多个特质时使用 <code>with</code> 作为分隔符</p>
+
+<pre><code class="language-scala">class Duck extends FlyingAbility with SpeakingAbility {}
+</code></pre>
+
+<h3 id="带有特质的对象-1:89c750ad1906317a6fca07a73363441c">带有特质的对象</h3>
+
+<p>Scala 中也可以使用关键字 <code>with</code> 来动态通过对象实现特质而不用在类上定义特质。</p>
+
+<pre><code class="language-scala">val logger = new BasicLogger with OutputLogger
+logger.log(&quot;hello world&quot;)
+</code></pre>
+
+<h3 id="diamond-problems-1:89c750ad1906317a6fca07a73363441c">Diamond Problems</h3>
+
+<p>对于 Diamond Problems，Scala 采用的方式非常简单，类必须重写造成 Diamond Problems 的方法，如果不重写的会报运行时异常 &ldquo;Inherits conflicting members&rdquo;。</p>
+
+<h3 id="特质的构造顺序:89c750ad1906317a6fca07a73363441c">特质的构造顺序</h3>
+
+<p>Scala 中特质构造顺序遵循以下原则</p>
+
+<ul>
+<li>首先调用超类的构造器</li>
+<li>特质构造器在超类构造器之后，类构造器之前执行</li>
+<li>特质由左至右被构造</li>
+<li>每个特质中，父特质先被构造</li>
+<li>如果多个特质有同一个父特质，且父特质已被构造了，则不会被再次构造</li>
+<li>所有特质构造完毕，子类才被构造</li>
+</ul>
+
+<p>例</p>
+
+<p>有如下类</p>
+
+<pre><code class="language-scala">trait Logger
+trait FileLogger extends Logger
+trait ShortLogger extends Logger
+class Account
+class SavingAccount extends Account with FileLogger with ShortLogger
+</code></pre>
+
+<p>则 SavingAccount 的构造顺序为</p>
+
+<ol>
+<li>Account</li>
+<li>Logger</li>
+<li>FileLogger</li>
+<li>ShortLogger</li>
+<li>SavingAccount</li>
+</ol>
+
+<h3 id="链式操作-1:89c750ad1906317a6fca07a73363441c">链式操作</h3>
+
+<p>Groovy 中虽然没有 Groovy 的最右为赢的原则，但是同样的 Scala 中右边的特质调用 <code>super</code> 后会调用其左边的特质的实现。</p>
+
+<p>以下是一个链式操作的完整的例子</p>
+
+<p>定义一个 Logger 接口</p>
+
+<pre><code class="language-scala">trait Logger {
+    def log(msg: String)
+}
+</code></pre>
+
+<p>注意 Groovy 这里使用的是接口，而 Scala 为特质</p>
+
+<p>定义实现该接口的几个特质</p>
+
+<pre><code class="language-scala">trait OutputLogger extends Logger {
+    override def log(msg: String): Unit = println(msg)
+}
+
+trait ShortLogger extends Logger {
+    val maxLength = 15
+
+    override def log(msg: String): Unit = {
+        super.log(
+            if (msg.length &lt;= maxLength) msg else msg.substring(0, maxLength - 3) + &quot;...&quot;
+        )
+    }
+}
+
+trait TimeStampLogger extends Logger {
+    override def log(msg: String): Unit = {
+        super.log(new Date() + &quot; &quot; + msg)
+    }
+}
+</code></pre>
+
+<p>以上定义了三个特质，其中 <code>OutputLogger</code> 用于执行打印操作，<code>ShortLogger</code> 限制传入的消息长度为15，<code>TimeStampLogger</code> 用于在消息前追加当前时间。</p>
+
+<p>执行链式操作</p>
+
+<pre><code class="language-scala">class BasicLogger {
+}
+
+val loggerX = new BasicLogger with OutputLogger with TimeStampLogger with ShortLogger
+loggerX.log(&quot;hello world loggerX&quot;) //   Mon Feb 16 11:46:06 CST 2015 hello world ...
+val loggerY = new BasicLogger with OutputLogger with ShortLogger with TimeStampLogger
+loggerY.log(&quot;hello world loggerY&quot;) //   Mon Feb 16 1...
+</code></pre>
+
+<p>以上 loggerX 先进行了截取操作再追加时间，而 loggerY 先追加时间再进行截取。</p>
+
+<h3 id="什么时候应该使用特质而不是抽象类:89c750ad1906317a6fca07a73363441c">什么时候应该使用特质而不是抽象类？</h3>
+
+<p>如果你想定义一个类似接口的类型，你可能会在特质和抽象类之间难以取舍。这两种形式都可以让你定义一个类型的一些行为，并要求继承者定义一些其他行为。一些经验法则：</p>
+
+<ul>
+<li>优先使用特质。一个类扩展多个特质是很方便的，但却只能扩展一个抽象类。</li>
+<li>如果你需要构造函数参数，使用抽象类。因为抽象类可以定义带参数的构造函数，而特质不行。</li>
+<li>如果需要使用的类是从 Java类继承过来的，使用抽象类。</li>
+<li>如果需要考虑效率问题，使用抽象类。Java的动态绑定机制决定了直接方法要快于接口方法。而特质最终是被编译成接口。</li>
+</ul>
+
+<h2 id="kotlin-篇:89c750ad1906317a6fca07a73363441c">Kotlin 篇</h2>
+
+<p>Kotlin 曾经支持过特质，不过后来由于多重继承等特性会把程序搞得过于复杂，而且也不是没有其它解决方案，所以 Kotlin 目前的版本已经将特质废弃了。</p>
+
+<h2 id="总结:89c750ad1906317a6fca07a73363441c">总结</h2>
+
+<ul>
+<li>特质最终会被编译成接口</li>
+<li>只有 Groovy 和 Scala 支持特质</li>
+<li>对于 Diamond 问题，Groovy 的原则是最右为赢，Scala 的原则是必须重写</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_23_trait</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-29 </h4>
+          <h5 id="wc"> 700 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  4 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-24-enum/"><i class="icon-arrow-left"></i> JGSK - 24.枚举</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-22-package/">JGSK - 22.包与访问权限 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="686">
+<meta itemprop="datePublished" content="2015-09-29">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-23-trait/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-23-trait\/';
+    var disqus_title = 'JGSK - 23.Trait';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-23-trait\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

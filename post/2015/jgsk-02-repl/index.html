@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 02.REPL 环境"/>
+<meta property="og:site_name" content="JGSK - 02.REPL 环境"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-02-repl/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-15"/>
+<meta property="article:modified_time" content="2015-09-15"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 02.REPL 环境">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 02.REPL 环境 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-02-repl/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2002.REPL%20%e7%8e%af%e5%a2%83-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f&title=JGSK%20-%2002.REPL%20%e7%8e%af%e5%a2%83&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-02-repl%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 02.REPL 环境</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Java 篇</a></li>
+<li><a href="#groovy-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Groovy 篇</a></li>
+<li><a href="#scala-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Scala 篇</a></li>
+<li><a href="#kotlin-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Kotlin 篇</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<p>REPL 为 &ldquo;Read Evaluate Print Loop&rdquo; 的简写，即 &ldquo;读取-求值-打印-循环&rdquo;，是一些动态语言的标准特性，主要用于进行探索式编程。也就是说当你不清楚某项计算的结果或者忘记了某个方法的作用时，可以输入代码片段并立即获得结果。</p>
+
+<h2 id="java-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Java 篇</h2>
+
+<p>Java 是门纯面向对象语言，入口必须是一个拥有 <code>main</code> 方法的类，所以其并不支持 REPL。这意味着如果想计算类似 &ldquo;2 + 3&rdquo; 这样的结果，必须打开 IDE，建一个任意名字的类，创建 <code>main</code> 方法，然后输入 &ldquo;System.out.println(2+3)&rdquo; 才能获得这样一个简单的结果，可以说非常繁琐。</p>
+
+<p>尽管 Java 本身不支持 REPL，但是网上还是有 <a href="http://www.javarepl.com/console.html">在线的 REPL 工具</a> 可以使用，不过始终没有原生支持好用。</p>
+
+<h2 id="groovy-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Groovy 篇</h2>
+
+<p>Groovy 提供了一个带有 GUI 界面的 REPL 环境，即 Groovy Console。</p>
+
+<p>只要在命令行输入以下命令就可以直接在当前 Path 下打开 Groovy Console</p>
+
+<pre><code>groovyConsole
+</code></pre>
+
+<p>输入语句 <code>2+3</code> 后按下 &ldquo;CTRL + ENTER&rdquo; 就可以在下面的输出框中看到执行结果</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/2015/09/jgsk/01.png" alt="" />
+</p>
+
+<p>默认的 Groovy Console 会保留每次执行的结果，看起来可能不方便，如果希望每次执行时都先清空以前执行的结果需要修改设置 &ldquo;View&rdquo; -&gt; &ldquo;Auto Clear Output On Run&rdquo;</p>
+
+<p>此外，由于 Groovy 可以直接使用 Java 语言，所以 Groovy Console 也可以当做 Java 的 REPL 环境使用。</p>
+
+<h2 id="scala-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Scala 篇</h2>
+
+<p>在命令行中输入 <code>scala</code> 就可以进入 Scala 的 REPL 环境，可以看到提示符会变为 &ldquo;scala&gt;&ldquo;。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/2015/09/jgsk/02.png" alt="" />
+</p>
+
+<p>输入语句 <code>2+3</code> 后回车就可以立即看到结果。</p>
+
+<p>如果希望一次输入多条语句的话可以输入 <code>:paste</code> 进入黏贴模式，插入完多行代码后按下组合键 <code>ctrl+d</code> 就可以退出黏贴模式并执行刚才编写的多行语句。</p>
+
+<h2 id="kotlin-篇:e4eea3a7d03e374c0c20da9ac4e5e0f2">Kotlin 篇</h2>
+
+<p>在命令行中输入 <code>kotlinc-jvm</code> 或者其简写 <code>kotlinc</code> 就可以进入 Kotlin 的 REPL 环境，可以看到提示符会变为 &ldquo;&gt;&gt;&gt;&ldquo;。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/2015/09/jgsk/03.png" alt="" />
+</p>
+
+<p>在打开的 GUI 界面中输入语句 <code>2+3</code> 后回车就可以立即看到结果。</p>
+
+<p>除此之外，JetBrains 也提供了一个 <a href="http://try.kotlinlang.org/">在线交互式环境</a> 可以在线编写程序并且能够保存结果。</p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-15 </h4>
+          <h5 id="wc"> 200 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  1 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-04-base-structure/"><i class="icon-arrow-left"></i> JGSK - 04.程序基本结构</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-03-maven-project/">JGSK - 03.创建 Maven 工程 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="117">
+<meta itemprop="datePublished" content="2015-09-15">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-02-repl/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-02-repl\/';
+    var disqus_title = 'JGSK - 02.REPL 环境';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-02-repl\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

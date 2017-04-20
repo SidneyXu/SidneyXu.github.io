@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="scala, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Scala - 02.高阶函数"/>
+<meta property="og:site_name" content="JGSK - Scala - 02.高阶函数"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-16"/>
+<meta property="article:modified_time" content="2015-12-16"/>
+
+
+
+<meta property="article:tag" content="scala">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Scala - 02.高阶函数">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Scala - 02.高阶函数 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Scala%20-%2002.%e9%ab%98%e9%98%b6%e5%87%bd%e6%95%b0-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f&title=JGSK%20-%20Scala%20-%2002.%e9%ab%98%e9%98%b6%e5%87%bd%e6%95%b0&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-02-high-order-function%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Scala - 02.高阶函数</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#高阶函数:e7fa3e718381044762f1c1cd07004a4e">高阶函数</a>
+<ul>
+<li><a href="#函数字面量:e7fa3e718381044762f1c1cd07004a4e">函数字面量</a></li>
+<li><a href="#高阶函数-1:e7fa3e718381044762f1c1cd07004a4e">高阶函数</a>
+<ul>
+<li><a href="#函数作为参数:e7fa3e718381044762f1c1cd07004a4e">函数作为参数</a></li>
+<li><a href="#函数作为返回值:e7fa3e718381044762f1c1cd07004a4e">函数作为返回值</a></li>
+</ul></li>
+<li><a href="#柯里化:e7fa3e718381044762f1c1cd07004a4e">柯里化</a></li>
+<li><a href="#函数的部分应用:e7fa3e718381044762f1c1cd07004a4e">函数的部分应用</a></li>
+<li><a href="#偏函数:e7fa3e718381044762f1c1cd07004a4e">偏函数</a></li>
+<li><a href="#按名称传递:e7fa3e718381044762f1c1cd07004a4e">按名称传递</a></li>
+<li><a href="#控制抽象:e7fa3e718381044762f1c1cd07004a4e">控制抽象</a></li>
+<li><a href="#柯里化函数-currying-function-与部分应用函数-partial-applied-function-与偏函数-partial-function:e7fa3e718381044762f1c1cd07004a4e">柯里化函数 (Currying Function)与部分应用函数(Partial Applied Function)与偏函数 (Partial Function)</a>
+<ul>
+<li><a href="#柯里化函数与部分应用函数:e7fa3e718381044762f1c1cd07004a4e">柯里化函数与部分应用函数</a></li>
+<li><a href="#部分应用函数与偏函数:e7fa3e718381044762f1c1cd07004a4e">部分应用函数与偏函数</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="高阶函数:e7fa3e718381044762f1c1cd07004a4e">高阶函数</h2>
+
+<h3 id="函数字面量:e7fa3e718381044762f1c1cd07004a4e">函数字面量</h3>
+
+<p>所谓的函数字面量指的将函数本身赋值给一个变量。通过函数字面量，可以使函数本身表现得和普通变量一样。</p>
+
+<p>定义一个函数字面量</p>
+
+<pre><code class="language-scala">val sum = (x: Int, y: Int) =&gt; x + y
+</code></pre>
+
+<p>Scala 在定义函数字面量时支持参数的类型推断，只要确定了返回值的类型，编写参数时就可以省略类型。</p>
+
+<pre><code class="language-scala">val sum2: (Int, Int) =&gt; Int = (x, y) =&gt; x + y
+</code></pre>
+
+<p>以上函数的返回值类型为 <code>(Int, Int) =&gt; Int</code>，表示函数有两个整型的输入和一个整型的返回值，所以定义参数 <code>x</code> 和 <code>y</code> 时可以省略参数类型。</p>
+
+<p>Scala 中实现函数字面量的方法比较特别，是通过一个名为 <code>FunctionN</code> (n 为 0 到 22 的整数)的特质的 <code>apply()</code> 来实现的。其中 <code>Functon0</code> 代表没有参数，<code>Function1</code> 代表 1 个参数，以此类推。</p>
+
+<p>所以以上 <code>sum2</code> 实质上是</p>
+
+<pre><code class="language-scala">val sum2: Function2[Int, Int, Int] = new Function2[Int, Int, Int] {
+  override def apply(x: Int, y: Int): Int = x + y
+}
+</code></pre>
+
+<p>Scala 还有一个强大的特性就是可以通过符号 <code>_</code> 获得一个已经定义好的方法的函数字面量。</p>
+
+<p>在类中定义一个方法</p>
+
+<pre><code class="language-scala">def multiple(x: Int, y: Int): Int = x * y
+</code></pre>
+
+<p>获得该方法的函数字面量</p>
+
+<pre><code class="language-scala">val multi = multiple _
+//	调用方法
+println(multiple(3, 4)) //  12
+//	使用函数字面量
+println(multi(3, 4)) //  12
+</code></pre>
+
+<h3 id="高阶函数-1:e7fa3e718381044762f1c1cd07004a4e">高阶函数</h3>
+
+<p>高级函数指的是将函数本身作为参数传递给另一个函数或者一个函数返回值是另一个函数。正是由于函数字面值的存在，高阶函数才能得以实现。</p>
+
+<h4 id="函数作为参数:e7fa3e718381044762f1c1cd07004a4e">函数作为参数</h4>
+
+<p>定义一个参数为函数类型的函数</p>
+
+<pre><code class="language-scala">def add10(f: (Int) =&gt; Int) = f(10)
+</code></pre>
+
+<p>以上定义了一个函数 <code>add10()</code>，该函数接收一个以整型为输入并返回整型的函数类型参数，在函数体中会调用传入的函数并向其传入参数 10。</p>
+
+<p>调用以上方法</p>
+
+<pre><code class="language-scala">add10({ i =&gt; i + 2 })	//	12
+</code></pre>
+
+<p>以上代码可以简写成以下形式，省略掉参数外的括号</p>
+
+<pre><code class="language-scala">add10({ i =&gt; i + 2 })	//	12
+</code></pre>
+
+<p>通过使用占位符可以进一步缩减代码</p>
+
+<pre><code class="language-scala">add10(_ + 2)
+</code></pre>
+
+<p>通过此种形式可以传入不同的函数来完成不同的操作而不用像  Java 一样必须先定义好接口。</p>
+
+<h4 id="函数作为返回值:e7fa3e718381044762f1c1cd07004a4e">函数作为返回值</h4>
+
+<pre><code class="language-scala">def scale(factor: Double) = (x: Double) =&gt; x * factor
+</code></pre>
+
+<h3 id="柯里化:e7fa3e718381044762f1c1cd07004a4e">柯里化</h3>
+
+<p>柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。</p>
+
+<p>Scala 中可以直接定义柯里化函数。</p>
+
+<p>定义一个普通函数</p>
+
+<pre><code class="language-scala">def minus(x: Int, y: Int) = x - y
+</code></pre>
+
+<p>定义一个柯里化函数</p>
+
+<pre><code class="language-scala">def minus2(x: Int)(y: Int) = x - y
+</code></pre>
+
+<p>和普通函数 <code>minus()</code> 不同，<code>minus2()</code> 有两个参数列表，每个接收一个参数，也就是说 <code>minus2()</code> 实际就是对 <code>minus()</code> 进行柯里化后的结果。</p>
+
+<p>调用以上函数</p>
+
+<pre><code class="language-scala">minus(5, 3)	//	2
+minus2(5)(3)	//	2
+</code></pre>
+
+<p>可以看到使用普通函数时必须一次性传入所有参数，而对于柯里化函数可以每次只传入一个参数。</p>
+
+<p>对于像 <code>minus()</code> 这样已经定义好的函数在 Scala 中也可以通过 <code>curried()</code> 函数将其转变为柯里化函数。</p>
+
+<pre><code class="language-scala">val minusCurr=(minus _).curried
+minusCurr(5)(3)
+</code></pre>
+
+<h3 id="函数的部分应用:e7fa3e718381044762f1c1cd07004a4e">函数的部分应用</h3>
+
+<p>函数的部分应用 (Function Partial Application) 指的是向一个接收多个参数的函数传入部分参数从而获得一个接收剩余参数的新函数的技术。</p>
+
+<p>定义一个多参数的函数</p>
+
+<pre><code class="language-scala">def show(prefix: String, msg: String, postfix: String) = prefix + msg + postfix
+</code></pre>
+
+<p>部分应用</p>
+
+<pre><code class="language-scala">val applyPrefix = show(&quot;(&quot;, _: String, _: String)
+println(applyPrefix(&quot;foo&quot;, &quot;)&quot;)) //  (foo)
+
+val applyPostfix = show(_: String, _: String, &quot;)&quot;)
+println(applyPostfix(&quot;(&quot;, &quot;bar&quot;)) //  (bar)
+</code></pre>
+
+<p>以上 <code>applyPrefix()</code> 是应用了 <code>show()</code> 的第一个参数的新函数，<code>applyPostfix()</code> 是应用了 <code>show()</code> 的最后一个参数的新函数。</p>
+
+<p>Scala 中使用符号 <code>_</code> 表示暂时不应用的参数，需要注意这些参数必须明确指明参数类型，Scala 没有办法在这种场合做类型推断。</p>
+
+<h3 id="偏函数:e7fa3e718381044762f1c1cd07004a4e">偏函数</h3>
+
+<p>函数指对于所有给定类型的输入，总是存在特定类型的输出。</p>
+
+<p>偏函数指对于某些给定类型的输入，可能没有对应的输出，即偏函数无法处理给定类型范围内的所有值。</p>
+
+<p>Scala 中偏函数使用 trait <code>PartialFunction</code> 表示，该函数是个一元函数，以模式匹配的结果作为函数的最终结果</p>
+
+<p>定义一个偏函数</p>
+
+<pre><code class="language-java">val isEven: PartialFunction[Int, String] = {
+  case x if x != 0 &amp;&amp; x % 2 == 0 =&gt; x + &quot; is even&quot;
+}
+</code></pre>
+
+<p>以上偏函数虽然接收 <code>Int</code> 类型作为参数，但是只能处理 <code>Int</code> 不为 0 或者参数为奇数的情况。</p>
+
+<p>使用偏函数</p>
+
+<pre><code class="language-scala">isEven(20)
+</code></pre>
+
+<p>偏函数可以通过 <code>isDefinedAt()</code> 方法来判断其是否能够处理传入的参数</p>
+
+<pre><code class="language-scala">println(isEven.isDefinedAt(4))  //  true
+println(isEven.isDefinedAt(3))  //  false
+</code></pre>
+
+<p>当某个偏函数无法处理输入的值后可以通过链式操作将其传递给其它偏函数进行处理</p>
+
+<pre><code class="language-scala">val isOdd: PartialFunction[Int, String] = {
+    case x if x % 2 != 0 =&gt; x + &quot; is odd&quot;
+}
+val other: PartialFunction[Int, String] = {
+    case _ =&gt; &quot;else&quot;
+}
+val partial = isEven orElse isOdd orElse other
+println(partial(3)) //  3 is odd
+println(partial(0)) //  else
+</code></pre>
+
+<h3 id="按名称传递:e7fa3e718381044762f1c1cd07004a4e">按名称传递</h3>
+
+<p>定义这样一个函数</p>
+
+<pre><code class="language-scala">def assert(predicate: () =&gt; Boolean) =
+   if (assertionsEnabled &amp;&amp; !predicate())
+     println(&quot;assert failed&quot;)
+</code></pre>
+
+<p>该函数需要以以下方式使用</p>
+
+<pre><code class="language-scala">assert(() =&gt; 1 == 2)
+</code></pre>
+
+<p>按名称传递时省略定义时的 <code>()</code></p>
+
+<pre><code class="language-scala">def byNameAssert(predicate: =&gt; Boolean) =
+    if (assertionsEnabled &amp;&amp; !predicate)
+      println(&quot;assert failed&quot;)
+</code></pre>
+
+<p>调用时</p>
+
+<pre><code class="language-scala">byNameAssert(1 == 2)
+</code></pre>
+
+<p>相比较而言，按名称传递看起来就像直接传入参数一样，但实质是传入一个函数。</p>
+
+<p>和普通的按值传递的区别</p>
+
+<pre><code class="language-scala">var assertionsEnabled = false
+def booleanAssert(predicate: Boolean) =
+    if (assertionsEnabled &amp;&amp; !predicate)
+      println(&quot;assert failed&quot;)
+</code></pre>
+
+<p>以下第一行不会报错，第二行会直接奔溃</p>
+
+<pre><code class="language-scala">byNameAssert(1 / 0 == 0)
+booleanAssert(1 / 0 == 0)
+</code></pre>
+
+<h3 id="控制抽象:e7fa3e718381044762f1c1cd07004a4e">控制抽象</h3>
+
+<p>以上高级函数，柯理化，按名称传递等在 Scala 中都属于控制抽象的实现方式。个人觉得这名字很拗口，只要知道就行了。</p>
+
+<h3 id="柯里化函数-currying-function-与部分应用函数-partial-applied-function-与偏函数-partial-function:e7fa3e718381044762f1c1cd07004a4e">柯里化函数 (Currying Function)与部分应用函数(Partial Applied Function)与偏函数 (Partial Function)</h3>
+
+<h4 id="柯里化函数与部分应用函数:e7fa3e718381044762f1c1cd07004a4e">柯里化函数与部分应用函数</h4>
+
+<p>这两种概念初次见到时非常容易让人迷惑，感觉好像差不多，但是实际上是完全不同的函数。</p>
+
+<p>柯里化是将多参数函数分解成多个但参数的函数，即将 <code>function(x, y, z){...}</code> 分解成 <code>function(x){ lambda(y){ lambda(z){...} } }</code>。由于每次都是传入一个参数后获得包含其余参数的函数所以需要使用 <code>function(x)(y)(z)</code> 完成完整调用。柯里化函数非常像责任链模式，参数必须依照定义的顺序由前之后传入，每个参数完成部分工作。</p>
+
+<p>部分应用是只传入部分参数从而获得包含其余参数的函数，即将 <code>function(x, y, z){...}</code> 变成 <code>function(x, _, _)</code>。本质上部分应用函数用于固定多参数函数的某几个参数，从而在调用时不用每次都传入同样的参数。部分应用函数的参数之间没有任何关系，所以可以部分应用任意位置的参数。</p>
+
+<p>最后，直观上看柯里化函数虽然有多个参数列表，但每个只接受一个参数。而部分应用函数只有一个参数列表，但参数个数至少为 2。</p>
+
+<h4 id="部分应用函数与偏函数:e7fa3e718381044762f1c1cd07004a4e">部分应用函数与偏函数</h4>
+
+<p>这两个名词虽然是不同的东西，但是由于英文名和部分应用函数的另一个名字（偏函数应用）非常相似所以不注意也容易搞混。</p>
+
+<p>部分应用函数是固定多参数函数的部分参数得到一个新函数。</p>
+
+<p>偏函数则表示算式无法处理传入的参数类型的某些特定值。</p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-16 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-scala-04-implict/"><i class="icon-arrow-left"></i> JGSK - Scala - 04.隐式转换及类型约束</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-groovy-01-high-order-function/">JGSK - Groovy - 01.高阶函数 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="481">
+<meta itemprop="datePublished" content="2015-12-16">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-02-high-order-function\/';
+    var disqus_title = 'JGSK - Scala - 02.高阶函数';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-02-high-order-function\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

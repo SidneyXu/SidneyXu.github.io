@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 05.数据类型"/>
+<meta property="og:site_name" content="JGSK - 05.数据类型"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-05-datatype/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-16"/>
+<meta property="article:modified_time" content="2015-09-16"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 05.数据类型">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 05.数据类型 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-05-datatype/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2005.%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f&title=JGSK%20-%2005.%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-05-datatype%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 05.数据类型</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Java 篇</a>
+<ul>
+<li><a href="#基本类型:21f36e8b23a4b2e17cea2dcc45ca71e6">基本类型</a></li>
+<li><a href="#bigdecimal:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</a></li>
+<li><a href="#引用数据类型:21f36e8b23a4b2e17cea2dcc45ca71e6">引用数据类型</a></li>
+<li><a href="#类型转换:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</a>
+<ul>
+<li><a href="#隐式转换:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</a></li>
+<li><a href="#显式转换:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</a></li>
+<li><a href="#类型推断:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#groovy-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Groovy 篇</a>
+<ul>
+<li><a href="#静态类型:21f36e8b23a4b2e17cea2dcc45ca71e6">静态类型</a></li>
+<li><a href="#动态类型:21f36e8b23a4b2e17cea2dcc45ca71e6">动态类型</a></li>
+<li><a href="#bigdecimal-1:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</a></li>
+<li><a href="#类型转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</a>
+<ul>
+<li><a href="#隐式转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</a></li>
+<li><a href="#显式转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</a></li>
+<li><a href="#类型推断-1:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#scala-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Scala 篇</a>
+<ul>
+<li><a href="#anyval:21f36e8b23a4b2e17cea2dcc45ca71e6">AnyVal</a></li>
+<li><a href="#anyref:21f36e8b23a4b2e17cea2dcc45ca71e6">AnyRef</a></li>
+<li><a href="#bigdecimal-2:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</a></li>
+<li><a href="#类型转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</a>
+<ul>
+<li><a href="#隐式转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</a></li>
+<li><a href="#显式转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</a></li>
+<li><a href="#类型推断-2:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#kotlin-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Kotlin 篇</a>
+<ul>
+<li><a href="#数据类型:21f36e8b23a4b2e17cea2dcc45ca71e6">数据类型</a></li>
+<li><a href="#bigdecimal-3:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</a></li>
+<li><a href="#类型转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</a>
+<ul>
+<li><a href="#隐式转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</a></li>
+<li><a href="#显式转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</a></li>
+<li><a href="#类型推断-3:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结:21f36e8b23a4b2e17cea2dcc45ca71e6">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Java 篇</h2>
+
+<p>Java 的数据类型主要分为基本数据类型和引用数据类型。</p>
+
+<h3 id="基本类型:21f36e8b23a4b2e17cea2dcc45ca71e6">基本类型</h3>
+
+<p>Java 的基本类型有 int, long, float, double, char, boolean，即以小写字母开头的数据类型。</p>
+
+<p>例</p>
+
+<pre><code class="language-java">int x = 2;
+float y = 0.1f;
+boolean flag = false;
+</code></pre>
+
+<h3 id="bigdecimal:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</h3>
+
+<p>Java 的基本数值类型及其包装类在进行浮点操作时，很有可能会损失精度。为此，Java 引进了 BigDecimal 类，可以在不损失精度的情况下进行计算。但是不幸的是 Java 的 BigDeciaml 的构造器设计得非常反人类。</p>
+
+<pre><code class="language-java">System.out.println(2.0 - 1.8);	//0.19999999999999996
+System.out.println(new BigDecimal(2.0).subtract(new BigDecimal(1.8)));	//0.1999999999999999555910790149937383830547332763671875
+System.out.println(new BigDecimal(&quot;2.0&quot;).subtract(new BigDecimal(&quot;1.8&quot;)));	//0.2
+</code></pre>
+
+<p>从上面的例子可以看到，BigDecimal 有字符串和数值两种构造器，字符串构造器构造的 BigDecimal 才能满足我们的需求，而不是直接使用数值进行构造，基本上用过这个类的人都会踩过这个坑。</p>
+
+<h3 id="引用数据类型:21f36e8b23a4b2e17cea2dcc45ca71e6">引用数据类型</h3>
+
+<p>Java 中除基本数据类型之外的所有数据都属于引用数据类型，且所有引用数据类型都是 Object 类的子类。</p>
+
+<h3 id="类型转换:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</h3>
+
+<h4 id="隐式转换:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</h4>
+
+<p>所谓的隐式转换即无需显示指明需要进行类型转换，由编译器根据变量的类型自动推断。</p>
+
+<p>Java 的隐式转换只发生在使用字面值给变量赋值或者向上转型时，如以下例子</p>
+
+<pre><code class="language-java">byte b = 1;
+int i = b;	//	byte 类型向上转型为 int 类型
+char c = 1;	//	使用 int 型的字面值 1 为 char 变量赋值
+</code></pre>
+
+<p>如上述的例子，Java 默认数值字面值为 int 型，只要该数值在 byte 取值范围内，字面值就可以直接赋值给 byte 类型变量。此外由于 int 类型取值范围比 byte 大，所以 byte 变量可以直接赋值给 int 变量，即向上转型。</p>
+
+<h4 id="显式转换:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</h4>
+
+<p>无论是基本类型还是引用类型都是使用 <code>(dataType)value</code> 的语法进行转换。显示转换又称作强制转换，且向下转型时很可能会丢失精度。</p>
+
+<pre><code class="language-java">int i = (int) 99.98
+</code></pre>
+
+<h4 id="类型推断:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</h4>
+
+<p>Java 使用关键字 <code>isInstanceof</code> 来判断变量的类型</p>
+
+<p>例：</p>
+
+<pre><code class="language-java">private static void bar(Object foo) {
+    if (foo instanceof String) {
+        String fooString = (String) foo;
+        System.out.println(fooString.toUpperCase());
+    }
+}
+
+Object foo = &quot;foo&quot;;
+bar(foo);
+</code></pre>
+
+<p>从以上例子可以看到，&rdquo;foo&rdquo; 已经通过类型判断知道是 <code>String</code> 类型了，但是还需要进行强制类型转换，并且再声明一个变量，这一做法稍显多余。稍后可以看到 Groovy 的做法要优雅得多。</p>
+
+<h2 id="groovy-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Groovy 篇</h2>
+
+<p>由于 Groovy 就是 Java，所以 Groovy 的数据类型也与 Java 完全一样。但是 Groovy 根据情况的不同会对数据进行包装。</p>
+
+<pre><code class="language-groovy">int i = 1
+1.toString()
+</code></pre>
+
+<p>以上第一行在编译后的结果与 Java 完全一样，而第二行由于调用了方法，所以 Groovy 会将其转换为 Integer 类型。这一自动化操作省去了在写 Java 时的不少麻烦。</p>
+
+<p>所以可以认为 Groovy 中一切皆对象。</p>
+
+<p>Groovy 通常将数据类型分为静态类型和动态类型。</p>
+
+<h3 id="静态类型:21f36e8b23a4b2e17cea2dcc45ca71e6">静态类型</h3>
+
+<p>静态类型与 Java 的声明方式完全一样，声明后就不可以再改变数据类型。</p>
+
+<pre><code class="language-groovy">int x = 2
+float y = 0.1f
+boolean flag = false
+</code></pre>
+
+<h3 id="动态类型:21f36e8b23a4b2e17cea2dcc45ca71e6">动态类型</h3>
+
+<p>Groovy 使用关键字 <code>def</code> 声明动态类型变量，与静态类型变量不一样，动态类型变量在定义后可以任意改变类型，类似 Javascript。</p>
+
+<p>定义动态类型变量</p>
+
+<pre><code class="language-groovy">def dx = 2
+def dy = 0.1
+def dflag = false
+</code></pre>
+
+<p>改变类型</p>
+
+<pre><code class="language-groovy">Date staticDate = new Date()
+// 静态类型变量无法改变数据类型，会报 'java.lang.Integer' to class 'java.util.Date'
+//        staticDate = 2
+
+// 可以由 Date 类型转换为 Integer 类型
+def dynamicDate = new Date()
+dynamicDate = 2
+</code></pre>
+
+<h3 id="bigdecimal-1:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</h3>
+
+<p>与 Java 不同，Groovy 中定义一个浮点类型数据实际就是使用 BigDecimal 的字符串构造器定义一个 BigDecimal，所以 Groovy 中不需要做任何额外操作直接就可以做精确的浮点运算。</p>
+
+<pre><code class="language-groovy">println(2.0 - 1.8);	//0.2
+</code></pre>
+
+<h3 id="类型转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</h3>
+
+<h4 id="隐式转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</h4>
+
+<p>同 Java</p>
+
+<h4 id="显式转换-1:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</h4>
+
+<p>Groovy 使用方法来实现基本类型的显式转换，语法看起来更加优雅</p>
+
+<pre><code class="language-groovy">int i = 99.98.toInteger()
+&quot;99.12&quot;.toDouble()
+</code></pre>
+
+<p>但是 Groovy 并没有提供到 &ldquo;char&rdquo; 类型的转换方法，所以 &ldquo;char&rdquo; 类型还是需要使用 Java 样式的转换方式或者使用另一种方式的类型转换：</p>
+
+<pre><code class="language-groovy">char c = 99 as char
+</code></pre>
+
+<p>对于引用类型的话则转换方式则类似 Java。</p>
+
+<h4 id="类型推断-1:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</h4>
+
+<p>对于引用类型而言，Groovy 也使用关键字 <code>instanceof</code> 做类型推断，但是 Groovy 也提供了 <code>isXXX()</code> 的语法糖来进行基本类型的推断。</p>
+
+<p>可以看到，通过 <code>instanceof</code> 进行判断以后，变量就可以直接调用其真实类型的方法，无需再声明另一个变量并进行强制类型转换，这一做法相比 Java 方便很多。但是如果使用的是 <code>isXXX()</code> 的话则不支持此特性。</p>
+
+<pre><code class="language-groovy">def static bar(foo) {
+    if (foo instanceof String) {
+        println(foo.toUpperCase())
+    }
+    if (foo instanceof Double) {
+        println(foo.intValue())
+    }
+    if (foo.isDouble()) {
+        println(foo.toDouble())
+    }
+}
+
+def foo = &quot;foo&quot;
+bar(foo)
+</code></pre>
+
+<h2 id="scala-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Scala 篇</h2>
+
+<p>Scala 中并不存在基本类型，所有数据都是对象，且都继承自 <code>Any</code> 类。Scala 类型主要分为 <code>AnyVal</code> 和 <code>AnyRef</code>，两者都是 <code>Any</code> 的子类。</p>
+
+<h3 id="anyval:21f36e8b23a4b2e17cea2dcc45ca71e6">AnyVal</h3>
+
+<p>AnyVal 分为 Int, Long, Float, Double, Boolean, Char, Byte，Unit 几种类型。除了最后一种，其它可以看做是 Java 上的基本类型的包装类。而 Unit 则相对于 Java 平台上的 <code>Void</code>，即表示没有返回值。</p>
+
+<pre><code class="language-scala">var x: Int = 2
+var y: Float = 0.1f
+var flag: Boolean = false
+</code></pre>
+
+<h3 id="anyref:21f36e8b23a4b2e17cea2dcc45ca71e6">AnyRef</h3>
+
+<p>AnyRef 是 Scala 中所有引用类的基类，本质上就是 Java 中的 Object 类。</p>
+
+<h3 id="bigdecimal-2:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</h3>
+
+<p>Scala 中的 BigDecimal 虽然没有 Groovy 那么方便，但是也不像 Java 那样反人类。</p>
+
+<pre><code class="language-scala">println(BigDecimal(2) - BigDecimal(1.8))
+</code></pre>
+
+<h3 id="类型转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</h3>
+
+<h4 id="隐式转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</h4>
+
+<p>类似 Java</p>
+
+<h4 id="显式转换-2:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</h4>
+
+<p>对于 AnyVal 类型，Scala 使用方法进行类型转换</p>
+
+<pre><code class="language-scala">var i:Int = 99.98.toInt
+&quot;99.12&quot;.toDouble
+</code></pre>
+
+<p>对于 AnyRef类型，Scala 则使用方法 <code>asInstanceOf()</code> 类进行类型转换</p>
+
+<pre><code class="language-scala">val fooString: String = foo.asInstanceOf[String]
+</code></pre>
+
+<h4 id="类型推断-2:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</h4>
+
+<p>Scala 使用 <code>isInstanceOf</code> 来进行类型推断，整个过程与 Java 基本一样，需要额外定义变量并显式进行类型转换。</p>
+
+<pre><code class="language-scala">def bar(foo: Any): Unit = {
+  if (foo.isInstanceOf[String]) {
+    val fooString: String = foo.asInstanceOf[String]
+    println(fooString.toUpperCase)
+  }
+}
+</code></pre>
+
+<h2 id="kotlin-篇:21f36e8b23a4b2e17cea2dcc45ca71e6">Kotlin 篇</h2>
+
+<p>Kotlin 中一切皆对象，<code>Any</code> 为所有类的基类。</p>
+
+<h3 id="数据类型:21f36e8b23a4b2e17cea2dcc45ca71e6">数据类型</h3>
+
+<p>Kotlin 中的所有类型都是引用类型，但是与其它几门语言不一样，Kotlin 中的 Char 类型不属于数值类型。</p>
+
+<pre><code class="language-kotlin">var x: Int = 2
+var y: Float = 0.1f
+var flag: Boolean = false
+
+val c: Char = 1	//  错误，Char 不是数值类型
+</code></pre>
+
+<h3 id="bigdecimal-3:21f36e8b23a4b2e17cea2dcc45ca71e6">BigDecimal</h3>
+
+<p>Kotlin 并没有专门的 BigDecimal 类，需要调用 Java 来完成计算</p>
+
+<pre><code class="language-kotlin">println(BigDecimal(&quot;2&quot;).subtract(BigDecimal(&quot;1.8&quot;)));
+</code></pre>
+
+<h3 id="类型转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">类型转换</h3>
+
+<h4 id="隐式转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">隐式转换</h4>
+
+<p>Kotlin 只支持使用字面值给变量赋值时的隐式转换，不支持自动向上转型，这点上比其它几门语言都要严格不少。</p>
+
+<pre><code class="language-kotlin">var b: Byte = 1
+
+//  错误，不支持自动向上转型
+val i: Int = b
+</code></pre>
+
+<h4 id="显式转换-3:21f36e8b23a4b2e17cea2dcc45ca71e6">显式转换</h4>
+
+<p>Kotlin 也使用方法进行内置类型的转换</p>
+
+<pre><code class="language-kotlin">val i:Int = 99.98.toInt()
+&quot;99.12&quot;.toDouble()
+</code></pre>
+
+<p>对于其它类型的数据，Kotlin 使用 <code>as</code> 关键字进行类型转换。</p>
+
+<pre><code class="language-kotlin">val fooString: String = foo as String
+</code></pre>
+
+<h4 id="类型推断-3:21f36e8b23a4b2e17cea2dcc45ca71e6">类型推断</h4>
+
+<p>Kotlin 使用关键字 &ldquo;is&rdquo; 来进行类型判断，且在类型判断后数据会被隐式转换为真正的类型，所以可以直接调用该类型的所有方法而无需手动强制转换，Kotlin 称这一过程为 &ldquo;Smart Cast&rdquo;。</p>
+
+<pre><code class="language-kotlin">fun bar(foo: Any) {
+    if (foo is String) {
+        println(foo.toUpperCase())
+    }
+}
+
+val foo = &quot;foo&quot;
+bar(foo)
+</code></pre>
+
+<h2 id="总结:21f36e8b23a4b2e17cea2dcc45ca71e6">总结</h2>
+
+<ul>
+<li>除了 Java 之外，其它语言都含有一切皆对象这一概念</li>
+<li>每种语言都有自己的基类：Java-&gt;Object, Grooy-&gt;Object, Scala-&gt;Any, Kotlin-&gt;Any</li>
+<li>除了 Java 之外，其它语言都使用方法来完成内置类型的强制类型转换</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_05_datatype</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-16 </h4>
+          <h5 id="wc"> 600 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-06-variable/"><i class="icon-arrow-left"></i> JGSK - 06.变量与常量</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-04-base-structure/">JGSK - 04.程序基本结构 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="561">
+<meta itemprop="datePublished" content="2015-09-16">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-05-datatype/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-05-datatype\/';
+    var disqus_title = 'JGSK - 05.数据类型';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-05-datatype\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

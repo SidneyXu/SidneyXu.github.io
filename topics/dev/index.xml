@@ -1,0 +1,1600 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dev on Pixel Space</title>
+    <link>http://git.bookislife.com/topics/dev/</link>
+    <description>Recent content in Dev on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 19 Mar 2016 13:22:59 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/topics/dev/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>常用 adb 命令</title>
+      <link>http://git.bookislife.com/post/2016/adb-command/</link>
+      <pubDate>Sat, 19 Mar 2016 13:22:59 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/adb-command/</guid>
+      <description>
+
+&lt;p&gt;ADB 命令很多，本文只介绍实际常用的那些命令&lt;/p&gt;
+
+&lt;h2 id=&#34;常用-adb-命令:274207f69d1414b83d961bffbbaaab6f&#34;&gt;常用 adb 命令&lt;/h2&gt;
+
+&lt;h3 id=&#34;基本操作:274207f69d1414b83d961bffbbaaab6f&#34;&gt;基本操作&lt;/h3&gt;
+
+&lt;p&gt;列出当前所有设备名，包含真机和模拟器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb devices
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;开启 adb 调试桥&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;start-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;关闭 adb 调试桥，当 Logcat 显示设备 offline 时可用通过重启调试桥恢复功能&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;kill-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示手机硬件信息，包括 device model 等&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell cat system/build.prop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;应用相关:274207f69d1414b83d961bffbbaaab6f&#34;&gt;应用相关&lt;/h3&gt;
+
+&lt;p&gt;安装应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb install &amp;lt;apk&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;卸载应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;uninstall &amp;lt;packageName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示所有安装的应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell pm list packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打开 Schema&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell am start -W -a android.intent.action.VIEW -d &amp;lt;schema&amp;gt; &amp;lt;packageName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-a&lt;/code&gt; 指定 action&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-d&lt;/code&gt; 指定 data uri&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;打开 Activity&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell am start -n &amp;lt;packageName&amp;gt;/&amp;lt;targetActivity&amp;gt; [-e somekey somevalue]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-e&lt;/code&gt; 相当于向 intent 放入 String 类型的 extra 参数，&lt;code&gt;-ei&lt;/code&gt; 则为 int 类型 value，&lt;code&gt;-el&lt;/code&gt; 为 long 类型 value，其它类推&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;注意：如果该 Activity 不是 Main Activity 的话，则必须设置 &lt;code&gt;android:export=“true”&lt;/code&gt; ，否则会报没有权限&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;文件操作:274207f69d1414b83d961bffbbaaab6f&#34;&gt;文件操作&lt;/h3&gt;
+
+&lt;p&gt;拷贝文件到手机&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb push &amp;lt;local_path&amp;gt; &amp;lt;remote_path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从手机拷贝文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb pull &amp;lt;remote_path&amp;gt; &amp;lt;local_path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;截图:274207f69d1414b83d961bffbbaaab6f&#34;&gt;截图&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell screencap -p &amp;lt;filename&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-p&lt;/code&gt; 表示保存为 png 格式，不指定的话 filename 必须指定后缀名。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;wakelock:274207f69d1414b83d961bffbbaaab6f&#34;&gt;wakelock&lt;/h3&gt;
+
+&lt;p&gt;显示所有 wakelock 情况&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell cat /sys/kernel/debug/wakeup_sources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示电源状况&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell dumpsys power
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查找一个应用是否错误地占用了 wakelock&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;按下电源键关闭屏幕&lt;/li&gt;
+&lt;li&gt;等待 20s&lt;/li&gt;
+&lt;li&gt;执行 &lt;code&gt;adb shell dumpsys power | grep PARTIAL&lt;/code&gt;，查看输出结果是否有这样的形式 &lt;code&gt;PARTIAL_WAKE_LOCK ‘AudioOut_2’ activated(minState=0, uid=1013, pid=157)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;重复 2-4 多次，如果还是一直能获得该锁则证明其存在 Bug，没有正常释放锁&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Scala 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2016/dev-android-using-scala/</link>
+      <pubDate>Sun, 10 Jan 2016 20:01:39 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/dev-android-using-scala/</guid>
+      <description>
+
+&lt;h1 id=&#34;scala-android:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;Scala Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;之前介绍了使用 Groovy 和 Kotlin 开发 Android 程序，本节主要介绍如何使用 Scala 开发 Android 程序。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 IDEA 或 Android Studio 中安装 &lt;code&gt;Scala&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Scala&lt;/code&gt; 进行安装，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;gradle-android-scala-plugin&lt;/code&gt; 插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &amp;quot;jp.leafytree.gradle:gradle-android-scala-plugin:1.4&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &amp;quot;jp.leafytree.android-scala&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scala-lang:scala-library:2.11.7&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 sourceSets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;android {
+    sourceSets {
+       main.scala.srcDirs += &#39;src/main/scala&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 &lt;code&gt;scaloid&lt;/code&gt; 作为 Android 的 Scala 扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scaloid:scaloid_2.11:4.0&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;因为 Scala 环境过大会导致 65535 的错误，所以需要开启混淆。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;添加混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn scala.**
+-ignorewarnings
+# temporary workaround; see Scala issue SI-5397
+-keep class scala.collection.SeqLike {
+    public protected *;
+}
+
+# this can be omitted if current Android Build target is android-16
+-dontwarn org.scaloid.**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;开启混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildTypes {
+    debug {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+    release {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/ScalaAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;编写代码:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用-scala-的语法:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 Scala 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Scala 后可以省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Scala&#34;&gt;override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
+    val view: View = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1).asInstanceOf[TextView]
+    title.setText(getItem(position))
+    view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-scaloid:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 scaloid&lt;/h3&gt;
+
+&lt;p&gt;scaloid 中使用了大量的隐式参数和 DSL 语句，使 Android 程序的开发方便不少。&lt;/p&gt;
+
+&lt;p&gt;最简单的使用 scaloid 的方法就是继承 &lt;code&gt;SActivity&lt;/code&gt; 类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scaloid.common._
+
+class MainActivity extends SActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后就可以使用 scaloid 提供的方法来简化代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).text = &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而不使用此功能的话则需要使用以下代码，麻烦了很多&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;((TextView)findViewById(R.id.button1)).setText(&amp;quot;hello world&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).onClick((v: View) =&amp;gt;
+    startActivity[CountryListActivity]
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，使用闭包替代回调也是一种通常的做法。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  定义耗时任务
+def findCountries(doneCallback: (ArrayBuffer[String], Exception) =&amp;gt; Unit):Unit = {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch {
+        case e: Exception =&amp;gt; callback(null, e)
+    }
+}
+//  调用该方法
+findCountries((names: ArrayBuffer[String], e: Exception) =&amp;gt;
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/ScalaAndroid&#34;&gt;ScalaAndroid&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;参考资料:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/saturday06/gradle-android-scala-plugin&#34;&gt;Github gradle-android-scala-plugin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pocorall/scaloid&#34;&gt;Github scaloid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android应用的重新打包与反编译</title>
+      <link>http://git.bookislife.com/post/2016/android-repack-and-decompiler/</link>
+      <pubDate>Mon, 04 Jan 2016 17:31:18 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/android-repack-and-decompiler/</guid>
+      <description>
+
+&lt;h2 id=&#34;android应用的重新打包与反编译:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;Android应用的重新打包与反编译&lt;/h2&gt;
+
+&lt;h3 id=&#34;应用的重新打包:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;应用的重新打包&lt;/h3&gt;
+
+&lt;p&gt;Android 开发中流传着所谓的“打包党”，即将其他开发者开发的畅销应用解开后修改部分内容（比如广告 Id 等）然后重新进行打包上传到商店以谋求暴利。以下就介绍以下如何对一个应用进行重新打包：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先任意准备一个应用用于进行测试，这里随意写了一个应用 &lt;code&gt;testapp.apk&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://ibotpeaches.github.io/Apktool/install/&#34;&gt;下载 Apktool&lt;/a&gt;，按照说明进行安装&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解开 &lt;code&gt;testapp.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./apktool d testapp.apk -o testapp
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;查看解开的目录下的 &lt;code&gt;META-INF/CERT.RSA&lt;/code&gt;，该文件存储有原应用的签名&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -printcert -file testapp/original/META-INF/CERT.RSA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;模仿“打包党”，尝试修改 &lt;code&gt;AndroidManifest.xml&lt;/code&gt; 中的包名和应用名。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重新打包应用为 &lt;code&gt;new_testapp.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./apktool b testapp -o new_testapp.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;生成一个新的 keystore&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -genkey -v -keystore androidse.keystore -alias androidsekey -keyalg RSA -keysize 2048 -validity 365
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;用刚刚生成的 keystore 对重新打包生成的 &lt;code&gt;new_testapp.apk&lt;/code&gt; 进行重新签名&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore androidse.keystore new_testapp.apk androidsekey
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;验证签名是否正确打到应用上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;jarsigner -verify -verbose -certs new_testapp.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对齐 apk，应用要想上 Google Play 必须进行对齐操作，对齐后生成新的应用 &lt;code&gt;new_testapp_align.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ANDROID_HOME/build-tools/23.0.2/zipalign -v 4 new_testapp.apk new_testapp_align.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以上就完成了最简单的重新打包操作。&lt;/p&gt;
+
+&lt;h3 id=&#34;反编译应用:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;反编译应用&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载必要软件&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;下载 dex2Jar&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jd.benow.ca/&#34;&gt;下载 j2-gui&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改权限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod +x jd-gui-1.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解压需要反编译的 apk 获得其中的 &lt;code&gt;classes.dex&lt;/code&gt; 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;反编译 dex 文件为 class 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dex2jar-2.0/d2j-dex2jar.sh testapp/build/apk/classes.dex
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行完毕后会在当前文件夹下会生成 &lt;code&gt;classes-dex2jar.jar&lt;/code&gt; 文件，该文件包含所有该应用相关的 class 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;打开 jd-gui，选择刚才生成的 jar 文件就可以看到反编译后获得的内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java -jar jd-gui-1.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Kotlin 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2015/dev-android-using-kotlin/</link>
+      <pubDate>Mon, 30 Nov 2015 17:46:07 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/dev-android-using-kotlin/</guid>
+      <description>
+
+&lt;h1 id=&#34;kotlin-android:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;Kotlin Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;之前介绍了使用 Groovy 开发 Android 程序，本节主要介绍如何使用 Kotlin 开发 Android 程序。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 IDEA 或 Android Studio 中安装 &lt;code&gt;Kotlin&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Kotlin&lt;/code&gt; 进行安装，安装完后再安装 &lt;code&gt;Kotlin Extensions For Android&lt;/code&gt;，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;kotlin-gradle-plugin&lt;/code&gt; 插件和用于扩展 Android 功能的 &lt;code&gt;kotlin-android-extensions&lt;/code&gt; 插件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    ext.kotlin_version = &#39;1.0.0&#39;
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &amp;quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&amp;quot;
+        classpath &amp;quot;org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &#39;kotlin-android&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 maven 仓库，Kotlin 相关依赖都保存在 maven 中央仓库中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;repositories {
+    jcenter()
+    mavenCentral()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 sourceSets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;android {
+    sourceSets {
+       main.java.srcDirs += &#39;src/main/kotlin&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/KotlinAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;编写代码:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用-kotlin-的语法:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Kotlin 后可以省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    val view = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1) as TextView
+    title.text = getItem(position)
+    return view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-kotlin-extension:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin Extension&lt;/h3&gt;
+
+&lt;p&gt;Kotlin Extension 类似 Android 新加入的 DataBinding，可以直接对控件进行引用，但是使用起来更加方便。&lt;/p&gt;
+
+&lt;p&gt;比如说在 &lt;code&gt;activity_main.xml&lt;/code&gt; 中定义了一个按钮，Kotlin Extension 会生成包含整个 Layout 内容的类 &lt;code&gt;kotlinx.android.synthetic.activity_main&lt;/code&gt;，为了方便起见，在文件头可以全部引入其内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;import kotlinx.android.synthetic.activity_main.*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后就可以直接对其进行引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;button1.text = &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而不使用此功能的话则需要使用以下代码，麻烦了很多&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;((Button)findViewById(R.id.button1)).setText(&amp;quot;hello world&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;button1.setOnClickListener {
+    startActivity(new Intent(this, CountryListActivity.class))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，使用闭包替代回调也是一种通常的做法。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;//  定义耗时任务
+fun findCountries(doneCallback: (List&amp;lt;String&amp;gt;?, Exception?) -&amp;gt; Unit) {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch (e: Exception) {
+        doneCallback(null, e)
+    }
+}
+//  调用该方法
+findCountries{ list, e -&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-kotlin-function-extension:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin Function Extension&lt;/h3&gt;
+
+&lt;p&gt;通常我们会将很多方法放在工具类里，不过通过 Kotlin 的方法扩展功能可以直接将部分功能移到 &lt;code&gt;Activity&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;例：为 &lt;code&gt;Activity&lt;/code&gt; 增加 &lt;code&gt;Toast&lt;/code&gt; 功能&lt;/p&gt;
+
+&lt;p&gt;增加方法扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;public fun Activity.toast(message: CharSequence?, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后在 &lt;code&gt;Activity&lt;/code&gt; 中就可以调用以下代码直接呼出 &lt;code&gt;Toast&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;toast(message)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例：为 &lt;code&gt;Activity&lt;/code&gt; 添加画面跳转功能&lt;/p&gt;
+
+&lt;p&gt;增加方法扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline public fun &amp;lt;reified T : Activity&amp;gt; Activity.navigate(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) {
+        intent.putExtras(bundle)
+    }
+    startActivity(intent)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后在 &lt;code&gt;Activity&lt;/code&gt; 中就可以调用以下代码直接进行画面跳转。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;navigate&amp;lt;CountryListActivity&amp;gt;()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/KotlinAndroid&#34;&gt;KotlinAndroid&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Groovy 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2015/dev-android-using-groovy/</link>
+      <pubDate>Mon, 30 Nov 2015 10:04:55 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/dev-android-using-groovy/</guid>
+      <description>
+
+&lt;h1 id=&#34;groovy-android:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;Groovy Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;我们都知道 Android 原生应用基本都是使用 Java 开发的，但是实际上 Groovy 也是运行在 JVM 上的，所以也可以用于开发 Android 应用程序，只是需要做一些额外的准备工作。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;既然是使用 Groovy 语言进行开发，所以第一步就是在 IDEA 或 Android Studio 中安装 &lt;code&gt;Groovy&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Groovy&lt;/code&gt; 进行安装，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;gradle-groovy-android-plugin&lt;/code&gt; 插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &#39;org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &#39;groovyx.grooid.groovy-android&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &#39;org.codehaus.groovy:groovy:2.4.5:grooid&#39;
+    // 如果需要使用  Groovy 的 JSON Api 的话还需要配置下面的依赖
+    compile(&#39;org.codehaus.groovy:groovy-json:2.4.5&#39;) {
+        transitive = false
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;配置 packagingOptions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;packagingOptions {
+    exclude &#39;META-INF/LICENSE.txt&#39;
+    exclude &#39;META-INF/LICENSE&#39;
+    exclude &#39;META-INF/NOTICE&#39;
+    exclude &#39;META-INF/DISCLAIMER&#39;
+    exclude &#39;META-INF/groovy-release-info.properties&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/GroovyAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;4.配置 proguard&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-dontobfuscate
+-keep class org.codehaus.groovy.vmplugin.**
+-keep class org.codehaus.groovy.runtime.dgm*
+-keepclassmembers class org.codehaus.groovy.runtime.dgm* {
+    *;
+}
+
+-keepclassmembers class ** implements org.codehaus.groovy.runtime.GeneratedClosure {
+    *;
+}
+
+-dontwarn org.codehaus.groovy.**
+-dontwarn groovy**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;编写代码:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用静态编译:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用静态编译&lt;/h3&gt;
+
+&lt;p&gt;如果不需要使用动态编译的话，可以开启静态编译以获得更好的性能，使用方法就是在类上添加 &lt;code&gt;@CompileStatic&lt;/code&gt; 注解。开启静态编译后一些正常的 Groovy 代码可能无法正常运行，因为静态编译会对类型进行严格的检查，所以代码风格可能需要做出一定改变。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@CompileStatic
+class MainActivity extends AppCompatActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-groovy-的语法:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用 Groovy 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Groovy 后可以省略方法的返回值，省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent)
+    def title = view.findViewById(android.R.id.text1) as TextView
+    title.setText(getItem(position))
+    view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;findViewById(android.R.id.button1).onClickListener = {
+    startActivity(new Intent(this, CountryListActivity.class))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包替代的话代码可以简单不少，不过使用闭包后如果闭包中碰到需要调用当前 Activity 的上下文时比较难处理，需要注意 &lt;code&gt;this&lt;/code&gt;，&lt;code&gt;owner&lt;/code&gt;，&lt;code&gt;delegate&lt;/code&gt; 的区别。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;由于 Android 的机制，网络请求必须放在其它的线程中执行，所以使用 Java 编程时通常都需要定义各种回调接口用于通知耗时任务的完成。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;//  定义耗时任务
+void findCountries(Closure doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch (e) {
+        doneCallback(null, e)
+    }
+}
+//  调用该方法
+findCountries{ List&amp;lt;String&amp;gt; results, Exception e -&amp;gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/GroovyAndroid&#34;&gt;GroovyAndroid&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Hugo 搭建个人博客</title>
+      <link>http://git.bookislife.com/post/2015/how-to-use-hugo/</link>
+      <pubDate>Fri, 11 Sep 2015 15:49:56 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/how-to-use-hugo/</guid>
+      <description>
+
+&lt;h2 id=&#34;相关网站:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;相关网站&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes/&#34;&gt;主题&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;推荐主题&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;bootie-docs&lt;/li&gt;
+&lt;li&gt;casper&lt;/li&gt;
+&lt;li&gt;hyde-x&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;使用-hugo:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;使用 Hugo&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;安装&lt;/h3&gt;
+
+&lt;p&gt;直接下载对应的安装包即可&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;https://github.com/spf13/hugo/releases&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;如果是Mac平台的话也可以直接执行以下命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立站点:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;建立站点&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new site /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果是 Windows 平台的话则使用 &amp;ldquo;hugo.exe&amp;rdquo; 替代上述命令中的 &amp;ldquo;hugo&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo.exe new site /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;创建文章:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;创建文章&lt;/h3&gt;
+
+&lt;p&gt;进入刚创建的站点的根目录&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建 about.md&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编辑创建的 about.md 文件，在文件尾端添加以下内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## A headline
+
+Some Content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建另一篇文章&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建后随意输入任意内容&lt;/p&gt;
+
+&lt;h3 id=&#34;下载主题:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;下载主题&lt;/h3&gt;
+
+&lt;p&gt;在根目录执行以下命令会下载所有主题&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --recursive https://github.com/spf13/hugoThemes themes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果网速慢的话，上述方式很可能不成功，此时在站点根目录执行以下命令下载任一一个主题（此处下载的是 hyde-x 主题）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir themes
+cd themes
+git clone https://github.com/zyro/hyde-x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;运行服务器:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;运行服务器&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo server --theme=hyde-x --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上，&lt;code&gt;theme&lt;/code&gt; 用于指定主题名，&lt;code&gt;buildDrafts&lt;/code&gt; 用于运行 build 草稿，&lt;code&gt;watch&lt;/code&gt; 用于监控文件的改动。&lt;/p&gt;
+
+&lt;p&gt;启动完毕后可以在浏览器中输入以下命令观察生成的站点&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://localhost:1313
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;托管博客到-github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;托管博客到 Github Pages&lt;/h2&gt;
+
+&lt;h3 id=&#34;github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;Github Pages&lt;/h3&gt;
+
+&lt;p&gt;Github Pages 是 Github提供的免费静态网页控件。总共分为两种：User 及 Project。&lt;/p&gt;
+
+&lt;p&gt;User 仓库名必须为 &lt;code&gt;username.github.io&lt;/code&gt;，该仓库的 &lt;code&gt;master&lt;/code&gt; 分支用于托管静态网站，访问地址为 &lt;code&gt;username.github.io&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;project 仓库名可以为任意，该仓库的 &lt;code&gt;gh-pages&lt;/code&gt; 分支用于托管静态网站，访问地址为 &lt;code&gt;username.github.io/projectName&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;提交静态网页到-github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;提交静态网页到 Github Pages&lt;/h3&gt;
+
+&lt;p&gt;Hugo 创建的静态网页全部都在站点根目录的 &lt;code&gt;public&lt;/code&gt; 目录，所以只需要提交 public 下的所有文件到 Github 上就可以生成静态网站。所以最基本的方法就是建立两个分支，一个管理除 &lt;code&gt;public&lt;/code&gt;文件夹之外的全部源文件，一个管理 &lt;code&gt;public&lt;/code&gt; 文件夹下的所有文件。不过这种方式非常繁琐，我没有采用。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-wercker-进行自动部署:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;使用 Wercker 进行自动部署&lt;/h3&gt;
+
+&lt;p&gt;Wercker 和 TravisCI 一样都是免费的 CI 服务。Wercker 建立在Docker上，可以帮我们自动完成静态网站的生成和提交。&lt;/p&gt;
+
+&lt;h4 id=&#34;具体步骤:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;具体步骤&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;访问&lt;a href=&#34;http://wercker.com&#34;&gt;Wercker官方网站&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;注册账号&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;settings&lt;/code&gt; -&amp;gt; &lt;code&gt;Git Connection&lt;/code&gt; -&amp;gt; 选择 &lt;code&gt;github&lt;/code&gt; 后连接到你的github账号
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-git-connections.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;点击 &lt;code&gt;create&lt;/code&gt; 按钮，创建你的应用
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-add-app.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择在 Github 上需要作为静态网站的仓库
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-repository.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择仓库的拥有者，通常只要选择你自己的账号就可以了
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-owner.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置访问权限 (Configure access)，直接选择默认的选择 [Next step]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;前面都执行后到这一步时 Wercker 会显示 &lt;code&gt;wercker.yml&lt;/code&gt; 文件的代码模板，直接在作为静态网站的工程的根路径建立 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，拷贝网页上显示的代码到该文件并保存，选择 &lt;code&gt;Next Step&lt;/code&gt;。
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09werckeryml.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Make my app public&lt;/code&gt; 保持原样，选择 &lt;code&gt;Finish&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;此时项目已经初步设置完毕，画面上会显示 &lt;code&gt;Build now&lt;/code&gt; 按钮，不过还没有到 build 的时间，接下来需要修改 &lt;code&gt;wercker.yml&lt;/code&gt; 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;Registry&lt;/code&gt;，检索 &lt;code&gt;hugo build&lt;/code&gt;
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-search.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;根据提示将代码粘帖到 &lt;code&gt;wercker.yml&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;box: debian
+build:
+    steps:
+        - arjen/hugo-build@1.5.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;提交 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，此时 wercker 应该会自动进行第一次构建&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;接下来继续检索 &lt;code&gt;gh pages&lt;/code&gt;，根据提示继续修改 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，其中 &lt;code&gt;domain&lt;/code&gt; 换成你自己的域名，这个值会被写到CNAME文件中，&lt;code&gt;$GIT_TOKEN&lt;/code&gt; 为定义的一个变量，它的值之后会进行设置，&lt;code&gt;basedir&lt;/code&gt; 为需要同步到 &lt;code&gt;gh-pages&lt;/code&gt; 分支的文件夹名&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;box: debian
+build:
+    steps:
+        - arjen/hugo-build@1.5.0
+deploy:
+    steps:
+        - lukevivier/gh-pages@0.2.1:
+            token: $GIT_TOKEN
+            domain: git.bookislife.com
+            basedir: public
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择应用 -&amp;gt; &lt;code&gt;Settings&lt;/code&gt; -&amp;gt; &lt;code&gt;Deploy targets&lt;/code&gt; -&amp;gt; &lt;code&gt;Add deploy targets&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09adding-a-github-pages-step.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;按照下图进行配置，其中 &lt;code&gt;Deploy target name&lt;/code&gt; 可以任意填写，&lt;code&gt;GIT_TOKEN&lt;/code&gt; 变量对应的 text 需要填写你在 github 上建立的 token，具体可参照 &lt;a href=&#34;https://help.github.com/articles/creating-an-access-token-for-command-line-use/&#34;&gt;Github help&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09configure-the-deploy-step.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;OK&lt;/code&gt; 完成所有设置并提交 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，此时 wercker 应该会自动进行b uild 后并将 &lt;code&gt;public&lt;/code&gt; 文件夹下的文件同步到 &lt;code&gt;gh-pages&lt;/code&gt; 分支下。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;问题汇总&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;有时 build 后会报 &lt;code&gt;unknown host: github.com&lt;/code&gt;，此时无视即可，服务器偶尔的抽风，过个几分钟再试就可以了&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果报 &lt;code&gt;wrecker.yml&lt;/code&gt; 无法解析的话通常是yml文件中含有tab键，全部替换成空格就可以了&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果 build 成功完成了，但是deploy时报 &lt;code&gt;git: command not found&lt;/code&gt;，这是应为没有安装 git，需要修改 &lt;code&gt;wrecker.yml&lt;/code&gt; 来安装git，完整代码如下&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;   box: debian
+   build:
+       steps:
+           - arjen/hugo-build@1.5.0
+   deploy:
+       steps:   
+           - script:
+               name: install git
+               code: |
+                   apt-get update
+                   apt-get install git -y
+           - lukevivier/gh-pages@0.2.1:
+               token: $GIT_TOKEN
+               domain: git.bookislife.com
+               basedir: public  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;参考资料:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;Hugo Quickstart Guide&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/tutorials/automated-deployments/&#34;&gt;Automated deployments with Wercker&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>个人博客平台的选择</title>
+      <link>http://git.bookislife.com/post/2015/personal-blog-choosen/</link>
+      <pubDate>Fri, 11 Sep 2015 14:20:23 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/personal-blog-choosen/</guid>
+      <description>
+
+&lt;h2 id=&#34;静态页面生成器汇总:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;静态页面生成器汇总&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://staticsitegenerators.net/&#34;&gt;staticsitegenerators/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;现在流行使用静态页面生成器配合 Github pages 搭建个人博客。从上述两个网站可以看到现在静态页面生成器多如牛毛，但流行的也就那么几天。下面我挑了一些一个个尝试了一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;ruby:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Ruby&lt;/h2&gt;
+
+&lt;h3 id=&#34;middleman:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Middleman&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/middleman/middleman&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://middlemanapp.com/&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;需要翻墙，折腾了几次虽然成功启动了但是估计有什么东西没下完整，生成的页面非常古怪&lt;/p&gt;
+
+&lt;h3 id=&#34;jekyll:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Jekyll&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://jekyllrb.com/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jekyll/jekyll&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;最流行的静态页面生成器，也被Github所使用。本身有各种各样的中文安装和设置教程，但是仍然不能掩盖其安装的复杂性，不适合懒人。&lt;/p&gt;
+
+&lt;p&gt;jekyll-now&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/barryclark/jekyll-now&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;无需安装任何东西，只要clone一下，改一下 CNAME 文件，按照Jekyll的要求编写文章，然后commit就能够看到效果。最重要的是和其它需要两个分支的生成器相比，其只需要一个分支即可，非常适合不喜欢折腾的人。&lt;/p&gt;
+
+&lt;h2 id=&#34;node-js:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Node.js&lt;/h2&gt;
+
+&lt;h3 id=&#34;docpad:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;DocPad&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docpad.org/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/docpad/docpad&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;配置麻烦，效果一般&lt;/p&gt;
+
+&lt;h3 id=&#34;hexo:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Hexo&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://hexo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;台湾同胞写的生成器，所以中文文档非常丰富。Github上有许多主题，目前star最多的应该是&lt;a href=&#34;https://github.com/iissnan/hexo-theme-next&#34;&gt;Next主题&lt;/a&gt;，该主题基本上包含了大部分比较流行的功能，值得推荐。&lt;/p&gt;
+
+&lt;h2 id=&#34;python:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Python&lt;/h2&gt;
+
+&lt;h3 id=&#34;pelican:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;pelican&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://getpelican.com/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/getpelican/pelican&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;主题太丑，性能是个问题&lt;/p&gt;
+
+&lt;h2 id=&#34;go:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Go&lt;/h2&gt;
+
+&lt;h3 id=&#34;hugo:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Hugo&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gohugo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes/&#34;&gt;主题&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;官方文档写得很详细，生成速度非常理想，远超过其它引擎，所以如果有大量博文要写的话，Hugo 是最推荐的。唯一的缺憾是中文资料非常匮乏，还有一些常见特性还未开发完毕。&lt;/p&gt;
+
+&lt;h2 id=&#34;番外:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;番外&lt;/h2&gt;
+
+&lt;h3 id=&#34;wordpress:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Wordpress&lt;/h3&gt;
+
+&lt;p&gt;最流行的博客平台，需要自行购买服务器进行搭建。主题和教程非常丰富。个人觉得 Github pages 应该是存放技术相关的博客，其它内容可以放到 wordpress 上。&lt;/p&gt;
+
+&lt;h3 id=&#34;ghost:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Ghost&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://ghost.org/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ghostchina.com/&#34;&gt;中文社区&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;拥有admin页面，支持在线编辑Markdown，一度是我的选择。但是由于Ghost的文件是保存在sqlite中，无法直接使用 &lt;code&gt;.md&lt;/code&gt; 文件，所以必须在线编辑，最后只能 pass。此外，在速度上个人觉得也不是太理想。&lt;/p&gt;
+
+&lt;p&gt;综上，个人推荐的搭建个人博客的平台主要有 Jekyll, Hexo, Hugo, Wordpress。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MARKDOWN工具评测</title>
+      <link>http://git.bookislife.com/post/2015/markdown-tools/</link>
+      <pubDate>Fri, 11 Sep 2015 10:55:34 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/markdown-tools/</guid>
+      <description>
+
+&lt;h2 id=&#34;mou:a3fb180466ab27d486545f56328ddf37&#34;&gt;Mou&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://25.io/mou/img/1@2x.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://25.io/mou/&#34;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持 Mac&lt;/p&gt;
+
+&lt;p&gt;对于国内用户来说，Mou是Mac上最有名的Markdown工具，然而它的代码高亮功能并不好用，实时预览在文章较长时会产生难以忍受的卡顿效果，是被我最早使用并且很快抛弃的编辑器。&lt;/p&gt;
+
+&lt;h2 id=&#34;macdown:a3fb180466ab27d486545f56328ddf37&#34;&gt;MacDown&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://d.pr/i/PTTC+&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://macdown.uranusjr.com/&#34;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，开源&lt;/p&gt;
+
+&lt;p&gt;对Mou进行改良后的工具，比Mou要出色，支持快捷键操作，YAML *Front Matter* ，样式自定义，Toc（但是无法对每篇文章进行单独设置）。&lt;/p&gt;
+
+&lt;h2 id=&#34;ulysses:a3fb180466ab27d486545f56328ddf37&#34;&gt;Ulysses&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/write.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/ulysses/id623795237?mt=12&amp;amp;ign-mpt=uo%3D4&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥283.00&lt;/p&gt;
+
+&lt;p&gt;Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文章的管理，但是使用的不是通用的Markdown语法，也不支持代码高亮，图片也只是显示为链接，适合专为书写的人，不适合码农。&lt;/p&gt;
+
+&lt;h2 id=&#34;byword:a3fb180466ab27d486545f56328ddf37&#34;&gt;Byword&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/byword.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://itunes.apple.com/app/byword/id420212497?mt=12&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥78.00&lt;/p&gt;
+
+&lt;p&gt;可以看做轻量级的Ulysses，没有代码高亮，也没有实时预览，虽然不适合码农，但是价格比Ulysses低不少。写完文章后也可以支持发布到 Wordpress，Blogger 和 Evernote 上，&lt;/p&gt;
+
+&lt;h2 id=&#34;write:a3fb180466ab27d486545f56328ddf37&#34;&gt;Write&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/write.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://writeapp.net/mac/download/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥68.00&lt;/p&gt;
+
+&lt;p&gt;不支持代码高亮，也没有实时预览，但是却支持文档管理，搜索功能和添加标签。默认创建的文件是 &lt;code&gt;txt&lt;/code&gt; 格式，需要手动进入设置修改为 &lt;code&gt;md&lt;/code&gt; 后缀，这也就说明了这款软件本质上在 Markdown 功能上并不抢眼。对于写手来说其写完文章后只需点个按钮就可以直接发布到 Wordpress了相比其它软件应该说方便不少。 不过其本身兼容性太差，空格回车等处理方式与其它编辑器并不一样，我曾用它码了2000多行字，然后用其它编辑器打开发现排版完全乱掉了，用 Jeklly 和 Hugo 生成的 Html也乱七八糟，所以试用了一下就直接被我抛弃了。&lt;/p&gt;
+
+&lt;h2 id=&#34;markdown-plus:a3fb180466ab27d486545f56328ddf37&#34;&gt;Markdown Plus&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/markdownplus.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://tylingsoft.com/mdp&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac和Windows，¥30.00&lt;/p&gt;
+
+&lt;p&gt;国人开发的编辑器，支持Task List，数学公式，流程图，颜文字和Vim模式，功能非常强大，小缺点是不支持Toc，YAML *Front Matter* ，没有自动完成功能和快捷键，不支持自定义样式。比较奇特的一点是这款编辑器采用的是基于标题的同步滚动方式，而不是一般基于距离的滚动方式，虽然奇特但是写长文时更好用。可惜的是试了下在编辑长文时还是会产生难以忍受的卡顿。&lt;/p&gt;
+
+&lt;h2 id=&#34;texts:a3fb180466ab27d486545f56328ddf37&#34;&gt;Texts&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/texts.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.texts.io/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac和Windows&lt;/p&gt;
+
+&lt;p&gt;很简洁的编辑器，支持双平台，快捷键。亮点是编辑时编辑栏即是预览栏，输入内容后按下快捷键即可立即生成预览效果。此外，在编辑长文时完全不会产生卡顿也值得好评。但是缺点也很明显，要想显示正确格式，必须使用快捷键，而不能手动输入如 &lt;code&gt;#&lt;/code&gt;,&lt;code&gt;-&lt;/code&gt;等符号，这意味着从其它地方拷贝文本到Texts时这些文本也不会显示为Markdown，而是作为普通文本。此外Texts打开其它编辑器编辑的&lt;code&gt;.md&lt;/code&gt;文本时会发现换行符的显示相当奇怪。&lt;/p&gt;
+
+&lt;h2 id=&#34;haroopad:a3fb180466ab27d486545f56328ddf37&#34;&gt;Haroopad&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/haroopad.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://pad.haroopress.com/user.html&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac，Windows，Linux&lt;/p&gt;
+
+&lt;p&gt;由韩国人开发，支持多国语言，真正意义上的多平台编辑器，支持Linux这点特别好评。功能非常强大，支持Toc，Task List，数学公式，流程图，Vim模式，Markdown折叠，自动完成，自定义样式。最重要的是Haroopad渲染很快，编辑其它编辑器都无法胜任的长文时都不会产生卡顿。目前也是我使用时间最长的Markdown编辑器。当然其缺点也不少，在切换主题时有时会丢失高亮效果，在当初从0.13.0升级到0.13.1后我的Windows机器上的Haroopad界面从中文变为英文，使用部分特定主题会显示一片空白，而Mac机器上的Haroopad则丢失了自动完成功能。无论如何重装这些Bug还是依然存在于我的电脑上。尽管如此Haroopad还是非常优秀的，强烈推荐。&lt;/p&gt;
+
+&lt;h2 id=&#34;typora:a3fb180466ab27d486545f56328ddf37&#34;&gt;Typora&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/typora.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://typora.io/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;目前为Beta版，仅支持Mac，官方有支持Windows和Linux的计划&lt;/p&gt;
+
+&lt;p&gt;一款极简主义的Markdown编辑器，支持快捷键，Task List，Toc，YAML Front Matters，颜文字，数学公式，代码高亮。最大的亮点是所见即所得，你输入的Markdown格式的文字会被立即转换为预览效果，不用费心在两栏中切换或者点击专门的切换按钮，可以让你专注于当前的文章中。在编写长文时没有Haroopad那样流畅，些许卡顿，但已经比其它很多Markdown编辑器要好得多。由于目前只是 Beta 版，还是存在一些这样那样的问题。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;使用了那么多 Markdown 编辑器后，个人最推荐的还是 Haroopad 和 Typora，或者是以上没提到的 Sublime，GVim。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Intellj IDEA 的使用</title>
+      <link>http://git.bookislife.com/post/2015/usage-of-idea/</link>
+      <pubDate>Fri, 11 Sep 2015 08:03:34 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/usage-of-idea/</guid>
+      <description>
+
+&lt;h2 id=&#34;快捷键:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;快捷键&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;快捷键&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找类&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;生成代码&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+l&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;格式化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+f&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找文本&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+r&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找替换&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+p&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;方法参数提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+j&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;quick doc&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+shift+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找文件&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+shift+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找类中的成员&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;shift+f6&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重命名&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+y&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;删除行&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重载父类方法&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+e&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;最近访问列表&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+b&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;跳转到声明&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;跳转到括号的结尾&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;alt+shift+c&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;对比最近代码&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+w&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;选择词，行，代码块&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+h&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查看类的继承层次&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+t&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;surround with&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;ctrl+shift+t&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;建立测试类&lt;br&gt;或者在类与测试类中跳转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;shift+cmd+delete&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;上次编辑位置&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+m&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取代码块为方法&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+p&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取变量为参数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+v&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取为局部变量&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+option+h&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示方法树&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;fn+option+f7&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示变量的调用处&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+shift+a&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示action 窗口&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;option+enter&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;创建Intention Actions&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;常用设置:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;常用设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;在被修改的文件标签上显示星号:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;在被修改的文件标签上显示星号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Editor Tabs -&amp;gt; 勾选 Mark modified tabs with asterisk&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;显示行号:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;显示行号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Appearance -&amp;gt; 勾选 Show line numbers&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;自动导入引用的包:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;自动导入引用的包&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Auto Import -&amp;gt; 勾选 Add unambiguous improts on the fly&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;关闭重启后自动打开最后一个工程:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;关闭重启后自动打开最后一个工程&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; System Settings -&amp;gt; 去掉 Reopen last project on startup 的勾&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;设置编码格式:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;设置编码格式&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; File Encodings -&amp;gt; IDE Encoding, Project Encoding, Default encoding for properties files 全部设置为 UTF-8&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改自动完成快捷键:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改自动完成快捷键&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; Keymap -&amp;gt; Main Menu -&amp;gt; Code -&amp;gt; Completion -&amp;gt; 修改 Basic 的值&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;显示-quick-document:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;显示 Quick Document&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Show quick doc on mouse Delay&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;多行-tab-页:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;多行 Tab 页&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Editor Tabs -&amp;gt;  去掉 Show tabs in single row 的勾，在 Tab limit 一栏填入最大的 Tab 个数&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;配置-quick-lists:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;配置 Quick Lists&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; Quick Lists 设置自己的 Quick Lists&lt;/code&gt;，然后到 &lt;code&gt;Keymap&lt;/code&gt; 中设置对应的快捷键&lt;/p&gt;
+
+&lt;h2 id=&#34;使用技巧:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;使用技巧&lt;/h2&gt;
+
+&lt;h3 id=&#34;在命令行中通过-idea-打开指定文件:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;在命令行中通过 IDEA 打开指定文件&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Tools -&amp;gt; Create Command-line Launcher -&amp;gt; 在弹出的对话框中修改 Name 为 “idea&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在命令中执行 &lt;code&gt;idea 文件名&lt;/code&gt; 就可以使用 IDEA 打开指定文件。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;修改-tostring-实现方式:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改 toString() 实现方式&lt;/h3&gt;
+
+&lt;p&gt;IDEA 通过 &lt;code&gt;ctrl+n&lt;/code&gt; 快捷键可以自动生成 &lt;code&gt;toString()&lt;/code&gt;方法，但是默认的实现方式是通过加号进行字符串连接，因此不适合字段特别多的类。要想提高效率，可以在生成时 Template 属性选择 &lt;code&gt;StringBuilder (JDK1.5)&lt;/code&gt; 来使用 StringBuilder 替换。&lt;/p&gt;
+
+&lt;h3 id=&#34;查看最近更改过的文件和内容:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;查看最近更改过的文件和内容&lt;/h3&gt;
+
+&lt;p&gt;最近更改过的文件：&lt;code&gt;View → Recently Changed Files&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最近的变更点：&lt;code&gt;View → Recent Changes&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最近访问过的文件：&lt;code&gt;View → Recent Files&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改默认-gitignore:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改默认 .gitignore&lt;/h3&gt;
+
+&lt;p&gt;IDEA 或 Android Studio 在生成 Android 项目时会自动生成 &lt;code&gt;.gitignore&lt;/code&gt; 文件，但是默认的文件通常都不符合需求，每次都手动改也非常麻烦，这时可以修改默认的 &lt;code&gt;.gitignore&lt;/code&gt; 模板。&lt;/p&gt;
+
+&lt;p&gt;Mac 平台下 &lt;code&gt;.gitignore&lt;/code&gt; 模板位置为 &lt;code&gt;/Applications/Android Studio.app(或 IDEA.app)/Contents/plugins/android/lib/templates/gradle-projects/NewAndroidProject/root/project_ignore&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立-live-template:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;建立 Live Template&lt;/h3&gt;
+
+&lt;p&gt;所谓的 Live Template 是一种代码模板，比如说在 IDEA 中输入 &lt;code&gt;fori&lt;/code&gt;就可以生成标准的 for 循环语句，输入 &lt;code&gt;psfi&lt;/code&gt; 就可以生成 &lt;code&gt;public static final int&lt;/code&gt;，输入 &lt;code&gt;sout&lt;/code&gt; 就可以生成输出语句。通过建立自己的 Live Template 可以减少重复劳动，加速开发。&lt;/p&gt;
+
+&lt;p&gt;以下以建立一个Android的Fragment模板来介绍如何建立 Live Template：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;Editor -&amp;gt; Live Templates&lt;/code&gt;
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/template.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;点击右边的 &lt;code&gt;+&lt;/code&gt; 号，选择 &lt;code&gt;Template Group&lt;/code&gt;，输入 &lt;code&gt;group name&lt;/code&gt; 为 &amp;ldquo;android&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择刚生成的 &lt;code&gt;android group&lt;/code&gt;，继续点击 &lt;code&gt;+&lt;/code&gt; 号，选择 &lt;code&gt;Live Template&lt;/code&gt;，下方的 &lt;code&gt;Abbreviation&lt;/code&gt; 表示快捷键，在这里输入 &amp;ldquo;nfr”，&lt;code&gt;Description&lt;/code&gt; 输入 &amp;ldquo;create new fragment&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在 &lt;code&gt;Template text&lt;/code&gt; 输入以下文字，其中 &amp;ldquo;$&amp;rdquo; 开头的字符表示变量&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;  private static final String $ARG_PARAM$ = &amp;quot;$CLASS_NAME$.$ARG_PARAM$&amp;quot;;
+
+  private $ARG_CLASS_DITTO$ m$INST_VAR$;
+
+  public static $CLASS_NAME$ newInstance($ARG_CLASS$ $ARG_VAR$) {
+      $CLASS_NAME$ fragment = new $CLASS_NAME$();
+      Bundle args = new Bundle();
+      args.put$ARG_CLASS$($ARG_PARAM$, $ARG_VAR$);
+      fragment.setArguments(args);
+      return fragment;
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      m$INST_VAR$ = getArguments().get$ARG_CLASS$($ARG_PARAM$);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下方的 &lt;code&gt;No applicable contexts&lt;/code&gt; 点击 &lt;code&gt;Define&lt;/code&gt; 按钮，选择 &lt;code&gt;Java&lt;/code&gt; - &lt;code&gt;Declaration&lt;/code&gt;，这个选项表示在什么文件的什么位置允许使用该快捷方式，之所以只选择 &amp;ldquo;Declaration&amp;rdquo; 是因为我们需要建立的是方法的定义，所以这个快捷方式不应该出现在 &amp;ldquo;Comments&amp;rdquo;，&amp;rdquo;String&amp;rdquo; 或者其它方法内部。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改完毕后随意建立一个 Java 文件，输入 &amp;ldquo;nfr&amp;rdquo; 就可以直接生成上面模板定义的代码，并且光标自动定位到第一个变量处，修改变量名后按下回车就可以跳转到下一个变量处。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;添加-file-template:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;添加 File Template&lt;/h3&gt;
+
+&lt;p&gt;Live Template 主要用于在文件中生成代码，而 File Template 则是用于根据模板生成文件。&lt;/p&gt;
+
+&lt;p&gt;以下以创建一个单例类来介绍详细步骤&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在工程的任意目录单击右键，选择 &lt;code&gt;New&lt;/code&gt; - &lt;code&gt;Edit File Templates..&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;单击 &lt;code&gt;+&lt;/code&gt;号，&lt;code&gt;Name&lt;/code&gt; 输入 “Singleton”，&lt;code&gt;Extension&lt;/code&gt; 输入 &lt;code&gt;java&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;内容处输入以下文本，点击 &lt;code&gt;OK&lt;/code&gt;按钮&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;   #if (${PACKAGE_NAME} &amp;amp;&amp;amp; ${PACKAGE_NAME} != &amp;quot;&amp;quot;)package ${PACKAGE_NAME};#end
+   #parse(&amp;quot;File Header.java&amp;quot;)
+   public class ${NAME}{
+       private static ${NAME} ourInstance = new ${NAME}();
+   
+       public static ${NAME} getInstance() {
+           return ourInstance;
+       }
+   
+       private ${NAME}() {
+       }
+   }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在工程任意目录单击右键，选择 &lt;code&gt;New&lt;/code&gt; - &lt;code&gt;Java Class&lt;/code&gt;，在弹出的对话框中 &lt;code&gt;Kind&lt;/code&gt; 选择刚才建立的 “Singeleton” 就完成了所有操作。&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

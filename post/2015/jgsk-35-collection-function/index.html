@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 35.集合的函数式编程"/>
+<meta property="og:site_name" content="JGSK - 35.集合的函数式编程"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-35-collection-function/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-25"/>
+<meta property="article:modified_time" content="2015-12-25"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 35.集合的函数式编程">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 35.集合的函数式编程 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-35-collection-function/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2035.%e9%9b%86%e5%90%88%e7%9a%84%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f&title=JGSK%20-%2035.%e9%9b%86%e5%90%88%e7%9a%84%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-35-collection-function%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 35.集合的函数式编程</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java:152af32176ddf9979e854df274b7c621">Java</a>
+<ul>
+<li><a href="#stream:152af32176ddf9979e854df274b7c621">Stream</a></li>
+<li><a href="#map-操作:152af32176ddf9979e854df274b7c621">Map 操作</a></li>
+<li><a href="#flatmap-操作:152af32176ddf9979e854df274b7c621">FlatMap 操作</a></li>
+<li><a href="#reduce-操作:152af32176ddf9979e854df274b7c621">Reduce 操作</a></li>
+<li><a href="#filter-操作:152af32176ddf9979e854df274b7c621">Filter 操作</a></li>
+<li><a href="#collect-操作:152af32176ddf9979e854df274b7c621">Collect 操作</a></li>
+<li><a href="#foreach-操作:152af32176ddf9979e854df274b7c621">ForEach 操作</a></li>
+<li><a href="#parallel-操作:152af32176ddf9979e854df274b7c621">Parallel 操作</a></li>
+</ul></li>
+<li><a href="#groovy:152af32176ddf9979e854df274b7c621">Groovy</a>
+<ul>
+<li><a href="#map-操作-1:152af32176ddf9979e854df274b7c621">Map 操作</a></li>
+<li><a href="#flatmap-操作-1:152af32176ddf9979e854df274b7c621">FlatMap 操作</a></li>
+<li><a href="#zip-操作:152af32176ddf9979e854df274b7c621">Zip 操作</a></li>
+<li><a href="#fold-操作:152af32176ddf9979e854df274b7c621">Fold 操作</a></li>
+<li><a href="#filter-操作-1:152af32176ddf9979e854df274b7c621">Filter 操作</a></li>
+<li><a href="#foreach-操作-1:152af32176ddf9979e854df274b7c621">ForEach 操作</a></li>
+<li><a href="#parallel-操作-1:152af32176ddf9979e854df274b7c621">Parallel 操作</a></li>
+</ul></li>
+<li><a href="#scala:152af32176ddf9979e854df274b7c621">Scala</a>
+<ul>
+<li><a href="#map-操作-2:152af32176ddf9979e854df274b7c621">Map 操作</a></li>
+<li><a href="#flatmap-操作-2:152af32176ddf9979e854df274b7c621">FlatMap 操作</a></li>
+<li><a href="#zip-操作-1:152af32176ddf9979e854df274b7c621">Zip 操作</a></li>
+<li><a href="#reduce-操作-1:152af32176ddf9979e854df274b7c621">Reduce 操作</a></li>
+<li><a href="#fold-操作-1:152af32176ddf9979e854df274b7c621">Fold 操作</a></li>
+<li><a href="#filter-操作-2:152af32176ddf9979e854df274b7c621">Filter 操作</a></li>
+<li><a href="#collect-操作-1:152af32176ddf9979e854df274b7c621">Collect 操作</a></li>
+<li><a href="#foreach-操作-2:152af32176ddf9979e854df274b7c621">ForEach 操作</a></li>
+<li><a href="#parallel-操作-2:152af32176ddf9979e854df274b7c621">Parallel 操作</a></li>
+</ul></li>
+<li><a href="#kotlin:152af32176ddf9979e854df274b7c621">Kotlin</a>
+<ul>
+<li><a href="#map-操作-3:152af32176ddf9979e854df274b7c621">Map 操作</a></li>
+<li><a href="#flatmap-操作-3:152af32176ddf9979e854df274b7c621">FlatMap 操作</a></li>
+<li><a href="#zip-操作-2:152af32176ddf9979e854df274b7c621">Zip 操作</a></li>
+<li><a href="#reduce-操作-2:152af32176ddf9979e854df274b7c621">Reduce 操作</a></li>
+<li><a href="#fold-操作-2:152af32176ddf9979e854df274b7c621">Fold 操作</a></li>
+<li><a href="#filter-操作-3:152af32176ddf9979e854df274b7c621">Filter 操作</a></li>
+<li><a href="#foreach-操作-3:152af32176ddf9979e854df274b7c621">ForEach 操作</a></li>
+<li><a href="#parallel-操作-3:152af32176ddf9979e854df274b7c621">Parallel 操作</a></li>
+</ul></li>
+<li><a href="#总结:152af32176ddf9979e854df274b7c621">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java:152af32176ddf9979e854df274b7c621">Java</h2>
+
+<p>从 Java 1.8 开始 Java 也支持了集合的函数式编程。</p>
+
+<h3 id="stream:152af32176ddf9979e854df274b7c621">Stream</h3>
+
+<p>Stream 是 Java 1.8 引入的类，主要用于进行 并行集合的流式操作。</p>
+
+<p>集合可以使用调用 <code>stream()</code> 方法或者使用 <code>Stream</code> 类的静态方法来转换为 <code>Stream</code> 对象。</p>
+
+<pre><code class="language-java">List&lt;Integer&gt; numbers1 = Arrays.asList(1, 2, 3, 4, 5, 6);
+List&lt;Integer&gt; numbers2 = Arrays.asList(10, 20, 30);
+List&lt;List&lt;Integer&gt;&gt; numbers3 = Arrays.asList(numbers1, numbers2);
+
+numbers1.stream();
+Stream.of(numbers1);
+</code></pre>
+
+<h3 id="map-操作:152af32176ddf9979e854df274b7c621">Map 操作</h3>
+
+<p>Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。</p>
+
+<pre><code class="language-java">Stream&lt;Integer&gt; mapResult = numbers1.stream().map(x -&gt; x * x);
+System.out.println(&quot;map =&gt; &quot; + getString(mapResult));   //  [1, 4, 9, 16, 25, 36]
+</code></pre>
+
+<h3 id="flatmap-操作:152af32176ddf9979e854df274b7c621">FlatMap 操作</h3>
+
+<p>FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。</p>
+
+<pre><code class="language-java">Stream&lt;Integer&gt; flatMapResult = numbers3.stream().flatMap(list -&gt; list.stream().map(x -&gt; x * 10));
+System.out.println(&quot;flatMap =&gt; &quot; + getString(flatMapResult));   //  [10, 20, 30, 40, 50, 60, 100, 200, 300]
+</code></pre>
+
+<h3 id="reduce-操作:152af32176ddf9979e854df274b7c621">Reduce 操作</h3>
+
+<p>Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。</p>
+
+<pre><code class="language-java">Optional&lt;Integer&gt; reduceResult = numbers1.stream().reduce((n1, n2) -&gt; n1 - n2;
+System.out.println(&quot;reduce =&gt; &quot; + reduceResult.get());  //  -19
+</code></pre>
+
+<h3 id="filter-操作:152af32176ddf9979e854df274b7c621">Filter 操作</h3>
+
+<p>Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 <code>true</code> 的新的集合.</p>
+
+<pre><code class="language-java">Stream&lt;Integer&gt; filterResult = numbers1.stream().filter(n -&gt; n % 2 == 0);
+System.out.println(&quot;filter =&gt; &quot; + getString(filterResult)); //  [2, 4, 6]
+</code></pre>
+
+<h3 id="collect-操作:152af32176ddf9979e854df274b7c621">Collect 操作</h3>
+
+<p>Collect 操作接收偏函数并返回偏函数处理的分组的结果集。</p>
+
+<pre><code class="language-java">Map&lt;Boolean, List&lt;Integer&gt;&gt; collectResult = numbers1.stream().collect(Collectors.partitioningBy(x -&gt; x % 2 == 0));
+System.out.println(&quot;collect =&gt; &quot; + collectResult);  //  {false=[1, 3, 5], true=[2, 4, 6]}
+</code></pre>
+
+<h3 id="foreach-操作:152af32176ddf9979e854df274b7c621">ForEach 操作</h3>
+
+<p>ForEach 操作用于对集合进行遍历。</p>
+
+<pre><code class="language-java">numbers1.stream().forEach(System.out::println);
+</code></pre>
+
+<h3 id="parallel-操作:152af32176ddf9979e854df274b7c621">Parallel 操作</h3>
+
+<p>Stream 操作默认都是单线程的。但是可以使用 ParallelStream 进行并发的流式操作，并发默认使用 <code>ForkJoinPool.commonPool</code>。ParallelStream 和 Stream 在使用上唯一区别就是使用 <code>parallelStream()</code> 替代 <code>stream()</code>。</p>
+
+<pre><code class="language-java">numbers1.parallelStream().forEach(System.out::println);
+</code></pre>
+
+<p>使用 ParallelStream 时集合中的某一个元素完成当前流的计算后就会立即进入下一个控制流，而不会像 Stream 一样只有集合的所有元素都完成操作后才会进行下一个控制流。</p>
+
+<pre><code class="language-java">Stream&lt;Integer&gt; parallelResult = numbers1.parallelStream().map(x -&gt; {
+    System.out.println(&quot;stream first: &quot; + x + &quot; on &quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&gt; {
+    System.out.println(&quot;stream second: &quot; + x + &quot; on &quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&gt; {
+    System.out.println(&quot;stream third: &quot; + x + &quot; on &quot; + Thread.currentThread().getName());
+    return x;
+});
+System.out.println(getString(parallelResult));
+</code></pre>
+
+<h2 id="groovy:152af32176ddf9979e854df274b7c621">Groovy</h2>
+
+<p>Groovy 也提供了部分函数式操作的方法，不过这些方法的命名和其它语言相比都比较奇特，需要额外注意。</p>
+
+<h3 id="map-操作-1:152af32176ddf9979e854df274b7c621">Map 操作</h3>
+
+<p>Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。Groovy 中的 Map 操作称为 <code>collect</code>，不要与 Scala 中的 Collect 操作搞混。</p>
+
+<pre><code class="language-groovy">def numbers1 = [1, 2, 3, 4, 5, 6]
+def numbers2 = [10, 20, 30]
+def numbers3 = [numbers1, numbers2]
+def mapResult = numbers1.collect { it * it }
+println(&quot;map =&gt; ${mapResult}&quot;)    //  [1, 4, 9, 16, 25, 36]
+</code></pre>
+
+<h3 id="flatmap-操作-1:152af32176ddf9979e854df274b7c621">FlatMap 操作</h3>
+
+<p>FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。Groovy 中的 FlatMap 操作被称为 <code>collectMany</code>。</p>
+
+<pre><code class="language-groovy">def flatMapResult = numbers3.collectMany { it.collect { it * 10 } }
+println(&quot;flatMap =&gt; ${flatMapResult}&quot;)    //   [10, 20, 30, 40, 50, 60, 100, 200, 300]              
+</code></pre>
+
+<p>如果只是想简单的抽出的话，可以直接使用更简单的 <code>flatten()</code> 方法。</p>
+
+<pre><code class="language-groovy">println(&quot;flatten =&gt; ${numbers3.flatten()}&quot;)    //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+</code></pre>
+
+<h3 id="zip-操作:152af32176ddf9979e854df274b7c621">Zip 操作</h3>
+
+<p>Zip 操作用于连接两个集合，新的集合以最短的集合为准。Groovy 中的 Zip 操作被称作 <code>transpose</code>。</p>
+
+<pre><code class="language-groovy">def zipResult1 = [numbers1, numbers2].transpose()
+println(&quot;zip1 =&gt; $zipResult1&quot;)    //  [[1, 10], [2, 20], [3, 30]]
+
+def zipResult2 = [numbers2, numbers1].transpose()
+println(&quot;zip2 =&gt; $zipResult2&quot;)  //  [[10, 1], [20, 2], [30, 3]]
+</code></pre>
+
+<h3 id="fold-操作:152af32176ddf9979e854df274b7c621">Fold 操作</h3>
+
+<p>Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。Groovy 中的 Fold 操作被称为 <code>inject</code>，只有从左开始的版本。</p>
+
+<pre><code class="language-groovy">def foldLeftResult = numbers1.inject(2) { n1, n2 -&gt; n1 - n2 }
+println(&quot;foldLeft =&gt; $foldLeftResult&quot;)  //  -19
+</code></pre>
+
+<h3 id="filter-操作-1:152af32176ddf9979e854df274b7c621">Filter 操作</h3>
+
+<p>Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 <code>true</code> 的新的集合。Groovy 中的 Filter 操作被称为 <code>findAll</code>。</p>
+
+<pre><code class="language-groovy">def filterResult = numbers1.findAll { it % 2 == 0 }
+println(&quot;filter =&gt; $filterResult&quot;)  //  [2, 4, 6]
+</code></pre>
+
+<h3 id="foreach-操作-1:152af32176ddf9979e854df274b7c621">ForEach 操作</h3>
+
+<p>ForEach 操作用于对集合进行遍历。</p>
+
+<pre><code class="language-groovy">numbers1.each { println(it) }
+</code></pre>
+
+<h3 id="parallel-操作-1:152af32176ddf9979e854df274b7c621">Parallel 操作</h3>
+
+<p>Groovy 中的并发集合操作需要依赖于 <code>GPars</code> 包，而且比较难用，所以不在本系列介绍范围中。</p>
+
+<h2 id="scala:152af32176ddf9979e854df274b7c621">Scala</h2>
+
+<h3 id="map-操作-2:152af32176ddf9979e854df274b7c621">Map 操作</h3>
+
+<p>Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。</p>
+
+<pre><code class="language-scala">val numbers1 = List(1, 2, 3, 4, 5, 6)	
+val numbers2 = List(10, 20, 30)
+val numbers3 = List(numbers1, numbers2)
+val mapResult: List[Int] = numbers1.map(x =&gt; x * x)
+println(s&quot;map =&gt; $mapResult&quot;) //  List(1, 4, 9, 16, 25, 36)
+</code></pre>
+
+<h3 id="flatmap-操作-2:152af32176ddf9979e854df274b7c621">FlatMap 操作</h3>
+
+<p>FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。</p>
+
+<pre><code class="language-scala">val flatMapResult: List[Int] = numbers3.flatMap(list =&gt; list.map(x =&gt; x * 10))
+println(s&quot;flatMap =&gt; $flatMapResult&quot;) //  List(10, 20, 30, 40, 50, 60, 100, 200, 300)       
+</code></pre>
+
+<p>如果只是想简单的抽出的话，可以直接使用更简单的 <code>flatten()</code> 方法。</p>
+
+<pre><code class="language-scala">println(s&quot;flatten =&gt; ${numbers3.flatten}&quot;) //  List(1, 2, 3, 4, 5, 6, 10, 20, 30)
+</code></pre>
+
+<h3 id="zip-操作-1:152af32176ddf9979e854df274b7c621">Zip 操作</h3>
+
+<p>Zip 操作用于连接两个集合，新的集合以最短的集合为准。</p>
+
+<pre><code class="language-scala">val zipResult1: List[(Int, Int)] = numbers1.zip(numbers2)
+println(s&quot;zip1 =&gt; $zipResult1&quot;) //  List((1,10), (2,20), (3,30))
+
+val zipResult2: List[(Int, Int)] = numbers2.zip(numbers1)
+println(s&quot;zip2 =&gt; $zipResult2&quot;) //  List((10,1), (20,2), (30,3))
+</code></pre>
+
+<p>除了 <code>zip()</code> 方法外还有一个 <code>zipAll()</code> 操作，该方法创建的集合以最长的集合为准，并且用指定值填充较短的集合。</p>
+
+<pre><code class="language-scala">val zipResult3: List[(Int, Any)] = numbers1.zipAll(numbers2, -1, 'a')
+println(s&quot;zipAll =&gt; $zipResult3&quot;) //  List((1,10), (2,20), (3,30), (4,a), (5,a), (6,a))
+</code></pre>
+
+<p>以上例子中当 <code>numbers1</code> 较短时，新集合中就会以 <code>-1</code> 填充不满足长度的位置，如果 <code>numbers2</code> 较短，则以 <code>a</code> 填充。</p>
+
+<h3 id="reduce-操作-1:152af32176ddf9979e854df274b7c621">Reduce 操作</h3>
+
+<p>Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。</p>
+
+<p>Scala 有三个版本的 Reduce 操作，默认的版本第一个元素是集合的最左还是最右是不确定的，由 Scala 编译器自己决定。</p>
+
+<pre><code class="language-scala">val reduceResult = numbers1.reduce((n1, n2) =&gt; n1 - n2)
+println(s&quot;reduce =&gt; $reduceResult&quot;) //  -19
+</code></pre>
+
+<p>也可以通过 <code>reduceLeff()</code> 指定从左开始为集合的第一个元素。</p>
+
+<pre><code class="language-scala">val reduceLeftResult = numbers1.reduceLeft((n1, n2) =&gt; n1 - n2)
+println(s&quot;reduceLeft =&gt; $reduceLeftResult&quot;) //  -19
+</code></pre>
+
+<p>同样还有 <code>reduceRight()</code> 的版本</p>
+
+<pre><code class="language-scala">val reduceRightResult = numbers1.reduceRight((n1, n2) =&gt; n1 - n2)
+println(s&quot;reduceRight =&gt; $reduceRightResult&quot;) //  -3
+</code></pre>
+
+<h3 id="fold-操作-1:152af32176ddf9979e854df274b7c621">Fold 操作</h3>
+
+<p>Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。</p>
+
+<p>Fold 操作也有从左和从右两个版本</p>
+
+<pre><code class="language-scala">val foldLeftResult = numbers1.foldLeft(2)((n1, n2) =&gt; n1 - n2)
+println(s&quot;foldLeft =&gt; $foldLeftResult&quot;) //  -19
+
+val foldRightResult = numbers1.foldRight(0)((n1, n2) =&gt; n1 - n2)
+println(s&quot;foldRight =&gt; $foldRightResult&quot;) //  -3
+</code></pre>
+
+<h3 id="filter-操作-2:152af32176ddf9979e854df274b7c621">Filter 操作</h3>
+
+<p>Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 <code>true</code> 的新的集合.</p>
+
+<pre><code class="language-scala">val filterResult = numbers1.filter(_ % 2 == 0)
+println(s&quot;filter =&gt; $filterResult&quot;) //  List(2, 4, 6)
+</code></pre>
+
+<h3 id="collect-操作-1:152af32176ddf9979e854df274b7c621">Collect 操作</h3>
+
+<p>Collect 操作接收偏函数并返回偏函数处理的分组的结果集。</p>
+
+<pre><code class="language-scala">val collectResult = numbers1.collect(PartialFunction[Int, Option[Int]] {
+	case x if x % 2 == 0 =&gt; Some(x)
+    case _ =&gt; None
+})
+println(s&quot;collect =&gt; $collectResult&quot;) //  List(None, Some(2), None, Some(4), None, Some(6))
+</code></pre>
+
+<h3 id="foreach-操作-2:152af32176ddf9979e854df274b7c621">ForEach 操作</h3>
+
+<p>ForEach 操作用于对集合进行遍历。</p>
+
+<pre><code class="language-scala">numbers1.foreach(println)
+</code></pre>
+
+<h3 id="parallel-操作-2:152af32176ddf9979e854df274b7c621">Parallel 操作</h3>
+
+<p>集合操作默认都是单线程的。但是可以使用 <code>par()</code> 方法获得进行并发的流式操作的能力，并发使用的是 <code>ForkJoinPool</code>。</p>
+
+<pre><code class="language-scala">numbers1.par.foreach(println)
+</code></pre>
+
+<p>Scala 中的并发流式操作和 Java 并不相同。虽然当前控制流中的操作是并发执行的，但是只有所有元素计算完毕后才会进行下一个控制流。且并发本身是不会被传递。而不像 Java 一个元素完成计算后就直接进入下一个控制流。</p>
+
+<pre><code class="language-scala">val parallelResult = numbers1.par.map((x) =&gt; {
+    println(s&quot;stream first: $x on ${Thread.currentThread().getName}&quot;)
+    x
+}).map((x) =&gt; {
+    println(s&quot;stream second: $x on ${Thread.currentThread().getName}&quot;)
+    x
+}).map((x) =&gt; {
+    println(s&quot;stream third: $x on ${Thread.currentThread().getName}&quot;)
+    x
+})
+println(parallelResult)
+</code></pre>
+
+<h2 id="kotlin:152af32176ddf9979e854df274b7c621">Kotlin</h2>
+
+<h3 id="map-操作-3:152af32176ddf9979e854df274b7c621">Map 操作</h3>
+
+<p>Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。</p>
+
+<pre><code class="language-kotlin">val numbers1 = listOf(1, 2, 3, 4, 5, 6)
+val numbers2 = listOf(10, 20, 30)
+val numbers3 = listOf(numbers1, numbers2)
+//  Map
+val mapResult: List&lt;Int&gt; = numbers1.map { it * it }
+println(&quot;map =&gt; $mapResult&quot;)    //  [1, 4, 9, 16, 25, 36]
+</code></pre>
+
+<h3 id="flatmap-操作-3:152af32176ddf9979e854df274b7c621">FlatMap 操作</h3>
+
+<p>FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。</p>
+
+<pre><code class="language-kotlin">val flatMapResult: List&lt;Int&gt; = numbers3.flatMap { it.map { it * 10 } }
+println(&quot;flatMap =&gt; $flatMapResult&quot;) //  [10, 20, 30, 40, 50, 60, 100, 200, 300]         
+</code></pre>
+
+<p>如果只是想简单的抽出的话，可以直接使用更简单的 <code>flatten()</code> 方法。</p>
+
+<pre><code class="language-kotlin">println(&quot;flatten =&gt; ${numbers3.flatten()}&quot;) //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+</code></pre>
+
+<h3 id="zip-操作-2:152af32176ddf9979e854df274b7c621">Zip 操作</h3>
+
+<p>Zip 操作用于连接两个集合，新的集合以最短的集合为准。</p>
+
+<pre><code class="language-kotlin">val zipResult1: List&lt;Pair&lt;Int, Int&gt;&gt; = numbers1.zip(numbers2)
+println(&quot;zip1 =&gt; $zipResult1&quot;)  //  [(1, 10), (2, 20), (3, 30)]
+
+val zipResult2: List&lt;Pair&lt;Int, Int&gt;&gt; = numbers2.zip(numbers1)
+println(&quot;zip2 =&gt; $zipResult2&quot;)  //  [(10, 1), (20, 2), (30, 3)]
+</code></pre>
+
+<h3 id="reduce-操作-2:152af32176ddf9979e854df274b7c621">Reduce 操作</h3>
+
+<p>Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。</p>
+
+<p>Kotlin 有两个个版本的 Reduce 操作，默认的版本从左开始。</p>
+
+<pre><code class="language-kotlin">val reduceLeftResult = numbers1.reduce { n1, n2 -&gt; n1 - n2 }
+println(&quot;reduce =&gt; $reduceLeftResult&quot;)  //  -19
+
+val reduceRightResult = numbers1.reduceRight { n1, n2 -&gt; n1 - n2 }
+println(&quot;reduceRight =&gt; $reduceRightResult&quot;)    //  -3
+</code></pre>
+
+<h3 id="fold-操作-2:152af32176ddf9979e854df274b7c621">Fold 操作</h3>
+
+<p>Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。</p>
+
+<p>Fold 操作也有从左和从右两个版本</p>
+
+<pre><code class="language-kotlin">val foldLeftResult = numbers1.fold(2) { n1, n2 -&gt; n1 - n2 }
+println(&quot;foldLeft =&gt; $foldLeftResult&quot;)  //  -19
+
+val foldRightResult = numbers1.foldRight(0) { n1, n2 -&gt; n1 - n2 }
+println(&quot;foldRight =&gt; $foldRightResult&quot;)    //  -3
+</code></pre>
+
+<h3 id="filter-操作-3:152af32176ddf9979e854df274b7c621">Filter 操作</h3>
+
+<p>Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 <code>true</code> 的新的集合.</p>
+
+<pre><code class="language-kotlin">val filterResult = numbers1.filter { it % 2 == 0 }
+println(&quot;filter =&gt; $filterResult&quot;)  //  [2, 4, 6]
+</code></pre>
+
+<h3 id="foreach-操作-3:152af32176ddf9979e854df274b7c621">ForEach 操作</h3>
+
+<p>ForEach 操作用于对集合进行遍历。</p>
+
+<pre><code class="language-kotlin">numbers1.forEach { println(it) }
+</code></pre>
+
+<h3 id="parallel-操作-3:152af32176ddf9979e854df274b7c621">Parallel 操作</h3>
+
+<p>Kotlin 目前并没有并行集合，不过官方计划在将来实现。</p>
+
+<h2 id="总结:152af32176ddf9979e854df274b7c621">总结</h2>
+
+<ul>
+<li>Java 1.8 和 Scala 支持并行集合，但是效果完全不同</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_35_collection_function</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-25 </h4>
+          <h5 id="wc"> 1100 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  6 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-kotlin-05-high-order-function/"><i class="icon-arrow-left"></i> JGSK - Kotlin - 05.高阶函数</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-groovy-02-memorized/">JGSK - Groovy - 02.Memorized <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="1074">
+<meta itemprop="datePublished" content="2015-12-25">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-35-collection-function/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-35-collection-function\/';
+    var disqus_title = 'JGSK - 35.集合的函数式编程';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-35-collection-function\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

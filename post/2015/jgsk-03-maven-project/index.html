@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 03.创建 Maven 工程"/>
+<meta property="og:site_name" content="JGSK - 03.创建 Maven 工程"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-03-maven-project/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-15"/>
+<meta property="article:modified_time" content="2015-09-15"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 03.创建 Maven 工程">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 03.创建 Maven 工程 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-03-maven-project/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2003.%e5%88%9b%e5%bb%ba%20Maven%20%e5%b7%a5%e7%a8%8b-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f&title=JGSK%20-%2003.%e5%88%9b%e5%bb%ba%20Maven%20%e5%b7%a5%e7%a8%8b&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-03-maven-project%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 03.创建 Maven 工程</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#概述:bfcbe9b18225850f4577ecac131566f2">概述</a>
+<ul>
+<li><a href="#建立工程:bfcbe9b18225850f4577ecac131566f2">建立工程</a></li>
+<li><a href="#安装插件:bfcbe9b18225850f4577ecac131566f2">安装插件</a></li>
+<li><a href="#修改-pom-xml-文件:bfcbe9b18225850f4577ecac131566f2">修改 Pom.xml 文件</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="概述:bfcbe9b18225850f4577ecac131566f2">概述</h2>
+
+<p>在进行各种测试之前，我们先为之后的所有例子建立一个完整的工程项目。我使用的开发工具为 IDEA 14 CE，构建工具选择最为通用的 Maven。</p>
+
+<h3 id="建立工程:bfcbe9b18225850f4577ecac131566f2">建立工程</h3>
+
+<p>首先打开 IDEA，选择 <code>File</code> -&gt; <code>New</code> -&gt; <code>Project</code></p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/new_project.png" alt="" />
+</p>
+
+<p>在弹出的对话框左侧选择 <code>Maven</code>，然后选择 <code>Next</code>，进入下一个界面。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/create_maven_01.png" alt="" />
+</p>
+
+<p>接着在 <code>GroupId</code> 一栏填入 &ldquo;com.bookislife&rdquo;，在 <code>ArtifactId</code> 一栏填入 &ldquo;jgsk&rdquo;，继续 <code>Next</code></p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/create_maven_02.png" alt="" />
+</p>
+
+<p><code>Project name</code> 为 &ldquo;JGSK&rdquo;，<code>Project location</code> 任意，点击 <code>Finish</code> 完成工程创建。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/create_maven_03.png" alt="" />
+</p>
+
+<p>然后在工程的根目录下执行以下命令创建各目录</p>
+
+<pre><code class="language-zsh">➜  JGSK git:(master) ✗ mkdir -p src/main/java/com/bookislife/jgsk/java
+➜  JGSK git:(master) ✗ mkdir -p src/main/groovy/com/bookislife/jgsk/groovy
+➜  JGSK git:(master) ✗ mkdir -p src/main/scala/com/bookislife/jgsk/scala
+➜  JGSK git:(master) ✗ mkdir -p src/main/kotlin/com/bookislife/jgsk/kotlin
+➜  JGSK git:(master) ✗ mkdir -p src/test/java/com/bookislife/jgsk/java
+➜  JGSK git:(master) ✗ mkdir -p src/test/groovy/com/bookislife/jgsk/groovy
+➜  JGSK git:(master) ✗ mkdir -p src/test/scala/com/bookislife/jgsk/scala
+➜  JGSK git:(master) ✗ mkdir -p src/test/kotlin/com/bookislife/jgsk/kotlin
+</code></pre>
+
+<h3 id="安装插件:bfcbe9b18225850f4577ecac131566f2">安装插件</h3>
+
+<p>在编写程序前，还需要为 IDEA 安装几个插件，安装步骤如下</p>
+
+<p>选择 <code>Settings (Mac 平台为 Preferences)</code> - <code>Plugins</code> - <code>Browse repositories</code>，在弹出的对话框中的输入框中输入以下几个并安装，安装完毕后重启 IDEA</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/install_plugins.png" alt="" />
+</p>
+
+<p>需要安装的插件</p>
+
+<ul>
+<li>Scala</li>
+<li>GMavenPlus IntelliJ Plugin</li>
+<li>Groovy</li>
+<li>Kotlin</li>
+</ul>
+
+<h3 id="修改-pom-xml-文件:bfcbe9b18225850f4577ecac131566f2">修改 Pom.xml 文件</h3>
+
+<p>接着打开工程根目录下的 <code>pom.xml</code> 文件，填入以下内容</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.bookislife&lt;/groupId&gt;
+    &lt;artifactId&gt;jgsk&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;project.build.encoding&gt;UTF-8&lt;/project.build.encoding&gt;
+        &lt;jdk.version&gt;1.8&lt;/jdk.version&gt;
+        &lt;maven-compiler-plugin.verion&gt;3.2&lt;/maven-compiler-plugin.verion&gt;
+        &lt;maven-resources-plugin.version&gt;2.7&lt;/maven-resources-plugin.version&gt;
+        &lt;groovy.version&gt;2.4.4&lt;/groovy.version&gt;
+        &lt;gmavenplus-plugin.version&gt;1.5&lt;/gmavenplus-plugin.version&gt;
+        &lt;scala.version&gt;2.11.5&lt;/scala.version&gt;
+        &lt;scala-maven-plugin.version&gt;3.2.0&lt;/scala-maven-plugin.version&gt;
+        &lt;kotlin.version&gt;0.12.1230&lt;/kotlin.version&gt;
+    &lt;/properties&gt;
+
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;sonatype.oss.snapshots&lt;/id&gt;
+            &lt;name&gt;Sonatype OSS Snapshot Repository&lt;/name&gt;
+            &lt;url&gt;http://oss.sonatype.org/content/repositories/snapshots&lt;/url&gt;
+            &lt;releases&gt;
+                &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;/releases&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+
+    &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+            &lt;id&gt;sonatype.oss.snapshots&lt;/id&gt;
+            &lt;name&gt;Sonatype OSS Snapshot Repository&lt;/name&gt;
+            &lt;url&gt;http://oss.sonatype.org/content/repositories/snapshots&lt;/url&gt;
+            &lt;releases&gt;
+                &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;/releases&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+    &lt;/pluginRepositories&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;
+            &lt;artifactId&gt;groovy-all&lt;/artifactId&gt;
+            &lt;version&gt;${groovy.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.scala-lang&lt;/groupId&gt;
+            &lt;artifactId&gt;scala-library&lt;/artifactId&gt;
+            &lt;version&gt;${scala.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlin-stdlib&lt;/artifactId&gt;
+            &lt;version&gt;${kotlin.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-compiler-plugin.verion}&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;${jdk.version}&lt;/source&gt;
+                    &lt;target&gt;${jdk.version}&lt;/target&gt;
+                    &lt;encoding&gt;${project.build.encoding}&lt;/encoding&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-resources-plugin.version}&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.gmavenplus&lt;/groupId&gt;
+                &lt;artifactId&gt;gmavenplus-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${gmavenplus-plugin.version}&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;process-sources&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                            &lt;goal&gt;testCompile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sources&gt;
+                                &lt;source&gt;
+                                    &lt;directory&gt;src/main/groovy&lt;/directory&gt;
+                                &lt;/source&gt;
+                            &lt;/sources&gt;
+                            &lt;testSources&gt;
+                                &lt;source&gt;
+                                    &lt;directory&gt;src/test/groovy&lt;/directory&gt;
+                                &lt;/source&gt;
+                            &lt;/testSources&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;net.alchim31.maven&lt;/groupId&gt;
+                &lt;artifactId&gt;scala-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${scala-maven-plugin.version}&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;phase&gt;process-sources&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                            &lt;goal&gt;testCompile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sourceDir&gt;src/main/scala&lt;/sourceDir&gt;
+                            &lt;testSourceDir&gt;src/test/scala&lt;/testSourceDir&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+                &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${kotlin.version}&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;compile&lt;/id&gt;
+                        &lt;phase&gt;process-sources&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sourceDirs&gt;
+                                &lt;source&gt;src/main/kotlin&lt;/source&gt;
+                            &lt;/sourceDirs&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;test-compile&lt;/id&gt;
+                        &lt;phase&gt;process-test-sources&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;test-compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sourceDirs&gt;
+                                &lt;source&gt;src/test/kotlin&lt;/source&gt;
+                            &lt;/sourceDirs&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+
+<p>修改完 <code>pom.xml</code> 后进行保存。接着选择该 <code>pom.xml</code> 文件，单击右键选择 <code>Maven</code> - <code>Reimport</code>，执行完成后左边工程的 <code>main</code> 下的目录文件夹名应该除了 <code>kotlin</code> 之外都变成了蓝色，<code>test</code> 下除了 <code>kotlin</code> 之外都变成了绿色。</p>
+
+<p>为了使 IDEA 也认出 <code>kotlin</code> 文件夹，需要进行以下操作：</p>
+
+<p>选择 <code>File</code> - <code>Project Structure...</code>，在弹出的对话框中选择 <code>Modules</code> 条目，选择 <code>main/kotlin</code> 目录并点击上方蓝色的 <code>Sources</code> 按钮，接着选择 <code>test/kotlin</code> 目录并点击上方绿色的 <code>Tests</code> 按钮，点击 <code>OK</code> 关闭对话框。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jgsk/04/ident_folder.png" alt="" />
+</p>
+
+<p>此时，整个工程结构就创建完成了。</p>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK</a>
+完整 <a href="https://github.com/SidneyXu/JGSK/blob/master/pom.xml">Pom.xml</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-15 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-02-repl/"><i class="icon-arrow-left"></i> JGSK - 02.REPL 环境</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-01-start/">JGSK - 01.安装与运行 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="327">
+<meta itemprop="datePublished" content="2015-09-15">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-03-maven-project/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-03-maven-project\/';
+    var disqus_title = 'JGSK - 03.创建 Maven 工程';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-03-maven-project\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 27.泛型 - Java篇"/>
+<meta property="og:site_name" content="JGSK - 27.泛型 - Java篇"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-27-generic-java/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-10-04"/>
+<meta property="article:modified_time" content="2015-10-04"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 27.泛型 - Java篇">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 27.泛型 - Java篇 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-27-generic-java/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2027.%e6%b3%9b%e5%9e%8b%20-%20Java%e7%af%87-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f&title=JGSK%20-%2027.%e6%b3%9b%e5%9e%8b%20-%20Java%e7%af%87&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-27-generic-java%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 27.泛型 - Java篇</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#泛型:3d24cb89d00078535204fd42b8791c94">泛型</a>
+<ul>
+<li><a href="#基本概念:3d24cb89d00078535204fd42b8791c94">基本概念</a></li>
+<li><a href="#创建泛型:3d24cb89d00078535204fd42b8791c94">创建泛型</a></li>
+<li><a href="#使用泛型:3d24cb89d00078535204fd42b8791c94">使用泛型</a></li>
+<li><a href="#类型擦除:3d24cb89d00078535204fd42b8791c94">类型擦除</a></li>
+<li><a href="#协变与逆变:3d24cb89d00078535204fd42b8791c94">协变与逆变</a>
+<ul>
+<li><a href="#协变:3d24cb89d00078535204fd42b8791c94">协变</a></li>
+<li><a href="#逆变:3d24cb89d00078535204fd42b8791c94">逆变</a></li>
+</ul></li>
+<li><a href="#类型通配符:3d24cb89d00078535204fd42b8791c94">类型通配符</a></li>
+<li><a href="#类型参数边界:3d24cb89d00078535204fd42b8791c94">类型参数边界</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="泛型:3d24cb89d00078535204fd42b8791c94">泛型</h2>
+
+<h3 id="基本概念:3d24cb89d00078535204fd42b8791c94">基本概念</h3>
+
+<p>泛型是 Java 1.5才引进的特性。泛型使类型参数化变得可能。在声明类或接口时，可以使用自定义的占位符来表示类型，在运行时由传入的具体类型进行替换。泛型的引入让集合变得更加好用，使很多错误在编译时就能被发现，也省去了一些强制转换的麻烦。</p>
+
+<p>没有泛型的时候使用一个持有特定类型的值的类的时候是非常麻烦的</p>
+
+<pre><code class="language-java">public class ObjectCapture {
+    private Object object;
+    public ObjectCapture(Object o) {
+        this.object = o;
+    }
+    public void set(Object object) {
+        this.object = object;
+    }
+    public Object get() {
+        return object;
+    }
+}
+</code></pre>
+
+<p>使用以上类</p>
+
+<pre><code class="language-java">ObjectCapture integerObjectCapture = new ObjectCapture(10);
+assert 10 == (Integer) integerObjectCapture.get();
+</code></pre>
+
+<p>没有泛型的时候在取数据时必须进行强制转换，但是此时根本无法保证 之前使用的 <code>ObjectCapture</code> 保存的是 <code>Integer</code> 类型的值，如果是其它类型的话，程序就会直接挂掉，而且这种错误只有运行时才能发现。</p>
+
+<h3 id="创建泛型:3d24cb89d00078535204fd42b8791c94">创建泛型</h3>
+
+<p>类型参数使用 <code>&lt;类型参数名&gt;</code> 作为类型的占位符。</p>
+
+<pre><code class="language-java">public class Capture&lt;T&gt; {
+    private T t;
+    public Capture(T t) {
+        this.t = t;
+    }
+    public void set(T t) {
+        this.t = t;
+    }
+    public T get() {
+        return t;
+    }
+}
+</code></pre>
+
+<p>Java 中最常用的占位符为通用的 &ldquo;T&rdquo;，表示 Key 的 &ldquo;K&rdquo;， 表示 Value 的 &ldquo;V&rdquo; 和表示异常的 &ldquo;E&rdquo;。</p>
+
+<h3 id="使用泛型:3d24cb89d00078535204fd42b8791c94">使用泛型</h3>
+
+<pre><code class="language-java">Capture&lt;Integer&gt; integerCapture = new Capture&lt;&gt;(10);
+assert 10 == integerCapture.get();
+Capture&lt;String&gt; stringCapture = new Capture&lt;&gt;(&quot;Hi&quot;);
+assert &quot;Hi&quot;.equals(stringCapture.get());
+</code></pre>
+
+<p>以上分别用 <code>Integer</code> 和 <code>String</code> 作为传入的类型参数，如果向这两个对象传入不符合的类型时编译器就会理解报错，此外取数据时也不用进行强制转换，比起没有泛型时要方便很多。</p>
+
+<h3 id="类型擦除:3d24cb89d00078535204fd42b8791c94">类型擦除</h3>
+
+<p>Java 的泛型是在编译器层次实现的，所以运行时有关泛型的信息都会被丢失，这被称作类型擦除。也就是说上节例子中的 <code>Capture&lt;Integer&gt;</code> 和 <code>Capture&lt;String&gt;</code> 在运行时都是 <code>Capture</code> 类型，没有任何区别。</p>
+
+<h3 id="协变与逆变:3d24cb89d00078535204fd42b8791c94">协变与逆变</h3>
+
+<p>如果 Capture<String> 被看做是 Capture<Object> 的子类型，则称这种特性为协变。相反情况则称为逆变。</p>
+
+<h4 id="协变:3d24cb89d00078535204fd42b8791c94">协变</h4>
+
+<p>在 Java 中，协变是默认支持，所以可以写出以下例子：</p>
+
+<pre><code class="language-java">Integer[] integers = new Integer[2];
+Object[] objects = integers;
+</code></pre>
+
+<p>但是这样会造成以下的问题</p>
+
+<pre><code class="language-java">Date[] dates = new Date[2];
+Object[] objects2 = dates;
+objects2[0] = &quot;str&quot;;
+</code></pre>
+
+<p>这种代码在编写时完全没有问题，但是运行时会抛出异常。所以引进泛型时就不支持协变，所以以下代码在编译时就会报错。</p>
+
+<pre><code class="language-java">List&lt;Date&gt; dateList = new ArrayList&lt;&gt;();
+List&lt;Object&gt; objectList = dateList;
+</code></pre>
+
+<h4 id="逆变:3d24cb89d00078535204fd42b8791c94">逆变</h4>
+
+<p>Java 不支持逆变。</p>
+
+<h3 id="类型通配符:3d24cb89d00078535204fd42b8791c94">类型通配符</h3>
+
+<p>由于泛型不支持协变，所以在使用泛型作为参数传递时会非常麻烦。</p>
+
+<pre><code class="language-java">private static void foo(List&lt;Object&gt; list) {}
+</code></pre>
+
+<p>以上例子中是无法将 <code>dateList</code> 传入 <code>foo()</code> 方法中的。解决方法是使用通配符 <code>?</code>。</p>
+
+<pre><code class="language-java">private static void foo(List&lt;?&gt; list) {}
+</code></pre>
+
+<p>以上例子中就能正常传入 <code>dateList</code> 了。</p>
+
+<blockquote>
+<p>注意：List&lt;?&gt; 和 List 并不是一个概念</p>
+
+<p>List 是原生类型，表示不对 List 的类型进行限制，可以进行各种操作，错误使用在运行时才能发现。</p>
+
+<p>List&lt;?&gt; 表示 List 中存放的是某种类型的数据，只是类型本身并不确定。所以无法建立 List&lt;?&gt; 的实例，也无法向 List 中追加任何数据。</p>
+</blockquote>
+
+<h3 id="类型参数边界:3d24cb89d00078535204fd42b8791c94">类型参数边界</h3>
+
+<p>上节说过无法向 List&lt;?&gt; 中追加任何数据，这一做法会让程序变得非常麻烦，解决方法就是使用类型参数边界。类型参数边界分为上边界和下边界。</p>
+
+<p>上边界用于限定类型参数一定是某个类的子类，使用关键字 <code>extends</code> 指定。下边界用于限定类型参数一定是某个类的超类，使用关键字 <code>super</code> 指定。</p>
+
+<p>上边界无法确定容器中保存的真实类型，所以无法向其中追加数据，但是可以获得边界类型的数据</p>
+
+<pre><code class="language-java">private static void foo3(List&lt;? extends Num&gt; list) {
+	//        list.add(new Num(4));
+    Num num = list.get(0);
+}
+</code></pre>
+
+<p>下边界可以追加边界类型的数据，但是获得数据都只能是 Object 类型</p>
+
+<pre><code class="language-java">private static void foo4(List&lt;? super Num&gt; list) {
+    list.add(new Num(4));
+    Object object = list.get(0);
+}
+</code></pre>
+
+<blockquote>
+<p>上下边界在这里实际是起到了协变和逆变的作用，具体可以对比 Kotlin 的例子。</p>
+</blockquote>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_27_generics</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-10-04 </h4>
+          <h5 id="wc"> 300 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-27-generic-groovy/"><i class="icon-arrow-left"></i> JGSK - 27.泛型 - Groovy篇</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-26-xml-and-json/">JGSK - 26.Xml 与 JSON 的处理 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="267">
+<meta itemprop="datePublished" content="2015-10-04">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-27-generic-java/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-27-generic-java\/';
+    var disqus_title = 'JGSK - 27.泛型 - Java篇';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-27-generic-java\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

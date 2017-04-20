@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 30.Thread 与 Future"/>
+<meta property="og:site_name" content="JGSK - 30.Thread 与 Future"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-30-thread-future/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-11-06"/>
+<meta property="article:modified_time" content="2015-11-06"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 30.Thread 与 Future">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 30.Thread 与 Future </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-30-thread-future/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2030.Thread%20%e4%b8%8e%20Future-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f&title=JGSK%20-%2030.Thread%20%e4%b8%8e%20Future&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-30-thread-future%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 30.Thread 与 Future</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java:478c14dbe13b6b3aa481a4bf3a0c02ba">Java</a>
+<ul>
+<li><a href="#thread:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</a></li>
+<li><a href="#thread-pool:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread Pool</a></li>
+<li><a href="#callable-与-future:478c14dbe13b6b3aa481a4bf3a0c02ba">Callable 与 Future</a></li>
+<li><a href="#timer:478c14dbe13b6b3aa481a4bf3a0c02ba">Timer</a></li>
+<li><a href="#completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">CompletableFuture</a>
+<ul>
+<li><a href="#概念:478c14dbe13b6b3aa481a4bf3a0c02ba">概念</a></li>
+<li><a href="#创建-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">创建 CompletableFuture</a></li>
+<li><a href="#在同一个-completablefuture-上执行链式操作:478c14dbe13b6b3aa481a4bf3a0c02ba">在同一个 CompletableFuture 上执行链式操作</a></li>
+<li><a href="#完成-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">完成 CompletableFuture</a></li>
+<li><a href="#异常处理:478c14dbe13b6b3aa481a4bf3a0c02ba">异常处理</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#groovy:478c14dbe13b6b3aa481a4bf3a0c02ba">Groovy</a></li>
+<li><a href="#scala:478c14dbe13b6b3aa481a4bf3a0c02ba">Scala</a>
+<ul>
+<li><a href="#thread-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</a></li>
+<li><a href="#executioncontext:478c14dbe13b6b3aa481a4bf3a0c02ba">ExecutionContext</a></li>
+<li><a href="#future:478c14dbe13b6b3aa481a4bf3a0c02ba">Future</a>
+<ul>
+<li><a href="#创建-future:478c14dbe13b6b3aa481a4bf3a0c02ba">创建 Future</a></li>
+<li><a href="#回调:478c14dbe13b6b3aa481a4bf3a0c02ba">回调</a></li>
+<li><a href="#组合:478c14dbe13b6b3aa481a4bf3a0c02ba">组合</a></li>
+<li><a href="#blocking:478c14dbe13b6b3aa481a4bf3a0c02ba">Blocking</a></li>
+</ul></li>
+<li><a href="#promise:478c14dbe13b6b3aa481a4bf3a0c02ba">Promise</a></li>
+<li><a href="#syncvar:478c14dbe13b6b3aa481a4bf3a0c02ba">SyncVar</a></li>
+</ul></li>
+<li><a href="#kotlin:478c14dbe13b6b3aa481a4bf3a0c02ba">Kotlin</a>
+<ul>
+<li><a href="#thread-2:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</a></li>
+<li><a href="#thread-pool-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread Pool</a></li>
+<li><a href="#callable-与-future-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Callable 与 Future</a></li>
+<li><a href="#timer-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Timer</a></li>
+<li><a href="#completablefuture-1:478c14dbe13b6b3aa481a4bf3a0c02ba">CompletableFuture</a></li>
+</ul></li>
+<li><a href="#总结:478c14dbe13b6b3aa481a4bf3a0c02ba">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java:478c14dbe13b6b3aa481a4bf3a0c02ba">Java</h2>
+
+<h3 id="thread:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</h3>
+
+<p>线程主要用于执行并发任务，提高 CPU 的运行效率。在各种参考中都有线程相关的各种概念，在这里就补多废话了。在Java 中线程相关的概念主要有两个： Thread 和 Runnable。</p>
+
+<p>Runnable 是一个只含有 <code>run()</code> 方法的接口，该接口定义了线程所要执行的代码。Thread 表示线程，本身实现了 Runnable 接口，可以执行自己的 <code>run()</code> 方法也可以执行传入的 Runnable 接口的 <code>run()</code> 方法。</p>
+
+<p>定义一个简单的线程</p>
+
+<pre><code class="language-java">new Thread(() -&gt; {
+    System.out.println(&quot;async&quot;);
+}, &quot;thread-01&quot;).start();
+System.out.println(&quot;sync&quot;);
+</code></pre>
+
+<h3 id="thread-pool:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread Pool</h3>
+
+<p>如果总是建立新的线程，CPU 资源很快会被耗尽，因此便有了线程池。线程池本质是预先建立好一些空闲线程放在池子中，当需要在线程中执行代码时便从池中取出空闲的线程来运行，运行完毕后线程继续放回池中，如果需要执行代码但是池中没有线程时根据不同的线程池的策略或者新建线程或者将请求放在等待队列中。</p>
+
+<p>Java 中创建线程池非常简单，主要使用 <code>Executors</code> 这一个工具类。</p>
+
+<p>创建一个单线程的线程池</p>
+
+<pre><code class="language-java">ExecutorService service = Executors.newSingleThreadExecutor();
+service.execute(() -&gt; System.out.println(&quot;Running in a pool.&quot;));
+</code></pre>
+
+<h3 id="callable-与-future:478c14dbe13b6b3aa481a4bf3a0c02ba">Callable 与 Future</h3>
+
+<p>Callable 与 Future 主要用于从线程中获得返回结果。Callable 用于在线程中执行计算并返回结果，Future 用于等待线程的结果。</p>
+
+<pre><code class="language-java">ExecutorService service = Executors.newSingleThreadExecutor();
+Callable&lt;String&gt; callable = () -&gt; &quot;Hello World&quot;;
+Future&lt;String&gt; future = service.submit(callable);
+String result = future.get();
+System.out.println(result);
+service.shutdown();
+</code></pre>
+
+<h3 id="timer:478c14dbe13b6b3aa481a4bf3a0c02ba">Timer</h3>
+
+<p>Timer 用于执行定时任务，也可以用 ScheduledThreadPool 进行替代。</p>
+
+<pre><code class="language-java">Timer timer = new Timer(&quot;timer&quot;, true);
+TimerTask task = new TimerTask() {
+    @Override
+    public void run() {
+        System.out.println(&quot;ping!&quot;);
+    }
+};
+timer.schedule(task, 100, 100);
+Thread.sleep(1000);
+timer.cancel();
+</code></pre>
+
+<h3 id="completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">CompletableFuture</h3>
+
+<h4 id="概念:478c14dbe13b6b3aa481a4bf3a0c02ba">概念</h4>
+
+<p>CompletableFuture 是 Java 1.8 新加入的类，提供了事件驱动的编程模型，能够大幅简化异步调用的繁琐过程从而避免陷入回调地狱。</p>
+
+<p>CompletableFuture 继承自 Future，所以也表示未来的值，但是 CompletableFuture 表示的未来的值可以是预期的，即你可以明确表明你知道将会发生什么。</p>
+
+<h4 id="创建-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">创建 CompletableFuture</h4>
+
+<p>创建一个最简单的 CompletableFuture 的实例</p>
+
+<pre><code class="language-java">CompletableFuture&lt;Integer&gt; firstFuture = new CompletableFuture&lt;&gt;();
+firstFuture.complete(10);
+int value = firstFuture.get();
+System.out.println(value);  //  10
+</code></pre>
+
+<p>以上调用 <code>complete()</code> 表示我知道这个 Future 会返回 10。这个例子是最简单的同步调用方式，下面使用工厂类创建一个支持异步调用的 CompletableFuture 实例。</p>
+
+<pre><code class="language-java"> ExecutorService service = Executors.newFixedThreadPool(10);
+ CompletableFuture&lt;Integer&gt; secondFuture = CompletableFuture.supplyAsync(() -&gt; {
+      //  long running
+      return new Random().nextInt(1000);
+  }, service);
+</code></pre>
+
+<p>以上 <code>supplyAsync()</code> 创建了一个支持异步调用的 CompletableFuture，该 CompletableFuture 的任务运行在指定的线程池中。</p>
+
+<h4 id="在同一个-completablefuture-上执行链式操作:478c14dbe13b6b3aa481a4bf3a0c02ba">在同一个 CompletableFuture 上执行链式操作</h4>
+
+<p>CompletableFuture 的用法类似 Javascript 的 Promise 编程的概念。使用 <code>thenApplyAsync()</code> 或 <code>thenApply()</code> 可以在同一个 CompletableFuture 上可以执行多个链式操作，前一个操作完成后才能执行下一个操作。</p>
+
+<pre><code class="language-java">CompletableFuture&lt;String&gt; thirdFuture = secondFuture.thenApplyAsync(integer -&gt; {
+    if (integer &lt; 900) {
+        throw new IllegalArgumentException();
+    }
+    return &quot;&quot; + integer;
+});
+</code></pre>
+
+<h4 id="完成-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba">完成 CompletableFuture</h4>
+
+<p><code>thenAcceptAsync()</code> 或 <code>thenAccept()</code> 可以在一个 CompletableFuture 完成所有操作后执行收尾操作。</p>
+
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; lastFuture = thirdFuture.thenAcceptAsync(s -&gt; System.out.println(&quot;Result is &quot; + s));
+</code></pre>
+
+<h4 id="异常处理:478c14dbe13b6b3aa481a4bf3a0c02ba">异常处理</h4>
+
+<p><code>exceptionally()</code> 方法会在 CompletableFuture 执行中发生异常时被调用，可以在该方法中处理异常。</p>
+
+<pre><code class="language-java">CompletableFuture&lt;String&gt; safe1 = thirdFuture.exceptionally(throwable -&gt; {
+        //  throwable is CompletionException
+        if (throwable != null &amp;&amp; (throwable.getCause() instanceof IllegalArgumentException)) {
+            return &quot;Too small.&quot;;
+        } else if (throwable != null) {
+            return throwable.getMessage();
+        }
+        return null;
+    });
+</code></pre>
+
+<p>或者也可以使用 <code>handleAsync()</code> 方法，无论异常是否发生，该方法都会被调用，所以即可以在返回前处理异常也可以处理返回值。</p>
+
+<pre><code class="language-java">CompletableFuture&lt;String&gt; safe2 = thirdFuture.handleAsync((s, throwable) -&gt; {
+    //  throwable is CompletionException
+    if (throwable != null &amp;&amp; (throwable.getCause() instanceof IllegalArgumentException)) {
+        return &quot;Result is too small.&quot;;
+    } else if (throwable != null) {
+        return throwable.getMessage();
+    }
+    return s;
+});
+</code></pre>
+
+<h2 id="groovy:478c14dbe13b6b3aa481a4bf3a0c02ba">Groovy</h2>
+
+<p>与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的新增特性，所以一些代码写起来会比 Java 麻烦。</p>
+
+<h2 id="scala:478c14dbe13b6b3aa481a4bf3a0c02ba">Scala</h2>
+
+<h3 id="thread-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</h3>
+
+<p>用法同 Java。</p>
+
+<h3 id="executioncontext:478c14dbe13b6b3aa481a4bf3a0c02ba">ExecutionContext</h3>
+
+<p>ExecutionContext 可以看做 Java 中的线程池，实际上其本质也是通过 Java 的 <code>ExecutorService</code> 来实现的。</p>
+
+<pre><code class="language-scala">val executor = Executors.newFixedThreadPool(1)
+implicit val service = ExecutionContext.fromExecutor(executor)
+service.execute(new Runnable {
+  override def run(): Unit = {
+    println(&quot;Running in a pool.&quot;)
+  }
+})
+</code></pre>
+
+<p>以上例子定义了一个容量为 1 的线程池，并且通过隐式转换（具体见 Scala 的隐式转换一章）使 ExecutionContext 运行在该线程池中。</p>
+
+<p>除了自定义线程池之外，Scala 还有一个全局的默认线程池 <code>scala.concurrent.ExecutionContext.Implicits.global</code>，通常来说这个线程池仅用于测试。因为你不知道其它人或者你引用的其它库中是否有使用默认的线程池进行大量长时间操作。</p>
+
+<h3 id="future:478c14dbe13b6b3aa481a4bf3a0c02ba">Future</h3>
+
+<p>Scala 中的 Future 表示尚未完成的计算结果，执行在指定的 ExecutionContext 中。一个 Future 一旦被赋值后就不可被改变，可以用于编写高效的并行代码。</p>
+
+<h4 id="创建-future:478c14dbe13b6b3aa481a4bf3a0c02ba">创建 Future</h4>
+
+<p>使用 <code>Future{}</code> 创建 Future 对象</p>
+
+<pre><code class="language-scala">val s = &quot;Hello&quot;
+val f1: Future[String] = Future {
+  s + &quot; future!&quot;
+}
+</code></pre>
+
+<h4 id="回调:478c14dbe13b6b3aa481a4bf3a0c02ba">回调</h4>
+
+<p>Future 支持三种回调方式</p>
+
+<ul>
+<li><code>onSuccess</code> 用于在 Future 完成后对计算结果进行某些操作</li>
+<li><code>onFailure</code> 用于处理在 Future 计算过程中发生的异常</li>
+<li><code>onComplete</code> 用于在 Future 处理完成后进行某些操作，其接收的参数为 Try[T] 类型，子类为 Success[T] 和 Failure[T]，所以可以在其方法体内同时完成成功和失败的后续处理。</li>
+</ul>
+
+<pre><code class="language-scala">val s = &quot;Hello&quot;
+//	使用 Future{} 创建 Future 对象
+val f1: Future[String] = Future {
+  s + &quot; future!&quot;
+}
+f1 onSuccess {
+    case msg =&gt;
+        println(msg)
+}
+f1 onFailure {
+    case e =&gt;
+        e.printStackTrace()
+}
+f1 onComplete {
+    case Success(msg) =&gt; println(s&quot;Success $msg&quot;)
+    case Failure(e) =&gt; println(s&quot;Failure ${e.getMessage}&quot;)
+}
+</code></pre>
+
+<p>一个 Future 上 可以定义多个 <code>onSuccess</code> 等类型的回调方法，但是所有的回调方法返回值都是 <code>Unit</code> 所以无法进行链式操作，同时执行多个回调的顺序的也不保证。</p>
+
+<pre><code class="language-java">val f2 = Future {
+    Thread.sleep(10)
+}
+f2 onSuccess {
+    case _ =&gt; println(&quot;a&quot;)
+}
+f2 onSuccess {
+    case _ =&gt; println(&quot;b&quot;)
+}
+f2 onSuccess {
+    case _ =&gt; println(&quot;c&quot;)
+}
+</code></pre>
+
+<h4 id="组合:478c14dbe13b6b3aa481a4bf3a0c02ba">组合</h4>
+
+<p>Callback 虽然方便，但是在复杂场景下光使用 Callback 很容易陷入回调地狱。</p>
+
+<p>最简单的回调地狱</p>
+
+<pre><code class="language-scala">Future {
+    1
+} onSuccess {
+    case x =&gt; Future {
+        x + 3
+    } onSuccess {
+        case x =&gt; Future {
+            x * 10
+        } onSuccess {
+            case x =&gt;
+                println(s&quot;Result of callback hell is $x&quot;) //  40
+        }
+    }
+}
+</code></pre>
+
+<p>为此 Scala 为 Future 提供了多种组合方式。</p>
+
+<p><strong>map</strong></p>
+
+<p><code>map</code> 用于在 Future 执行完毕后产生新的 Future 并执行后续操作，无论异常是否会发生，Future 的结果都会进行传递。</p>
+
+<pre><code class="language-scala">val f1 = Future {
+    1	//	or 1/0
+}
+val f2 = f1 map { x =&gt;
+    x + 3
+}
+f2 map { x =&gt;
+    x * 10
+} onComplete {
+    case Success(x) =&gt; println(s&quot;Result of map is $x&quot;) //  40
+    case Failure(e) =&gt; e.printStackTrace()
+}
+</code></pre>
+
+<p><strong>Recovery</strong></p>
+
+<p><code>recover</code> 用于在 Future 执行过程中发生异常时进行一些拯救工作。</p>
+
+<pre><code class="language-scala">Future {
+    1 / 0
+} recover {
+    case e: ArithmeticException =&gt; 0
+} map { x =&gt;
+    x + 3
+} map { x =&gt;
+    x * 10
+} onComplete {
+    case Success(x) =&gt; println(s&quot;Result of recover is $x&quot;) //  30
+    case Failure(e) =&gt; e.printStackTrace()
+}
+</code></pre>
+
+<p><strong>Fallback</strong></p>
+
+<p><code>fallback</code> 用于在 Future 执行过程中发生异常时执行另一个 Future。如果异常没有发生，原始 Future 的结果会被返回。如果原始 Future 发生异常，新 Future 成功执行则返回新 Future 的结果，如果新 Future 中也发生异常，则原始 Future 的异常会被返回。</p>
+
+<pre><code class="language-scala">val f3 = Future {
+    1 / 0
+}
+val f4 = Future {
+    10
+}
+f3 fallbackTo f4 map { x =&gt;
+    x + 3
+} onComplete {
+    case Success(x) =&gt; println(s&quot;Result of fallback is $x&quot;) //  13
+    case Failure(e) =&gt; e.printStackTrace()
+}
+</code></pre>
+
+<p><strong>Then</strong></p>
+
+<p><code>then</code> 听起来容易让人混淆，以为是连续多个 Future，前一个执行完的结果会被传递到后一个。但是实际 <code>then</code> 是为了解决副作用的问题，即 <code>then</code> 连接的多个 Furtue 总是返回初始 Future 的结果。</p>
+
+<pre><code class="language-scala">Future {
+    1
+} andThen {
+    case Success(x) =&gt;
+        x + 1
+} andThen {
+    case Success(x) =&gt;
+        x + 10
+} andThen {
+    case Success(x) =&gt;
+        println(s&quot;Result of then is $x&quot;) //  1
+}
+</code></pre>
+
+<p>由以上例子可知 <code>x</code> 的值并没有发生改变。</p>
+
+<h4 id="blocking:478c14dbe13b6b3aa481a4bf3a0c02ba">Blocking</h4>
+
+<p>Future 可以像 Java 的 Future 一样通过阻塞操作获得执行结果。</p>
+
+<pre><code class="language-scala">val f1 = Future {
+  1
+}
+val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
+println(result)
+</code></pre>
+
+<h3 id="promise:478c14dbe13b6b3aa481a4bf3a0c02ba">Promise</h3>
+
+<p>Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 是一个拥有单个 Future 的容器，提供了写入计算值的接口。Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。</p>
+
+<p>Promise 可以通过调用 <code>success()</code>，<code>complete()</code>，<code>failure()</code> 来直接调用其内部 Future 对应的 <code>onSuccess()</code> 等方法。</p>
+
+<pre><code class="language-scala">val p1 = Promise[Int]()
+val f1 = p1.future
+Future {
+  val i = Random.nextInt(100)
+  p1.success(i)
+}
+Future {
+  f1 onSuccess {
+    case x =&gt; println(x)
+  }
+}
+</code></pre>
+
+<p>Promise 在计算完成后就不允许再进行计算，否则会抛出异常，所以可以使用 <code>tryXXX()</code> 版本来替换以上版本来避免异常的发生。</p>
+
+<pre><code class="language-scala">p1.trySuccess(1)
+</code></pre>
+
+<p>Promise 也可以使用 <code>completeWith()</code> 方法来调用其它 Future 来代替其内置的 Future 进行计算</p>
+
+<pre><code class="language-scala"> def heavyFuture = {
+  val p = Promise[Int]()
+  val f = Future {
+    1000
+  }
+  p completeWith f
+  p.future
+}
+
+val f = heavyFuture
+f onSuccess { case x =&gt; println(x) } // 1000
+</code></pre>
+
+<h3 id="syncvar:478c14dbe13b6b3aa481a4bf3a0c02ba">SyncVar</h3>
+
+<p>SyncVar 负责存储单一值，其所有操作都是同步的，所以可以通过它安全地访问各种可变对象。</p>
+
+<p>其最主要的由三个方法：<code>get()</code>，<code>take()</code>，<code>put()</code>，其中 <code>get()</code> 和 <code>take()</code> 都负责从对象中获取值，且提供了无参版本和有超时时间的版本，区别是 <code>get()</code> 仅仅取出数据，而 <code>take()</code> 取出后会把原来的数据删除。</p>
+
+<pre><code class="language-scala">val v = new SyncVar[Int]
+Future {
+  Thread.sleep(10)
+  v.put(3)
+}
+var result = v.get
+println(&quot;result&quot;, result, Thread.currentThread().getName) //(result,3,main)
+
+result = v.take()
+println(&quot;take&quot;, result, Thread.currentThread().getName) //(take,3,main)
+
+//  以下代码由于值已经被取出所以会一直阻塞下去
+v.get
+</code></pre>
+
+<h2 id="kotlin:478c14dbe13b6b3aa481a4bf3a0c02ba">Kotlin</h2>
+
+<p>Kotlin 基本就是直接调用 Java 代码，但是由于 Kotlin 对部分方法进行了包装，所以可以节省一定的代码量。</p>
+
+<h3 id="thread-2:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread</h3>
+
+<p>定义一个简单自动启动的线程</p>
+
+<pre><code class="language-kotlin">thread {
+    println(&quot;async&quot;)
+}
+println(&quot;sync&quot;)
+</code></pre>
+
+<p>Kotlin 可以直接使用 Lambda 表达式生成 Thread，在创建时也可以像以下方法一样传入默认参数。</p>
+
+<pre><code class="language-kotlin">thread(start = false,
+        isDaemon = true,
+        name = &quot;t1&quot;) {
+    println(&quot;running&quot;)
+}.start()
+</code></pre>
+
+<h3 id="thread-pool-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Thread Pool</h3>
+
+<p>创建一个单线程的线程池</p>
+
+<pre><code class="language-kotlin">val service = Executors.newSingleThreadExecutor()
+service.execute {
+    println(&quot;Running in a pool.&quot;)
+}
+</code></pre>
+
+<h3 id="callable-与-future-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Callable 与 Future</h3>
+
+<pre><code class="language-kotlin">val future = service.submit(
+        Callable() {
+            &quot;Hello World&quot;
+        }
+)
+val result = future.get()
+println(result)
+service.shutdown()
+</code></pre>
+
+<h3 id="timer-1:478c14dbe13b6b3aa481a4bf3a0c02ba">Timer</h3>
+
+<pre><code class="language-kotlin">val fixedRateTimer = fixedRateTimer(name = &quot;timer&quot;,
+        daemon = true, initialDelay = 100, period = 100) {
+    println(&quot;ping!&quot;)
+}
+Thread.sleep(1000)
+fixedRateTimer.cancel()
+</code></pre>
+
+<h3 id="completablefuture-1:478c14dbe13b6b3aa481a4bf3a0c02ba">CompletableFuture</h3>
+
+<pre><code class="language-kotlin">val firstFuture = CompletableFuture&lt;Int&gt;()
+firstFuture.complete(10)
+println(firstFuture.get())
+
+service = Executors.newFixedThreadPool(10)
+val secondFuture = CompletableFuture.supplyAsync(Supplier {
+    Random().nextInt(1000)
+}, service)
+println(secondFuture.get())
+service.shutdown()
+</code></pre>
+
+<h2 id="总结:478c14dbe13b6b3aa481a4bf3a0c02ba">总结</h2>
+
+<ul>
+<li>不同语言的内部实现都是依赖 Java API，所以非常相似</li>
+<li>Scala 的 Future 和 Promise 和 Java 1.8 引入的 CompletableFuture 可以更好的写出异步代码</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_30_thread_future</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-11-06 </h4>
+          <h5 id="wc"> 1100 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  5 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-31-test/"><i class="icon-arrow-left"></i> JGSK - 31.Test</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-29-with-java/">JGSK - 29. 与 Java 交互 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="1060">
+<meta itemprop="datePublished" content="2015-11-06">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-30-thread-future/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-30-thread-future\/';
+    var disqus_title = 'JGSK - 30.Thread 与 Future';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-30-thread-future\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

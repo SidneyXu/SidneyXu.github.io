@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="scala, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Scala - 01.apply"/>
+<meta property="og:site_name" content="JGSK - Scala - 01.apply"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-scala-01.apply/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-09"/>
+<meta property="article:modified_time" content="2015-12-09"/>
+
+
+
+<meta property="article:tag" content="scala">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Scala - 01.apply">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Scala - 01.apply </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-scala-01.apply/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Scala%20-%2001.apply-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f&title=JGSK%20-%20Scala%20-%2001.apply&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-01.apply%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Scala - 01.apply</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#apply:7f53ad57d37014f8e770aa1c573f112d">apply</a>
+<ul>
+<li><a href="#apply-1:7f53ad57d37014f8e770aa1c573f112d">apply</a></li>
+<li><a href="#update:7f53ad57d37014f8e770aa1c573f112d">update</a></li>
+<li><a href="#unapply:7f53ad57d37014f8e770aa1c573f112d">unapply</a></li>
+</ul></li>
+<li><a href="#总结:7f53ad57d37014f8e770aa1c573f112d">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="apply:7f53ad57d37014f8e770aa1c573f112d">apply</h2>
+
+<h3 id="apply-1:7f53ad57d37014f8e770aa1c573f112d">apply</h3>
+
+<p><code>apply</code> 是 Scala 中的特殊方法。当代码中使用了 <code>f(arg1,arg2...)</code> 这样形式的语句，如果 <code>f</code> 不是函数或方法时，则 Scala 会自动调用 <code>f.apply(arg1,arg2...)</code>。且当 <code>f</code> 为 class 时调用的是 object 的 <code>apply()</code> 方法，<code>f</code> 为 object 时调用的是 class 的 <code>apply()</code> 方法。</p>
+
+<p>在 class 和 object 各自定义一个 <code>apply()</code> 方法</p>
+
+<pre><code class="language-scala">class Twain(var x: Int, var y: Int) {
+  override def toString: String = s&quot;x=$x, y=$y&quot;
+  def sum() = x + y
+  def apply() = println(s&quot;Result is ${x + y}&quot;)
+}
+
+object Twain {
+  def apply(x: Int, y: Int) = {
+    new Twain(x, y)
+  }
+}
+</code></pre>
+
+<p>调用 <code>apply()</code> 方法</p>
+
+<pre><code class="language-scala">//  调用 object 的 apply() 方法
+val twain = Twain(1, 2)
+println(twain.sum()) //  3
+
+//  调用 class 的 apply() 方法
+twain() //  Result is 3
+</code></pre>
+
+<p>object 的 <code>apply()</code> 方法常用在为对应 <code>class</code> 生成实例，即实现工厂方法的功能。</p>
+
+<p>class 的 <code>apply()</code> 方法虽然像上面的例子使用时会让人产生迷惑，但是却很适合用在映射上，实际上  Scala 内部也是这样使用的</p>
+
+<pre><code class="language-scala">val scores = new mutable.HashMap[String, Int]()
+//  根据键从映射中获得值
+val bob = scores(&quot;Bob&quot;) //  实际调用的是 scores.apply(&quot;Bob&quot;)
+</code></pre>
+
+<h3 id="update:7f53ad57d37014f8e770aa1c573f112d">update</h3>
+
+<p><code>update</code> 也是 Scala 中的特殊方法。当代码中使用了 <code>f(arg1,arg2...) = value</code> 这样形式的语句，如果 <code>f</code> 不是函数或方法时，则 Scala 会自动调用 <code>f.update(arg1,arg2...value)</code>。且当 <code>f</code> 为 class 时调用的是 object 的 <code>update()</code> 方法，<code>f</code> 为 object 时调用的是 class 的 <code>update()</code> 方法。</p>
+
+<p>在 class 和 object 各自定义一个 <code>update()</code> 方法</p>
+
+<pre><code class="language-scala">class Twain(var x: Int, var y: Int) {
+  override def toString: String = s&quot;x=$x, y=$y&quot;
+  def update(first: Int, second: Int) = {
+    x = first
+    y = second
+  }
+}
+object Twain {
+  def apply(x: Int, y: Int) = {
+    new Twain(x, y)
+  }
+  def update(x: Int, y: Int, z: Int) = {
+    println(x + y + z)
+  }
+}
+</code></pre>
+
+<p>调用 <code>update()</code> 方法</p>
+
+<pre><code class="language-scala">//  调用 object 的 update() 方法
+Twain(1, 2) = 3 //  6
+
+//  调用 class 的 update() 方法
+twain(30) = 10
+println(twain) //  x=30, y=10
+</code></pre>
+
+<p>object 的 <code>update()</code> 方法用得不多，但是 class 的 <code>update()</code> 方法和 <code>apply()</code> 方法一样适合用在映射上。</p>
+
+<pre><code class="language-scala">val scores = new mutable.HashMap[String, Int]()
+//  向映射中存放值
+scores(&quot;Bob&quot;) = 100 //  实际调用的是 scores.update(&quot;Bob,100)
+</code></pre>
+
+<h3 id="unapply:7f53ad57d37014f8e770aa1c573f112d">unapply</h3>
+
+<p><code>unapply()</code> 又称为提取器，用于对对象进行拆箱，与 <code>apply()</code> 正好相反。<code>unapply()</code> 定义在 <code>object</code> 中且返回值为 <code>Option</code> 类型。</p>
+
+<p>在 object 中自定义一个 <code>unapply()</code> 方法，该方法接收的是对象本身，返回的是 <code>Option</code> 的子类 <code>None</code> 和 <code>Some</code>。</p>
+
+<pre><code class="language-scala">object Twain {
+  def apply(x: Int, y: Int) = {
+    new Twain(x, y)
+  }
+  def unapply(input: Twain) = {
+    if (input.x &lt; 0)
+      None
+    else
+      Some(input.x * 10, input.y * 10)
+  }
+}
+</code></pre>
+
+<p>调用 <code>unapply()</code> 方法</p>
+
+<pre><code class="language-scala">val Twain(a, b) = Twain(1, 2)
+println(s&quot;a=$a, b=$b&quot;) //  a=10, b=20
+</code></pre>
+
+<p>以上例子中等式右边的 <code>Twain</code> 对象被传入 <code>unapply()</code> 方法中进行拆箱，获得的值被赋值给变量 <code>a</code> 和 <code>b</code>。</p>
+
+<p>熟悉语法的人可以一眼看出 <code>unapply()</code> 主要就是用在模式匹配中，如以下例子：</p>
+
+<pre><code class="language-scala">object Email {
+  def unapply(str: String) = new Regex( &quot;&quot;&quot;(.*)@(.*)&quot;&quot;&quot;)
+    .unapplySeq(str).get match {
+    case user :: domain :: Nil =&gt; Some(user, domain)
+    case _ =&gt; None
+  }
+}
+&quot;user@domain.com&quot; match {
+  //  实际调用的是 unapply() 方法
+  case Email(user, domain) =&gt; println(user + &quot;@&quot; + domain)
+}
+</code></pre>
+
+<h2 id="总结:7f53ad57d37014f8e770aa1c573f112d">总结</h2>
+
+<ul>
+<li>object 的 <code>apply()</code> 方法主要用于构造对应的 class 实例，class 的 <code>apply()</code> 主要用于从映射中提取值</li>
+<li>class 的 <code>update()</code> 方法主要用于更新对象</li>
+<li>object 的 <code>unapply()</code> 方法主要用于模式匹配</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/s01_apply</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-09 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-kotlin-03-delegation/"><i class="icon-arrow-left"></i> JGSK - Kotlin - 03.委托</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-kotlin-02-extension/">JGSK - Kotlin - 02.Extension <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="426">
+<meta itemprop="datePublished" content="2015-12-09">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-scala-01.apply/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-01.apply\/';
+    var disqus_title = 'JGSK - Scala - 01.apply';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-01.apply\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

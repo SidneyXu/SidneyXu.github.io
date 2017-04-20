@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="Android, test, Mockito, PowerMock, Travis, Wercker, Assertj, Robolectric, Espresso, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="Android测试环境选型"/>
+<meta property="og:site_name" content="Android测试环境选型"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-25"/>
+<meta property="article:modified_time" content="2015-09-25"/>
+
+
+
+<meta property="article:tag" content="Android">
+<meta property="article:tag" content="test">
+<meta property="article:tag" content="Mockito">
+<meta property="article:tag" content="PowerMock">
+<meta property="article:tag" content="Travis">
+<meta property="article:tag" content="Wercker">
+<meta property="article:tag" content="Assertj">
+<meta property="article:tag" content="Robolectric">
+<meta property="article:tag" content="Espresso">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="Android测试环境选型">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> Android测试环境选型 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=Android%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83%e9%80%89%e5%9e%8b-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f&title=Android%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83%e9%80%89%e5%9e%8b&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fandroid%25E6%25B5%258B%25E8%25AF%2595%25E7%258E%25AF%25E5%25A2%2583%25E9%2580%2589%25E5%259E%258B%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">Android测试环境选型</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#android-测试工具:d5e65750c7dbf671794d81ffb52c8428">Android 测试工具</a>
+<ul>
+<li><a href="#分类:d5e65750c7dbf671794d81ffb52c8428">分类</a></li>
+<li><a href="#logic-test:d5e65750c7dbf671794d81ffb52c8428">Logic Test</a>
+<ul>
+<li><a href="#android-testing-framework:d5e65750c7dbf671794d81ffb52c8428">Android Testing Framework</a></li>
+<li><a href="#robolectric:d5e65750c7dbf671794d81ffb52c8428">Robolectric</a></li>
+</ul></li>
+<li><a href="#ui-test:d5e65750c7dbf671794d81ffb52c8428">UI Test</a>
+<ul>
+<li><a href="#activityinstrumentationtestcase2-android-instrumentation:d5e65750c7dbf671794d81ffb52c8428">ActivityInstrumentationTestCase2（Android Instrumentation）</a></li>
+<li><a href="#espresso:d5e65750c7dbf671794d81ffb52c8428">Espresso</a></li>
+<li><a href="#robotium:d5e65750c7dbf671794d81ffb52c8428">Robotium</a></li>
+<li><a href="#uiautomator:d5e65750c7dbf671794d81ffb52c8428">UIAutomator</a></li>
+<li><a href="#appium:d5e65750c7dbf671794d81ffb52c8428">Appium</a></li>
+</ul></li>
+<li><a href="#总结:d5e65750c7dbf671794d81ffb52c8428">总结</a>
+<ul>
+<li><a href="#测试工具:d5e65750c7dbf671794d81ffb52c8428">测试工具</a></li>
+<li><a href="#断言工具:d5e65750c7dbf671794d81ffb52c8428">断言工具</a></li>
+<li><a href="#mock-工具:d5e65750c7dbf671794d81ffb52c8428">Mock 工具</a></li>
+<li><a href="#ci-服务:d5e65750c7dbf671794d81ffb52c8428">CI 服务</a></li>
+</ul></li>
+<li><a href="#选型:d5e65750c7dbf671794d81ffb52c8428">选型</a></li>
+</ul></li>
+<li><a href="#坑:d5e65750c7dbf671794d81ffb52c8428">坑</a>
+<ul>
+<li><a href="#发生异常-bad-class-file-magic-cafebabe-or-version-0034-0000:d5e65750c7dbf671794d81ffb52c8428">发生异常 bad class file magic (cafebabe) or version (0034.0000)</a></li>
+<li><a href="#robolectric-报找不到-androidmanifest-xml-文件:d5e65750c7dbf671794d81ffb52c8428">Robolectric 报找不到 AndroidManifest.xml 文件</a></li>
+</ul></li>
+<li><a href="#参考资料:d5e65750c7dbf671794d81ffb52c8428">参考资料</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="android-测试工具:d5e65750c7dbf671794d81ffb52c8428">Android 测试工具</h2>
+
+<h3 id="分类:d5e65750c7dbf671794d81ffb52c8428">分类</h3>
+
+<p>Android测试按测试范围通常可以分为两种：Logic Test和 UI Test，前者用于测试各种逻辑是否正常执行，很多情况下无需调用Android的api，后者用于测试UI控件的动作响应是否如预期。</p>
+
+<p>按照测试手段也可以分为两种：Local Test 和 Instrument Test，前者指的是使用JVM直接进行本地测试，通常来说效率要高出不少，后者又称为Connected Test，需要连接模拟器或者才能进行测试。Local Test 的测试代码通常放在 <code>src/test</code> 目录，且依赖使用 <code>testCompile</code>声明，Instrument Test 的测试代码通常放在 <code>src/androidTes</code>目录，且依赖使用 <code>androidTestCompile</code> 声明。</p>
+
+<h3 id="logic-test:d5e65750c7dbf671794d81ffb52c8428">Logic Test</h3>
+
+<h4 id="android-testing-framework:d5e65750c7dbf671794d81ffb52c8428">Android Testing Framework</h4>
+
+<p>使用方法</p>
+
+<p>修改<code>build.gradle</code></p>
+
+<pre><code class="language-gradle">defaultConfig {
+    testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+}
+
+dependencies {
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+}
+</code></pre>
+
+<p>Sample</p>
+
+<pre><code class="language-java">import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+@RunWith(AndroidJUnit4.class)
+public class JUnit4Test {
+
+    private Context mContext;
+
+    @Before
+    public void setUp() throws Exception {
+        mContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    }
+
+    @Test
+    public void add() {
+        assertThat(Calc.add(3, 5), is(8));
+    }
+
+    @Test
+    public void context() {
+        assertThat(mContext.getString(R.string.app_name), is(&quot;example-android-lib&quot;));
+    }
+
+}
+</code></pre>
+
+<p>运行测试</p>
+
+<pre><code>./gradlew connectedAndroidTest
+</code></pre>
+
+<p>测试结果位于 <code>build/outputs/reports/androidTests/connected/index.html</code></p>
+
+<h4 id="robolectric:d5e65750c7dbf671794d81ffb52c8428">Robolectric</h4>
+
+<p>Robolectric 运行于 JVM 上，所以效率比起需要连接到模拟器的测试方式要快不少。</p>
+
+<p>使用方法</p>
+
+<p>编辑 <code>build.gradle</code></p>
+
+<pre><code class="language-gradle">dependencies {
+    testCompile &quot;org.robolectric:robolectric:3.0&quot;
+}
+</code></pre>
+
+<p>Sample</p>
+
+<pre><code class="language-java">@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21, manifest = &quot;./src/main/AndroidManifest.xml&quot;,
+        constants = BuildConfig.class)
+public class RobolectricTest {
+
+    @Before
+    public void setup() {
+    }
+
+    @After
+    public void teardown() {
+    }
+
+    @Test
+    public void sample() {
+        Context context = RuntimeEnvironment.application.getApplicationContext();
+        assertThat(
+                context.getString(R.string.app_name), is(&quot;example-android-lib&quot;));
+    }
+}
+
+</code></pre>
+
+<p>运行测试</p>
+
+<pre><code>./gradlew clean test
+</code></pre>
+
+<p>测试结果位于 <code>build/outputs/reports/tests/debug/index.html</code></p>
+
+<h3 id="ui-test:d5e65750c7dbf671794d81ffb52c8428">UI Test</h3>
+
+<h4 id="activityinstrumentationtestcase2-android-instrumentation:d5e65750c7dbf671794d81ffb52c8428">ActivityInstrumentationTestCase2（Android Instrumentation）</h4>
+
+<p>使用方法</p>
+
+<p>修改<code>build.gradle</code></p>
+
+<pre><code class="language-gradle">defaultConfig {
+    testInstrumentationRunner &quot;android.test.InstrumentationTestRunner&quot;
+}
+</code></pre>
+
+<p>Sample</p>
+
+<pre><code class="language-java">public class ActivityInstrumentationTestCaseTest extends ActivityInstrumentationTestCase2&lt;CalculatorActivity&gt; {
+
+    public ActivityInstrumentationTestCaseTest() {
+        super(CalculatorActivity.class);
+    }
+
+    public void testAdd() {
+         EditText num1EditText = (EditText) getActivity().findViewById(R.id.number1);
+        TouchUtils.clickView(this, num1EditText);
+        sendKeys(KeyEvent.KEYCODE_1);
+
+        EditText num2EditText = (EditText) getActivity().findViewById(R.id.number2);
+        TouchUtils.clickView(this, num2EditText);
+        sendKeys(KeyEvent.KEYCODE_1);
+        sendKeys(KeyEvent.KEYCODE_0);
+
+        //  Monitor ResultActivity
+        Instrumentation.ActivityMonitor monitor
+                = new Instrumentation.ActivityMonitor(ResultActivity.class.getCanonicalName(), null, false);
+        getInstrumentation().addMonitor(monitor);
+
+        Button calcButton = (Button) getActivity().findViewById(R.id.calc);
+        TouchUtils.clickView(this, calcButton);
+
+        Activity resultActivity = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
+
+        assertEquals(monitor.getHits(), 1);
+        assertNotNull(resultActivity);
+
+        TextView resultTextView = (TextView) resultActivity.findViewById(R.id.result);
+        assertEquals(resultTextView.getText().toString(), &quot;11&quot;);
+    }
+}
+</code></pre>
+
+<p>运行测试</p>
+
+<pre><code>./gradlew connectedAndroidTest
+</code></pre>
+
+<p>测试结果位于 <code>build/reports/androidTests/connected/index.html</code></p>
+
+<h4 id="espresso:d5e65750c7dbf671794d81ffb52c8428">Espresso</h4>
+
+<p>基于 Android Instrumentation 实现，可以减少测试的代码量。</p>
+
+<p>使用方法</p>
+
+<p>修改 <code>build.gradle</code> 文件</p>
+
+<pre><code class="language-gradle">packagingOptions {
+    exclude 'LICENSE.txt'
+}
+defaultConfig {
+    testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+}
+dependencies {
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
+}
+</code></pre>
+
+<p>Sample</p>
+
+<pre><code class="language-java">@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class EspressoTest {
+
+    @Rule
+    public ActivityTestRule&lt;CalculatorActivity&gt; activityTestRule
+            = new ActivityTestRule&lt;&gt;(CalculatorActivity.class);
+
+    @Test
+    public void testAdd() {
+        onView(ViewMatchers.withId(R.id.number1)).perform(typeText(&quot;2&quot;));
+        onView(ViewMatchers.withId(R.id.number2)).perform(typeText(&quot;20&quot;));
+
+        onView(ViewMatchers.withId(R.id.calc)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.result)).check(matches(ViewMatchers.withText(&quot;22&quot;)));
+    }
+}
+</code></pre>
+
+<p>运行测试</p>
+
+<pre><code>./gradlew connectedAndroidTest
+</code></pre>
+
+<p>测试结果位于 <code>build/reports/androidTests/connected/index.html</code></p>
+
+<h4 id="robotium:d5e65750c7dbf671794d81ffb52c8428">Robotium</h4>
+
+<p>基于 Android Instrumentation 开发，类似 Espresso。</p>
+
+<p>使用方法</p>
+
+<p>修改 <code>build.gradle</code> 文件</p>
+
+<pre><code class="language-gradle">defaultConfig {
+    testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+}
+
+dependencies {
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.4.1'
+}
+</code></pre>
+
+<p>Sample</p>
+
+<pre><code class="language-java">@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class RobotiumTest extends ActivityInstrumentationTestCase2&lt;CalculatorActivity&gt; {
+
+    public RobotiumTest() {
+        super(CalculatorActivity.class);
+    }
+
+    @Before
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+    }
+
+    @Test
+    public void testAdd() {
+        Solo solo = new Solo(getInstrumentation(), getActivity());
+
+        solo.enterText(0, &quot;3&quot;);
+        solo.enterText(1, &quot;30&quot;);
+
+        solo.clickOnButton(&quot;=&quot;);
+
+        solo.assertCurrentActivity(&quot;Current is ResultActivity&quot;, ResultActivity.class);
+
+        assertThat(solo.searchText(&quot;33&quot;), is(true));
+    }
+}
+</code></pre>
+
+<p>运行测试</p>
+
+<pre><code>./gradlew connectedAndroidTest
+</code></pre>
+
+<p>测试结果位于 `build/reports/androidTests/connected/index.html</p>
+
+<h4 id="uiautomator:d5e65750c7dbf671794d81ffb52c8428">UIAutomator</h4>
+
+<p>需要Android 4.3以上机器才支持，所以暂时不做考虑</p>
+
+<h4 id="appium:d5e65750c7dbf671794d81ffb52c8428">Appium</h4>
+
+<p>支持 Java， Javascript 等多种编程语言编写测试用例，可以运行在 Android 和 IOS 上，底层实际是调用了对应平台的测试框架。本身搭建测试环境等相比较传统测试方法略微复杂。相比较而言更适合专门的测试人员测试多种平台的功能统一性，不是太适合只进行某一平台开发的开发人员。</p>
+
+<h3 id="总结:d5e65750c7dbf671794d81ffb52c8428">总结</h3>
+
+<h4 id="测试工具:d5e65750c7dbf671794d81ffb52c8428">测试工具</h4>
+
+<table>
+<thead>
+<tr>
+<th align="center">工具</th>
+<th align="center">用途</th>
+<th align="center">测试方法</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">Android Testing</td>
+<td align="center">logic</td>
+<td align="center">connect</td>
+</tr>
+
+<tr>
+<td align="center">Robolectric</td>
+<td align="center">logic</td>
+<td align="center">local</td>
+</tr>
+
+<tr>
+<td align="center">Instrumentation</td>
+<td align="center">ui</td>
+<td align="center">connect</td>
+</tr>
+
+<tr>
+<td align="center">Espresso</td>
+<td align="center">ui</td>
+<td align="center">connect</td>
+</tr>
+
+<tr>
+<td align="center">Robotium</td>
+<td align="center">ui</td>
+<td align="center">connect</td>
+</tr>
+
+<tr>
+<td align="center">Appium</td>
+<td align="center">ui</td>
+<td align="center">connect</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="断言工具:d5e65750c7dbf671794d81ffb52c8428">断言工具</h4>
+
+<ul>
+<li>Hamcrest
+
+<ul>
+<li>junit 依赖的断言工具，语法类似 <code>assertThat(actual, is(expected))</code></li>
+</ul></li>
+<li>AssertJ<br />
+
+<ul>
+<li>Java平台非常流行的断言工具，square还特别开发了android版本，语法类似 <code>assertThat(actual).isEqualTo(expected)</code></li>
+</ul></li>
+</ul>
+
+<h4 id="mock-工具:d5e65750c7dbf671794d81ffb52c8428">Mock 工具</h4>
+
+<ul>
+<li><p>Mockito</p>
+
+<ul>
+<li>老牌mock工具</li>
+</ul></li>
+
+<li><p>PowerMock</p>
+
+<ul>
+<li>对Mockito的工具进行了扩展，但是与Dexmaker相性并不好</li>
+</ul></li>
+</ul>
+
+<h4 id="ci-服务:d5e65750c7dbf671794d81ffb52c8428">CI 服务</h4>
+
+<ul>
+<li><p>Travis CI</p>
+
+<ul>
+<li>Github上最有名的CI服务</li>
+</ul></li>
+
+<li><p>Wercker</p>
+
+<ul>
+<li>支持 Bitbucket</li>
+</ul></li>
+</ul>
+
+<h3 id="选型:d5e65750c7dbf671794d81ffb52c8428">选型</h3>
+
+<p><strong>Logic Test</strong></p>
+
+<p>使用 Robolectric + AssertJ + PowerMock + Travis CI/Wercker</p>
+
+<p><strong>UI Test</strong></p>
+
+<p>使用 Espresso + AssertJ + Mockito + Travis CI/Wercker</p>
+
+<h2 id="坑:d5e65750c7dbf671794d81ffb52c8428">坑</h2>
+
+<h3 id="发生异常-bad-class-file-magic-cafebabe-or-version-0034-0000:d5e65750c7dbf671794d81ffb52c8428">发生异常 bad class file magic (cafebabe) or version (0034.0000)</h3>
+
+<p>UNEXPECTED TOP-LEVEL EXCEPTION:com.android.dx.cf.iface.ParseException: bad class file magic (cafebabe) or version (0034.0000)</p>
+
+<p>原因：使用了 Java 1.8 进行编译</p>
+
+<p>修复：</p>
+
+<p>Android 项目</p>
+
+<pre><code class="language-gradle">compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+}
+</code></pre>
+
+<p>引用的 Java 项目</p>
+
+<pre><code class="language-gradle">sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+</code></pre>
+
+<h3 id="robolectric-报找不到-androidmanifest-xml-文件:d5e65750c7dbf671794d81ffb52c8428">Robolectric 报找不到 AndroidManifest.xml 文件</h3>
+
+<p>报 &ldquo;WARNING: No manifest file found at ./AndroidManifest.xml.Falling back to the Android OS resources only.</p>
+
+<p>To remove this warning, annotate your test class with @Config(manifest=Config.NONE).&rdquo;</p>
+
+<p>修复：</p>
+
+<p><code>manifest = &quot;./src/main/AndroidManifest.xml&quot;</code></p>
+
+<h2 id="参考资料:d5e65750c7dbf671794d81ffb52c8428">参考资料</h2>
+
+<ul>
+<li><a href="http://qiita.com/shikato/items/071a4c879b5c3f0b46f0#espresso">Androidのテスティングフレームワークを選定してみる</a></li>
+<li><a href="https://www.bignerdranch.com/blog/all-in-together-android-studio-gradle-and-robolectric/">All in Together: Android Studio, Gradle and Robolectric</a></li>
+</ul>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-25 </h4>
+          <h5 id="wc"> 600 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/test">Test</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/android">android</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/test">test</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/espressoassertjmockito-android-ui-test/"><i class="icon-arrow-left"></i> 使用Espresso&#43;Assertj&#43;Mockito搭建Android的UI测试环境</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/how-to-develop-jni-app/">如何开发 JNI 应用 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="536">
+<meta itemprop="datePublished" content="2015-09-25">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B\/';
+    var disqus_title = 'Android测试环境选型';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

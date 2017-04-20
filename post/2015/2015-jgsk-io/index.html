@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 28.IO"/>
+<meta property="og:site_name" content="JGSK - 28.IO"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/2015-jgsk-io/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-10-13"/>
+<meta property="article:modified_time" content="2015-10-13"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 28.IO">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 28.IO </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/2015-jgsk-io/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2028.IO-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f&title=JGSK%20-%2028.IO&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2f2015-jgsk-io%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 28.IO</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:147a1340f3ba01cc0b4f29cf0a7af85e">共通篇</a></li>
+<li><a href="#java-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Java 篇</a>
+<ul>
+<li><a href="#创建文件:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</a></li>
+<li><a href="#写入操作:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</a></li>
+<li><a href="#读取操作:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</a></li>
+</ul></li>
+<li><a href="#groovy-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Groovy 篇</a>
+<ul>
+<li><a href="#创建文件-1:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</a></li>
+<li><a href="#写入操作-1:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</a></li>
+<li><a href="#读取操作-1:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</a></li>
+</ul></li>
+<li><a href="#scala-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Scala 篇</a>
+<ul>
+<li><a href="#创建文件-2:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</a></li>
+<li><a href="#写入操作-2:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</a></li>
+<li><a href="#读取操作-2:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Kotlin 篇</a>
+<ul>
+<li><a href="#创建文件-3:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</a></li>
+<li><a href="#写入操作-3:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</a></li>
+<li><a href="#读取操作-3:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</a></li>
+</ul></li>
+<li><a href="#总结:147a1340f3ba01cc0b4f29cf0a7af85e">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:147a1340f3ba01cc0b4f29cf0a7af85e">共通篇</h2>
+
+<p>Java 中的 IO 操作主要是对各种流进行操作。Java 中流可以分为字节流(InputStream)，字符流(FileReader)，转换流(InputStreamReader)等。这种设计方式一直都被认为是非常优秀的。
+由于流的种类繁多，使用起来有固定的套路，并不复杂，所以本章只是简单介绍一下。</p>
+
+<h2 id="java-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Java 篇</h2>
+
+<h3 id="创建文件:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</h3>
+
+<p>Java 中文件和文件夹都属于 File 对象，本质上没有任何区别。但是使用文件夹时必须先手动创建，而创建文件时必须先保证所在的文件夹存在。</p>
+
+<pre><code class="language-java">String filepath = &quot;files/test.txt&quot;;
+File file = new File(filepath);
+if (!file.exists()) {
+    try {
+        file.createNewFile();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+} else {
+    file.delete();
+}
+</code></pre>
+
+<p>一般而言 Java 中向一个不存在的文件写入数据时文件会被自动创建，所以无需手动调用 <code>createNewFile()</code> 方法。但是当文件名没有后缀或者说以 <code>.</code> 开头时则必须手动先创建，因为 Java API 这时会误认为需要创建的是文件夹而不是文件。</p>
+
+<h3 id="写入操作:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</h3>
+
+<p>在 Java 7 以前IO 操作一般都需要放在 <code>try..catch..finally</code> 块中，在最开始定义 Stream类型 的变量，在 <code>finally</code> 中关闭该 Stream。</p>
+
+<pre><code class="language-java">FileOutputStream outputStream = null;
+try {
+    outputStream = new FileOutputStream(file, true);
+    outputStream.write(&quot;hello java&quot;.getBytes());
+} catch (IOException e) {
+    e.printStackTrace();
+} finally {
+    if (null != outputStream) {
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+
+<p>Java 7 中由于 <code>try..resource</code> 的出现代码，资源文件会被自动关闭，因此可以进一步进行简写。</p>
+
+<pre><code class="language-java">try (FileOutputStream fos = new FileOutputStream(file, true)) {
+    fos.write(&quot;hello java&quot;.getBytes());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<h3 id="读取操作:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</h3>
+
+<pre><code class="language-java">try (FileReader reader = new FileReader(file);
+     BufferedReader bufferedReader = new BufferedReader(reader)) {
+    String result;
+    StringBuilder stringBuilder = new StringBuilder();
+    while ((result = bufferedReader.readLine()) != null) {
+        stringBuilder.append(result);
+    }
+    System.out.println(stringBuilder.toString());
+} catch (IOException e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<h2 id="groovy-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Groovy 篇</h2>
+
+<h3 id="创建文件-1:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</h3>
+
+<p>同 Java。</p>
+
+<h3 id="写入操作-1:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</h3>
+
+<p>Groovy 不支持 <code>try..resource</code>，但是提供了类似的 <code>withStream</code> 等自动关闭资源的闭包。</p>
+
+<pre><code class="language-groovy">new FileOutputStream(file, true).withStream {
+    it.write(&quot;hello groovy&quot;.getBytes())
+}
+</code></pre>
+
+<p>除此之外，Groovy 也提供了一些简便方法</p>
+
+<p>使用 FileWriter 直接向文件中插入数据</p>
+
+<pre><code class="language-groovy">def file = new File(filepath)
+file.append(&quot;hello world\n&quot;)
+</code></pre>
+
+<p>或者整个替换</p>
+
+<pre><code class="language-groovy">def content = file.text
+file.text = &quot;$content\nend writer&quot;
+</code></pre>
+
+<h3 id="读取操作-1:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</h3>
+
+<pre><code class="language-groovy">new FileInputStream(file).withStream {
+    it.eachLine { line -&gt;
+        println(line)
+    }
+}
+</code></pre>
+
+<h2 id="scala-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Scala 篇</h2>
+
+<h3 id="创建文件-2:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</h3>
+
+<p>同 Java。</p>
+
+<h3 id="写入操作-2:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</h3>
+
+<p>Scala 使用 Java 的 API 来执行写入操作，但是并不支持 <code>try..resource</code>，也没有提供其它自动关闭资源的方式。只能自己实现或使用第三方库。</p>
+
+<pre><code class="language-scala">var writer: FileWriter = null
+try {
+  writer = new FileWriter(file)
+  writer.write(&quot;hello world&quot;)
+} catch {
+  case e: Exception =&gt; e.printStackTrace()
+} finally {
+  writer.close()
+}
+</code></pre>
+
+<h3 id="读取操作-2:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</h3>
+
+<p>与写入操作不同，Scala 对读取操作提供了一些简便方法。需要注意的是这些方法也都不会自动关闭，必须手动 <code>close()</code>。</p>
+
+<pre><code class="language-scala">var source = Source.fromFile(file)
+val lineIterator = source.getLines()
+for (l &lt;- lineIterator) {
+  println(l)
+}
+source.close()
+
+source = Source.fromFile(file, &quot;UTF-8&quot;)
+val contents = source.mkString
+println(contents)
+source.close()
+</code></pre>
+
+<h2 id="kotlin-篇:147a1340f3ba01cc0b4f29cf0a7af85e">Kotlin 篇</h2>
+
+<h3 id="创建文件-3:147a1340f3ba01cc0b4f29cf0a7af85e">创建文件</h3>
+
+<p>同 Java。</p>
+
+<h3 id="写入操作-3:147a1340f3ba01cc0b4f29cf0a7af85e">写入操作</h3>
+
+<pre><code class="language-kotlin">var fos = source.outputStream();
+fos.write(&quot;hello kotlin&quot;.toByteArray())
+fos.close()
+</code></pre>
+
+<p>Kotlin 目前也支持了自动关闭资源的功能，所以以上代码可以改为以下形式。</p>
+
+<pre><code class="language-kotlin">source.outputStream().use {
+    it.write(&quot;hello kotlin&quot;.toByteArray())
+}
+</code></pre>
+
+<p>除此之外，Kotlin 也提供了一些简便方法直接向文件中插入数据</p>
+
+<pre><code class="language-kotlin">var source = File(filepath)
+source.appendBytes(&quot;hello world&quot;.toByteArray())
+</code></pre>
+
+<h3 id="读取操作-3:147a1340f3ba01cc0b4f29cf0a7af85e">读取操作</h3>
+
+<p>注意以下这些读取操作都会自动关闭资源</p>
+
+<pre><code class="language-kotlin">val lines = source.readLines(Charsets.UTF_8)
+for (l in lines) {
+    println(l)
+}
+
+val contents = source.readText(Charsets.UTF_8)
+println(contents)
+</code></pre>
+
+<h2 id="总结:147a1340f3ba01cc0b4f29cf0a7af85e">总结</h2>
+
+<ul>
+<li>Java, Groovy 和 Kotlin 支持自动关闭资源，Scala 需要自己编写闭包来实现此功能</li>
+<li>其它三种语言事实上都是通过 Java API 进行读写操作的</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_28_io</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-10-13 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-29-with-java/"><i class="icon-arrow-left"></i> JGSK - 29. 与 Java 交互</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-27-generic-kotlin/">JGSK - 27.泛型 - Kotlin篇 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="340">
+<meta itemprop="datePublished" content="2015-10-13">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/2015-jgsk-io/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/2015-jgsk-io\/';
+    var disqus_title = 'JGSK - 28.IO';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/2015-jgsk-io\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

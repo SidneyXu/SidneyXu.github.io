@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, scala, android, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="使用 Scala 开发 Android 应用"/>
+<meta property="og:site_name" content="使用 Scala 开发 Android 应用"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2016/dev-android-using-scala/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2016-01-10"/>
+<meta property="article:modified_time" content="2016-01-10"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="android">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="使用 Scala 开发 Android 应用">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> 使用 Scala 开发 Android 应用 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2016/dev-android-using-scala/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=%e4%bd%bf%e7%94%a8%20Scala%20%e5%bc%80%e5%8f%91%20Android%20%e5%ba%94%e7%94%a8-http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f&title=%e4%bd%bf%e7%94%a8%20Scala%20%e5%bc%80%e5%8f%91%20Android%20%e5%ba%94%e7%94%a8&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2016%2fdev-android-using-scala%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">使用 Scala 开发 Android 应用</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#scala-android:7bfeba4c498bcdcfccf91ff07c06adf4">Scala Android</a>
+<ul>
+<li><a href="#场景:7bfeba4c498bcdcfccf91ff07c06adf4">场景</a></li>
+<li><a href="#环境配置:7bfeba4c498bcdcfccf91ff07c06adf4">环境配置</a></li>
+<li><a href="#编写代码:7bfeba4c498bcdcfccf91ff07c06adf4">编写代码</a>
+<ul>
+<li><a href="#使用-scala-的语法:7bfeba4c498bcdcfccf91ff07c06adf4">使用 Scala 的语法</a></li>
+<li><a href="#使用-scaloid:7bfeba4c498bcdcfccf91ff07c06adf4">使用 scaloid</a></li>
+<li><a href="#使用闭包替代匿名类:7bfeba4c498bcdcfccf91ff07c06adf4">使用闭包替代匿名类</a></li>
+<li><a href="#使用闭包替代回调:7bfeba4c498bcdcfccf91ff07c06adf4">使用闭包替代回调</a></li>
+</ul></li>
+<li><a href="#参考资料:7bfeba4c498bcdcfccf91ff07c06adf4">参考资料</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h1 id="scala-android:7bfeba4c498bcdcfccf91ff07c06adf4">Scala Android</h1>
+
+<h2 id="场景:7bfeba4c498bcdcfccf91ff07c06adf4">场景</h2>
+
+<p>之前介绍了使用 Groovy 和 Kotlin 开发 Android 程序，本节主要介绍如何使用 Scala 开发 Android 程序。</p>
+
+<h2 id="环境配置:7bfeba4c498bcdcfccf91ff07c06adf4">环境配置</h2>
+
+<ol>
+<li><p>在 IDEA 或 Android Studio 中安装 <code>Scala</code> 插件。步骤：打开 <code>Settings</code> 或 <code>Preferences</code> 选择 <code>Plugins</code>，点击 <code>Browser repositories</code> 输入 <code>Scala</code> 进行安装，安装完后重启 IDE。</p></li>
+
+<li><p>建立一个空的 Android 项目</p></li>
+
+<li><p>修改 <code>build.gradle</code> 文件</p>
+
+<p>添加 <code>gradle-android-scala-plugin</code> 插件</p>
+
+<pre><code class="language-groovy">buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath &quot;jp.leafytree.gradle:gradle-android-scala-plugin:1.4&quot;
+    }
+}
+</code></pre>
+
+<p>添加 plugin</p>
+
+<pre><code class="language-groovy">apply plugin: &quot;jp.leafytree.android-scala&quot;
+</code></pre>
+
+<p>添加 runtime</p>
+
+<pre><code class="language-groovy">dependencies {
+    compile &quot;org.scala-lang:scala-library:2.11.7&quot;
+}
+</code></pre>
+
+<p>修改 sourceSets</p>
+
+<pre><code class="language-groovy">android {
+    sourceSets {
+       main.scala.srcDirs += 'src/main/scala'
+    }
+}
+</code></pre>
+
+<p>添加 <code>scaloid</code> 作为 Android 的 Scala 扩展</p>
+
+<pre><code class="language-groovy">dependencies {
+    compile &quot;org.scaloid:scaloid_2.11:4.0&quot;
+}
+</code></pre></li>
+
+<li><p>因为 Scala 环境过大会导致 65535 的错误，所以需要开启混淆。</p></li>
+</ol>
+
+<p>添加混淆</p>
+
+<pre><code>-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn scala.**
+-ignorewarnings
+# temporary workaround; see Scala issue SI-5397
+-keep class scala.collection.SeqLike {
+    public protected *;
+}
+
+# this can be omitted if current Android Build target is android-16
+-dontwarn org.scaloid.**
+</code></pre>
+
+<p>开启混淆</p>
+
+<pre><code class="language-groovy">buildTypes {
+    debug {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    release {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+</code></pre>
+
+<p>完整的 <code>build.gradle</code> 文件可以见 <a href="https://github.com/SidneyXu/templates/blob/master/ScalaAndroid/app/build.gradle">示例</a>。</p>
+
+<h2 id="编写代码:7bfeba4c498bcdcfccf91ff07c06adf4">编写代码</h2>
+
+<h3 id="使用-scala-的语法:7bfeba4c498bcdcfccf91ff07c06adf4">使用 Scala 的语法</h3>
+
+<p>使用 Scala 后可以省略分号，也可以使用更优雅的类型转换方式。</p>
+
+<p>Java 的写法</p>
+
+<pre><code class="language-java">@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+</code></pre>
+
+<p>Scala 的写法</p>
+
+<pre><code class="language-Scala">override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
+    val view: View = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1).asInstanceOf[TextView]
+    title.setText(getItem(position))
+    view
+}
+</code></pre>
+
+<h3 id="使用-scaloid:7bfeba4c498bcdcfccf91ff07c06adf4">使用 scaloid</h3>
+
+<p>scaloid 中使用了大量的隐式参数和 DSL 语句，使 Android 程序的开发方便不少。</p>
+
+<p>最简单的使用 scaloid 的方法就是继承 <code>SActivity</code> 类。</p>
+
+<pre><code class="language-scala">import org.scaloid.common._
+
+class MainActivity extends SActivity
+</code></pre>
+
+<p>然后就可以使用 scaloid 提供的方法来简化代码</p>
+
+<pre><code class="language-scala">find[Button](android.R.id.button1).text = &quot;hello world&quot;
+</code></pre>
+
+<p>而不使用此功能的话则需要使用以下代码，麻烦了很多</p>
+
+<pre><code class="language-java">((TextView)findViewById(R.id.button1)).setText(&quot;hello world&quot;);
+</code></pre>
+
+<h3 id="使用闭包替代匿名类:7bfeba4c498bcdcfccf91ff07c06adf4">使用闭包替代匿名类</h3>
+
+<p>匿名类的写法</p>
+
+<pre><code class="language-java">findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+</code></pre>
+
+<p>闭包的写法</p>
+
+<pre><code class="language-scala">find[Button](android.R.id.button1).onClick((v: View) =&gt;
+    startActivity[CountryListActivity]
+)
+</code></pre>
+
+<h3 id="使用闭包替代回调:7bfeba4c498bcdcfccf91ff07c06adf4">使用闭包替代回调</h3>
+
+<p>同 Groovy 一样，使用闭包替代回调也是一种通常的做法。</p>
+
+<p>Java 的方式</p>
+
+<pre><code class="language-java">//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&lt;String&gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&lt;String&gt; results, Exception e){
+    }
+});
+</code></pre>
+
+<p>Scala 的方式</p>
+
+<pre><code class="language-scala">//  定义耗时任务
+def findCountries(doneCallback: (ArrayBuffer[String], Exception) =&gt; Unit):Unit = {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch {
+        case e: Exception =&gt; callback(null, e)
+    }
+}
+//  调用该方法
+findCountries((names: ArrayBuffer[String], e: Exception) =&gt;
+)
+</code></pre>
+
+<p>可以看到使用闭包后无需预先定义回调接口，方便很多。</p>
+
+<p>完整的 Android 示例见 <a href="https://github.com/SidneyXu/templates/tree/master/ScalaAndroid">ScalaAndroid</a></p>
+
+<h2 id="参考资料:7bfeba4c498bcdcfccf91ff07c06adf4">参考资料</h2>
+
+<ul>
+<li><a href="https://github.com/saturday06/gradle-android-scala-plugin">Github gradle-android-scala-plugin</a></li>
+<li><a href="https://github.com/pocorall/scaloid">Github scaloid</a></li>
+</ul>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2016-01-10 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/dev">Dev</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/android">android</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2016/adb-command/"><i class="icon-arrow-left"></i> 常用 adb 命令</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2016/android-repack-and-decompiler/">Android应用的重新打包与反编译 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="367">
+<meta itemprop="datePublished" content="2016-01-10">
+<meta itemprop="url" content="http://git.bookislife.com/post/2016/dev-android-using-scala/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2016\/dev-android-using-scala\/';
+    var disqus_title = '使用 Scala 开发 Android 应用';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2016\/dev-android-using-scala\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

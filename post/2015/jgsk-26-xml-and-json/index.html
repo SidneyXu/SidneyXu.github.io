@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 26.Xml 与 JSON 的处理"/>
+<meta property="og:site_name" content="JGSK - 26.Xml 与 JSON 的处理"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-26-xml-and-json/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-10-04"/>
+<meta property="article:modified_time" content="2015-10-04"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 26.Xml 与 JSON 的处理">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 26.Xml 与 JSON 的处理 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-26-xml-and-json/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2026.Xml%20%e4%b8%8e%20JSON%20%e7%9a%84%e5%a4%84%e7%90%86-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f&title=JGSK%20-%2026.Xml%20%e4%b8%8e%20JSON%20%e7%9a%84%e5%a4%84%e7%90%86&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-26-xml-and-json%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 26.Xml 与 JSON 的处理</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:8f53d0b8c9ca3209e7314548620b9f4c">共通篇</a></li>
+<li><a href="#java-篇:8f53d0b8c9ca3209e7314548620b9f4c">Java 篇</a>
+<ul>
+<li><a href="#json:8f53d0b8c9ca3209e7314548620b9f4c">JSON</a>
+<ul>
+<li><a href="#创建-json:8f53d0b8c9ca3209e7314548620b9f4c">创建 JSON</a></li>
+<li><a href="#解析-json:8f53d0b8c9ca3209e7314548620b9f4c">解析 JSON</a></li>
+</ul></li>
+<li><a href="#xml:8f53d0b8c9ca3209e7314548620b9f4c">XML</a>
+<ul>
+<li><a href="#创建-xml:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</a></li>
+<li><a href="#解析-xml:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#groovy-篇:8f53d0b8c9ca3209e7314548620b9f4c">Groovy 篇</a>
+<ul>
+<li><a href="#json-1:8f53d0b8c9ca3209e7314548620b9f4c">JSON</a>
+<ul>
+<li><a href="#创建-json-1:8f53d0b8c9ca3209e7314548620b9f4c">创建 JSON</a></li>
+<li><a href="#解析-json-1:8f53d0b8c9ca3209e7314548620b9f4c">解析 JSON</a></li>
+</ul></li>
+<li><a href="#xml-1:8f53d0b8c9ca3209e7314548620b9f4c">XML</a>
+<ul>
+<li><a href="#创建-xml-1:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</a></li>
+<li><a href="#解析-xml-1:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#scala-篇:8f53d0b8c9ca3209e7314548620b9f4c">Scala 篇</a>
+<ul>
+<li><a href="#json-2:8f53d0b8c9ca3209e7314548620b9f4c">JSON</a></li>
+<li><a href="#xml-2:8f53d0b8c9ca3209e7314548620b9f4c">XML</a>
+<ul>
+<li><a href="#创建-xml-2:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</a></li>
+<li><a href="#解析-xml-2:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#kotlin-篇:8f53d0b8c9ca3209e7314548620b9f4c">Kotlin 篇</a>
+<ul>
+<li><a href="#json-3:8f53d0b8c9ca3209e7314548620b9f4c">JSON</a></li>
+<li><a href="#xml-3:8f53d0b8c9ca3209e7314548620b9f4c">XML</a>
+<ul>
+<li><a href="#创建-xml-3:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</a></li>
+<li><a href="#解析-xml-3:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结:8f53d0b8c9ca3209e7314548620b9f4c">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:8f53d0b8c9ca3209e7314548620b9f4c">共通篇</h2>
+
+<p>JSON 是一种键值对形式的轻量级的数据交换格式，除了大量用于 Restful 请求外，其二进制形式的 BSON 也被用于作为 NO SQL 的数据存储格式。相比较 XML 而言，JSON 更为简单，灵活。</p>
+
+<p>XML 也可以用于数据交换，最为有名的就是 SOAP 协议。相比较 JSON 而言由于需要有开始和结束标记所以 XML 略显啰嗦。不过相比较 JSON 的无模式形式，XML 可以通过指定 DTD 而为其中定义的数据指定一定的格式，所以可以作为配置文件，在使用 IDE 进行编辑时也能拥有代码提示功能。</p>
+
+<p>尽管现代语言都在一定程度上支持 JSON 和 XML 的创建和解析，但是很少有人会直接使用语言本身提供的 API 而不是第三方库。所以本章节只是简单的介绍一下基本用法。</p>
+
+<h2 id="java-篇:8f53d0b8c9ca3209e7314548620b9f4c">Java 篇</h2>
+
+<h3 id="json:8f53d0b8c9ca3209e7314548620b9f4c">JSON</h3>
+
+<p>Java 原来并不支持 JSON 的解析，不过在 Oracle 将 JavaFX 的 API 整合到 Java 中，原生的解析也就成了可能。当然更多人还是会选择 Jackson，GSON，Fastjson 等第三方库。</p>
+
+<h4 id="创建-json:8f53d0b8c9ca3209e7314548620b9f4c">创建 JSON</h4>
+
+<p>使用 JavaFX 创建 JSON</p>
+
+<p>JSON 对象</p>
+
+<pre><code class="language-java">JSONDocument jsonDocument = JSONDocument.createObject();
+JSONDocument results = JSONDocument.createObject();
+results.setString(&quot;result&quot;, &quot;x&quot;);
+results.setString(&quot;result&quot;, &quot;y&quot;);
+jsonDocument.set(&quot;results&quot;, results);
+System.out.println(jsonDocument.toJSON());
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-json">{&quot;results&quot;:{&quot;result&quot;:&quot;y&quot;}}
+</code></pre>
+
+<p>JSON 数组</p>
+
+<pre><code class="language-java">jsonDocument = JSONDocument.createArray();
+JSONDocument jsonDocument1 = JSONDocument.createObject();
+jsonDocument1.setString(&quot;404&quot;, &quot;not found&quot;);
+JSONDocument jsonDocument2 = JSONDocument.createObject();
+jsonDocument2.setString(&quot;302&quot;, &quot;redirect&quot;);
+jsonDocument.array().add(jsonDocument1);
+jsonDocument.array().add(jsonDocument2);
+System.out.println(jsonDocument.toJSON());
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-json">[{&quot;404&quot;:&quot;not found&quot;},{&quot;302&quot;:&quot;redirect&quot;}]
+</code></pre>
+
+<h4 id="解析-json:8f53d0b8c9ca3209e7314548620b9f4c">解析 JSON</h4>
+
+<pre><code class="language-java">String json = &quot;{\&quot;data\&quot;:[{\&quot;404\&quot;:\&quot;not found\&quot;},{\&quot;302\&quot;:\&quot;redirect\&quot;}]}&quot;;
+JSONReader jsonReader = new JSONStreamReaderImpl(new StringReader(json));
+JSONDocument jsonDocument = jsonReader.build();
+JSONDocument data = jsonDocument.get(&quot;data&quot;);
+System.out.println(data.get(0).object().keySet().iterator().next());    //  404
+System.out.println(data.get(1).object().values().iterator().next());    //  redirect
+</code></pre>
+
+<p>由于 Java 中使用引号时必须加上转义符，所以 JSON 字符串看起来非常不直观。</p>
+
+<h3 id="xml:8f53d0b8c9ca3209e7314548620b9f4c">XML</h3>
+
+<h4 id="创建-xml:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</h4>
+
+<pre><code class="language-java">DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+try {
+    String defaultNamespaceUri = &quot;http://myDefaultNamespace&quot;;
+    String otherNamespaceUri = &quot;http://someOtherNamespace&quot;;
+
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document doc = builder.newDocument();
+
+    //  指定 XSL
+    ProcessingInstruction xmlSheet = doc.createProcessingInstruction(&quot;xml-sheet&quot;, &quot;type='text/xsl' href='myfile.xslt'&quot;);
+    doc.appendChild(xmlSheet);
+
+    Element langs = doc.createElement(&quot;langs&quot;);
+    langs.setAttribute(&quot;type&quot;, &quot;current&quot;);
+    //  指定 Namespace
+    langs.setAttribute(&quot;xmlns:app&quot;, otherNamespaceUri);
+    langs.setAttribute(&quot;xmlns&quot;, defaultNamespaceUri);
+    doc.appendChild(langs);
+
+    Element language1 = doc.createElement(&quot;language&quot;);
+    Text text1 = doc.createTextNode(&quot;Java&quot;);
+    language1.appendChild(text1);
+    langs.appendChild(language1);
+
+    Element language2 = doc.createElement(&quot;language&quot;);
+    Text text2 = doc.createTextNode(&quot;Groovy&quot;);
+    language2.appendChild(text2);
+    langs.appendChild(language2);
+
+    //   指定 CDATA
+    CDATASection cdataSection = doc.createCDATASection(&quot;&lt;!-- Support Android --&gt;&quot;);
+    langs.appendChild(cdataSection);
+
+    Element language3 = doc.createElement(&quot;language&quot;);
+    Text text3 = doc.createTextNode(&quot;Scala&quot;);
+    language3.appendChild(text3);
+    langs.appendChild(language3);
+
+    Element language4 = doc.createElement(&quot;language&quot;);
+    Text text4 = doc.createTextNode(&quot;Kotlin&quot;);
+    language4.appendChild(text4);
+    langs.appendChild(language4);
+
+    // 输出 XML
+    TransformerFactory tf = TransformerFactory.newInstance();
+    Transformer transformer = tf.newTransformer();
+    transformer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);
+    transformer.setOutputProperty(OutputKeys.VERSION, &quot;1.0&quot;);
+    transformer.setOutputProperty(OutputKeys.ENCODING, &quot;UTF-8&quot;);
+    StringWriter writer = new StringWriter();
+    StreamResult streamResult = new StreamResult(writer);
+    DOMSource source = new DOMSource(doc);
+    transformer.transform(source, streamResult);
+    String xmlString = writer.toString();
+    System.out.println(xmlString);
+} catch (ParserConfigurationException | TransformerException e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;?xml-sheet type='text/xsl' href='myfile.xslt'?&gt;
+&lt;langs xmlns=&quot;http://myDefaultNamespace&quot; xmlns:app=&quot;http://someOtherNamespace&quot; type=&quot;current&quot;&gt;
+    &lt;language&gt;Java&lt;/language&gt;
+    &lt;language&gt;Groovy&lt;/language&gt;&lt;![CDATA[&lt;!-- Support Android --&gt;]]&gt;
+    &lt;language&gt;Scala&lt;/language&gt;
+    &lt;language&gt;Kotlin&lt;/language&gt;
+&lt;/langs&gt;
+</code></pre>
+
+<h4 id="解析-xml:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</h4>
+
+<p>XML 有多种解析方式，但是最基本的就两种 DOM 和 SAX。DOM 需要将文档都读到内存中，所以可以实现随机读取。SAX 则是基于事件一步一步进行解析，解比 DOM 的实现方式要复杂。以下例子为 DOM 解析。</p>
+
+<pre><code class="language-java">String xml = &quot;&lt;langs type='current' count='4' mainstream='true'&gt;\n&quot; +
+        &quot;  &lt;language flavor='static' version='1.8.0_25'&gt;Java&lt;/language&gt;\n&quot; +
+        &quot;  &lt;language flavor='dynamic' version='2.4.4'&gt;Groovy&lt;/language&gt;\n&quot; +
+        &quot;  &lt;language flavor='static' version='2.11.5'&gt;Scala&lt;/language&gt;\n&quot; +
+        &quot;  &lt;language flavor='static' version='0.12.613'&gt;Kotlin&lt;/language&gt;\n&quot; +
+        &quot;&lt;/langs&gt;&quot;;
+
+byte[] xmlBytes = xml.getBytes();
+InputStream is = new ByteArrayInputStream(xmlBytes);
+
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+try {
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    Document doc = db.parse(is);
+
+    Element langs = doc.getDocumentElement();
+    System.out.println(&quot;count = &quot; + langs.getAttribute(&quot;count&quot;));   //  count=4
+
+    NodeList list = langs.getElementsByTagName(&quot;language&quot;);
+    for (int i = 0; i &lt; list.getLength(); i++) {
+        Element language = (Element) list.item(i);
+        System.out.println(language.getTextContent());
+    }
+} catch (ParserConfigurationException | SAXException | IOException e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<h2 id="groovy-篇:8f53d0b8c9ca3209e7314548620b9f4c">Groovy 篇</h2>
+
+<h3 id="json-1:8f53d0b8c9ca3209e7314548620b9f4c">JSON</h3>
+
+<p>Groovy 中创建和解析 JSON 格式比起 Java 来说要简单不少。</p>
+
+<h4 id="创建-json-1:8f53d0b8c9ca3209e7314548620b9f4c">创建 JSON</h4>
+
+<p>JSON 对象</p>
+
+<pre><code class="language-groovy">def json = new JsonBuilder()
+json.call {
+    results {
+        result(&quot;x&quot;)
+        result(&quot;y&quot;)
+    }
+}
+println(json.toPrettyString())
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-json">{
+    &quot;results&quot;: {
+        &quot;result&quot;: &quot;y&quot;
+    }
+}
+</code></pre>
+
+<p>JSON 数组</p>
+
+<pre><code class="language-groovy">def list = [
+        [code: &quot;404&quot;, value: &quot;not found&quot;],
+        [code: &quot;302&quot;, value: &quot;redirect&quot;]
+]
+def builder = new JsonBuilder(list)
+println builder.toPrettyString()
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;code&quot;: &quot;404&quot;,
+        &quot;value&quot;: &quot;not found&quot;
+    },
+    {
+        &quot;code&quot;: &quot;302&quot;,
+        &quot;value&quot;: &quot;redirect&quot;
+    }
+]
+</code></pre>
+
+<p>包含 JSON 数组的 JSON 对象</p>
+
+<pre><code class="language-groovy">def root = new JsonBuilder()
+root {
+    data(
+            list.collect {
+                [
+                        code : it.code,
+                        value: it.value
+                ]
+            }
+    )
+}
+println root.toPrettyString()
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;code&quot;: &quot;404&quot;,
+            &quot;value&quot;: &quot;not found&quot;
+        },
+        {
+            &quot;code&quot;: &quot;302&quot;,
+            &quot;value&quot;: &quot;redirect&quot;
+        }
+    ]
+}
+</code></pre>
+
+<h4 id="解析-json-1:8f53d0b8c9ca3209e7314548620b9f4c">解析 JSON</h4>
+
+<pre><code class="language-groovy">def json = &quot;&quot;&quot;
+{
+    &quot;data&quot;: [
+        {
+            &quot;code&quot;: &quot;404&quot;,
+            &quot;value&quot;: &quot;not found&quot;
+        },
+        {
+            &quot;code&quot;: &quot;302&quot;,
+            &quot;value&quot;: &quot;redirect&quot;
+        }
+    ]
+}
+&quot;&quot;&quot;
+def result = new JsonSlurper().parseText(json)
+println result.data[0].code     //  404
+println result.data[1].value    //  redirect
+</code></pre>
+
+<p>Groovy 中由于支持原样输出，所以无需使用转义符。</p>
+
+<h3 id="xml-1:8f53d0b8c9ca3209e7314548620b9f4c">XML</h3>
+
+<h4 id="创建-xml-1:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</h4>
+
+<p>基于 MarkupBuilder</p>
+
+<pre><code class="language-groovy">def sw = new StringWriter()
+def xml = new MarkupBuilder(sw)
+xml.langs(type: &quot;current&quot;) {
+    language(&quot;Java&quot;)
+    language(&quot;Groovy&quot;)
+    language(&quot;Scala&quot;)
+    language(&quot;Kotlin&quot;)
+}
+println(sw)
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-xml">&lt;langs type='current'&gt;
+  &lt;language&gt;Java&lt;/language&gt;
+  &lt;language&gt;Groovy&lt;/language&gt;
+  &lt;language&gt;Scala&lt;/language&gt;
+  &lt;language&gt;Kotlin&lt;/language&gt;
+&lt;/langs&gt;
+</code></pre>
+
+<p>基于 StreamingMarkupBuilder</p>
+
+<p>相比较 MarkupBuilder 可以实现更多的功能</p>
+
+<pre><code class="language-groovy">def comment = &quot;&lt;![CDATA[&lt;!-- address is new to this release --&gt;]]&gt;&quot;
+def builder = new StreamingMarkupBuilder()
+builder.encoding = &quot;UTF-8&quot;
+xml = {
+    mkp.xmlDeclaration()
+    mkp.pi(&quot;xml-stylesheet&quot;: &quot;type='text/xsl' href='myfile.xslt'&quot;)
+    mkp.declareNamespace('': 'http://myDefaultNamespace')
+    mkp.declareNamespace('app': 'http://someOtherNamespace')
+    langs(type: &quot;current&quot;) {
+        language(&quot;Java&quot;, flavor: 'static', &quot;app:version&quot;: '1.8.0_25')
+        language(&quot;Groovy&quot;, flavor: 'dynamic', &quot;app:version&quot;: '2.4.4')
+        language(&quot;Scala&quot;, flavor: 'static', &quot;app:version&quot;: '2.11.5')
+        language(&quot;Kotlin&quot;, flavor: 'static', &quot;app:version&quot;: '0.12.613')
+    }
+}
+def writer = new StringWriter()
+writer &lt;&lt; builder.bind(xml)
+println(writer)
+</code></pre>
+
+<h4 id="解析-xml-1:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</h4>
+
+<p>Groovy 中主要使用 XmlSlurper 或者 XmlParser 进行 XML 解析，两种都属于 SAX 解析方式，API 基本一样。</p>
+
+<p>使用 XmlParser</p>
+
+<p>获得节点的属性时可以使用 <code>attribute()</code> 方法或者 XPATH 形式的 <code>@属性名</code>。</p>
+
+<pre><code class="language-groovy">def xml = &quot;&quot;&quot;
+&lt;langs type='current' count='4' mainstream='true'&gt;
+&lt;language flavor='static' version='1.8.0_25'&gt;Java&lt;/language&gt;
+&lt;language flavor='dynamic' version='2.4.4'&gt;Groovy&lt;/language&gt;
+&lt;language flavor='static' version='2.11.5'&gt;Scala&lt;/language&gt;
+&lt;language flavor='static' version='0.12.613'&gt;Kotlin&lt;/language&gt;
+&lt;/langs&gt;
+&quot;&quot;&quot;
+def langs = new XmlParser().parseText(xml)
+println &quot;count = ${langs.attribute(&quot;count&quot;)}&quot; //  count=4
+println &quot;count = ${langs.@count}&quot;
+langs.language.each {
+    println it.text()
+}
+</code></pre>
+
+<p>XmlSlurper</p>
+
+<pre><code class="language-groovy">def langs2 = new XmlSlurper().parseText(xml)
+println &quot;count = ${langs2.@count}&quot; //  count=4
+langs2.language.each {
+    println it.text()
+}
+println langs2.language[1].@flavor   //  dynamic
+</code></pre>
+
+<blockquote>
+<p>XmlSlurper 与 XmlParser 非常相似，最大的区别就是前者是懒加载方式，只有使用时才会真正进行解析。有关两种方式应该如何选择可以参考 <a href="http://stackoverflow.com/questions/7558019/groovy-xmlslurper-vs-xmlparser">Stackoverflow 上的讨论</a>。</p>
+</blockquote>
+
+<h2 id="scala-篇:8f53d0b8c9ca3209e7314548620b9f4c">Scala 篇</h2>
+
+<h3 id="json-2:8f53d0b8c9ca3209e7314548620b9f4c">JSON</h3>
+
+<p>Scala 原来的 JSON API 目前已经不推荐使用了，如果希望进行 JSON 解析，通常需要使用 Playframeworks 之类的第三方框架或库，所以这里就不介绍了。</p>
+
+<h3 id="xml-2:8f53d0b8c9ca3209e7314548620b9f4c">XML</h3>
+
+<p>与其它三种语言不同，在 Scala 中 XML 是一等公民，这意味着可以直接定义 XML 而不是其它语言中的 XML 字符串，所以在 Scala 中使用 XML 非常简单。</p>
+
+<h4 id="创建-xml-2:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</h4>
+
+<p>XML 无需使用 <code>&quot;&quot;</code> 定义，在 XML 中可以使用 <code>{}</code> 来编写代码，就像在 JSP 中编写代码一样。</p>
+
+<pre><code class="language-scala">val langType = &quot;current&quot;
+val langs =
+  &lt;langs type={langType}&gt;
+    &lt;language&gt;Java&lt;/language&gt;
+    &lt;language&gt;Groovy&lt;/language&gt;{scala.xml.PCData(&quot;&lt;!-- Support Android--&gt;&quot;)}&lt;language&gt;Scala&lt;/language&gt;
+    &lt;language&gt;Kotlin&lt;/language&gt;
+  &lt;/langs&gt;
+val printer = new PrettyPrinter(80, 4)
+println(printer.format(langs))
+println(scala.xml.Utility.trim(langs))
+</code></pre>
+
+<p>输出结果</p>
+
+<pre><code class="language-xml">&lt;langs type=&quot;current&quot;&gt;
+    &lt;language&gt;Java&lt;/language&gt;
+    &lt;language&gt;Groovy&lt;/language&gt;
+    &lt;![CDATA[&lt;!-- Support Android--&gt;]]&gt;
+    &lt;language&gt;Scala&lt;/language&gt;
+    &lt;language&gt;Kotlin&lt;/language&gt;
+&lt;/langs&gt;
+</code></pre>
+
+<p>以上 XML 可以通过使用 List 循环进一步简化</p>
+
+<pre><code class="language-scala">val langLst = List(&quot;Java&quot;, &quot;Groovy&quot;, &quot;Scala&quot;, &quot;kotlin&quot;)
+val xml =
+  &lt;langs type={langType}&gt;
+    {langLst.map(l =&gt;
+    &lt;language&gt;
+      {l}
+    &lt;/language&gt;
+  )}
+  &lt;/langs&gt;
+</code></pre>
+
+<p>如果 XML 很长也可以通过 NodeBuffer 先构建不同部分再组装到一起。其中, <code>+=</code> 用于添加 XML 到当前 NodeBuffer，<code>&amp;+</code> 用于构建新的 NodeBuffer。</p>
+
+<pre><code class="language-scala">var nb = new NodeBuffer
+nb += &lt;language&gt;Java&lt;/language&gt;
+nb += &lt;language&gt;Groovy&lt;/language&gt;
+nb = nb &amp;+ &lt;language&gt;Scala&lt;/language&gt; &amp;+ &lt;language&gt;Kotlin&lt;/language&gt;
+val langs3 =
+  &lt;langs&gt;
+    {nb}
+  &lt;/langs&gt;
+println(printer.format(xml))
+</code></pre>
+
+<p>在生成 XML 时也可以通过重写来修改原来的 XML 的内容</p>
+
+<pre><code class="language-scala">val rewrite = new RuleTransformer(new RewriteRule {
+  override def transform(n: Node): Node =
+    n match {
+      case &lt;language&gt;{l}&lt;/language&gt; =&gt;
+        &lt;language&gt;{l}!!!&lt;/language&gt;
+      case other =&gt; other
+    }
+}
+)
+val result = rewrite.transform(langs)
+println(printer.format(result.head))
+</code></pre>
+
+<p>输出 XML 到文件的时候也可以指定 DocType</p>
+
+<pre><code class="language-scala">val doctype = DocType(&quot;html&quot;,
+  PublicID(&quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;,
+    &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;),
+  Nil)
+XML.save(&quot;files/langs.xml&quot;, langs,
+  &quot;utf-8&quot;, xmlDecl = true, doctype)
+</code></pre>
+
+<p>以上将在 XML 头部追加如下信息</p>
+
+<pre><code class="language-scala">&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+</code></pre>
+
+<h4 id="解析-xml-2:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</h4>
+
+<p>Scala 解析 XML 方式类似 XPATH，可以使用 <code>\</code> 获得某一节点的直接子节点，使用 <code>\\</code> 获得子节点，使用 <code>@</code> 获得属性值。</p>
+
+<pre><code class="language-scala">val langs =
+  &lt;langs type='current' count='4' mainstream='true'&gt;
+    &lt;language flavor='static' version='1.8.0_25'&gt;
+      &lt;title&gt;Java&lt;/title&gt;
+    &lt;/language&gt;
+    &lt;language flavor='dynamic' version='2.4.4'&gt;
+      &lt;title&gt;Groovy&lt;/title&gt;
+    &lt;/language&gt;
+    &lt;language flavor='static' version='2.11.5'&gt;
+      &lt;title&gt;Scala&lt;/title&gt;
+    &lt;/language&gt;
+    &lt;language flavor='static' version='0.12.613'&gt;
+      &lt;title&gt;Kotlin&lt;/title&gt;
+    &lt;/language&gt;
+  &lt;/langs&gt;
+
+val java = (langs \ &quot;language&quot;)(0)
+val javaVersion = java \ &quot;@version&quot;
+val javaTitle = (langs \\ &quot;title&quot;)(0)
+(langs \ &quot;language&quot; \ &quot;title&quot;).foreach(n =&gt;
+  println(n.text)
+)
+println(javaVersion)    //  1.8.0_25
+println(javaTitle.text) //  Java
+</code></pre>
+
+<h2 id="kotlin-篇:8f53d0b8c9ca3209e7314548620b9f4c">Kotlin 篇</h2>
+
+<h3 id="json-3:8f53d0b8c9ca3209e7314548620b9f4c">JSON</h3>
+
+<p>Kotlin 目前没有什么通用的支持 JSON 的 API，需要自己定义 DSL 来解析。</p>
+
+<h3 id="xml-3:8f53d0b8c9ca3209e7314548620b9f4c">XML</h3>
+
+<h4 id="创建-xml-3:8f53d0b8c9ca3209e7314548620b9f4c">创建 XML</h4>
+
+<pre><code class="language-kotlin">val xml = &quot;&quot;&quot;
+&lt;langs type='current' count='4' mainstream='true'&gt;
+&lt;language flavor='static' version='1.8.0_25'&gt;Java&lt;/language&gt;
+&lt;language flavor='dynamic' version='2.4.4'&gt;Groovy&lt;/language&gt;
+&lt;language flavor='static' version='2.11.5'&gt;Scala&lt;/language&gt;
+&lt;language flavor='static' version='0.12.613'&gt;Kotlin&lt;/language&gt;
+&lt;/langs&gt;
+&quot;&quot;&quot;
+
+val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+val doc = builder.parse(ByteArrayInputStream(xml.toByteArray()))
+println(doc.toXmlString())
+</code></pre>
+
+<h4 id="解析-xml-3:8f53d0b8c9ca3209e7314548620b9f4c">解析 XML</h4>
+
+<pre><code class="language-kotlin">val langs = doc.getElementsByTagName(&quot;langs&quot;).item(0)
+println(langs.getAttributes().getNamedItem(&quot;count&quot;).getNodeValue()) //  4
+</code></pre>
+
+<h2 id="总结:8f53d0b8c9ca3209e7314548620b9f4c">总结</h2>
+
+<ul>
+<li>四种语言都原生提供 XML Api，但是只有 Scala 视 XML 为一等公民。</li>
+<li>目前 Java 和 Groovy 都支持 JSON Api。</li>
+<li>使用 JSON 和 XML 更多时候还是依赖第三方库而非原生 API。</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_26_xml_json</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-10-04 </h4>
+          <h5 id="wc"> 1200 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  6 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-27-generic-java/"><i class="icon-arrow-left"></i> JGSK - 27.泛型 - Java篇</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-25-regex/">JGSK - 25.正则表达式 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="1114">
+<meta itemprop="datePublished" content="2015-10-04">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-26-xml-and-json/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-26-xml-and-json\/';
+    var disqus_title = 'JGSK - 26.Xml 与 JSON 的处理';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-26-xml-and-json\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

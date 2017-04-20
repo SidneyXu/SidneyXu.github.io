@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 33.Reflect 与 Annotation"/>
+<meta property="og:site_name" content="JGSK - 33.Reflect 与 Annotation"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-11-26"/>
+<meta property="article:modified_time" content="2015-11-26"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 33.Reflect 与 Annotation">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 33.Reflect 与 Annotation </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2033.Reflect%20%e4%b8%8e%20Annotation-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f&title=JGSK%20-%2033.Reflect%20%e4%b8%8e%20Annotation&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-33-reflect-annotation%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 33.Reflect 与 Annotation</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java:740f0caeeea7607b82cb0eaeb8782946">Java</a>
+<ul>
+<li><a href="#注解:740f0caeeea7607b82cb0eaeb8782946">注解</a>
+<ul>
+<li><a href="#创建一个注解:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</a></li>
+<li><a href="#使用注解:740f0caeeea7607b82cb0eaeb8782946">使用注解</a></li>
+</ul></li>
+<li><a href="#反射:740f0caeeea7607b82cb0eaeb8782946">反射</a>
+<ul>
+<li><a href="#类的引用:740f0caeeea7607b82cb0eaeb8782946">类的引用</a></li>
+<li><a href="#方法的引用:740f0caeeea7607b82cb0eaeb8782946">方法的引用</a></li>
+<li><a href="#属性的引用:740f0caeeea7607b82cb0eaeb8782946">属性的引用</a></li>
+<li><a href="#构造方法的引用:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</a></li>
+<li><a href="#注解的引用:740f0caeeea7607b82cb0eaeb8782946">注解的引用</a></li>
+<li><a href="#遍历类的成员:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#groovy:740f0caeeea7607b82cb0eaeb8782946">Groovy</a>
+<ul>
+<li><a href="#注解-1:740f0caeeea7607b82cb0eaeb8782946">注解</a>
+<ul>
+<li><a href="#创建一个注解-1:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</a></li>
+<li><a href="#使用注解-1:740f0caeeea7607b82cb0eaeb8782946">使用注解</a></li>
+</ul></li>
+<li><a href="#反射-1:740f0caeeea7607b82cb0eaeb8782946">反射</a>
+<ul>
+<li><a href="#类的引用-1:740f0caeeea7607b82cb0eaeb8782946">类的引用</a></li>
+<li><a href="#方法的引用-1:740f0caeeea7607b82cb0eaeb8782946">方法的引用</a></li>
+<li><a href="#属性的引用-1:740f0caeeea7607b82cb0eaeb8782946">属性的引用</a></li>
+<li><a href="#构造方法的引用-1:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</a></li>
+<li><a href="#注解的引用-1:740f0caeeea7607b82cb0eaeb8782946">注解的引用</a></li>
+<li><a href="#遍历类的成员-1:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#scala:740f0caeeea7607b82cb0eaeb8782946">Scala</a>
+<ul>
+<li><a href="#注解-2:740f0caeeea7607b82cb0eaeb8782946">注解</a>
+<ul>
+<li><a href="#创建一个注解-2:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</a></li>
+<li><a href="#使用注解-2:740f0caeeea7607b82cb0eaeb8782946">使用注解</a></li>
+</ul></li>
+<li><a href="#反射-2:740f0caeeea7607b82cb0eaeb8782946">反射</a></li>
+</ul></li>
+<li><a href="#kotlin:740f0caeeea7607b82cb0eaeb8782946">Kotlin</a>
+<ul>
+<li><a href="#注解-3:740f0caeeea7607b82cb0eaeb8782946">注解</a>
+<ul>
+<li><a href="#创建一个注解-3:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</a></li>
+<li><a href="#使用注解-3:740f0caeeea7607b82cb0eaeb8782946">使用注解</a></li>
+</ul></li>
+<li><a href="#反射-3:740f0caeeea7607b82cb0eaeb8782946">反射</a>
+<ul>
+<li><a href="#类的引用-2:740f0caeeea7607b82cb0eaeb8782946">类的引用</a></li>
+<li><a href="#函数的引用:740f0caeeea7607b82cb0eaeb8782946">函数的引用</a></li>
+<li><a href="#属性的引用-2:740f0caeeea7607b82cb0eaeb8782946">属性的引用</a></li>
+<li><a href="#构造方法的引用-2:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</a></li>
+<li><a href="#遍历类的成员-2:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结:740f0caeeea7607b82cb0eaeb8782946">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java:740f0caeeea7607b82cb0eaeb8782946">Java</h2>
+
+<h3 id="注解:740f0caeeea7607b82cb0eaeb8782946">注解</h3>
+
+<p>注解主要用于标示元数据。Java 中声明一个注解使用符号 <code>@interface</code>。</p>
+
+<h4 id="创建一个注解:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</h4>
+
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Bean {
+    String name();
+}
+</code></pre>
+
+<p>以上创建了一个名为 <code>Bean</code> 的注解。该注解上使用了标示此自定义注解的两个 JVM 的内置注解：<code>Retention</code> 和 <code>Target</code>。</p>
+
+<p><code>Rentention</code> 表示应该将该注解信息保存在哪里，有 <code>RUNTIME</code>，<code>CLASS</code>，<code>SOURCE</code> 三种。其中 <code>CLASS</code> 为默认值，只有标示为 <code>RUNTIME</code> 的注解才可以被反射。</p>
+
+<p><code>Target</code> 表示应该将注解放在哪里，有 <code>TYPE</code>，<code>FIELD</code>，<code>METHOD</code>，<code>PARAMETER</code> 等几种。即声明为 <code>TYPE</code> 时可以将注解放在类或接口上，声明为 <code>FIELD</code> 则只能方法属性上。</p>
+
+<p>以上创建的注解中还包含有一个属性 <code>name</code>，在使用该注解时必须同时定义此属性。如果使用 <code>String name() default &quot;&quot;;</code> 替代的话则可以不定义此属性而使用默认值。</p>
+
+<h4 id="使用注解:740f0caeeea7607b82cb0eaeb8782946">使用注解</h4>
+
+<p>创建三个注解</p>
+
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Bean {
+    String name();
+}
+
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.FIELD)
+public @interface BeanField {
+}
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface BeanMethod {
+    String alias() default &quot;&quot;;
+}
+</code></pre>
+
+<p>以上创建的注解 <code>Bean</code> 使用时必须定义 <code>name</code> 属性，而 <code>BeanMethod</code> 的 <code>alias</code> 属性由于有默认值空字符串，所以定义时可以省略 <code>alias</code> 属性。</p>
+
+<p>定义一个使用以上注解的类</p>
+
+<pre><code class="language-java">@Bean(name = &quot;t_person&quot;)
+class Person {
+
+    public Person() {
+    }
+
+    public Person(int age) {
+        this.age = age;
+    }
+
+    @BeanField
+    private int age;
+
+    @BeanMethod(alias = &quot;trueAge&quot;)
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(final int age) {
+        this.age = age;
+    }
+
+    @BeanMethod(alias = &quot;hello&quot;)
+    public void sayHello(String message) {
+        System.out.println(&quot;hello &quot; + message);
+    }
+}
+</code></pre>
+
+<h3 id="反射:740f0caeeea7607b82cb0eaeb8782946">反射</h3>
+
+<p>所谓的反射即是在运行时获得类的各种元数据（类本身，类中的方法，类中的属性等）的一种手段。实际开发中反射主要用于编写各种工具，我们需要自己编写反射的情况实际非常少。</p>
+
+<h4 id="类的引用:740f0caeeea7607b82cb0eaeb8782946">类的引用</h4>
+
+<p>为了对一个类进行反射需要先获得类的信息，即获得类的引用，Java 中需要使用以下方法</p>
+
+<pre><code class="language-java">Class&lt;?&gt; clazz = Person.class;
+</code></pre>
+
+<h4 id="方法的引用:740f0caeeea7607b82cb0eaeb8782946">方法的引用</h4>
+
+<p>方法存在于类中，所以获得方法的引用前需要先获得类的引用。</p>
+
+<pre><code class="language-java">Method setAgeMethod = clazz.getMethod(&quot;setAge&quot;, int.class);
+</code></pre>
+
+<p>以上使用了 <code>getMethod()</code> 方法获得了 <code>Person</code> 类中的 <code>setAge(int)</code> 方法的引用。<code>getMethod()</code> 方法的第一个参数为方法名，之后接着的为表示方法的参数列表的变参。</p>
+
+<blockquote>
+<p>与 <code>getMethod()</code> 类型还有一个名为 <code>getDeclaredMethod()</code> 的方法，两者最显著的区别是前者只能获得公开成员，而后者可以获得私有成员。基本上方法，属性，注解等的引用都有这两种方法。</p>
+</blockquote>
+
+<p>获得方法的引用后，可以通过 <code>invoke()</code> 执行该方法。<code>invoke()</code> 的第一个参数为需要执行该方法的对象，之后接着的为传入该方法的参数列表。</p>
+
+<pre><code class="language-java">Method setAgeMethod = clazz.getMethod(&quot;setAge&quot;, int.class);
+setAgeMethod.invoke(person, 100);
+Method getAgeMethod = clazz.getMethod(&quot;getAge&quot;);
+int age = (int) getAgeMethod.invoke(person);
+System.out.println(&quot;Age is &quot; + age);    //  100
+</code></pre>
+
+<h4 id="属性的引用:740f0caeeea7607b82cb0eaeb8782946">属性的引用</h4>
+
+<p>属性的引用基本同方法的引用。</p>
+
+<pre><code class="language-java">Field ageField = clazz.getDeclaredField(&quot;age&quot;);
+</code></pre>
+
+<p>通过属性的引用来获得属性的值只需要通过 <code>getXXX()</code> 之类的方法就可以了，该方法参数为持有该属性的对象。</p>
+
+<pre><code class="language-java">ageField.setAccessible(true);
+System.out.println(&quot;Age is &quot; + ageField.getInt(person));
+</code></pre>
+
+<p>以上由于 <code>age</code> 在声明时为私有变量，所以需要先使用 <code>setAccessible()</code> 才能进行访问。</p>
+
+<h4 id="构造方法的引用:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</h4>
+
+<p>构造方法的引用也和其它引用差不多，直接看例子就可以了。</p>
+
+<pre><code class="language-java">Constructor&lt;Person&gt; constructor = (Constructor&lt;Person&gt;) clazz.getConstructor(int.class);
+Person person1 = constructor.newInstance(18);
+System.out.println(&quot;Age is &quot; + person1.getAge());
+</code></pre>
+
+<h4 id="注解的引用:740f0caeeea7607b82cb0eaeb8782946">注解的引用</h4>
+
+<pre><code class="language-java">Bean bean = clazz.getAnnotation(Bean.class);
+String name = bean.name();
+System.out.println(&quot;Name is &quot; + name);  //  t_person
+</code></pre>
+
+<h4 id="遍历类的成员:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</h4>
+
+<p>实际开发中由于反射主要用于编写工具，所以大部分情况下我们都不知道反射的类的结构，所以通常都需要对类的成员进行遍历并结合以上的所有方法。下面是一个简单的例子。</p>
+
+<pre><code class="language-java">Field[] fields = clazz.getDeclaredFields();
+for (Field field : fields) {
+    Annotation[] annotations = field.getDeclaredAnnotations();
+    if (annotations == null || annotations.length == 0) continue;
+    System.out.println(&quot;Find field annotation &quot; + annotations[0].annotationType().getSimpleName());
+}
+
+Method[] methods = clazz.getDeclaredMethods();
+for (Method method : methods) {
+    Annotation[] annotations = method.getDeclaredAnnotations();
+    if (annotations == null || annotations.length == 0) continue;
+    System.out.println(&quot;Find method annotation &quot; + annotations[0].annotationType().getSimpleName());  //  BeanMethod
+
+    BeanMethod beanMethod = (BeanMethod) annotations[0];
+    String alias = beanMethod.alias();
+    System.out.println(&quot;Alias is &quot; + alias);    //  trueAge
+
+    if (method.getName().equals(&quot;sayHello&quot;)) {
+        method.invoke(person, &quot;world&quot;);
+    }
+    System.out.println(&quot;====================&quot;);
+}
+</code></pre>
+
+<h2 id="groovy:740f0caeeea7607b82cb0eaeb8782946">Groovy</h2>
+
+<h3 id="注解-1:740f0caeeea7607b82cb0eaeb8782946">注解</h3>
+
+<p>Groovy 用法同 Java。</p>
+
+<h4 id="创建一个注解-1:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</h4>
+
+<pre><code class="language-groovy">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@interface Bean {
+    String name()
+}
+</code></pre>
+
+<h4 id="使用注解-1:740f0caeeea7607b82cb0eaeb8782946">使用注解</h4>
+
+<p>创建三个注解</p>
+
+<pre><code class="language-groovy">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@interface Bean {
+    String name()
+}
+
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.FIELD)
+@interface BeanField {
+}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface BeanMethod {
+    String alias() default &quot;&quot;
+}
+
+</code></pre>
+
+<p>定义一个使用以上注解的类</p>
+
+<pre><code class="language-groovy">@Bean(name = &quot;t_person&quot;)
+class Person {
+
+    @BeanField
+    def int age
+
+    @BeanMethod(alias = &quot;trueAge&quot;)
+    def int getAge() {
+        age
+    }
+
+    def void setAge(int age) {
+        this.age = age
+    }
+
+    @BeanMethod(alias = &quot;hello&quot;)
+    def void sayHello(String message) {
+        println(&quot;hello $message&quot;)
+    }
+}
+</code></pre>
+
+<h3 id="反射-1:740f0caeeea7607b82cb0eaeb8782946">反射</h3>
+
+<p>Groovy 中的反射与 Java 一样，不过 Groovy 中拥有更强大的元编程，在以后会提起。</p>
+
+<h4 id="类的引用-1:740f0caeeea7607b82cb0eaeb8782946">类的引用</h4>
+
+<pre><code class="language-groovy">def clazz = Person.class
+</code></pre>
+
+<h4 id="方法的引用-1:740f0caeeea7607b82cb0eaeb8782946">方法的引用</h4>
+
+<pre><code class="language-groovy">def setAgeMethod = clazz.getMethod(&quot;setAge&quot;, int.class)
+</code></pre>
+
+<p>执行该方法</p>
+
+<pre><code class="language-groovy">def setAgeMethod = clazz.getMethod(&quot;setAge&quot;, int.class)
+setAgeMethod.invoke(person, 100)
+def getAgeMethod = clazz.getMethod(&quot;getAge&quot;)
+int age = (int) getAgeMethod.invoke(person)
+println(&quot;Age is &quot; + age)    //  100
+</code></pre>
+
+<p>除了使用 <code>invoke()</code>，Groovy 还有另一种方式来执行方法，使用时看起来有些像 JavaScript 的 <code>eval()</code> 函数。</p>
+
+<pre><code class="language-groovy">person.&quot;${setAgeMethod.name}&quot;(20)
+</code></pre>
+
+<h4 id="属性的引用-1:740f0caeeea7607b82cb0eaeb8782946">属性的引用</h4>
+
+<pre><code class="language-groovy">def ageField = clazz.getDeclaredField(&quot;age&quot;)
+</code></pre>
+
+<p>获得属性的值</p>
+
+<pre><code class="language-groovy">ageField.setAccessible(true)
+println(&quot;Age is &quot; + ageField.getInt(person))
+</code></pre>
+
+<h4 id="构造方法的引用-1:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</h4>
+
+<p>如果使用构造方法的引用则必须先定义需要的构造方法，但这样会丧失了 Groovy 构造方法的带名参数的功能。</p>
+
+<pre><code class="language-groovy">def constructor = clazz.getConstructor(int.class)
+def person1 = constructor.newInstance(18)
+println(&quot;Age is &quot; + person1.getAge())
+</code></pre>
+
+<h4 id="注解的引用-1:740f0caeeea7607b82cb0eaeb8782946">注解的引用</h4>
+
+<pre><code class="language-groovy">Bean bean = clazz.getAnnotation(Bean.class)
+def name = bean.name()
+println(&quot;name is &quot; + name)
+</code></pre>
+
+<h4 id="遍历类的成员-1:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</h4>
+
+<pre><code class="language-groovy">clazz.declaredFields.findAll {
+    it.declaredAnnotations != null &amp;&amp; it.declaredAnnotations.size() &gt; 0
+}.each {
+    println(&quot;Find field annotation ${it.annotations[0].annotationType().simpleName}&quot;)
+}
+
+clazz.declaredMethods.findAll {
+    it.declaredAnnotations != null &amp;&amp; it.declaredAnnotations.size() &gt; 0
+}.each {
+    println(&quot;Find method annotation ${it.annotations[0].annotationType().simpleName}&quot;)
+
+    def alias = (it.annotations[0] as BeanMethod).alias()
+    println(&quot;Alias is $alias&quot;)
+
+    if (it.name == &quot;sayHello&quot;) {
+        it.invoke(person, &quot;world&quot;)
+    }
+    println(&quot;====================&quot;)
+}
+</code></pre>
+
+<h2 id="scala:740f0caeeea7607b82cb0eaeb8782946">Scala</h2>
+
+<h3 id="注解-2:740f0caeeea7607b82cb0eaeb8782946">注解</h3>
+
+<p>Scala 大多情况下直接使用 Java 的注解即可。Scala 本身虽然也提供了Scala 风格的注解功能，但功能很弱，完全可以使用 Java 的进行替代。</p>
+
+<h4 id="创建一个注解-2:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</h4>
+
+<p>Scala 创建注解需要继承 ClassfileAnnotation 或 StaticAnnotation。前者类似 Java 中的 Runtime，可以被反射，后者则无法被反射。</p>
+
+<pre><code class="language-scala">class Bean(val name: String) extends ClassfileAnnotation
+</code></pre>
+
+<h4 id="使用注解-2:740f0caeeea7607b82cb0eaeb8782946">使用注解</h4>
+
+<p>创建三个注解</p>
+
+<pre><code class="language-scala">class Bean(val name: String) extends ClassfileAnnotation
+class BeanField extends StaticAnnotation
+class BeanMethod(val alias: String = &quot;&quot;) extends StaticAnnotation
+</code></pre>
+
+<p>定义一个使用以上注解的类</p>
+
+<pre><code class="language-scala">@Bean(name = &quot;t_person&quot;)
+class Person {
+	@BeanField
+	private var privateAge: Int = 0
+    
+    @BeanMethod(alias = &quot;trueAge&quot;)
+    def age_=(pAge: Int) {
+      privateAge = pAge
+    }
+
+    def age = privateAge
+
+    @BeanMethod
+    def sayHello(message: String) = println(s&quot;hello $message&quot;)
+}
+</code></pre>
+
+<h3 id="反射-2:740f0caeeea7607b82cb0eaeb8782946">反射</h3>
+
+<p>Scala 有自己的反射 Api，功能比 Java 要更丰富，但是个人感觉非常难用，还是直接使用 Java 的更加方便。对 Scala 的 Api 有兴趣的可以直接去官网查看文档。</p>
+
+<p>下面列一个简单的根据类生成对象的 Scala 原生 Api 的例子，体验一下有多难用</p>
+
+<pre><code class="language-scala">val classLoaderMirror = runtimeMirror(getClass.getClassLoader)
+val typePerson = typeOf[Person]
+val classPerson = typePerson.typeSymbol.asClass
+val classMirror = classLoaderMirror.reflectClass(classPerson)
+val methodSymbol = typePerson.decl(termNames.CONSTRUCTOR).asMethod
+val methodMirror = classMirror.reflectConstructor(methodSymbol)
+val p: Person = methodMirror(10).asInstanceOf[Person]
+p.age = 16
+println(p.age)
+</code></pre>
+
+<h2 id="kotlin:740f0caeeea7607b82cb0eaeb8782946">Kotlin</h2>
+
+<h3 id="注解-3:740f0caeeea7607b82cb0eaeb8782946">注解</h3>
+
+<p>Kotlin 用法类似 Java，但还是有很大区别。</p>
+
+<h4 id="创建一个注解-3:740f0caeeea7607b82cb0eaeb8782946">创建一个注解</h4>
+
+<p><code>AnnotationRetention</code> 类似 Java 的 <code>RetentionPolicy</code>。<code>AnnotationTarget</code> 类似 Java 的 <code>ElementType</code>，但是由于 Kotlin 的特性，其值有 <code>FIELD</code>，<code>PROPERTY_GETTER</code> 等种类。</p>
+
+<pre><code class="language-kotlin">@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+</code></pre>
+
+<h4 id="使用注解-3:740f0caeeea7607b82cb0eaeb8782946">使用注解</h4>
+
+<p>创建三个注解</p>
+
+<pre><code class="language-kotlin">@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FIELD)
+annotation class BeanField
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.FUNCTION)
+annotation class BeanMethod(val alias: String = &quot;&quot;)
+</code></pre>
+
+<p>定义一个使用以上注解的类</p>
+
+<pre><code class="language-kotlin">@Bean(name = &quot;t_person&quot;)
+class Person {
+    @BeanField var age: Int = 0
+        @BeanMethod(alias = &quot;trueAge&quot;) get() = field
+
+    @BeanMethod(alias = &quot;hello&quot;) fun sayHello(message: String) {
+        println(&quot;hello $message&quot;)
+    }
+}
+</code></pre>
+
+<h3 id="反射-3:740f0caeeea7607b82cb0eaeb8782946">反射</h3>
+
+<p>Kotlin 中的反射可以通过符号 <code>::</code> 直接对各种类和成员进行引用，但是如果想通过字符串进行引用的话就非常麻烦。</p>
+
+<h4 id="类的引用-2:740f0caeeea7607b82cb0eaeb8782946">类的引用</h4>
+
+<pre><code class="language-kotlin">val clazz = Person::class
+</code></pre>
+
+<h4 id="函数的引用:740f0caeeea7607b82cb0eaeb8782946">函数的引用</h4>
+
+<pre><code class="language-kotlin">val sayHello = Person::sayHello
+</code></pre>
+
+<p>执行该函数</p>
+
+<pre><code class="language-kotlin">println(sayHello.invoke(person, &quot;world&quot;))
+</code></pre>
+
+<p>就像类中的函数一样也可以直接对定义在类外的函数进行引用，并将该引用作为参数进行传递</p>
+
+<pre><code class="language-kotlin">fun isOdd(x: Int) = x % 2 != 0
+val numbers = listOf(1, 2, 3)
+println(numbers.filter(::isOdd))
+</code></pre>
+
+<h4 id="属性的引用-2:740f0caeeea7607b82cb0eaeb8782946">属性的引用</h4>
+
+<pre><code class="language-kotlin">var name = Person::age
+</code></pre>
+
+<p>获得属性的值</p>
+
+<pre><code class="language-kotlin">name.get(person)
+</code></pre>
+
+<p>同样也可以对类外的属性进行引用</p>
+
+<pre><code class="language-kotlin">var x = 2
+println(::x.get())
+::x.set(3)
+println(x)
+</code></pre>
+
+<h4 id="构造方法的引用-2:740f0caeeea7607b82cb0eaeb8782946">构造方法的引用</h4>
+
+<pre><code class="language-kotlin">::Person
+</code></pre>
+
+<p>使用该引用</p>
+
+<pre><code class="language-kotlin">fun factory(f: () -&gt; Person) {
+    val p = f()
+}
+factory(::Person)
+</code></pre>
+
+<h4 id="遍历类的成员-2:740f0caeeea7607b82cb0eaeb8782946">遍历类的成员</h4>
+
+<pre><code class="language-kotlin">val bean = clazz.annotations.first {
+    it.annotationType().typeName == Bean::class.qualifiedName
+} as Bean
+println(&quot;name is ${bean.name}&quot;) //  t_person
+
+val properties = clazz.declaredMemberProperties
+properties.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.annotations[0].annotationClass.simpleName)
+}
+
+val functions = clazz.declaredMemberFunctions
+functions.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.name)
+    println(it.annotations[0].annotationClass.simpleName)    //  BeanMethod
+
+    val beanMethod = it.annotations[0] as BeanMethod
+    println(&quot;alias is ${beanMethod.alias}&quot;) //  hello
+}
+
+</code></pre>
+
+<h2 id="总结:740f0caeeea7607b82cb0eaeb8782946">总结</h2>
+
+<ul>
+<li>注解使用场景很多，但是一般只要理解内置注解的作用，很少需要自己定义注解</li>
+<li>反射 Api 大都比较难用，但是实际使用场景并不多</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_33_reflect_annotation</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-11-26 </h4>
+          <h5 id="wc"> 1000 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  5 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/dev-android-using-groovy/"><i class="icon-arrow-left"></i> 使用 Groovy 开发 Android 应用</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-32-shell/">JGSK - 32.Shell <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="903">
+<meta itemprop="datePublished" content="2015-11-26">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-33-reflect-annotation\/';
+    var disqus_title = 'JGSK - 33.Reflect 与 Annotation';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-33-reflect-annotation\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

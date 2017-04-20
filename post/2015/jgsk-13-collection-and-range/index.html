@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 13.数组，集合与范围"/>
+<meta property="og:site_name" content="JGSK - 13.数组，集合与范围"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-13-collection-and-range/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-18"/>
+<meta property="article:modified_time" content="2015-09-18"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 13.数组，集合与范围">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 13.数组，集合与范围 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-13-collection-and-range/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2013.%e6%95%b0%e7%bb%84%ef%bc%8c%e9%9b%86%e5%90%88%e4%b8%8e%e8%8c%83%e5%9b%b4-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f&title=JGSK%20-%2013.%e6%95%b0%e7%bb%84%ef%bc%8c%e9%9b%86%e5%90%88%e4%b8%8e%e8%8c%83%e5%9b%b4&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-13-collection-and-range%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 13.数组，集合与范围</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:1fd57f2eb6922aecadff246368691c6b">共通篇</a></li>
+<li><a href="#java-篇:1fd57f2eb6922aecadff246368691c6b">Java 篇</a>
+<ul>
+<li><a href="#数组:1fd57f2eb6922aecadff246368691c6b">数组</a></li>
+<li><a href="#集合:1fd57f2eb6922aecadff246368691c6b">集合</a>
+<ul>
+<li><a href="#list:1fd57f2eb6922aecadff246368691c6b">List</a>
+<ul>
+<li><a href="#定义一个-list:1fd57f2eb6922aecadff246368691c6b">定义一个 List</a></li>
+<li><a href="#修改list:1fd57f2eb6922aecadff246368691c6b">修改List</a></li>
+<li><a href="#访问元素:1fd57f2eb6922aecadff246368691c6b">访问元素</a></li>
+<li><a href="#通过元素创建list:1fd57f2eb6922aecadff246368691c6b">通过元素创建List</a></li>
+</ul></li>
+<li><a href="#不可变list:1fd57f2eb6922aecadff246368691c6b">不可变List</a></li>
+<li><a href="#其它操作:1fd57f2eb6922aecadff246368691c6b">其它操作</a></li>
+<li><a href="#set:1fd57f2eb6922aecadff246368691c6b">Set</a></li>
+</ul></li>
+<li><a href="#range:1fd57f2eb6922aecadff246368691c6b">Range</a></li>
+</ul></li>
+<li><a href="#groovy-篇:1fd57f2eb6922aecadff246368691c6b">Groovy 篇</a>
+<ul>
+<li><a href="#数组-1:1fd57f2eb6922aecadff246368691c6b">数组</a></li>
+<li><a href="#集合-1:1fd57f2eb6922aecadff246368691c6b">集合</a>
+<ul>
+<li><a href="#list-1:1fd57f2eb6922aecadff246368691c6b">List</a>
+<ul>
+<li><a href="#定义一个-list-1:1fd57f2eb6922aecadff246368691c6b">定义一个 List</a></li>
+<li><a href="#修改list-1:1fd57f2eb6922aecadff246368691c6b">修改List</a></li>
+<li><a href="#访问元素-1:1fd57f2eb6922aecadff246368691c6b">访问元素</a></li>
+<li><a href="#建立新列表:1fd57f2eb6922aecadff246368691c6b">建立新列表</a></li>
+</ul></li>
+<li><a href="#不可变list-1:1fd57f2eb6922aecadff246368691c6b">不可变List</a></li>
+<li><a href="#展开操作符:1fd57f2eb6922aecadff246368691c6b">展开操作符</a></li>
+<li><a href="#其它操作-1:1fd57f2eb6922aecadff246368691c6b">其它操作</a></li>
+<li><a href="#set-1:1fd57f2eb6922aecadff246368691c6b">Set</a></li>
+</ul></li>
+<li><a href="#range-1:1fd57f2eb6922aecadff246368691c6b">Range</a></li>
+</ul></li>
+<li><a href="#scala-篇:1fd57f2eb6922aecadff246368691c6b">Scala 篇</a>
+<ul>
+<li><a href="#数组-2:1fd57f2eb6922aecadff246368691c6b">数组</a>
+<ul>
+<li><a href="#array:1fd57f2eb6922aecadff246368691c6b">Array</a></li>
+<li><a href="#arraybuffer:1fd57f2eb6922aecadff246368691c6b">ArrayBuffer</a></li>
+<li><a href="#array-和-arraybuffer-的转换:1fd57f2eb6922aecadff246368691c6b">Array 和 ArrayBuffer 的转换</a></li>
+</ul></li>
+<li><a href="#集合-2:1fd57f2eb6922aecadff246368691c6b">集合</a>
+<ul>
+<li><a href="#list-2:1fd57f2eb6922aecadff246368691c6b">List</a>
+<ul>
+<li><a href="#定义一个不可变列表:1fd57f2eb6922aecadff246368691c6b">定义一个不可变列表</a></li>
+</ul></li>
+<li><a href="#list-构造器:1fd57f2eb6922aecadff246368691c6b">List 构造器</a>
+<ul>
+<li><a href="#访问元素-2:1fd57f2eb6922aecadff246368691c6b">访问元素</a></li>
+</ul></li>
+<li><a href="#可变list:1fd57f2eb6922aecadff246368691c6b">可变List</a></li>
+<li><a href="#listbuffer:1fd57f2eb6922aecadff246368691c6b">ListBuffer</a>
+<ul>
+<li><a href="#list-和-listbuffer-转换:1fd57f2eb6922aecadff246368691c6b">List 和 ListBuffer 转换</a></li>
+</ul></li>
+<li><a href="#其它操作-2:1fd57f2eb6922aecadff246368691c6b">其它操作</a></li>
+<li><a href="#set-2:1fd57f2eb6922aecadff246368691c6b">Set</a></li>
+</ul></li>
+<li><a href="#range-2:1fd57f2eb6922aecadff246368691c6b">Range</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:1fd57f2eb6922aecadff246368691c6b">Kotlin 篇</a>
+<ul>
+<li><a href="#数组-3:1fd57f2eb6922aecadff246368691c6b">数组</a></li>
+<li><a href="#集合-3:1fd57f2eb6922aecadff246368691c6b">集合</a>
+<ul>
+<li><a href="#list-3:1fd57f2eb6922aecadff246368691c6b">List</a>
+<ul>
+<li><a href="#定义一个不可变列表-1:1fd57f2eb6922aecadff246368691c6b">定义一个不可变列表</a></li>
+<li><a href="#访问元素-3:1fd57f2eb6922aecadff246368691c6b">访问元素</a></li>
+</ul></li>
+<li><a href="#可变-list:1fd57f2eb6922aecadff246368691c6b">可变 List</a></li>
+<li><a href="#其它操作-3:1fd57f2eb6922aecadff246368691c6b">其它操作</a></li>
+<li><a href="#set-3:1fd57f2eb6922aecadff246368691c6b">Set</a></li>
+</ul></li>
+<li><a href="#range-3:1fd57f2eb6922aecadff246368691c6b">Range</a></li>
+</ul></li>
+<li><a href="#总结:1fd57f2eb6922aecadff246368691c6b">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:1fd57f2eb6922aecadff246368691c6b">共通篇</h2>
+
+<p>数组在程序中用于表示一组特定的值，通常来说数组的大小是预先指定的，数组的元素类型也是统一的，所以访问数组时可以通过偏移量快速访问任意一个元素。</p>
+
+<p>集合类似数组，很多时候集合也是通过数组实现的，但是集合的长度是可变的，存储的数据类型也可以不一样（尽管一般都是存储同类型的数据）。集合通常有两种：List 和 Set，一般来说，前者有序且元素可以重复，后者无序但元素不能重复。</p>
+
+<h2 id="java-篇:1fd57f2eb6922aecadff246368691c6b">Java 篇</h2>
+
+<h3 id="数组:1fd57f2eb6922aecadff246368691c6b">数组</h3>
+
+<p>定义一个数组的语法如下</p>
+
+<pre><code>类型[] 变量名 = new 类型[长度];
+</code></pre>
+
+<p>或者在定义时指定具体的元素</p>
+
+<pre><code>类型[] 变量名 = {元素..};
+</code></pre>
+
+<p>例</p>
+
+<pre><code class="language-java">int[] arr = new int[3];
+int[] arr2 = {1, 2, 3};
+</code></pre>
+
+<p>由于数组的长度是固定的，所以无法增加元素也无法删除元素，只能对某一位置的元素进行修改</p>
+
+<pre><code class="language-java">arr[0] = 10;
+</code></pre>
+
+<p>读取某一位置的元素</p>
+
+<pre><code class="language-java">System.out.println(arr[0]);
+</code></pre>
+
+<p>获得数组长度</p>
+
+<pre><code class="language-java">System.out.println(arr.length);
+</code></pre>
+
+<p>遍历数组</p>
+
+<pre><code class="language-java">for (int a : arr2) {
+    System.out.println(&quot;Traverse &quot; + a);
+}
+</code></pre>
+
+<p>打印数组</p>
+
+<p>默认 <code>toString()</code> 只会打印出数组的地址，要想打印数组的内容需要使用工具类 <code>Arrays</code>。</p>
+
+<pre><code class="language-java">System.out.println(Arrays.toString(arr2));
+</code></pre>
+
+<h3 id="集合:1fd57f2eb6922aecadff246368691c6b">集合</h3>
+
+<h4 id="list:1fd57f2eb6922aecadff246368691c6b">List</h4>
+
+<p>List 表示列表，是集合中最常用的类型，Java 中的 List 默认是可变的，其本身是一个接口，最常用的是其子类 <code>ArrayList</code> 和 <code>LinkedList</code>，前者用于随机访问，后者用于实现队列。</p>
+
+<h5 id="定义一个-list:1fd57f2eb6922aecadff246368691c6b">定义一个 List</h5>
+
+<pre><code class="language-java">List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+</code></pre>
+
+<p>默认创建的列表是空列表，里面没有任何元素。这种两边都要写明列表中元素类型的语法一直以来都被认为是非常愚蠢的，所以 Java 7 以后提供了被称作 Diamond 的语法，可以省略等式右边的类型声明。</p>
+
+<pre><code class="language-java">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+</code></pre>
+
+<p>实际上这样也没有进步多少，Guava 包提供的语法还是更加简单 <code>List&lt;String&gt; list = Lists.newArrayList();</code>。</p>
+
+<p>需要注意的是在列表的工具类 <code>Collections</code> 中也有一个可以提供空列表的方法，但那个返回的是继承自 <code>AbstractList</code> 的 <code>EmptyList</code> 的实例，该实例不支持任何操作，与 new 出来的空列表并不一样。</p>
+
+<pre><code class="language-java">List emptyList = Collections.emptyList();
+//  试图调用以下方法会报 UnsupportedOperationException
+//        emptyList.add(1);
+</code></pre>
+
+<h5 id="修改list:1fd57f2eb6922aecadff246368691c6b">修改List</h5>
+
+<p>添加元素</p>
+
+<pre><code class="language-java">list.add(&quot;Groovy&quot;);
+</code></pre>
+
+<p>也可以使用 <code>Collections</code> 的工具方法一次性添加多个元素</p>
+
+<pre><code class="language-java">Collections.addAll(list, &quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;);
+</code></pre>
+
+<p>修改元素</p>
+
+<pre><code class="language-java">list.set(0, &quot;Ruby&quot;);
+</code></pre>
+
+<p>这里需要注意的是修改时的第一个参数为索引，索引不能超过该列表的长度，否则会报 <code>IndexOutOfBoundsException</code>。</p>
+
+<p>删除元素</p>
+
+<pre><code class="language-java">//	删除指定位置
+list.remove(1);
+
+//	删除自定元素
+list.remove(&quot;Ruby&quot;);
+</code></pre>
+
+<h5 id="访问元素:1fd57f2eb6922aecadff246368691c6b">访问元素</h5>
+
+<pre><code class="language-java">list.get(1);
+</code></pre>
+
+<p>索引只能是大于等于小于列表长度的整数，否则会报<code>ArrayIndexOutOfBoundsException</code>。</p>
+
+<h5 id="通过元素创建list:1fd57f2eb6922aecadff246368691c6b">通过元素创建List</h5>
+
+<p>List 有两种方式可以在创建时就指定其存储的具体元素。</p>
+
+<p>第一种是通过工具类 <code>Arrays</code></p>
+
+<pre><code class="language-java">List&lt;String&gt; list = Arrays.asList(&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;);
+</code></pre>
+
+<p>这种方式创建的其实是一个定长的列表，不支持任何会影响其长度的方法，比如说添加或者删除项目均为报 <code>UnsupportedOperationException</code>。</p>
+
+<p>第二种是通过初始化块，这种方式创建的是普通的列表，但是不支持 Diamond 语法。</p>
+
+<pre><code class="language-java">List&lt;String&gt; list = new ArrayList&lt;String&gt;() {{
+            add(&quot;Groovy&quot;);
+            add(&quot;Java&quot;);
+            add(&quot;Scala&quot;);
+        }};
+</code></pre>
+
+<h4 id="不可变list:1fd57f2eb6922aecadff246368691c6b">不可变List</h4>
+
+<p>在将列表作为返回值返回时，通常我们不希望列表内容被随意修改，这时可以返回一个不可变列表来禁止任何修改行为。</p>
+
+<pre><code class="language-java">List&lt;String&gt; immuatbleList = Collections.unmodifiableList(list);
+</code></pre>
+
+<p>以上方法实际是返回了一个 <code>UnmodifiableCollection</code> 的实例，该实例使用委托方式调用传入的 <code>list</code> 对象，一旦发现执行了任何修改操作就立即抛出异常。</p>
+
+<h4 id="其它操作:1fd57f2eb6922aecadff246368691c6b">其它操作</h4>
+
+<p>获得 List 长度</p>
+
+<pre><code class="language-java">System.out.println(list.size());
+</code></pre>
+
+<p>注意，列表使用 <code>size()</code> ，数组使用 <code>length</code>，这种设计一直都是 Java 程序员的槽点之一。</p>
+
+<p>遍历 List</p>
+
+<pre><code class="language-java">for (String lang : list) {
+    System.out.println(&quot;Traverse &quot; + lang);
+}
+</code></pre>
+
+<h4 id="set:1fd57f2eb6922aecadff246368691c6b">Set</h4>
+
+<p>Set 最常用的是其子类 <code>HashSet</code>，本质上其实是一个 key-value 都一致的 <code>HashMap</code>。由于用法类似，本系列就不详细举例了。</p>
+
+<h3 id="range:1fd57f2eb6922aecadff246368691c6b">Range</h3>
+
+<p>Java 不支持 Range</p>
+
+<h2 id="groovy-篇:1fd57f2eb6922aecadff246368691c6b">Groovy 篇</h2>
+
+<h3 id="数组-1:1fd57f2eb6922aecadff246368691c6b">数组</h3>
+
+<p>Groovy 定义数组类似 Java，但是指定具体元素时 Groovy 使用 <code>[]</code>而不是 <code>{}</code></p>
+
+<pre><code class="language-groovy">//	基本语法
+def arr = new int[3]
+
+//	定义时指定内容
+def arr2 = [1, 2, 3] as int[]
+</code></pre>
+
+<p>注意第二个例子后面的 <code>as int[]</code>，因为在 Groovy 中 <code>[]</code> 这种语法默认产生的其实时 <code>List</code> 对象，所以需要通过 <code>as</code> 语法将其转换为数组对象。</p>
+
+<p>修改元素</p>
+
+<pre><code class="language-groovy">arr[0] = 10
+</code></pre>
+
+<p>读取元素</p>
+
+<pre><code class="language-groovy">println(arr[0])
+</code></pre>
+
+<p>获得数组长度</p>
+
+<pre><code class="language-groovy">println(arr.length)
+</code></pre>
+
+<p>遍历数组</p>
+
+<pre><code class="language-groovy">for (int a : arr2) {
+    println(&quot;Traverse &quot; + a);
+}
+</code></pre>
+
+<h3 id="集合-1:1fd57f2eb6922aecadff246368691c6b">集合</h3>
+
+<h4 id="list-1:1fd57f2eb6922aecadff246368691c6b">List</h4>
+
+<p>Groovy 中的 List 概念与 Java 完全一致。</p>
+
+<h5 id="定义一个-list-1:1fd57f2eb6922aecadff246368691c6b">定义一个 List</h5>
+
+<p>空列表</p>
+
+<pre><code class="language-groovy">def emptyList = []
+</code></pre>
+
+<p>指定元素的列表</p>
+
+<pre><code class="language-groovy">def list = [&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;]
+</code></pre>
+
+<p>以上方式默认创建的是 <code>ArrayList</code></p>
+
+<h5 id="修改list-1:1fd57f2eb6922aecadff246368691c6b">修改List</h5>
+
+<p>添加元素</p>
+
+<pre><code class="language-groovy">list.add(&quot;Rust&quot;)
+list &lt;&lt; &quot;Kotlin&quot;
+</code></pre>
+
+<p>以上第二种用法看起来语法更加简单直观</p>
+
+<p>修改元素</p>
+
+<pre><code class="language-groovy">list[10] = &quot;Ruby&quot;
+list.putAt(9, &quot;Python&quot;)
+</code></pre>
+
+<p>与 Java 不同的是，Groovy 中如果指定的索引超过了列表的长度，列表会被自动扩容，所以以上做法在 Java 中是非法的，但是在 Groovy 中是允许的。</p>
+
+<p>删除元素</p>
+
+<p>与 Java 相同</p>
+
+<pre><code class="language-groovy">//	删除指定位置
+list.remove(1)
+
+//	删除自定元素
+list.remove(&quot;Ruby&quot;)
+</code></pre>
+
+<h5 id="访问元素-1:1fd57f2eb6922aecadff246368691c6b">访问元素</h5>
+
+<pre><code class="language-groovy">list.get(2)
+list[2]
+</code></pre>
+
+<p>以上两种方式都可以，其中第二种可以让数组和列表的访问拥有统一的方式</p>
+
+<p>同时 Groovy 还支持使用负数从后往前建立索引，或者使用 <code>Range</code> 获得一个子列表</p>
+
+<pre><code class="language-groovy">list[-1]  
+list[-1..-3] 
+</code></pre>
+
+<h5 id="建立新列表:1fd57f2eb6922aecadff246368691c6b">建立新列表</h5>
+
+<p>Groovy 可以使用 <code>+</code> 和 <code>-</code> 从现有列表的元素创建新列表，这些方式不会修改原有列表，需要特别注意</p>
+
+<pre><code class="language-groovy">def list = [&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;, &quot;Kotlin&quot;]
+def newList = list - [&quot;Ruby&quot;, &quot;Rust&quot;, &quot;Kotlin&quot;] + &quot;Swift&quot;
+</code></pre>
+
+<p>以上操作返回一个包含 <code>Groovy, Java, Scala, Swift</code> 的新列表。</p>
+
+<h4 id="不可变list-1:1fd57f2eb6922aecadff246368691c6b">不可变List</h4>
+
+<p>需要使用 Java 的方法</p>
+
+<h4 id="展开操作符:1fd57f2eb6922aecadff246368691c6b">展开操作符</h4>
+
+<p>Groovy 中可以使用展开操作符 <code>*.</code> 来操作列表中的每一个元素。</p>
+
+<pre><code class="language-groovy">def numbers = [1, 2, 3, 4, 3, 4]
+def numbers2 = numbers*.plus(10)
+println(numbers)            //[1, 2, 3, 4, 3, 4]
+println(numbers2)           //[11, 12, 13, 14, 13, 14]
+</code></pre>
+
+<h4 id="其它操作-1:1fd57f2eb6922aecadff246368691c6b">其它操作</h4>
+
+<p>获得 List 长度</p>
+
+<pre><code class="language-groovy">println(list.size())
+</code></pre>
+
+<p>遍历 List</p>
+
+<pre><code class="language-groovy">for (lang in list) {
+    println(&quot;Traverse &quot; + lang);
+}
+</code></pre>
+
+<h4 id="set-1:1fd57f2eb6922aecadff246368691c6b">Set</h4>
+
+<p>同 Java</p>
+
+<h3 id="range-1:1fd57f2eb6922aecadff246368691c6b">Range</h3>
+
+<p>上一章节已经提到过了，Range 可以表示一个连续范围内的值，可以使 <code>for</code> 循环变得更加简单。</p>
+
+<p>定义一个 Range</p>
+
+<pre><code class="language-groovy">def rng1 = 1..3
+println(rng1)   //  1, 2, 3]
+</code></pre>
+
+<p>Range 不仅可以用在数字上，也可以用在字符上</p>
+
+<pre><code class="language-groovy">def rng4 = 'a'..'c'
+println(rng4)   //  [a, b, c]
+</code></pre>
+
+<p>左闭右开</p>
+
+<pre><code class="language-groovy">def rng2 = 1..&lt;3
+println(rng2)   //  [1, 2]
+</code></pre>
+
+<p>指定步长</p>
+
+<pre><code class="language-groovy">def rng3 = (1..5).step(2)
+println(rng3)   //  [1, 3, 5]
+</code></pre>
+
+<h2 id="scala-篇:1fd57f2eb6922aecadff246368691c6b">Scala 篇</h2>
+
+<h3 id="数组-2:1fd57f2eb6922aecadff246368691c6b">数组</h3>
+
+<h4 id="array:1fd57f2eb6922aecadff246368691c6b">Array</h4>
+
+<p>Array 在 Scala 中属于传统的定长数组。Scala 定义数组的方式类似 Java 中的列表，但是指定具体元素时即不是Groovy 的 <code>[]</code> 也不是 Java 的<code>{}</code>，而是 <code>()</code>。</p>
+
+<pre><code class="language-scala">//	基本语法
+val arr = new Array[Int](3)
+
+//	定义时指定内容
+val arr2 = Array(1, 2, 3)
+</code></pre>
+
+<p>修改元素</p>
+
+<pre><code class="language-scala">arr(0) = 10
+</code></pre>
+
+<p>读取元素</p>
+
+<pre><code class="language-scala">println(arr(0))
+</code></pre>
+
+<p>获得数组长度</p>
+
+<pre><code class="language-scala">println(arr2.length)
+</code></pre>
+
+<p>遍历数组</p>
+
+<pre><code class="language-scala">for (a &lt;- arr2) {
+  println(s&quot;Traverse $a&quot;)
+}
+</code></pre>
+
+<p>打印数组</p>
+
+<p>默认 <code>toString()</code> 只会打印出数组的地址，要想打印数组的内容需要使用 <code>mkString()</code>。</p>
+
+<pre><code class="language-scala">println(arr2.mkString(&quot;,&quot;))
+</code></pre>
+
+<h4 id="arraybuffer:1fd57f2eb6922aecadff246368691c6b">ArrayBuffer</h4>
+
+<p>ArrayBuffer 在 Scala 中属于变长数组，相比较数组而言其最大的缺点就是删除元素时的效率较低，使用时相当于 Java 的 ArrayList。</p>
+
+<p>定义 ArrayBuffer</p>
+
+<pre><code class="language-scala">val abuffer = ArrayBuffer[Int]()
+</code></pre>
+
+<p>修改元素</p>
+
+<pre><code class="language-scala">//	添加单个或多个元素
+abuffer += 10
+
+//	添加单个或多个 Array 或 ArrayBuffer
+abuffer ++= arr2
+
+//	删除单个或多个元素
+abuffer -= 3
+</code></pre>
+
+<p>读取元素</p>
+
+<pre><code class="language-scala">println(abuffer(0))
+</code></pre>
+
+<h4 id="array-和-arraybuffer-的转换:1fd57f2eb6922aecadff246368691c6b">Array 和 ArrayBuffer 的转换</h4>
+
+<p>Array -&gt; ArrayBuffer</p>
+
+<pre><code class="language-scala">val buffer = arr.toBuffer
+</code></pre>
+
+<p>ArrayBuffer -&gt; Array</p>
+
+<pre><code class="language-scala">val arr4 = abuffer.toArray
+</code></pre>
+
+<h3 id="集合-2:1fd57f2eb6922aecadff246368691c6b">集合</h3>
+
+<h4 id="list-2:1fd57f2eb6922aecadff246368691c6b">List</h4>
+
+<p>Scala 列表在语言层面就分为不可变列表和可变列表。不可变列表无法改变列表的内容，是 Scala 默认的列表类型。</p>
+
+<h5 id="定义一个不可变列表:1fd57f2eb6922aecadff246368691c6b">定义一个不可变列表</h5>
+
+<p>空列表</p>
+
+<pre><code class="language-scala">val empty = List()
+println(empty == Nil)	//	true
+</code></pre>
+
+<p>Scala 中空列表等于 <code>Nil</code>。且由于列表不可变，所以该空列表也无法进行任何写操作</p>
+
+<p>指定元素的列表</p>
+
+<pre><code class="language-scala">val list = List(&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;)
+</code></pre>
+
+<h4 id="list-构造器:1fd57f2eb6922aecadff246368691c6b">List 构造器</h4>
+
+<p>Scala 的列表结构与其它语言都不一样。它分为头部和尾部，头部就是列表的第一个元素，尾部也是一个列表，它包含列表的其余部分。</p>
+
+<pre><code class="language-scala">val list = List(&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;)
+println(list.head) // Groovy
+println(list.tail) // List(Java, Scala)
+println(list.tail.head) //  Java
+</code></pre>
+
+<p>由于是不可变列表，所以即无法添加修改元素，也无法删除元素，但是可以通过符号 <code>::</code> 结合当前列表返回新列表。</p>
+
+<p><code>::</code> 是中缀操作符，左边的操作数为组成新列表的元素，右操作数为当前列表，该操作符具有右结合性，即 <code>A :: B :: C</code> 会被翻译成 <code>A :: (B :: C)</code></p>
+
+<pre><code class="language-scala">val list = List(&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;)
+val newList = &quot;Ruby&quot; :: list
+//	val newList2 = list :: &quot;Ruby&quot;
+</code></pre>
+
+<p>以上第一个操作会返回包含 <code>Ruby, Groovy, Java, Scala</code> 的新列表。第二个操作则是非法的，因为右操作数 <code>Ruby</code> 不是列表。</p>
+
+<p>掌握了右结合性的特性，我们就可以写出如下代码</p>
+
+<pre><code class="language-scala">val days = &quot;Sunday&quot; :: &quot;Monday&quot; :: &quot;Tuesday&quot; :: &quot;Wednesday&quot; :: &quot;Thursday&quot; :: &quot;Friday&quot; :: &quot;Saturday&quot; :: Nil
+</code></pre>
+
+<p>也可以通过操作符 <code>:::</code> 结合两个列表的内容产生新列表</p>
+
+<pre><code class="language-scala">val all = list ::: days
+</code></pre>
+
+<h5 id="访问元素-2:1fd57f2eb6922aecadff246368691c6b">访问元素</h5>
+
+<pre><code class="language-scala">println(list(2)) // Scala
+</code></pre>
+
+<h4 id="可变list:1fd57f2eb6922aecadff246368691c6b">可变List</h4>
+
+<p>可变 List 位于 <code>scala.collection.mutable</code> 包下，本质上是 <code>LinkedList</code>。</p>
+
+<p>创建一个可变 List</p>
+
+<pre><code class="language-scala">var mutableList = new mutable.MutableList[Int]
+</code></pre>
+
+<p>可变 List 可以使用符号 <code>+=</code> 添加新元素</p>
+
+<pre><code>//	添加单个元素
+mutableList += 1
+
+//	添加多个元素
+mutableList +=(2, 3, 5)
+</code></pre>
+
+<p>访问时与不可变 List 相同</p>
+
+<pre><code class="language-scala">println(mutableList(1))
+</code></pre>
+
+<p>尽管称作可变 List，但是其并不支持直接删除任意元素</p>
+
+<h4 id="listbuffer:1fd57f2eb6922aecadff246368691c6b">ListBuffer</h4>
+
+<p>ListBuffer 是另一种可变 List，其本质实际是由 <code>Nil</code> 和 <code>::</code> 结合不可变 List 来实现的。</p>
+
+<p>创建一个可变 ListBuffer</p>
+
+<pre><code class="language-scala">var listBuffer = new ListBuffer[Int]
+</code></pre>
+
+<p>可以使用符号 <code>+=</code> 添加新元素或者符号 <code>-=</code> 删除元素</p>
+
+<pre><code>//	添加单个元素
+listBuffer += 1
+
+//	添加多个元素
+listBuffer +=(2, 3, 5)
+
+//	删除元素
+listBuffer -= 2
+</code></pre>
+
+<p>访问时与不可变 List 相同</p>
+
+<pre><code class="language-scala">println(listBuffer(1))
+</code></pre>
+
+<h5 id="list-和-listbuffer-转换:1fd57f2eb6922aecadff246368691c6b">List 和 ListBuffer 转换</h5>
+
+<p>List -&gt; ListBuffer</p>
+
+<pre><code class="language-scala">list.toBuffer
+</code></pre>
+
+<p>ListBuffer -&gt; List</p>
+
+<pre><code class="language-scala">listBuffer.toList
+</code></pre>
+
+<h4 id="其它操作-2:1fd57f2eb6922aecadff246368691c6b">其它操作</h4>
+
+<p>获得 List 长度</p>
+
+<pre><code class="language-scala">println(list.length)
+</code></pre>
+
+<p>注意，Scala 中列表和数组都使用了 <code>length</code>，解决了 Java 中那个愚蠢的问题。</p>
+
+<p>遍历 List</p>
+
+<pre><code class="language-scala">for (lang &lt;- list) {
+  println(s&quot;Traverse $lang&quot;)
+}
+</code></pre>
+
+<h4 id="set-2:1fd57f2eb6922aecadff246368691c6b">Set</h4>
+
+<p>Set 使用方式类似 List，这里就不细说了。</p>
+
+<h3 id="range-2:1fd57f2eb6922aecadff246368691c6b">Range</h3>
+
+<p>定义一个 Range</p>
+
+<pre><code class="language-scala">val rng1 = 1 to 3
+println(rng1) //  Range(1, 2, 3)
+</code></pre>
+
+<p>Range 不仅可以用在数字上，也可以用在字符上</p>
+
+<pre><code class="language-scala">val rng4 = 'a' to 'c'
+println(rng4) //  NumericRange(a, b, c)
+</code></pre>
+
+<p>左闭右开</p>
+
+<pre><code class="language-scala">val rng2 = 1 until 3
+println(rng2) //  Range(1, 2)
+</code></pre>
+
+<p>指定步长</p>
+
+<pre><code class="language-scala">val rng3 = 1 to 5 by 2
+println(rng3) //  Range(1, 3, 5)
+</code></pre>
+
+<p>除了以上方法，还可以直接通过构造器建立对象，需要注意的是通过构造器建立的范围是左闭右开的</p>
+
+<pre><code class="language-scala">val rng5 = Range(1, 3)
+println(rng5) //  Range(1, 2)
+
+val rng6 = Range(1, 5, 2)
+println(rng6) //  Range(1, 3)
+</code></pre>
+
+<h2 id="kotlin-篇:1fd57f2eb6922aecadff246368691c6b">Kotlin 篇</h2>
+
+<h3 id="数组-3:1fd57f2eb6922aecadff246368691c6b">数组</h3>
+
+<pre><code class="language-kotlin">//	基本语法
+val arr = arrayOfNulls&lt;Int&gt;(3)
+
+//	定义时指定内容
+val arr2 = arrayOf(1, 2, 3)
+</code></pre>
+
+<p>修改元素</p>
+
+<pre><code class="language-kotlin">arr[0] = 10
+</code></pre>
+
+<p>读取元素</p>
+
+<pre><code class="language-kotlin">println(arr[0])
+</code></pre>
+
+<p>获得数组长度</p>
+
+<pre><code class="language-kotlin">println(arr.size
+</code></pre>
+
+<p>遍历数组</p>
+
+<pre><code class="language-kotlin">for (a in arr2) {
+    println(&quot;Traverse $a&quot;)
+}
+</code></pre>
+
+<h3 id="集合-3:1fd57f2eb6922aecadff246368691c6b">集合</h3>
+
+<h4 id="list-3:1fd57f2eb6922aecadff246368691c6b">List</h4>
+
+<p>Kotlin 同 Scala 一样 列表在语言层面就分为不可变列表和可变列表。不可变列表无法改变列表的内容，是 Kotlin 默认的列表类型。</p>
+
+<h5 id="定义一个不可变列表-1:1fd57f2eb6922aecadff246368691c6b">定义一个不可变列表</h5>
+
+<p>空列表</p>
+
+<pre><code class="language-kotlin">val empty = emptyList&lt;Int&gt;()
+</code></pre>
+
+<p>Kotlin 中由于列表不可变，所以该空列表也无法进行任何写操作</p>
+
+<p>指定元素的列表</p>
+
+<pre><code class="language-kotlin">val list = listOf(&quot;Groovy&quot;, &quot;Java&quot;, &quot;Scala&quot;)
+</code></pre>
+
+<h5 id="访问元素-3:1fd57f2eb6922aecadff246368691c6b">访问元素</h5>
+
+<pre><code class="language-kotlin">println(list(2)) // Scala
+</code></pre>
+
+<h4 id="可变-list:1fd57f2eb6922aecadff246368691c6b">可变 List</h4>
+
+<p>Kotlin 从前版本的可变 List 就是 <code>LinkedList</code>，但是 1.0 版本变成了 <code>ArrayList</code>，api 也跟着改变了。</p>
+
+<p>创建一个可变 List</p>
+
+<pre><code class="language-kotlin">var mutableList = mutableListOf&lt;String&gt;()
+</code></pre>
+
+<p>可变 List 可以使用方法 <code>add()</code> 添加新元素，使用方法 <code>remove()</code> 删除元素</p>
+
+<pre><code class="language-kotlin">mList.add(&quot;Ruby&quot;)
+
+mList.remove(&quot;Java&quot;)
+</code></pre>
+
+<p>访问时与不可变 List 相同</p>
+
+<pre><code class="language-kotlin">println(mutableList(1))
+</code></pre>
+
+<h4 id="其它操作-3:1fd57f2eb6922aecadff246368691c6b">其它操作</h4>
+
+<p>获得 kotlin 长度</p>
+
+<pre><code class="language-kotlin">println(list.size)
+</code></pre>
+
+<p>注意，Kotlin 和 Scala 一样也统一了用法，但是 Kotlin 使用的是 <code>size()</code>。</p>
+
+<p>遍历 List</p>
+
+<pre><code class="language-kotlin">for (lang in list) {
+    println(&quot;Traverse $lang&quot;)
+}
+</code></pre>
+
+<h4 id="set-3:1fd57f2eb6922aecadff246368691c6b">Set</h4>
+
+<p>Set 使用方式类似 List，这里就不细说了。</p>
+
+<h3 id="range-3:1fd57f2eb6922aecadff246368691c6b">Range</h3>
+
+<p>定义一个 Range</p>
+
+<pre><code class="language-kotlin">val rng1 = 1..3
+println(rng1)   //  1..3
+</code></pre>
+
+<p>Range 不仅可以用在数字上，也可以用在字符上</p>
+
+<pre><code class="language-kotlin">val rng4 = 'a'..'c'
+println(rng4)   //  a..c
+</code></pre>
+
+<p>指定步长</p>
+
+<pre><code class="language-kotlin">val rng3 = (1..5).step(2)
+println(rng3)   //  1..5 step 2
+</code></pre>
+
+<h2 id="总结:1fd57f2eb6922aecadff246368691c6b">总结</h2>
+
+<ul>
+<li>除了 Java，其它语言都支持 Range 类型</li>
+<li>Scala 与 Kotlin 默认集合为不可变形式</li>
+<li>Scala 有可变数组和不可变数组两种数组</li>
+<li>Scala 有 Mutable List, Immutable List 和 ListBuffer 三种列表</li>
+<li>Java 和 Groovy 访问数组长度和列表长度分为为 <code>length</code> 和 <code>size()</code>，Scala 访问数组和列表长度都使用 <code>length</code>，Kotlin 都使用 <code>size()</code> ╮(╯_╰)╭</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_13_collection</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-18 </h4>
+          <h5 id="wc"> 1100 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  5 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-14-map-and-turple/"><i class="icon-arrow-left"></i> JGSK - 14.映射与元祖</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-12-loop/">JGSK - 12.循环 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="1059">
+<meta itemprop="datePublished" content="2015-09-18">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-13-collection-and-range/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-13-collection-and-range\/';
+    var disqus_title = 'JGSK - 13.数组，集合与范围';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-13-collection-and-range\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

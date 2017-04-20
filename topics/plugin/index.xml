@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plugin on Pixel Space</title>
+    <link>http://git.bookislife.com/topics/plugin/</link>
+    <description>Recent content in Plugin on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 30 Sep 2015 07:07:36 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/topics/plugin/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>如何开发 Gradle 插件</title>
+      <link>http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/</link>
+      <pubDate>Wed, 30 Sep 2015 07:07:36 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/</guid>
+      <description>
+
+&lt;h2 id=&#34;概述:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;概述&lt;/h2&gt;
+
+&lt;p&gt;基于 Gradle 进行构建的程序离不开 Gradle 插件。有时现存的插件没有办法满足我们的需求，这时就需要我们自定义 Gradle 插件。本文就是从头编写 Gradle 插件的一个简单例子。&lt;/p&gt;
+
+&lt;p&gt;使用的开发环境为 IDEA，开发语言为 Groovy，尽管也可以用 Java 来开发 Gradle 插件，但是开发时配置繁琐且效率低，所以还是推荐使用 Groovy。&lt;/p&gt;
+
+&lt;h2 id=&#34;开发步骤:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;开发步骤&lt;/h2&gt;
+
+&lt;h3 id=&#34;建立工程:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;建立工程&lt;/h3&gt;
+
+&lt;p&gt;使用 IDEA 建立一个基于 Gradle 构建的工程 &lt;code&gt;sample-plugin&lt;/code&gt;，并建立子工程 &lt;code&gt;plugin&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;修改子工程的-build-gradle-文件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;修改子工程的 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: &#39;groovy&#39;
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile &#39;org.codehaus.groovy:groovy-all:2.3.11&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;编写-plugin-代码:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;编写 Plugin 代码&lt;/h3&gt;
+
+&lt;p&gt;在 plugin 工程下新建包含插件代码的 gradle 文件： &lt;code&gt;greeting.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: GreetingPlugin
+
+greeting {
+    message = &#39;Hi&#39;
+    greeter = &#39;Gradle&#39;
+}
+
+class GreetingPlugin implements Plugin&amp;lt;Project&amp;gt; {
+    void apply(Project project) {
+        // Add the &#39;greeting&#39; extension object
+        project.extensions.create(&amp;quot;greeting&amp;quot;, GreetingPluginExtension)
+
+        // Add a task that uses the configuration
+        project.task(&#39;hello&#39;) &amp;lt;&amp;lt; {
+            println &amp;quot;${project.greeting.message} from ${project.greeting.greeter}&amp;quot;
+        }
+    }
+}
+
+class GreetingPluginExtension {
+    String message
+    String greeter
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码创建了一个名为 &lt;code&gt;GreetingPlugin&lt;/code&gt; 的插件，该插件包含一个名为 &lt;code&gt;hello&lt;/code&gt; 的 task。此 Task 负责输出工程的 &lt;code&gt;project&lt;/code&gt; 对象下的 &lt;code&gt;greeting.message&lt;/code&gt; 和 &lt;code&gt;greeting.greeter&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;继续修改 &lt;code&gt;build.gradle&lt;/code&gt;，导入以上编写的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply from: &amp;quot;greeting.gradle&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;运行代码:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;运行代码&lt;/h3&gt;
+
+&lt;p&gt;在 plugin 工程下执行以下语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle tasks
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到控制台有输出语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Other tasks
+-----------
+hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这就是刚才创建的 Gradle Task。接着执行以下语句运行该 Task：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;成功的话控制台会输出 &amp;ldquo;Hi from Gradle&amp;rdquo;。至此一个简单的插件已经开发完毕，接下来为了在其它工程中使用我们可以将插件发布到本地路径。&lt;/p&gt;
+
+&lt;h3 id=&#34;发布插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;发布插件&lt;/h3&gt;
+
+&lt;h4 id=&#34;编写-groovy-文件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;编写 Groovy 文件&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;greeting.gradle&lt;/code&gt; 文件只是用于快速开发时使用，正式开发或发布时我们需要编写单独的 Groovy 文件。&lt;/p&gt;
+
+&lt;p&gt;新建 &lt;code&gt;GreetingPlugin.groovy&lt;/code&gt; 文件，将之前的 &lt;code&gt;greeting.build&lt;/code&gt; 中的除了 &lt;code&gt;apply&lt;/code&gt; 和 &lt;code&gt;greeting()&lt;/code&gt; 之外的代码都拷贝到该文件。&lt;/p&gt;
+
+&lt;h4 id=&#34;指定-short-plugin-id:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;指定 Short Plugin Id&lt;/h4&gt;
+
+&lt;p&gt;使用插件时我们需要指定插件的 id，如 &lt;code&gt;apply plugin: &amp;quot;Java&amp;quot;&lt;/code&gt;，默认的插件 ID 为包名+类名，这个默认的命名规则太长了，使用时很不方便，我们可以指定一个 Short ID 作为别名。&lt;/p&gt;
+
+&lt;p&gt;步骤如下&lt;/p&gt;
+
+&lt;p&gt;在 plugin 工程的 &lt;code&gt;resources&lt;/code&gt; 目录下建立 &lt;code&gt;META-INF/gradle-plugins&lt;/code&gt; 文件夹，在其中建立名为 &lt;code&gt;&amp;lt;shortId&amp;gt;.properties&lt;/code&gt; 的文件&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;greeting.properties&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implementation-class=com.bookislife.example.GreetingPlugin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此文件名即为 &lt;code&gt;implementation-class&lt;/code&gt; 对应的插件的Short ID。&lt;/p&gt;
+
+&lt;h4 id=&#34;发布插件到本地:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;发布插件到本地&lt;/h4&gt;
+
+&lt;p&gt;修改 plugin 下的 &lt;code&gt;build.gradle&lt;/code&gt; 文件，追加以下代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;group &amp;quot;com.test&amp;quot;
+version &amp;quot;1.0-SNAPSHOT&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上指定了插件发布的 group 和 version，而插件的 name 则默认为模块名，即 &lt;code&gt;plugin&lt;/code&gt;，继续修改 &lt;code&gt;build.gradle&lt;/code&gt; 追加 maven 发布插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: &#39;maven&#39;
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri(&#39;../repo&#39;))
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q upload
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此时编写好的插件就会被发布到工程根目录下的 &lt;code&gt;repo&lt;/code&gt; 文件夹下。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;使用插件&lt;/h3&gt;
+
+&lt;p&gt;在父工程的根目录下建立新的基于 Gradle 的工程 &amp;ldquo;test&amp;rdquo;，修改该工程下的 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;buildscript {
+    repositories {
+        maven {
+            url uri(&#39;../repo&#39;)
+        }
+        mavenCentral()
+    }
+    dependencies {
+        //  group:name:version
+        classpath &#39;com.test:plugin:1.0-SNAPSHOT&#39;
+    }
+}
+
+apply plugin: &#39;greeting&#39;
+
+greeting {
+    message = &#39;Hello&#39;
+    greeter = &#39;a test module&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着定位到 test 工程下，在控制台执行以下语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;成功的话可以看到控制台输出 &lt;code&gt;Hello from  a test module&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;log-系统:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;Log 系统&lt;/h2&gt;
+
+&lt;p&gt;在开发 Gradle 插件时可以使用 Gradle 自身的日志系统进行输出，如 &lt;code&gt;project.logger.error(msg)&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Log 共有以下几个级别&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;quiet&lt;/li&gt;
+&lt;li&gt;error&lt;/li&gt;
+&lt;li&gt;warn&lt;/li&gt;
+&lt;li&gt;lifecycle&lt;/li&gt;
+&lt;li&gt;info&lt;/li&gt;
+&lt;li&gt;debug&lt;/li&gt;
+&lt;li&gt;trace&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;运行时可以通过加上级别或其缩写来只输出某个级别以上的日志，如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle --quiet build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同时也可以使用内置的 &lt;code&gt;println()&lt;/code&gt; 方法进行输出，Gradle 内部会将其重定向为 quiet 级别的日志。&lt;/p&gt;
+
+&lt;h2 id=&#34;debug-插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;Debug 插件&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在对应的代码处打上断点&lt;/li&gt;
+&lt;li&gt;执行需要 Debug 的 task&lt;br /&gt;
+&lt;code&gt;bash
+gradle -Dorg.gradle.debug=true hello
+&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;选择 IDEA 的 &lt;code&gt;Run Configurations&lt;/code&gt; -&amp;gt; 建立 &lt;code&gt;Remote&lt;/code&gt;，创建完后点击 &lt;code&gt;Debug&lt;/code&gt; 按钮，程序就会在断点处中断运行了。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 Gradle Plugin 示例见 [hello-gradle][&lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/hello-gradle&#34;&gt;https://github.com/SidneyXu/templates/tree/master/hello-gradle&lt;/a&gt;]&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

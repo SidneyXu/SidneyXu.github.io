@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="jni, ndk, debug, android, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="如何开发 JNI 应用"/>
+<meta property="og:site_name" content="如何开发 JNI 应用"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/how-to-develop-jni-app/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-23"/>
+<meta property="article:modified_time" content="2015-09-23"/>
+
+
+
+<meta property="article:tag" content="jni">
+<meta property="article:tag" content="ndk">
+<meta property="article:tag" content="debug">
+<meta property="article:tag" content="android">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="如何开发 JNI 应用">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> 如何开发 JNI 应用 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/how-to-develop-jni-app/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=%e5%a6%82%e4%bd%95%e5%bc%80%e5%8f%91%20JNI%20%e5%ba%94%e7%94%a8-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f&title=%e5%a6%82%e4%bd%95%e5%bc%80%e5%8f%91%20JNI%20%e5%ba%94%e7%94%a8&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-jni-app%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">如何开发 JNI 应用</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#传统-jni-开发步骤:6a26598dccbc474410e9b9e3c353078a">传统 JNI 开发步骤</a>
+<ul>
+<li><a href="#总述:6a26598dccbc474410e9b9e3c353078a">总述</a></li>
+<li><a href="#在类中追加-native-方法:6a26598dccbc474410e9b9e3c353078a">在类中追加 native 方法</a></li>
+<li><a href="#生成头文件:6a26598dccbc474410e9b9e3c353078a">生成头文件</a></li>
+<li><a href="#编写-jni-代码:6a26598dccbc474410e9b9e3c353078a">编写 JNI 代码</a></li>
+<li><a href="#配置-ndk-环境:6a26598dccbc474410e9b9e3c353078a">配置 NDK 环境</a></li>
+<li><a href="#编译-jni-代码:6a26598dccbc474410e9b9e3c353078a">编译 JNI 代码</a></li>
+<li><a href="#载入-library-运行代码:6a26598dccbc474410e9b9e3c353078a">载入 Library，运行代码</a></li>
+<li><a href="#自定义配置:6a26598dccbc474410e9b9e3c353078a">自定义配置</a></li>
+</ul></li>
+<li><a href="#基于最新-android-studio-进行-jni-开发:6a26598dccbc474410e9b9e3c353078a">基于最新 Android Studio 进行 JNI 开发</a>
+<ul>
+<li><a href="#环境:6a26598dccbc474410e9b9e3c353078a">环境</a></li>
+<li><a href="#修改-build-gradle-配置:6a26598dccbc474410e9b9e3c353078a">修改 build.gradle 配置</a></li>
+<li><a href="#进行-debug:6a26598dccbc474410e9b9e3c353078a">进行 Debug</a></li>
+</ul></li>
+<li><a href="#参考资料:6a26598dccbc474410e9b9e3c353078a">参考资料</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="传统-jni-开发步骤:6a26598dccbc474410e9b9e3c353078a">传统 JNI 开发步骤</h2>
+
+<h3 id="总述:6a26598dccbc474410e9b9e3c353078a">总述</h3>
+
+<p>Android 的 JNI 开发一般可以总结为以下步骤</p>
+
+<ol>
+<li>编写含有 Native 方法的 Java 类</li>
+<li>用 javah 生成 C/C++ 原生函数的头文件</li>
+<li>用 C/C++ 实现原生函数</li>
+<li>将项目依赖的原生库和资源添加到工程中</li>
+<li>生成应用</li>
+</ol>
+
+<h3 id="在类中追加-native-方法:6a26598dccbc474410e9b9e3c353078a">在类中追加 native 方法</h3>
+
+<pre><code class="language-java">public class Hello {
+    public native String hellojni();
+}
+</code></pre>
+
+<h3 id="生成头文件:6a26598dccbc474410e9b9e3c353078a">生成头文件</h3>
+
+<p>在当前模块目录下追加一个 shell 文件，该文件用于生成头文件</p>
+
+<p>hello.sh</p>
+
+<pre><code class="language-bash">#!/bin/sh
+export ProjectPath=$(cd &quot;.&quot;; pwd)
+#echo $ProjectPath
+
+export TargetClassName=&quot;com.example.jni.Hello&quot;
+export SourceFile=&quot;${ProjectPath}/src/main/java&quot;
+export TargetPath=&quot;${ProjectPath}/src/main/jni&quot;
+
+#echo $SourceFile
+cd &quot;${SourceFile}&quot;
+javah -d ${TargetPath} -classpath &quot;${SourceFile}&quot; &quot;${TargetClassName}&quot;
+echo -d ${TargetPath} -
+</code></pre>
+
+<p>其中</p>
+
+<ul>
+<li><code>TargetClassName</code> 为含有 native 方法的类</li>
+<li><code>SourceFile</code> 为 Java 源代码目录</li>
+<li><code>TargetPath</code> 为 jni 源代码目录</li>
+</ul>
+
+<p>运行 shell 文件 <code>sh hello.sh</code>，在目录 <code>src/main/jni</code> 下会发现生成的.h 头文件</p>
+
+<p>例</p>
+
+<p>com_example_jni_Hello.h</p>
+
+<pre><code class="language-c">/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+/* Header for class com_example_jni_Hello */
+
+#ifndef _Included_com_example_jni_Hello
+#define _Included_com_example_jni_Hello
+#ifdef __cplusplus
+extern &quot;C&quot; {
+#endif
+/*
+ * Class:     com_example_jni_Hello
+ * Method:    hellojni
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_example_jni_Hello_hellojni
+  (JNIEnv *, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+</code></pre>
+
+<h3 id="编写-jni-代码:6a26598dccbc474410e9b9e3c353078a">编写 JNI 代码</h3>
+
+<p>根据头文件，在 jni 目录下创建对应的.c/.cpp 文件，完成代码</p>
+
+<p>例</p>
+
+<p>hello.cpp</p>
+
+<pre><code class="language-c">#include &quot;com_example_jni_Hello.h&quot;
+/*
+ * Class:     com_example_jni_Hello
+ * Method:    hellojni
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_example_jni_Hello_hellojni
+  (JNIEnv *env, jobject){
+    return env-&gt;NewStringUTF( &quot;hello from jni&quot;);
+  }
+</code></pre>
+
+<h3 id="配置-ndk-环境:6a26598dccbc474410e9b9e3c353078a">配置 NDK 环境</h3>
+
+<p>下载 NDK，并在工程目录下新建 <code>local.properties</code> 文件，在其中追加 <code>ndk.dir</code> 属性，值为 NDK 的路径</p>
+
+<pre><code>ndk.dir=/Users/localUser/Documents/android-ndk-r10d
+</code></pre>
+
+<h3 id="编译-jni-代码:6a26598dccbc474410e9b9e3c353078a">编译 JNI 代码</h3>
+
+<p>选择当前模块 -&gt; 右键选择 <code>Make Module</code> 后编译代码，完成后在 <code>build/intermediates/ndk</code> 目录下会生成对应的 <code>Android.mk</code> 文件和 <code>xx.so</code> 文件（如果出现错误，需要注意 ndk 下的 <code>platform</code> 目录下是否有当前的 sdk 版本，没有的话需要更新 ndk）。</p>
+
+<h3 id="载入-library-运行代码:6a26598dccbc474410e9b9e3c353078a">载入 Library，运行代码</h3>
+
+<p>打开拥有 native 方法的类，加入以下语句</p>
+
+<pre><code class="language-java">static {
+  System.loadLibrary(libraryName );
+}
+</code></pre>
+
+<p><code>libraryName</code> 就是上一节 <code>Android.mk</code> 文件中的 <code>LOCAL_MODULE</code> 名，Gradle 默认生成的 <code>libraryName</code> 就是当前的模块名，所以如果你用默认配置的话应该就是 <code>app</code>。</p>
+
+<p>以上都完成后，就可以运行代码查看效果了。</p>
+
+<h3 id="自定义配置:6a26598dccbc474410e9b9e3c353078a">自定义配置</h3>
+
+<p>包含 moduleName 等可以通过修改 build.gradle 文件进行一些自定义配置</p>
+
+<pre><code class="language-gradle">debug {
+  ndk {
+    //  自定义 library 名
+    moduleName &quot;jnimain&quot;
+
+    //  指定生成的 xx.so 平台
+    abiFilters &quot;armeabi&quot;, &quot;armeabi-v7a&quot;
+
+    stl &quot;stlport_shared&quot;
+  }
+}
+</code></pre>
+
+<h2 id="基于最新-android-studio-进行-jni-开发:6a26598dccbc474410e9b9e3c353078a">基于最新 Android Studio 进行 JNI 开发</h2>
+
+<p>最新的 Android Studio 使用了新的一套配置来进行 JNI 开发，并且其内置了 NDK 的 Debug 机能。不过目前这种配置还是实验性的，所以与以前的方式相比较需要改动不少地方。</p>
+
+<h3 id="环境:6a26598dccbc474410e9b9e3c353078a">环境</h3>
+
+<ul>
+<li><p>Android Studio 1.3 RC1 以上</p></li>
+
+<li><p>Gradle 2.5，目前仅支持 2.5，其它版本的 Gradle 都不行</p></li>
+</ul>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jni/sdk.png" alt="" />
+</p>
+
+<h3 id="修改-build-gradle-配置:6a26598dccbc474410e9b9e3c353078a">修改 build.gradle 配置</h3>
+
+<p>根目录 build.gradle</p>
+
+<p>注意 <code>classpath</code> 由原来的 <code>classpath 'com.android.tools.build:gradle:1.3.+’</code> 变为了以下这种</p>
+
+<pre><code class="language-gradle">buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle-experimental:0.2.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+</code></pre>
+
+<p>工程目录 build.gradle</p>
+
+<pre><code class="language-gradle">apply plugin: 'com.android.model.application'
+
+repositories {
+    jcenter()
+}
+
+model {
+    android {
+        compileSdkVersion = 22
+        buildToolsVersion = &quot;22.0.1&quot;
+
+        defaultConfig.with {
+            applicationId = &quot;com.example.jni&quot;
+            minSdkVersion.apiLevel = 9
+            targetSdkVersion.apiLevel = 22
+            versionCode = 1
+            versionName = &quot;1.0&quot;
+        }
+    }
+    android.buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles += file('proguard-rules.pro')
+        }
+        debug {
+            ndk.with {
+                debuggable = true
+            }
+        }
+    }
+    android.ndk {
+        moduleName = &quot;app&quot;
+    }
+    compileOptions.with {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:22.2.1'
+}
+</code></pre>
+
+<p>这里需要注意几点</p>
+
+<ul>
+<li><p>plugin 由 <code>com.android.application</code> 变为 <code>com.android.model.application</code></p></li>
+
+<li><p><code>android{}</code> 移到了 <code>model{}</code> 下</p></li>
+
+<li><p><code>minSdkVersion</code> 等变为了 <code>minSdkVersion.apiLevel</code></p></li>
+
+<li><p><code>defaultConfig</code> 等变为了 <code>defaultConfig.with</code></p></li>
+
+<li><p><code>compileSdkVersion 22</code> 之类的都变成了 <code>compileSdkVersion = 22</code></p></li>
+</ul>
+
+<h3 id="进行-debug:6a26598dccbc474410e9b9e3c353078a">进行 Debug</h3>
+
+<p>以上修改完毕后，选择 <code>Edit Configurations</code> -&gt; 新建 <code>Android Native</code>，以 Debug 形式运行此配置</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jni/config.png" alt="" />
+</p>
+
+<p>在工程的 native 代码中打上断点，就可以进行 native 代码相关的 debug 了。</p>
+
+<p><img src="http://7xlqqp.com1.z0.glb.clouddn.com/jni/debug.png" alt="" />
+</p>
+
+<h2 id="参考资料:6a26598dccbc474410e9b9e3c353078a">参考资料</h2>
+
+<ul>
+<li><a href="http://tools.android.com/tech-docs/android-ndk-preview">Android NDK Preview</a></li>
+<li><a href="http://tools.android.com/tech-docs/new-build-system/gradle-experimental">Experimental Plugin User Guide</a></li>
+<li><a href="http://qiita.com/eaglesakura/items/c4af7989b03904d66ebe">Android StudioのNDK開発機能を使おう！</a></li>
+</ul>
+
+<p>完整的 Android 示例见 <a href="https://github.com/SidneyXu/templates/tree/master/hello-jni">hello-jni</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-23 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/android">Android</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/ndk">ndk</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/android">android</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/"><i class="icon-arrow-left"></i> Android测试环境选型</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-18-classdata-kotlin/">JGSK - 18.类相关:Data类 - Kotlin 篇 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="456">
+<meta itemprop="datePublished" content="2015-09-23">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/how-to-develop-jni-app/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/how-to-develop-jni-app\/';
+    var disqus_title = '如何开发 JNI 应用';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/how-to-develop-jni-app\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

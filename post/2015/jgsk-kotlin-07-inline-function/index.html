@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Kotlin - 07.内联函数"/>
+<meta property="og:site_name" content="JGSK - Kotlin - 07.内联函数"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-kotlin-07-inline-function/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-30"/>
+<meta property="article:modified_time" content="2015-12-30"/>
+
+
+
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Kotlin - 07.内联函数">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Kotlin - 07.内联函数 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-kotlin-07-inline-function/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Kotlin%20-%2007.%e5%86%85%e8%81%94%e5%87%bd%e6%95%b0-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f&title=JGSK%20-%20Kotlin%20-%2007.%e5%86%85%e8%81%94%e5%87%bd%e6%95%b0&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-07-inline-function%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Kotlin - 07.内联函数</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#内联函数:1b34e32525c7e9224d713389da0255ad">内联函数</a>
+<ul>
+<li><a href="#概念:1b34e32525c7e9224d713389da0255ad">概念</a></li>
+<li><a href="#定义内联函数:1b34e32525c7e9224d713389da0255ad">定义内联函数</a></li>
+<li><a href="#noinline:1b34e32525c7e9224d713389da0255ad">noinline</a></li>
+<li><a href="#non-local-returns:1b34e32525c7e9224d713389da0255ad">Non-local Returns</a></li>
+<li><a href="#类型参数:1b34e32525c7e9224d713389da0255ad">类型参数</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="内联函数:1b34e32525c7e9224d713389da0255ad">内联函数</h2>
+
+<h3 id="概念:1b34e32525c7e9224d713389da0255ad">概念</h3>
+
+<p>普通函数在执行时程序会跳转到函数定义处执行完毕后再返回调用处。而内联函数指的是函数定义被整个复制到了调用处，所以与普通函数相比，内联函数无需进行程序的跳转，有助于提高程序的运行速度。但是大量的内联函数会增大应用的体积，从而减慢应用的加载速度。</p>
+
+<p>特别注意，内联函数不是内嵌函数，内嵌函数是函数中定义函数，两者只差一个字，但是意义完全不同。</p>
+
+<p>Java 平台一直都是支持内联函数的，但是开发者无法自行指定任何函数为内联函数。内联这一操作本身是由 JVM 在运行时自动决定的。而 Kotlin 提供了在编译器进行内联的功能。</p>
+
+<h3 id="定义内联函数:1b34e32525c7e9224d713389da0255ad">定义内联函数</h3>
+
+<p>定义内联函数只需要在普通函数前面加上 <code>inline</code> 关键字即可。需要特别注意的是内联操作不仅对函数体有效，也对函数参数有效。</p>
+
+<pre><code class="language-kotlin">//  内联函数
+inline fun &lt;T&gt; inlineLock(lock: Lock, body: () -&gt; T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+        lock.unlock()
+    }
+}
+
+//  普通函数
+fun echo() = println(&quot;foo&quot;)
+</code></pre>
+
+<p>调用该内联函数</p>
+
+<pre><code class="language-kotlin">val lock = ReentrantLock()
+inlineLock(lock, { echo() })
+</code></pre>
+
+<p>以上代码会被编译成以下代码，即函数体和作为参数的 Lambda 表达式都被替换成了实际代码。</p>
+
+<pre><code class="language-kotlin">val lock = ReentrantLock()
+lock.lock()
+try {
+    println(&quot;foo&quot;)
+} finally {
+    lock.unlock()
+}
+</code></pre>
+
+<h3 id="noinline:1b34e32525c7e9224d713389da0255ad">noinline</h3>
+
+<p>有时我们希望定义内联函数时只要对函数体有效，不要对参数有效，可以在参数前加上 <code>noinline</code> 关键字取消参数的内联操作。</p>
+
+<pre><code class="language-kotlin">inline fun &lt;T&gt; inlineLock(lock: Lock, body: () -&gt; T,
+                          noinline notInlined: () -&gt; T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+        lock.unlock()
+    }
+}
+</code></pre>
+
+<h3 id="non-local-returns:1b34e32525c7e9224d713389da0255ad">Non-local Returns</h3>
+
+<p>我们知道在函数中定义的函数或闭包如果调用 <code>return</code> 语句只能退出其当前所在的闭合语句块，即本地返回，而无法退出外层函数。而内联函数由于是被直接复制到了调用处，所以其支持非本地返回(Non-local returns)，即调用 <code>return</code> 时会退出外层函数。</p>
+
+<p>例</p>
+
+<p>定义一个内联函数</p>
+
+<pre><code class="language-kotlin">inline fun contains(f: () -&gt; Boolean): Boolean {
+    return f()
+}
+</code></pre>
+
+<p>定义一个调用内联函数的函数</p>
+
+<pre><code class="language-kotlin">fun localReturn(list: List&lt;Int&gt;): Boolean {
+    contains {
+        for (i in list) {
+            if (i == 0) return true
+        }
+        return false
+    }
+    return false
+}
+</code></pre>
+
+<p>以上 <code>contains</code> 中的 <code>return</code> 语句会直接返回到 <code>localReturn()</code> 的调用处，而不是退出 <code>contains</code> 语句块。</p>
+
+<p>这种特性在很多时候很有用，但是有时我们定义的内联函数并不会立即在当前环境执行，而是放在诸如线程中执行，这时调用该函数的时候就不能依靠它的返回值来控制流程，为了标志这种情况可以在参数上加上关键字 <code>crossinline</code>，这样调用处会在编译时就报错避免错误调用。</p>
+
+<p>例</p>
+
+<pre><code class="language-kotlin">inline fun crosslineFun(crossinline f: () -&gt; Unit): Unit {
+    Thread {
+        f()
+    }.start()
+}
+fun crosslineReturn(list: List&lt;Int&gt;): Unit {
+    crosslineFun {
+    }
+}
+</code></pre>
+
+<h3 id="类型参数:1b34e32525c7e9224d713389da0255ad">类型参数</h3>
+
+<p>有时候我们希望将类型作为参数进行传递，在 Java 中主要依赖反射的机制，将 <code>Class</code> 对象作为进行传递。</p>
+
+<p>例</p>
+
+<pre><code class="language-kotlin">fun &lt;T&gt; TreeNode.findParentOfType(clazz: Class&lt;T&gt;): T? {
+    var p = parent
+    while (p != null &amp;&amp; !clazz.isInstance(p)) {
+        p = p.parent
+    }
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    return p as T
+}
+</code></pre>
+
+<p>调用以上函数</p>
+
+<pre><code class="language-kotlin">val root = DefaultMutableTreeNode(&quot;root&quot;)
+val node1 = DefaultMutableTreeNode(&quot;node1&quot;)
+val node1_1 = DefaultMutableTreeNode(&quot;node1_1&quot;)
+val node2 = DefaultMutableTreeNode(&quot;node2&quot;)
+node1.add(node1_1)
+root.add(node1)
+root.add(node2)
+
+var parent = node1_1.findParentOfType(DefaultMutableTreeNode::class.java)
+println(parent) //  node1
+</code></pre>
+
+<p>可以看到由于依赖于反射，所以在函数体内不但要处理未检查类型转换的警告也很难处理具体类型的信息。</p>
+
+<p>而内联函数由于是复制到调用处，所以实际在运行时无需依赖反射，可以直接得到真实类型。要开启此功能，只需在泛型参数前加上 <code>reified</code> 关键字。</p>
+
+<pre><code class="language-kotlin">inline fun &lt;reified T&gt; TreeNode.inlineFindParentOfType(): T? {
+    var p = parent
+    while (p != null &amp;&amp; p !is T) {
+        p = p.parent
+    }
+    return p as T
+}
+</code></pre>
+
+<p>调用该函数</p>
+
+<pre><code class="language-kotlin">parent = node1_1.inlineFindParentOfType()
+println(parent) //  node1
+</code></pre>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-30 </h4>
+          <h5 id="wc"> 300 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-kotlin-08-utils/"><i class="icon-arrow-left"></i> JGSK - Kotlin - 08.Utils</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-kotlin-06-dsl/">JGSK - Kotlin - 06.DSL <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="283">
+<meta itemprop="datePublished" content="2015-12-30">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-kotlin-07-inline-function/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-kotlin-07-inline-function\/';
+    var disqus_title = 'JGSK - Kotlin - 07.内联函数';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-kotlin-07-inline-function\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 22.包与访问权限"/>
+<meta property="og:site_name" content="JGSK - 22.包与访问权限"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-22-package/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-29"/>
+<meta property="article:modified_time" content="2015-09-29"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 22.包与访问权限">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 22.包与访问权限 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-22-package/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2022.%e5%8c%85%e4%b8%8e%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f&title=JGSK%20-%2022.%e5%8c%85%e4%b8%8e%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-22-package%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 22.包与访问权限</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:de397039aa9a798437cfa279bdf799e7">Java 篇</a>
+<ul>
+<li><a href="#包:de397039aa9a798437cfa279bdf799e7">包</a>
+<ul>
+<li><a href="#创建包:de397039aa9a798437cfa279bdf799e7">创建包</a></li>
+<li><a href="#导入包:de397039aa9a798437cfa279bdf799e7">导入包</a></li>
+<li><a href="#package-info:de397039aa9a798437cfa279bdf799e7">package-info</a></li>
+</ul></li>
+<li><a href="#访问权限:de397039aa9a798437cfa279bdf799e7">访问权限</a></li>
+</ul></li>
+<li><a href="#groovy-篇:de397039aa9a798437cfa279bdf799e7">Groovy 篇</a>
+<ul>
+<li><a href="#包-1:de397039aa9a798437cfa279bdf799e7">包</a>
+<ul>
+<li><a href="#创建包-1:de397039aa9a798437cfa279bdf799e7">创建包</a></li>
+<li><a href="#导入包-1:de397039aa9a798437cfa279bdf799e7">导入包</a></li>
+</ul></li>
+<li><a href="#访问权限-1:de397039aa9a798437cfa279bdf799e7">访问权限</a></li>
+</ul></li>
+<li><a href="#scala-篇:de397039aa9a798437cfa279bdf799e7">Scala 篇</a>
+<ul>
+<li><a href="#包-2:de397039aa9a798437cfa279bdf799e7">包</a>
+<ul>
+<li><a href="#创建包-2:de397039aa9a798437cfa279bdf799e7">创建包</a></li>
+<li><a href="#导入包-2:de397039aa9a798437cfa279bdf799e7">导入包</a></li>
+<li><a href="#包对象:de397039aa9a798437cfa279bdf799e7">包对象</a></li>
+</ul></li>
+<li><a href="#访问权限-2:de397039aa9a798437cfa279bdf799e7">访问权限</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:de397039aa9a798437cfa279bdf799e7">Kotlin 篇</a>
+<ul>
+<li><a href="#包-3:de397039aa9a798437cfa279bdf799e7">包</a>
+<ul>
+<li><a href="#创建包-3:de397039aa9a798437cfa279bdf799e7">创建包</a></li>
+<li><a href="#导入包-3:de397039aa9a798437cfa279bdf799e7">导入包</a></li>
+</ul></li>
+<li><a href="#默认包:de397039aa9a798437cfa279bdf799e7">默认包</a></li>
+<li><a href="#访问权限-3:de397039aa9a798437cfa279bdf799e7">访问权限</a></li>
+</ul></li>
+<li><a href="#总结:de397039aa9a798437cfa279bdf799e7">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java-篇:de397039aa9a798437cfa279bdf799e7">Java 篇</h2>
+
+<h3 id="包:de397039aa9a798437cfa279bdf799e7">包</h3>
+
+<h4 id="创建包:de397039aa9a798437cfa279bdf799e7">创建包</h4>
+
+<ul>
+<li>Java 使用关键字 <code>package</code> 来声明一个包。</li>
+<li>包名中使用 <code>.</code> 作为路径分隔符，且包路径必须与源文件路径相同。</li>
+<li>包只能声明在源文件开头。</li>
+</ul>
+
+<pre><code class="language-java">package a.b;
+class B {}
+</code></pre>
+
+<h4 id="导入包:de397039aa9a798437cfa279bdf799e7">导入包</h4>
+
+<ul>
+<li>Java 使用关键字 <code>import</code> 导入包。</li>
+<li>可以使用通配符 <code>*</code>，导入一个包下的所有类。</li>
+<li>如果一个类中都是静态成员的话，可以使用静态导入 <code>static import</code> 导入该类的所有静态成员，这样使用时就不用指定类名了。</li>
+<li>导入语句只能声明在源文件开头，包声明之后。</li>
+</ul>
+
+<p>导入指定的类</p>
+
+<pre><code class="language-java">import a.b.B;
+</code></pre>
+
+<p>导入指定包下的所有类</p>
+
+<pre><code class="language-java">import a.b.*;
+</code></pre>
+
+<p>静态导入</p>
+
+<pre><code class="language-java">static import a.b.B.*;
+</code></pre>
+
+<h4 id="package-info:de397039aa9a798437cfa279bdf799e7">package-info</h4>
+
+<p>Java 中每个包都可以声明一个名为 <code>package-info.java</code> 的源文件。该源文件主要在生成文档时用于描述当前包的功能和作用，有时也可以用于定义仅在包中共享的静态变量和静态方法。</p>
+
+<h3 id="访问权限:de397039aa9a798437cfa279bdf799e7">访问权限</h3>
+
+<p>Java 中访问权限分为四种：</p>
+
+<ul>
+<li><strong>public</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>public 表示总是可见。如果用于修饰类，则一个源文件中只能有一个类声明为 public。</li>
+</ul></li>
+<li><strong>private</strong>
+
+<ul>
+<li>适用于内部类，属性，方法</li>
+<li>private 表示只在声明范围内可见，所以修饰类时只能修饰内部类。</li>
+</ul></li>
+<li><strong>friendly</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>默认访问控制权限，又称为 default，在同包中可见，使用时不用真的添加 <code>friendly</code> 或 <code>default</code> 关键字。</li>
+</ul></li>
+<li><strong>protected</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>protected 等于 friendly + 子类可见。</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>注意： Java 并没有父包和子包的概念，即 <code>a.b.c</code> 和 <code>a.b</code> 没有任何关系，也不存在访问控制权限的传递，所以 <code>a.b.c</code> 中定义的类无法访问 <code>a.b</code> 中的类定义的私有成员。</p>
+</blockquote>
+
+<h2 id="groovy-篇:de397039aa9a798437cfa279bdf799e7">Groovy 篇</h2>
+
+<h3 id="包-1:de397039aa9a798437cfa279bdf799e7">包</h3>
+
+<h4 id="创建包-1:de397039aa9a798437cfa279bdf799e7">创建包</h4>
+
+<p>与 Java 相同。</p>
+
+<h4 id="导入包-1:de397039aa9a798437cfa279bdf799e7">导入包</h4>
+
+<p>与 Java 相同。</p>
+
+<h3 id="访问权限-1:de397039aa9a798437cfa279bdf799e7">访问权限</h3>
+
+<p>Groovy 中访问权限分为四种：</p>
+
+<ul>
+<li><strong>public</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>默认访问控制权限，可以省略，表示总是可见。和 Java 不一样，Groovy 中一个源文件中可以有多个类声明为 public。</li>
+</ul></li>
+<li><strong>private</strong>
+
+<ul>
+<li>适用于内部类，属性，方法</li>
+<li>private 表示只在声明范围内可见，所以修饰类时只能修饰内部类。</li>
+</ul></li>
+<li><strong>protected</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>protected 等于 friendly + 子类可见。</li>
+</ul></li>
+
+<li><p><strong>package</strong></p>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>类似 Java 的默认权限，使用方式较为复杂，并不推荐。</li>
+</ul>
+
+<p>package 权限的例子</p>
+
+<p>定义一个包含 package 权限方法的类</p>
+
+<pre><code class="language-groovy">package a.b
+class B {
+  def foo() {}
+  @PackageScope def packageFoo() {}
+}
+</code></pre>
+
+<p>使用以上类</p>
+
+<pre><code class="language-groovy">package a
+class A {
+
+
+  @CompileStatic
+  def foo() {
+    def b = new B()(
+    b.foo()
+    b.packageFoo()
+  }
+}
+</code></pre>
+
+<p>调用包含 package 权限的类的方法必须被声明为 <code>@CompileStatic</code>，否则 package 权限会被忽略。</p></li>
+</ul>
+
+<blockquote>
+<p>Groovy 中也没有父包和子包的概念。</p>
+</blockquote>
+
+<h2 id="scala-篇:de397039aa9a798437cfa279bdf799e7">Scala 篇</h2>
+
+<h3 id="包-2:de397039aa9a798437cfa279bdf799e7">包</h3>
+
+<h4 id="创建包-2:de397039aa9a798437cfa279bdf799e7">创建包</h4>
+
+<ul>
+<li>Scala 也使用关键字 <code>package</code> 来声明一个包。</li>
+<li>包名中使用 <code>.</code> 作为路径分隔符，和 Java 不同包路径无须与源文件路径相同。</li>
+<li>包可以声明在任意位置。</li>
+</ul>
+
+<p>使用块声明包</p>
+
+<pre><code class="language-scala">package A {
+  package B {
+    class B {
+    }
+  }
+}
+</code></pre>
+
+<p>此时 <code>A</code> 和 <code>A.B</code> 包的成员对 <code>class C</code> 直接可见。</p>
+
+<p>使用串联式包名</p>
+
+<pre><code class="language-scala">package A.B.C {
+  class C {
+  }
+}
+</code></pre>
+
+<p>此时 <code>A</code> 和 <code>A.B</code> 包的成员对 <code>class C</code> 并不直接可见。</p>
+
+<p>使用顶部标记声明在源文件开头，对整个源文件有效</p>
+
+<pre><code class="language-scala">package A.B
+package C
+</code></pre>
+
+<p>等同于</p>
+
+<pre><code class="language-scala">package A {
+  package B {
+    package C {}
+  }
+}
+</code></pre>
+
+<h4 id="导入包-2:de397039aa9a798437cfa279bdf799e7">导入包</h4>
+
+<ul>
+<li>Scala 使用关键字 <code>import</code> 导入包。</li>
+<li>可以使用通配符 <code>_</code>，导入一个包下的所有类</li>
+<li>可以使用选取器 <code>{}</code> 导入一个包下的某些类或者指定别名</li>
+<li>导入语句可以放在任意位置，包括方法内部。</li>
+</ul>
+
+<p>导入指定的类</p>
+
+<pre><code class="language-scala">import a.b.B
+</code></pre>
+
+<p>导入指定包下的所有类</p>
+
+<pre><code class="language-scala">import a.b._
+</code></pre>
+
+<p>使用选取器导入指定的类</p>
+
+<pre><code class="language-scala">import java.awt.{Color,Font}
+</code></pre>
+
+<p>使用选取器重命名选取的类</p>
+
+<pre><code class="language-scala">import java.util.{HashMap=&gt;JavaHashMap}
+</code></pre>
+
+<h4 id="包对象:de397039aa9a798437cfa279bdf799e7">包对象</h4>
+
+<ul>
+<li>包对象用于组织包内可见的常量和方法，而不用具体包含在某个 utils 对象中，通常这是更好的做法。</li>
+<li>每个包都可以包含一个包对象</li>
+<li>包对象会被编译为对应包内的 <code>package.class</code> 类，所以通常做法是在对应包内建立一个名为 <code>package.scala</code> 的类来管理包对象。</li>
+</ul>
+
+<pre><code class="language-scala">package object Constants {
+  val VERSION = &quot;0.0.1&quot;
+}
+</code></pre>
+
+<h3 id="访问权限-2:de397039aa9a798437cfa279bdf799e7">访问权限</h3>
+
+<p>Scala 中 的访问权限比较复杂</p>
+
+<ul>
+<li><strong>public</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>默认访问控制符，总是可见。一个源文件中可以包含多个 public 的类。</li>
+</ul></li>
+<li><strong>private</strong>
+
+<ul>
+<li>适用于内部类，属性，方法</li>
+<li>private 表示只在当前声明范围内可见，所以修饰类时只能修饰内部类。与 Java 最大的不同是外部类是无法调用内部类的 private 成员的。</li>
+</ul></li>
+<li><strong>protected</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>protected 表示仅子类可见，与 Java 完全不同。</li>
+</ul></li>
+
+<li><p><strong>scope</strong></p>
+
+<ul>
+<li>Scala 中可以结合以上的访问控制符和scope符号 <code>[]</code> 来自定义访问控制权限。</li>
+</ul>
+
+<p>自定义包作用域</p>
+
+<pre><code class="language-scala">package A.B.C {
+  class C {
+    private[C] def desc = &quot;desc&quot;        //同包
+    private[B] def impress = &quot;impress&quot;  //上一级包
+  }
+}
+</code></pre></li>
+</ul>
+
+<blockquote>
+<p>Scala 包支持嵌套，即下层可以直接访问上层作用域的成员。但是如果使用了串联式包名，则必须手动引入对应的包才能正常使用。而在 Java 中不同包名没有任何直接关系。</p>
+</blockquote>
+
+<h2 id="kotlin-篇:de397039aa9a798437cfa279bdf799e7">Kotlin 篇</h2>
+
+<h3 id="包-3:de397039aa9a798437cfa279bdf799e7">包</h3>
+
+<h4 id="创建包-3:de397039aa9a798437cfa279bdf799e7">创建包</h4>
+
+<p>与 Java 相同。</p>
+
+<h4 id="导入包-3:de397039aa9a798437cfa279bdf799e7">导入包</h4>
+
+<p>与 Java 相同。但是 Kotlin 在导入包时可以指定别名。</p>
+
+<p>指定别名</p>
+
+<pre><code class="language-kotlin">import foo.bar as b
+
+val b = b()
+b.bar()
+</code></pre>
+
+<h3 id="默认包:de397039aa9a798437cfa279bdf799e7">默认包</h3>
+
+<p>如果一个 kotlin 源文件中没有任何包声明，则其当中的代码均属于默认包，导入时包名即为函数名</p>
+
+<pre><code class="language-kotlin">fun hello() {
+    println(&quot;hello, Default Package&quot;)
+}
+
+import hello
+hello()
+</code></pre>
+
+<h3 id="访问权限-3:de397039aa9a798437cfa279bdf799e7">访问权限</h3>
+
+<p>Kotlin 中访问权限分为四种：</p>
+
+<ul>
+<li><strong>public</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>public 表示总是可见。</li>
+</ul></li>
+<li><strong>private</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>private 表示在声明范围及同模块的子作用域内可见。</li>
+</ul></li>
+<li><strong>internal</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>默认作用域，同模块中可见。</li>
+</ul></li>
+<li><strong>protected</strong>
+
+<ul>
+<li>适用于类，属性，方法</li>
+<li>protected 表示 private + 子类可见，与 Java 完全不同。</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>模块是 Kotlin 的一个特殊的概念，表示的是一个单独的编译单元，概念类似Maven中的模块。</p>
+</blockquote>
+
+<h2 id="总结:de397039aa9a798437cfa279bdf799e7">总结</h2>
+
+<ul>
+<li>Scala 的包声明与其它语言都不一样</li>
+<li>Scala 和 Kotlin 导入包时支持指定别名</li>
+<li>Scala 和 Kotlin 的访问权限与另两种有很大区别</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_22_package</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-29 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-23-trait/"><i class="icon-arrow-left"></i> JGSK - 23.Trait</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-21-exception/">JGSK - 21.异常 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="404">
+<meta itemprop="datePublished" content="2015-09-29">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-22-package/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-22-package\/';
+    var disqus_title = 'JGSK - 22.包与访问权限';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-22-package\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 08.基本语法"/>
+<meta property="og:site_name" content="JGSK - 08.基本语法"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-08-gramma/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-17"/>
+<meta property="article:modified_time" content="2015-09-17"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 08.基本语法">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 08.基本语法 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-08-gramma/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2008.%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f&title=JGSK%20-%2008.%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-08-gramma%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 08.基本语法</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:b28b2ba13fb62a975e58f63cf7275f04">共通篇</a>
+<ul>
+<li><a href="#注释:b28b2ba13fb62a975e58f63cf7275f04">注释</a></li>
+</ul></li>
+<li><a href="#java-篇:b28b2ba13fb62a975e58f63cf7275f04">Java 篇</a>
+<ul>
+<li><a href="#操作符:b28b2ba13fb62a975e58f63cf7275f04">操作符</a></li>
+<li><a href="#调用方法:b28b2ba13fb62a975e58f63cf7275f04">调用方法</a></li>
+<li><a href="#相等:b28b2ba13fb62a975e58f63cf7275f04">相等</a></li>
+</ul></li>
+<li><a href="#groovy-篇:b28b2ba13fb62a975e58f63cf7275f04">Groovy 篇</a>
+<ul>
+<li><a href="#操作符-1:b28b2ba13fb62a975e58f63cf7275f04">操作符</a></li>
+<li><a href="#调用方法-1:b28b2ba13fb62a975e58f63cf7275f04">调用方法</a></li>
+<li><a href="#相等-1:b28b2ba13fb62a975e58f63cf7275f04">相等</a></li>
+</ul></li>
+<li><a href="#scala-篇:b28b2ba13fb62a975e58f63cf7275f04">Scala 篇</a>
+<ul>
+<li><a href="#操作符-2:b28b2ba13fb62a975e58f63cf7275f04">操作符</a></li>
+<li><a href="#调用方法-2:b28b2ba13fb62a975e58f63cf7275f04">调用方法</a></li>
+<li><a href="#相等-2:b28b2ba13fb62a975e58f63cf7275f04">相等</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:b28b2ba13fb62a975e58f63cf7275f04">Kotlin 篇</a>
+<ul>
+<li><a href="#操作符-3:b28b2ba13fb62a975e58f63cf7275f04">操作符</a></li>
+<li><a href="#调用方法-3:b28b2ba13fb62a975e58f63cf7275f04">调用方法</a></li>
+<li><a href="#相等-3:b28b2ba13fb62a975e58f63cf7275f04">相等</a></li>
+</ul></li>
+<li><a href="#总结:b28b2ba13fb62a975e58f63cf7275f04">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:b28b2ba13fb62a975e58f63cf7275f04">共通篇</h2>
+
+<h3 id="注释:b28b2ba13fb62a975e58f63cf7275f04">注释</h3>
+
+<p>四种语言都支持以下三种注释</p>
+
+<pre><code class="language-java">//  单行注释
+/*
+    多行注释
+ */
+/**
+ * JavaDoc
+ */
+</code></pre>
+
+<h2 id="java-篇:b28b2ba13fb62a975e58f63cf7275f04">Java 篇</h2>
+
+<h3 id="操作符:b28b2ba13fb62a975e58f63cf7275f04">操作符</h3>
+
+<p>支持四则运算，赋值(=)，运算后赋值(+=)，递增递减(++, &ndash;)，三元操作符(?true:false)，逻辑操作符，关系操作符等常用操作符。</p>
+
+<h3 id="调用方法:b28b2ba13fb62a975e58f63cf7275f04">调用方法</h3>
+
+<p>语法</p>
+
+<pre><code>方法名(参数列表)
+</code></pre>
+
+<p>例</p>
+
+<pre><code class="language-java">add(1, 2)
+</code></pre>
+
+<h3 id="相等:b28b2ba13fb62a975e58f63cf7275f04">相等</h3>
+
+<p>Java 使用 <code>==</code> 表示基本类型的值相等及引用类型的地址相等，用方法 <code>equals()</code> 表示引用类型的内容相同。不少 Java 的内置类都实现了自己的 <code>equals()</code> 方法，如果是自己建立的类则要实现自己的 <code>equals()</code> 方法。</p>
+
+<pre><code class="language-java">Date x = new Date(100);
+Date y = new Date(100);
+
+System.out.println(&quot;x==y: &quot; + (x == y));    //  false
+System.out.println(&quot;x.equals(y): &quot; + x.equals(y));  //  true
+</code></pre>
+
+<h2 id="groovy-篇:b28b2ba13fb62a975e58f63cf7275f04">Groovy 篇</h2>
+
+<h3 id="操作符-1:b28b2ba13fb62a975e58f63cf7275f04">操作符</h3>
+
+<p>基本同 Java。 但是 Groovy 多了一个猫王操作符(?:) 作为三元操作符的语法糖。</p>
+
+<pre><code class="language-groovy">String agentStatus = &quot;Active&quot;
+
+//  三元操作符
+String status = (agentStatus !=null &amp;&amp; !&quot;&quot;.equals(agentStatus)) ? &quot;Active&quot; : &quot;Inactive&quot;
+
+//  猫王操作符
+String status = agentStatus ?: &quot;Inactive&quot;
+</code></pre>
+
+<p>Groovy 还有一些其它操作符在以后的章节再讲。</p>
+
+<h3 id="调用方法-1:b28b2ba13fb62a975e58f63cf7275f04">调用方法</h3>
+
+<p>语法基本同 Java，但是在 Groovy 中如果方法的参数个数只有一个时，可以省略包围在参数列表上的小括号</p>
+
+<pre><code class="language-groovy">println &quot;Hello World&quot;
+</code></pre>
+
+<h3 id="相等-1:b28b2ba13fb62a975e58f63cf7275f04">相等</h3>
+
+<p>Groovy 认为比较内容的使用场合要远远大于比较地址，所以 Groovy 中的 <code>==</code> 实际就是调用 <code>equals()</code> 方法。</p>
+
+<pre><code class="language-groovy">println(&quot;x==y: &quot; + (x == y))    //  true
+println(&quot;x.equals(y): &quot; + x.equals(y))  //  true
+</code></pre>
+
+<p>此外 Groovy 在比较时对空指针做了判断，所以等号左边是空值并不会引发空指针异常。</p>
+
+<pre><code class="language-groovy">println(null == 10) //  false
+</code></pre>
+
+<p>如果你希望调用 Java 版本的 <code>=</code> 比较地址，可以调用 <code>is()</code> 方法。</p>
+
+<pre><code class="language-groovy">println(&quot;x.is(y): &quot; + x.is(y))  //  false
+</code></pre>
+
+<h2 id="scala-篇:b28b2ba13fb62a975e58f63cf7275f04">Scala 篇</h2>
+
+<h3 id="操作符-2:b28b2ba13fb62a975e58f63cf7275f04">操作符</h3>
+
+<p>Scala 支持 Java 中除了递增，递减之外的所有操作符，所以在 Scala 中不能使用 <code>i++</code> 这样的语句，而需要使用 <code>i += 1</code> 来实现同样的功能。</p>
+
+<p>此外由于 Scala 中一切皆对象，所以 Scala 中的所有操作符其实就是方法名，即 <code>1 + 2</code> 实际上就是 调用 <code>1.+(2)</code> 的语法糖。像这种操作符位于两个操作数之间的操作符被称为中缀操作符，Scala 中使用中缀操作符时可以省略 <code>.操作符()</code>，所以 <code>1.+(2)</code> 可以简写成 <code>1 + 2</code>。</p>
+
+<h3 id="调用方法-2:b28b2ba13fb62a975e58f63cf7275f04">调用方法</h3>
+
+<p>与 Java 基本相同</p>
+
+<h3 id="相等-2:b28b2ba13fb62a975e58f63cf7275f04">相等</h3>
+
+<p>同 Groovy，<code>==</code> 调用的是 <code>equals()</code> 方法。但是 Groovy 比较地址用的是 <code>is()</code>，而 Scala 则是 <code>eq()</code>。</p>
+
+<pre><code class="language-scala">println(&quot;x.eq(y): &quot; + x.eq(y)) //  false
+</code></pre>
+
+<h2 id="kotlin-篇:b28b2ba13fb62a975e58f63cf7275f04">Kotlin 篇</h2>
+
+<h3 id="操作符-3:b28b2ba13fb62a975e58f63cf7275f04">操作符</h3>
+
+<p>基本同 Groovy，也拥有猫王操作符</p>
+
+<h3 id="调用方法-3:b28b2ba13fb62a975e58f63cf7275f04">调用方法</h3>
+
+<p>同 Java</p>
+
+<h3 id="相等-3:b28b2ba13fb62a975e58f63cf7275f04">相等</h3>
+
+<p>和 Groovy，Scala 一样，<code>==</code> 也是调用 <code>equals()</code>，比较地址使用的是 <code>===</code>（类似 Javascript），三种语言这一方法名各不相同也是够了。</p>
+
+<pre><code class="language-kotlin">println(&quot;x===y : &quot; + (x === y)) //  false
+</code></pre>
+
+<h2 id="总结:b28b2ba13fb62a975e58f63cf7275f04">总结</h2>
+
+<ul>
+<li>除了 Scala 之外，其它语言都支持 <code>++</code> ，<code>--</code></li>
+<li><code>Groovy</code> 和 <code>Kotlin</code> 支持猫王操作符</li>
+<li>除了 Java 之外，其它语言 <code>==</code> 调用的都是 <code>equals()</code>，且比较地址的方法名三种语言都不一样</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_08_grammar</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-17 </h4>
+          <h5 id="wc"> 300 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-09-null/"><i class="icon-arrow-left"></i> JGSK - 09.Null</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-07-string/">JGSK - 07.String <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="247">
+<meta itemprop="datePublished" content="2015-09-17">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-08-gramma/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-08-gramma\/';
+    var disqus_title = 'JGSK - 08.基本语法';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-08-gramma\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

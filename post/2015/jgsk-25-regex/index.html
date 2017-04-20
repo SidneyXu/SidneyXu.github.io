@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 25.正则表达式"/>
+<meta property="og:site_name" content="JGSK - 25.正则表达式"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-25-regex/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-10-04"/>
+<meta property="article:modified_time" content="2015-10-04"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 25.正则表达式">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 25.正则表达式 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-25-regex/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2025.%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f&title=JGSK%20-%2025.%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-25-regex%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 25.正则表达式</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:6e851a8c0afb6a52db5742e441713842">共通篇</a></li>
+<li><a href="#java-篇:6e851a8c0afb6a52db5742e441713842">Java 篇</a>
+<ul>
+<li><a href="#创建正则相关的对象:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</a></li>
+<li><a href="#使用正则:6e851a8c0afb6a52db5742e441713842">使用正则</a>
+<ul>
+<li><a href="#matching:6e851a8c0afb6a52db5742e441713842">Matching</a></li>
+<li><a href="#searching:6e851a8c0afb6a52db5742e441713842">Searching</a></li>
+<li><a href="#基本用法:6e851a8c0afb6a52db5742e441713842">基本用法</a></li>
+<li><a href="#named-group:6e851a8c0afb6a52db5742e441713842">Named Group</a></li>
+<li><a href="#replacing:6e851a8c0afb6a52db5742e441713842">Replacing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#groovy-篇:6e851a8c0afb6a52db5742e441713842">Groovy 篇</a>
+<ul>
+<li><a href="#创建正则相关的对象-1:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</a></li>
+<li><a href="#使用正则-1:6e851a8c0afb6a52db5742e441713842">使用正则</a>
+<ul>
+<li><a href="#matching-1:6e851a8c0afb6a52db5742e441713842">Matching</a></li>
+<li><a href="#searching-1:6e851a8c0afb6a52db5742e441713842">Searching</a></li>
+<li><a href="#基本用法-1:6e851a8c0afb6a52db5742e441713842">基本用法</a></li>
+<li><a href="#named-group-1:6e851a8c0afb6a52db5742e441713842">Named Group</a></li>
+<li><a href="#replacing-1:6e851a8c0afb6a52db5742e441713842">Replacing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#scala-篇:6e851a8c0afb6a52db5742e441713842">Scala 篇</a>
+<ul>
+<li><a href="#创建正则相关的对象-2:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</a></li>
+<li><a href="#使用正则-2:6e851a8c0afb6a52db5742e441713842">使用正则</a>
+<ul>
+<li><a href="#matching-2:6e851a8c0afb6a52db5742e441713842">Matching</a></li>
+<li><a href="#searching-2:6e851a8c0afb6a52db5742e441713842">Searching</a></li>
+<li><a href="#基本用法-2:6e851a8c0afb6a52db5742e441713842">基本用法</a></li>
+<li><a href="#named-group-2:6e851a8c0afb6a52db5742e441713842">Named Group</a></li>
+<li><a href="#模式匹配:6e851a8c0afb6a52db5742e441713842">模式匹配</a></li>
+<li><a href="#replacing-2:6e851a8c0afb6a52db5742e441713842">Replacing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#kotlin-篇:6e851a8c0afb6a52db5742e441713842">Kotlin 篇</a>
+<ul>
+<li><a href="#创建正则相关的对象-3:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</a></li>
+<li><a href="#使用正则-3:6e851a8c0afb6a52db5742e441713842">使用正则</a>
+<ul>
+<li><a href="#matching-3:6e851a8c0afb6a52db5742e441713842">Matching</a></li>
+<li><a href="#searching-3:6e851a8c0afb6a52db5742e441713842">Searching</a></li>
+<li><a href="#基本用法-3:6e851a8c0afb6a52db5742e441713842">基本用法</a></li>
+<li><a href="#group:6e851a8c0afb6a52db5742e441713842">Group</a></li>
+<li><a href="#replacing-3:6e851a8c0afb6a52db5742e441713842">Replacing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结:6e851a8c0afb6a52db5742e441713842">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:6e851a8c0afb6a52db5742e441713842">共通篇</h2>
+
+<p>正则表达式功能非常强大，但是写好一个满足各种情况的合格的正则表达式却不是件简单的事。</p>
+
+<p>本章节不会介绍任何正则表达式的语法，而是介绍四种语言中正则表达式最基本的三种用法：匹配，查找和替换的实现方式。</p>
+
+<p>本章中，在这四种语言中使用正则表达式会碰到以下几个概念:</p>
+
+<ul>
+<li><em>Input</em> 用于进行正则匹配的字符串</li>
+<li><em>Regex</em> 表示正则表达式的字符串</li>
+<li><em>Pattern</em> 用于编译正则表达式</li>
+<li><em>Matcher</em> 用于处理正则匹配的结果</li>
+</ul>
+
+<p>通常来说只有进行查找操作时才需要手动建立以上几个对象，其它操作时可以直接使用字符串本身提供的简便方法。</p>
+
+<h2 id="java-篇:6e851a8c0afb6a52db5742e441713842">Java 篇</h2>
+
+<h3 id="创建正则相关的对象:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</h3>
+
+<p>Regex</p>
+
+<p>Regex 只是普通的字符串，不过由于 Java 中 <code>\</code> 是特殊符号，所以必须使用转义符。</p>
+
+<pre><code class="language-java">String regex = &quot;[0-9]+\\W&quot;;
+</code></pre>
+
+<p>Pattern</p>
+
+<pre><code class="language-java">Pattern pattern = Pattern.compile(regex);
+</code></pre>
+
+<p>Matcher</p>
+
+<pre><code class="language-java">Matcher matcher = pattern.matcher(input);
+</code></pre>
+
+<h3 id="使用正则:6e851a8c0afb6a52db5742e441713842">使用正则</h3>
+
+<h4 id="matching:6e851a8c0afb6a52db5742e441713842">Matching</h4>
+
+<p>进行匹配操作时通常只要直接使用字符串的匹配方法就可以了，它会隐式调用 Pattern, Matcher 等类来简化操作。</p>
+
+<pre><code class="language-java">if (&quot;Hello&quot;.matches(&quot;[A-Z][a-z]+&quot;)) {
+    System.out.println(&quot;ok&quot;);
+}
+</code></pre>
+
+<h4 id="searching:6e851a8c0afb6a52db5742e441713842">Searching</h4>
+
+<h4 id="基本用法:6e851a8c0afb6a52db5742e441713842">基本用法</h4>
+
+<pre><code class="language-java">String input = &quot;99 bottles, 98 bottles&quot;;
+Pattern pattern = Pattern.compile(&quot;[0-9]+\\W&quot;);
+Matcher matcher = pattern.matcher(input);
+while (matcher.find()) {
+    System.out.println(&quot;find all &quot; + matcher.group());  //  99  98
+}
+</code></pre>
+
+<p>以上 <code>matcher.group()</code> 表示找到的结果。可以看到用于 <code>\</code> 在 Java 中是特殊符号，所以必须写成 <code>\\</code>，因此从其它语言的例子中的正则拷贝到 Java 中通常都要做些修改，非常麻烦。</p>
+
+<h4 id="named-group:6e851a8c0afb6a52db5742e441713842">Named Group</h4>
+
+<p>正则表达中可以使用小括号 <code>()</code> 表示分组。在 Java 7 以后支持了命名分组，即可以通过指定的分组名来获得匹配结果，而无需使用分组的索引来获得。分组的基本语法为 <code>(?&lt;组名&gt;其它操作)</code>。</p>
+
+<pre><code class="language-java">//	指定了第一个分组名为 year，第二个为 month
+Matcher dateMatcher = Pattern.compile(&quot;(?&lt;year&gt;\\d{4})-(?&lt;month&gt;\\d{2})&quot;).matcher(&quot;2015-10&quot;);
+if (dateMatcher.matches()) {
+	//	通过组名获得结果
+    System.out.println(dateMatcher.group(&quot;year&quot;));  //  2015
+    System.out.println(dateMatcher.group(&quot;month&quot;)); //  10
+    System.out.println(dateMatcher.groupCount());   //  2
+    for (int i = 0; i &lt;= dateMatcher.groupCount(); i++) {
+    	//	通过索引获得结果
+        System.out.println(dateMatcher.group(i));   //  [2015-10, 2015, 10]
+    }
+}
+</code></pre>
+
+<blockquote>
+<p>注意：分组匹配结果的 <code>0</code> 索引为全集，从 <code>1</code> 开始才是各组的结果。</p>
+</blockquote>
+
+<h4 id="replacing:6e851a8c0afb6a52db5742e441713842">Replacing</h4>
+
+<p>替换通常也可以直接使用字符串的方法。</p>
+
+<pre><code class="language-java">String result = matcher.replaceFirst(&quot;xxx&quot;);
+System.out.println(result);    //  xxxbottles, 98 bottles
+</code></pre>
+
+<h2 id="groovy-篇:6e851a8c0afb6a52db5742e441713842">Groovy 篇</h2>
+
+<h3 id="创建正则相关的对象-1:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</h3>
+
+<p>Regex</p>
+
+<p>Groovy 中使用 <code>/xxx/</code> 创建正则表达式，这种使用方式不用像 Java 一样使用转义符就可以使用特殊字符。</p>
+
+<pre><code class="language-groovy">def pattern = /[0-9]+\W/
+</code></pre>
+
+<p>Pattern</p>
+
+<p>Regex 在 Groovy 中通常可以直接使用。不过为了效率考虑应该使用符号 <code>~</code> 进行预编译成 Pattern 对象。</p>
+
+<pre><code class="language-groovy">def pattern = ~/[0-9]+\W/
+</code></pre>
+
+<p>Matcher</p>
+
+<p>Groovy 使用 <code>=~</code> 来创建 Matcher，且在布尔环境中可以直接用于表示是否匹配。</p>
+
+<pre><code class="language-groovy">def matcher = input =~ pattern
+</code></pre>
+
+<h3 id="使用正则-1:6e851a8c0afb6a52db5742e441713842">使用正则</h3>
+
+<h4 id="matching-1:6e851a8c0afb6a52db5742e441713842">Matching</h4>
+
+<pre><code class="language-groovy">if (&quot;Hello&quot; =~ ~/[A-Z][a-z]+/) {
+    println(&quot;ok&quot;)
+}
+</code></pre>
+
+<h4 id="searching-1:6e851a8c0afb6a52db5742e441713842">Searching</h4>
+
+<h4 id="基本用法-1:6e851a8c0afb6a52db5742e441713842">基本用法</h4>
+
+<pre><code class="language-groovy">for( matchString in input.findAll(pattern)){
+    println(&quot;find all $matchString&quot;)    //  99  98
+}
+</code></pre>
+
+<h4 id="named-group-1:6e851a8c0afb6a52db5742e441713842">Named Group</h4>
+
+<p>Groovy 中并不支持命名分组，但是可以使用 Java 7的方式来实现。</p>
+
+<p>除此之外，也可以通过闭包参数来自动转换，使之看起来像使用了命名分组一样。</p>
+
+<pre><code class="language-groovy">(&quot;2015-10&quot; =~ /(\d{4})-(\d{2})/).each { match, year, month -&gt;
+    println(match)  //  2015-10
+    println(year)   //  2015
+    println(month)  //  10
+}
+</code></pre>
+
+<h4 id="replacing-1:6e851a8c0afb6a52db5742e441713842">Replacing</h4>
+
+<p>替换通常也可以直接使用字符串的方法。</p>
+
+<pre><code class="language-groovy">def matcher = input =~ pattern
+def result = matcher.replaceFirst(&quot;xxx&quot;)
+println(result) //  xxxbottles, 98 bottles
+</code></pre>
+
+<h2 id="scala-篇:6e851a8c0afb6a52db5742e441713842">Scala 篇</h2>
+
+<h3 id="创建正则相关的对象-2:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</h3>
+
+<p>Regex</p>
+
+<p>Scala 中 Regex 是类，不是普通字符串。在 Scala 中正则通常只需要使用 Regex 对象就可以了。</p>
+
+<pre><code class="language-scala">val regex = &quot;&quot;&quot;[0-9]+\W&quot;&quot;&quot;.r
+</code></pre>
+
+<p>为了使用转义符，通常可以使用原样输出 <code>&quot;&quot;&quot;</code> 来定义表示正则的字符串。</p>
+
+<p>Pattern 等类也有，但一般无需使用。</p>
+
+<h3 id="使用正则-2:6e851a8c0afb6a52db5742e441713842">使用正则</h3>
+
+<h4 id="matching-2:6e851a8c0afb6a52db5742e441713842">Matching</h4>
+
+<pre><code class="language-scala">if (&quot;Hello&quot;.matches(&quot;[A-Z][a-z]+&quot;))
+    println(&quot;ok&quot;)
+</code></pre>
+
+<h4 id="searching-2:6e851a8c0afb6a52db5742e441713842">Searching</h4>
+
+<h4 id="基本用法-2:6e851a8c0afb6a52db5742e441713842">基本用法</h4>
+
+<pre><code class="language-scala">for (matchString &lt;- pattern.findAllIn(input)) {
+    println(s&quot;find all $matchString&quot;) //  99  98
+}
+</code></pre>
+
+<h4 id="named-group-2:6e851a8c0afb6a52db5742e441713842">Named Group</h4>
+
+<p>Scala 中使用 <code>r()</code> 来指定分组名。</p>
+
+<pre><code class="language-scala">&quot;&quot;&quot;(\d{4})-(\d{2})&quot;&quot;&quot;.r(&quot;year&quot;, &quot;month&quot;).findAllIn(&quot;2015-10&quot;).matchData.foreach { m =&gt;
+    println(m.group(&quot;year&quot;)) //  99
+    println(s&quot;group count is ${m.groupCount}&quot;) //  2
+    for (i &lt;- 0 to m.groupCount)
+        println(s&quot;group $i is ${m.group(i)}&quot;) //  [2015-10, 2015, 10]
+}
+</code></pre>
+
+<h4 id="模式匹配:6e851a8c0afb6a52db5742e441713842">模式匹配</h4>
+
+<p>模式匹配也可以用于正则表达式的匹配</p>
+
+<pre><code class="language-scala">val pattern2 = &quot;[A-Z][a-z]+&quot;.r
+&quot;Hello&quot; match {
+    case pattern2(c) =&gt; println(&quot;ok&quot;)
+    case _ =&gt;
+}
+</code></pre>
+
+<h4 id="replacing-2:6e851a8c0afb6a52db5742e441713842">Replacing</h4>
+
+<pre><code class="language-scala">val result = pattern.replaceFirstIn(input, &quot;xxx&quot;)
+println(result) //  xxxbottles, 98 bottles
+</code></pre>
+
+<h2 id="kotlin-篇:6e851a8c0afb6a52db5742e441713842">Kotlin 篇</h2>
+
+<h3 id="创建正则相关的对象-3:6e851a8c0afb6a52db5742e441713842">创建正则相关的对象</h3>
+
+<p>Regex</p>
+
+<p>Kotlin 同 Scala 一样只需使用 Regex 对象。</p>
+
+<pre><code class="language-kotlin">val regex = &quot;&quot;&quot;[0-9]+\W&quot;&quot;&quot;..toRegex()
+</code></pre>
+
+<h3 id="使用正则-3:6e851a8c0afb6a52db5742e441713842">使用正则</h3>
+
+<h4 id="matching-3:6e851a8c0afb6a52db5742e441713842">Matching</h4>
+
+<pre><code class="language-kotlin">if (&quot;Hello&quot;.matches(&quot;[A-Z][a-z]+&quot;.toRegex())) {
+    println(&quot;ok&quot;)
+}
+</code></pre>
+
+<h4 id="searching-3:6e851a8c0afb6a52db5742e441713842">Searching</h4>
+
+<h4 id="基本用法-3:6e851a8c0afb6a52db5742e441713842">基本用法</h4>
+
+<pre><code class="language-kotlin">for ( matchResult in pattern.findAll(input)) {
+    println(&quot;find all ${matchResult.value}&quot;)    //  99  98
+}
+</code></pre>
+
+<h4 id="group:6e851a8c0afb6a52db5742e441713842">Group</h4>
+
+<p>Kotlin 不支持命名分组，只支持使用索引。</p>
+
+<pre><code class="language-kotlin">&quot;&quot;&quot;(\d{4})-(\d{2})&quot;&quot;&quot;.toRegex().findAll(&quot;2015-10&quot;).forEach {
+    println(it.groups.size)
+    for (rs in it.groups) {
+        println(rs?.value)  //  [2015-10, 2015, 10]
+    }
+}
+</code></pre>
+
+<h4 id="replacing-3:6e851a8c0afb6a52db5742e441713842">Replacing</h4>
+
+<pre><code class="language-kotlin">val result = pattern.replaceFirst(input, &quot;xxx&quot;)
+println(result)
+</code></pre>
+
+<h2 id="总结:6e851a8c0afb6a52db5742e441713842">总结</h2>
+
+<ul>
+<li>Java 和 Scala 都支持带名分组。</li>
+<li>Scala 和 Kotlin 可以只使用 Regex 对象完成正则匹配。</li>
+<li>Scala 的模式匹配也可以用于正则表达式。</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_25_package</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-10-04 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-26-xml-and-json/"><i class="icon-arrow-left"></i> JGSK - 26.Xml 与 JSON 的处理</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/">如何开发 Gradle 插件 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="435">
+<meta itemprop="datePublished" content="2015-10-04">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-25-regex/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-25-regex\/';
+    var disqus_title = 'JGSK - 25.正则表达式';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-25-regex\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="scala, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Scala - 06.Actor"/>
+<meta property="og:site_name" content="JGSK - Scala - 06.Actor"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-scala-06-actor/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-18"/>
+<meta property="article:modified_time" content="2015-12-18"/>
+
+
+
+<meta property="article:tag" content="scala">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Scala - 06.Actor">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Scala - 06.Actor </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-scala-06-actor/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Scala%20-%2006.Actor-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f&title=JGSK%20-%20Scala%20-%2006.Actor&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-06-actor%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Scala - 06.Actor</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#actor:f4b76221ad421ce4a5c8747d30d12ae5">Actor</a>
+<ul>
+<li><a href="#概念:f4b76221ad421ce4a5c8747d30d12ae5">概念</a></li>
+<li><a href="#使用-actor:f4b76221ad421ce4a5c8747d30d12ae5">使用 Actor</a></li>
+<li><a href="#actor-和线程:f4b76221ad421ce4a5c8747d30d12ae5">Actor 和线程</a></li>
+<li><a href="#配置-dispatcher:f4b76221ad421ce4a5c8747d30d12ae5">配置 Dispatcher</a></li>
+<li><a href="#actor-间通信:f4b76221ad421ce4a5c8747d30d12ae5">Actor 间通信</a></li>
+<li><a href="#获得处理结果:f4b76221ad421ce4a5c8747d30d12ae5">获得处理结果</a></li>
+<li><a href="#远程-actor:f4b76221ad421ce4a5c8747d30d12ae5">远程 Actor</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="actor:f4b76221ad421ce4a5c8747d30d12ae5">Actor</h2>
+
+<h3 id="概念:f4b76221ad421ce4a5c8747d30d12ae5">概念</h3>
+
+<p>Actor 是 Scala 的并发模型。在 2.10 之后的版本中，Scala 抛弃了自身的 Actor 而是使用了 <code>Akka</code> 作为其推荐的 <code>Actor</code> 实现。</p>
+
+<h3 id="使用-actor:f4b76221ad421ce4a5c8747d30d12ae5">使用 Actor</h3>
+
+<p>定义一个 Actor 只需要继承 Actor 特质并实现其中的 <code>receive()</code> 方法即可。除此之外，也可以实现其它的 Actor 的钩子方法 <code>preStart()</code>, <code>postStop()</code> 等。</p>
+
+<p>创建一个 Actor</p>
+
+<p>以下创建了一个回显的 Actor，其通过 <code>receive()</code> 接收到消息并且打印在控制台上。</p>
+
+<pre><code class="language-scala">class EchoServer extends Actor {
+  def receive = {
+    case msg: String =&gt; println(&quot;echo &quot; + msg)
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preStart(): Unit = {
+    super.preStart()
+    println(&quot;preStart&quot;)
+  }
+}
+</code></pre>
+
+<p>Actor 实例可以通过方法 <code>system.actorOf</code> 来进行创建。<code>ActorSystem</code> 可以用于创建多个基于同样配置的 Actor，也可以对 Actor 进行管理。</p>
+
+<pre><code class="language-scala">val system = ActorSystem()
+val echoServer = system.actorOf(Props[EchoServer])
+</code></pre>
+
+<p>创建完 Actor 后可以通过 <code>!</code> 向 Actor 内部的邮箱发消息。</p>
+
+<pre><code class="language-scala">echoServer ! &quot;hi&quot;
+</code></pre>
+
+<p>控制台输出</p>
+
+<pre><code>preStart
+echo hi
+</code></pre>
+
+<p>通过隐式转换，Scala 可以使用 DSL 语句将以上创建 Actor 的语句进行进一步简化</p>
+
+<pre><code class="language-scala">implicit val system = ActorSystem()
+val echoServer = actor(new Act {
+  become {
+    case msg =&gt; println(&quot;echo &quot; + msg)
+  }
+  whenStarting {
+    println(&quot;preStart&quot;)
+  }
+})
+echoServer ! &quot;hi&quot;
+</code></pre>
+
+<h3 id="actor-和线程:f4b76221ad421ce4a5c8747d30d12ae5">Actor 和线程</h3>
+
+<ul>
+<li>Scala 中 Actor 和线程是不同的抽象，他们的对应关系是由 Dispatcher 决定的。</li>
+<li>Actor 比线程轻量。在 Scala 中可以创建数以百万级的 Actor。奥秘在于 Actor 直接可以复用线程。</li>
+<li>Actor 和线程之间没有一对一的对应关系。一个 Actor 可以使用多个线程，一个线程也会被多个 Actor 复用。</li>
+</ul>
+
+<h3 id="配置-dispatcher:f4b76221ad421ce4a5c8747d30d12ae5">配置 Dispatcher</h3>
+
+<p>每一个 ActorSystem 都有一个默认的 Dispatcher，但是也可以通过配置文件进行更改使用。</p>
+
+<p>在工程的资源目录下创建 <code>application.conf</code> 文件。内容如下：</p>
+
+<pre><code class="language-json">my-dispatcher {
+  # Dispatcher 的类型
+  type = Dispatcher
+  # ExecutionService 的类型
+  executor = &quot;fork-join-executor&quot;
+  # 配置 fork join 池
+  fork-join-executor {
+    # 最小线程数
+    parallelism-min = 2
+    # 线程增长因子
+    parallelism-factor = 2.0
+    # 最大线程数
+    parallelism-max = 10
+  }
+  # 线程切换到另一个actor之前处理的消息数上限，1 为尽可能公平
+  throughput = 100
+}
+</code></pre>
+
+<p>以上就定义了一个名为 <code>my-dispatcher</code> 的 Dispatcher。</p>
+
+<p>Dispatcher 共有四种类型：</p>
+
+<ul>
+<li>Dispatcher 默认类型，底层为 <code>java.util.concurrent.ExecutorService</code>，为每个 Actor 创建一个邮箱</li>
+<li>PinnedDispatcher 底层为 <code>akka.dispatch.ThreadPoolExecutorConfigurator</code>，为每个 Actor 创建一个邮箱</li>
+<li>BalancingDispatcher 底层为 <code>java.util.concurrent.ExecutorService</code>，为所有 Actor 创建一个邮箱，只有同一类型的 Actor 可以进行共享</li>
+<li>CallingThreadDispatcher 仅供测试</li>
+</ul>
+
+<p>使用自定义的 Dispatcher</p>
+
+<pre><code class="language-scala">val echoServers = (1 to 10).map(x =&gt;
+  system.actorOf(Props(new EchoServer2(x.toString))
+    .withDispatcher(&quot;my-dispatcher&quot;)))
+
+(1 to 10).foreach(echoServers(Random.nextInt(10)) ! _)
+</code></pre>
+
+<p>以上例子中创建了 10 个 基于 <code>my-dispatcher</code> 的 Actor，每个 Actor 接收一个 0 到 10 的随机数作为消息。</p>
+
+<p>除此之外，也可以通过 <code>lookup()</code> 方法获得已定义好的 Dispatcher 的实例</p>
+
+<pre><code class="language-scala">implicit val executionContext = system.dispatchers.lookup(&quot;my-dispatcher&quot;)
+</code></pre>
+
+<h3 id="actor-间通信:f4b76221ad421ce4a5c8747d30d12ae5">Actor 间通信</h3>
+
+<p>Actor 间使用样本类可以发送更丰富的消息内容也能够轻易完成 Actor 间的通信。</p>
+
+<p>定义作为消息的样本类，最后一个参数为发送消息的 Actor 的引用</p>
+
+<pre><code class="language-scala">case class Message[T &lt;: ActorRef](content: String, sender: T)
+</code></pre>
+
+<p>使用该 Actor</p>
+
+<pre><code class="language-scala">implicit val system = ActorSystem()
+val pingActor = actor(new Act {
+  become {
+    case Message(msg: String, sender: ActorRef) =&gt;
+      println(s&quot;$msg pang&quot;)
+  }
+})
+pingActor ! Message(&quot;ping&quot;, pingActor)
+</code></pre>
+
+<h3 id="获得处理结果:f4b76221ad421ce4a5c8747d30d12ae5">获得处理结果</h3>
+
+<p>Actor 发送消息后可以获得处理该消息的 Actor 的处理结果。要实现这功能，只需要使用 <code>ask()</code> 代替 <code>!</code> 发送消息就可以获得用于获得结果的 <code>Future</code> 对象。</p>
+
+<pre><code class="language-scala">import akka.actor.ActorDSL._
+import akka.pattern.ask
+
+implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
+implicit val system = akka.actor.ActorSystem()
+
+val versionUrl = &quot;https://github.com/SidneyXu&quot;
+
+val fromURL = actor(new Act {
+  become {
+    case url: String =&gt; sender ! scala.io.Source.fromURL(url)
+      .getLines().mkString(&quot;\n&quot;)
+  }
+})
+
+val versionFuture = fromURL.ask(versionUrl)(akka.util.Timeout(5, TimeUnit.SECONDS))
+</code></pre>
+
+<p>这个例子通过调用 <code>ask</code> 函数来获取一个 <code>Future</code>。<code>ask</code> 内部也是用 <code>!</code> 来传递消息，但是其可以同时设置超时时间。</p>
+
+<p>通过调用 <code>Future</code> 的不同方法可以实现同步和异步操作：</p>
+
+<p>获得同步结果</p>
+
+<pre><code class="language-scala">versionFuture.foreach(println)
+</code></pre>
+
+<p>获得异步结果</p>
+
+<pre><code class="language-scala">versionFuture onComplete {
+  case msg =&gt; println(msg)
+}
+</code></pre>
+
+<h3 id="远程-actor:f4b76221ad421ce4a5c8747d30d12ae5">远程 Actor</h3>
+
+<p>Actor 可以进行远程调用，实现 RMI 的功能。</p>
+
+<p><strong>服务端</strong></p>
+
+<p>代码</p>
+
+<pre><code class="language-scala">import akka.actor.{ActorSystem, Props}
+
+object RemoteServer extends App {
+
+  implicit val system = ActorSystem(&quot;RemoteSystem&quot;)
+  val remoteActor = system.actorOf(Props[EchoServer], name = &quot;remoteServer&quot;)
+  remoteActor ! &quot;The RemoteActor is alive&quot;
+
+}
+</code></pre>
+
+<p>配置文件</p>
+
+<p>配置文件需要放在 <code>classpath</code> 下， 系统默认读取的配置文件名为 <code>application.conf</code></p>
+
+<p>application.conf</p>
+
+<pre><code class="language-json">akka {
+  actor {
+    provider = &quot;akka.remote.RemoteActorRefProvider&quot;
+  }
+  remote {
+    transport = &quot;akka.remote.netty.NettyRemoteTransport&quot;
+    netty.tcp {
+      hostname = &quot;127.0.0.1&quot;
+      port = 5150
+    }
+  }
+}
+</code></pre>
+
+<p><strong>客户端</strong></p>
+
+<p>代码</p>
+
+<pre><code class="language-scala">object Client extends App {
+
+  implicit val system = ActorSystem(&quot;LocalSystem&quot;, ConfigFactory.load(&quot;client&quot;))
+  val remote = system.actorSelection(&quot;akka.tcp://RemoteSystem@127.0.0.1:5150/user/remoteServer&quot;)
+  remote ! &quot;Hello from the LocalActor&quot;
+
+}
+</code></pre>
+
+<p>配置文件</p>
+
+<p>可以通过 <code>ConfigFactory.load()</code> 来读取指定的配置文件，文件名不包含后缀名。</p>
+
+<p>只有服务器端需要知道端口号，所以客户端的端口号设为 <code>0</code>。</p>
+
+<p>client.conf</p>
+
+<pre><code class="language-json">akka {
+  actor {
+    provider = &quot;akka.remote.RemoteActorRefProvider&quot;
+  }
+  remote {
+    transport = &quot;akka.remote.netty.NettyRemoteTransport&quot;
+    netty.tcp {
+      hostname = &quot;127.0.0.1&quot;
+      port = 0
+    }
+  }
+}
+</code></pre>
+
+<p><strong>运行</strong></p>
+
+<p>先运行服务器端，控制台输出 &ldquo;echo The RemoteActor is alive&rdquo;，
+再运行客户端，服务器端控制台会接着输出 &ldquo;echo Hello from the LocalActor&rdquo;</p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-18 </h4>
+          <h5 id="wc"> 600 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-scala-03-duck-type/"><i class="icon-arrow-left"></i> JGSK - Scala - 03.鸭子类型</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-scala-04-implict/">JGSK - Scala - 04.隐式转换及类型约束 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="521">
+<meta itemprop="datePublished" content="2015-12-18">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-scala-06-actor/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-06-actor\/';
+    var disqus_title = 'JGSK - Scala - 06.Actor';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-06-actor\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

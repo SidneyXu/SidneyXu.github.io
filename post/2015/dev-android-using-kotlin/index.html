@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, kotlin, android, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="使用 Kotlin 开发 Android 应用"/>
+<meta property="og:site_name" content="使用 Kotlin 开发 Android 应用"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/dev-android-using-kotlin/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-11-30"/>
+<meta property="article:modified_time" content="2015-11-30"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="android">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="使用 Kotlin 开发 Android 应用">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> 使用 Kotlin 开发 Android 应用 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/dev-android-using-kotlin/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=%e4%bd%bf%e7%94%a8%20Kotlin%20%e5%bc%80%e5%8f%91%20Android%20%e5%ba%94%e7%94%a8-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f&title=%e4%bd%bf%e7%94%a8%20Kotlin%20%e5%bc%80%e5%8f%91%20Android%20%e5%ba%94%e7%94%a8&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fdev-android-using-kotlin%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">使用 Kotlin 开发 Android 应用</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#kotlin-android:9d05dee5736f4f1c0148629e5dc91f56">Kotlin Android</a>
+<ul>
+<li><a href="#场景:9d05dee5736f4f1c0148629e5dc91f56">场景</a></li>
+<li><a href="#环境配置:9d05dee5736f4f1c0148629e5dc91f56">环境配置</a></li>
+<li><a href="#编写代码:9d05dee5736f4f1c0148629e5dc91f56">编写代码</a>
+<ul>
+<li><a href="#使用-kotlin-的语法:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin 的语法</a></li>
+<li><a href="#使用-kotlin-extension:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin Extension</a></li>
+<li><a href="#使用闭包替代匿名类:9d05dee5736f4f1c0148629e5dc91f56">使用闭包替代匿名类</a></li>
+<li><a href="#使用闭包替代回调:9d05dee5736f4f1c0148629e5dc91f56">使用闭包替代回调</a></li>
+<li><a href="#使用-kotlin-function-extension:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin Function Extension</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h1 id="kotlin-android:9d05dee5736f4f1c0148629e5dc91f56">Kotlin Android</h1>
+
+<h2 id="场景:9d05dee5736f4f1c0148629e5dc91f56">场景</h2>
+
+<p>之前介绍了使用 Groovy 开发 Android 程序，本节主要介绍如何使用 Kotlin 开发 Android 程序。</p>
+
+<h2 id="环境配置:9d05dee5736f4f1c0148629e5dc91f56">环境配置</h2>
+
+<ol>
+<li><p>在 IDEA 或 Android Studio 中安装 <code>Kotlin</code> 插件。步骤：打开 <code>Settings</code> 或 <code>Preferences</code> 选择 <code>Plugins</code>，点击 <code>Browser repositories</code> 输入 <code>Kotlin</code> 进行安装，安装完后再安装 <code>Kotlin Extensions For Android</code>，安装完后重启 IDE。</p></li>
+
+<li><p>建立一个空的 Android 项目</p></li>
+
+<li><p>修改 <code>build.gradle</code> 文件</p>
+
+<p>添加 <code>kotlin-gradle-plugin</code> 插件和用于扩展 Android 功能的 <code>kotlin-android-extensions</code> 插件。</p>
+
+<pre><code class="language-groovy">buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+        classpath &quot;org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version&quot;
+    }
+}
+</code></pre>
+
+<p>添加 plugin</p>
+
+<pre><code class="language-groovy">apply plugin: 'kotlin-android'
+</code></pre>
+
+<p>添加 maven 仓库，Kotlin 相关依赖都保存在 maven 中央仓库中</p>
+
+<pre><code class="language-groovy">repositories {
+    jcenter()
+    mavenCentral()
+}
+</code></pre>
+
+<p>添加 runtime</p>
+
+<pre><code class="language-groovy">dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+}
+</code></pre>
+
+<p>修改 sourceSets</p>
+
+<pre><code class="language-groovy">android {
+    sourceSets {
+       main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+</code></pre></li>
+</ol>
+
+<p>完整的 <code>build.gradle</code> 文件可以见 <a href="https://github.com/SidneyXu/templates/blob/master/KotlinAndroid/app/build.gradle">示例</a>。</p>
+
+<h2 id="编写代码:9d05dee5736f4f1c0148629e5dc91f56">编写代码</h2>
+
+<h3 id="使用-kotlin-的语法:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin 的语法</h3>
+
+<p>使用 Kotlin 后可以省略分号，也可以使用更优雅的类型转换方式。</p>
+
+<p>Java 的写法</p>
+
+<pre><code class="language-java">@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+</code></pre>
+
+<p>Kotlin 的写法</p>
+
+<pre><code class="language-kotlin">override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    val view = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1) as TextView
+    title.text = getItem(position)
+    return view
+}
+</code></pre>
+
+<h3 id="使用-kotlin-extension:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin Extension</h3>
+
+<p>Kotlin Extension 类似 Android 新加入的 DataBinding，可以直接对控件进行引用，但是使用起来更加方便。</p>
+
+<p>比如说在 <code>activity_main.xml</code> 中定义了一个按钮，Kotlin Extension 会生成包含整个 Layout 内容的类 <code>kotlinx.android.synthetic.activity_main</code>，为了方便起见，在文件头可以全部引入其内容：</p>
+
+<pre><code class="language-kotlin">import kotlinx.android.synthetic.activity_main.*
+</code></pre>
+
+<p>之后就可以直接对其进行引用</p>
+
+<pre><code class="language-kotlin">button1.text = &quot;hello world&quot;
+</code></pre>
+
+<p>而不使用此功能的话则需要使用以下代码，麻烦了很多</p>
+
+<pre><code class="language-java">((Button)findViewById(R.id.button1)).setText(&quot;hello world&quot;);
+</code></pre>
+
+<h3 id="使用闭包替代匿名类:9d05dee5736f4f1c0148629e5dc91f56">使用闭包替代匿名类</h3>
+
+<p>匿名类的写法</p>
+
+<pre><code class="language-java">findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+</code></pre>
+
+<p>闭包的写法</p>
+
+<pre><code class="language-kotlin">button1.setOnClickListener {
+    startActivity(new Intent(this, CountryListActivity.class))
+}
+</code></pre>
+
+<h3 id="使用闭包替代回调:9d05dee5736f4f1c0148629e5dc91f56">使用闭包替代回调</h3>
+
+<p>同 Groovy 一样，使用闭包替代回调也是一种通常的做法。</p>
+
+<p>Java 的方式</p>
+
+<pre><code class="language-java">//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&lt;String&gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&lt;String&gt; results, Exception e){
+    }
+});
+</code></pre>
+
+<p>Kotlin 的方式</p>
+
+<pre><code class="language-kotlin">//  定义耗时任务
+fun findCountries(doneCallback: (List&lt;String&gt;?, Exception?) -&gt; Unit) {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch (e: Exception) {
+        doneCallback(null, e)
+    }
+}
+//  调用该方法
+findCountries{ list, e -&gt;
+}
+</code></pre>
+
+<p>可以看到使用闭包后无需预先定义回调接口，方便很多。</p>
+
+<h3 id="使用-kotlin-function-extension:9d05dee5736f4f1c0148629e5dc91f56">使用 Kotlin Function Extension</h3>
+
+<p>通常我们会将很多方法放在工具类里，不过通过 Kotlin 的方法扩展功能可以直接将部分功能移到 <code>Activity</code> 中。</p>
+
+<p>例：为 <code>Activity</code> 增加 <code>Toast</code> 功能</p>
+
+<p>增加方法扩展</p>
+
+<pre><code class="language-kotlin">public fun Activity.toast(message: CharSequence?, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
+</code></pre>
+
+<p>之后在 <code>Activity</code> 中就可以调用以下代码直接呼出 <code>Toast</code>。</p>
+
+<pre><code class="language-kotlin">toast(message)
+</code></pre>
+
+<p>例：为 <code>Activity</code> 添加画面跳转功能</p>
+
+<p>增加方法扩展</p>
+
+<pre><code class="language-kotlin">inline public fun &lt;reified T : Activity&gt; Activity.navigate(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) {
+        intent.putExtras(bundle)
+    }
+    startActivity(intent)
+}
+</code></pre>
+
+<p>之后在 <code>Activity</code> 中就可以调用以下代码直接进行画面跳转。</p>
+
+<pre><code class="language-kotlin">navigate&lt;CountryListActivity&gt;()
+</code></pre>
+
+<p>完整的 Android 示例见 <a href="https://github.com/SidneyXu/templates/tree/master/KotlinAndroid">KotlinAndroid</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-11-30 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/dev">Dev</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/android">android</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-34-lazy/"><i class="icon-arrow-left"></i> JGSK - 34.Lazy</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/dev-android-using-groovy/">使用 Groovy 开发 Android 应用 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="377">
+<meta itemprop="datePublished" content="2015-11-30">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/dev-android-using-kotlin/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/dev-android-using-kotlin\/';
+    var disqus_title = '使用 Kotlin 开发 Android 应用';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/dev-android-using-kotlin\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

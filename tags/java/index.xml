@@ -1,0 +1,4277 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Pixel Space</title>
+    <link>http://git.bookislife.com/tags/java/</link>
+    <description>Recent content in Java on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Jan 2016 20:01:39 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用 Scala 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2016/dev-android-using-scala/</link>
+      <pubDate>Sun, 10 Jan 2016 20:01:39 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/dev-android-using-scala/</guid>
+      <description>
+
+&lt;h1 id=&#34;scala-android:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;Scala Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;之前介绍了使用 Groovy 和 Kotlin 开发 Android 程序，本节主要介绍如何使用 Scala 开发 Android 程序。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 IDEA 或 Android Studio 中安装 &lt;code&gt;Scala&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Scala&lt;/code&gt; 进行安装，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;gradle-android-scala-plugin&lt;/code&gt; 插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &amp;quot;jp.leafytree.gradle:gradle-android-scala-plugin:1.4&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &amp;quot;jp.leafytree.android-scala&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scala-lang:scala-library:2.11.7&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 sourceSets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;android {
+    sourceSets {
+       main.scala.srcDirs += &#39;src/main/scala&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 &lt;code&gt;scaloid&lt;/code&gt; 作为 Android 的 Scala 扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scaloid:scaloid_2.11:4.0&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;因为 Scala 环境过大会导致 65535 的错误，所以需要开启混淆。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;添加混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn scala.**
+-ignorewarnings
+# temporary workaround; see Scala issue SI-5397
+-keep class scala.collection.SeqLike {
+    public protected *;
+}
+
+# this can be omitted if current Android Build target is android-16
+-dontwarn org.scaloid.**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;开启混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildTypes {
+    debug {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+    release {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/ScalaAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;编写代码:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用-scala-的语法:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 Scala 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Scala 后可以省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Scala&#34;&gt;override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
+    val view: View = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1).asInstanceOf[TextView]
+    title.setText(getItem(position))
+    view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-scaloid:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 scaloid&lt;/h3&gt;
+
+&lt;p&gt;scaloid 中使用了大量的隐式参数和 DSL 语句，使 Android 程序的开发方便不少。&lt;/p&gt;
+
+&lt;p&gt;最简单的使用 scaloid 的方法就是继承 &lt;code&gt;SActivity&lt;/code&gt; 类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scaloid.common._
+
+class MainActivity extends SActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后就可以使用 scaloid 提供的方法来简化代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).text = &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而不使用此功能的话则需要使用以下代码，麻烦了很多&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;((TextView)findViewById(R.id.button1)).setText(&amp;quot;hello world&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).onClick((v: View) =&amp;gt;
+    startActivity[CountryListActivity]
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，使用闭包替代回调也是一种通常的做法。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  定义耗时任务
+def findCountries(doneCallback: (ArrayBuffer[String], Exception) =&amp;gt; Unit):Unit = {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch {
+        case e: Exception =&amp;gt; callback(null, e)
+    }
+}
+//  调用该方法
+findCountries((names: ArrayBuffer[String], e: Exception) =&amp;gt;
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/ScalaAndroid&#34;&gt;ScalaAndroid&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;参考资料:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/saturday06/gradle-android-scala-plugin&#34;&gt;Github gradle-android-scala-plugin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pocorall/scaloid&#34;&gt;Github scaloid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 35.集合的函数式编程</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-35-collection-function/</link>
+      <pubDate>Fri, 25 Dec 2015 11:48:59 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-35-collection-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;java:152af32176ddf9979e854df274b7c621&#34;&gt;Java&lt;/h2&gt;
+
+&lt;p&gt;从 Java 1.8 开始 Java 也支持了集合的函数式编程。&lt;/p&gt;
+
+&lt;h3 id=&#34;stream:152af32176ddf9979e854df274b7c621&#34;&gt;Stream&lt;/h3&gt;
+
+&lt;p&gt;Stream 是 Java 1.8 引入的类，主要用于进行 并行集合的流式操作。&lt;/p&gt;
+
+&lt;p&gt;集合可以使用调用 &lt;code&gt;stream()&lt;/code&gt; 方法或者使用 &lt;code&gt;Stream&lt;/code&gt; 类的静态方法来转换为 &lt;code&gt;Stream&lt;/code&gt; 对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;List&amp;lt;Integer&amp;gt; numbers1 = Arrays.asList(1, 2, 3, 4, 5, 6);
+List&amp;lt;Integer&amp;gt; numbers2 = Arrays.asList(10, 20, 30);
+List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; numbers3 = Arrays.asList(numbers1, numbers2);
+
+numbers1.stream();
+Stream.of(numbers1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;map-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; mapResult = numbers1.stream().map(x -&amp;gt; x * x);
+System.out.println(&amp;quot;map =&amp;gt; &amp;quot; + getString(mapResult));   //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; flatMapResult = numbers3.stream().flatMap(list -&amp;gt; list.stream().map(x -&amp;gt; x * 10));
+System.out.println(&amp;quot;flatMap =&amp;gt; &amp;quot; + getString(flatMapResult));   //  [10, 20, 30, 40, 50, 60, 100, 200, 300]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reduce-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Optional&amp;lt;Integer&amp;gt; reduceResult = numbers1.stream().reduce((n1, n2) -&amp;gt; n1 - n2;
+System.out.println(&amp;quot;reduce =&amp;gt; &amp;quot; + reduceResult.get());  //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; filterResult = numbers1.stream().filter(n -&amp;gt; n % 2 == 0);
+System.out.println(&amp;quot;filter =&amp;gt; &amp;quot; + getString(filterResult)); //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;collect-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Collect 操作&lt;/h3&gt;
+
+&lt;p&gt;Collect 操作接收偏函数并返回偏函数处理的分组的结果集。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Map&amp;lt;Boolean, List&amp;lt;Integer&amp;gt;&amp;gt; collectResult = numbers1.stream().collect(Collectors.partitioningBy(x -&amp;gt; x % 2 == 0));
+System.out.println(&amp;quot;collect =&amp;gt; &amp;quot; + collectResult);  //  {false=[1, 3, 5], true=[2, 4, 6]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;numbers1.stream().forEach(System.out::println);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Stream 操作默认都是单线程的。但是可以使用 ParallelStream 进行并发的流式操作，并发默认使用 &lt;code&gt;ForkJoinPool.commonPool&lt;/code&gt;。ParallelStream 和 Stream 在使用上唯一区别就是使用 &lt;code&gt;parallelStream()&lt;/code&gt; 替代 &lt;code&gt;stream()&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;numbers1.parallelStream().forEach(System.out::println);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 ParallelStream 时集合中的某一个元素完成当前流的计算后就会立即进入下一个控制流，而不会像 Stream 一样只有集合的所有元素都完成操作后才会进行下一个控制流。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; parallelResult = numbers1.parallelStream().map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream first: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream second: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream third: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+});
+System.out.println(getString(parallelResult));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:152af32176ddf9979e854df274b7c621&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;p&gt;Groovy 也提供了部分函数式操作的方法，不过这些方法的命名和其它语言相比都比较奇特，需要额外注意。&lt;/p&gt;
+
+&lt;h3 id=&#34;map-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。Groovy 中的 Map 操作称为 &lt;code&gt;collect&lt;/code&gt;，不要与 Scala 中的 Collect 操作搞混。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def numbers1 = [1, 2, 3, 4, 5, 6]
+def numbers2 = [10, 20, 30]
+def numbers3 = [numbers1, numbers2]
+def mapResult = numbers1.collect { it * it }
+println(&amp;quot;map =&amp;gt; ${mapResult}&amp;quot;)    //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。Groovy 中的 FlatMap 操作被称为 &lt;code&gt;collectMany&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def flatMapResult = numbers3.collectMany { it.collect { it * 10 } }
+println(&amp;quot;flatMap =&amp;gt; ${flatMapResult}&amp;quot;)    //   [10, 20, 30, 40, 50, 60, 100, 200, 300]              
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;println(&amp;quot;flatten =&amp;gt; ${numbers3.flatten()}&amp;quot;)    //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。Groovy 中的 Zip 操作被称作 &lt;code&gt;transpose&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def zipResult1 = [numbers1, numbers2].transpose()
+println(&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;)    //  [[1, 10], [2, 20], [3, 30]]
+
+def zipResult2 = [numbers2, numbers1].transpose()
+println(&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;)  //  [[10, 1], [20, 2], [30, 3]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。Groovy 中的 Fold 操作被称为 &lt;code&gt;inject&lt;/code&gt;，只有从左开始的版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def foldLeftResult = numbers1.inject(2) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;)  //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合。Groovy 中的 Filter 操作被称为 &lt;code&gt;findAll&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def filterResult = numbers1.findAll { it % 2 == 0 }
+println(&amp;quot;filter =&amp;gt; $filterResult&amp;quot;)  //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;numbers1.each { println(it) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Groovy 中的并发集合操作需要依赖于 &lt;code&gt;GPars&lt;/code&gt; 包，而且比较难用，所以不在本系列介绍范围中。&lt;/p&gt;
+
+&lt;h2 id=&#34;scala:152af32176ddf9979e854df274b7c621&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;map-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val numbers1 = List(1, 2, 3, 4, 5, 6)	
+val numbers2 = List(10, 20, 30)
+val numbers3 = List(numbers1, numbers2)
+val mapResult: List[Int] = numbers1.map(x =&amp;gt; x * x)
+println(s&amp;quot;map =&amp;gt; $mapResult&amp;quot;) //  List(1, 4, 9, 16, 25, 36)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val flatMapResult: List[Int] = numbers3.flatMap(list =&amp;gt; list.map(x =&amp;gt; x * 10))
+println(s&amp;quot;flatMap =&amp;gt; $flatMapResult&amp;quot;) //  List(10, 20, 30, 40, 50, 60, 100, 200, 300)       
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(s&amp;quot;flatten =&amp;gt; ${numbers3.flatten}&amp;quot;) //  List(1, 2, 3, 4, 5, 6, 10, 20, 30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val zipResult1: List[(Int, Int)] = numbers1.zip(numbers2)
+println(s&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;) //  List((1,10), (2,20), (3,30))
+
+val zipResult2: List[(Int, Int)] = numbers2.zip(numbers1)
+println(s&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;) //  List((10,1), (20,2), (30,3))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除了 &lt;code&gt;zip()&lt;/code&gt; 方法外还有一个 &lt;code&gt;zipAll()&lt;/code&gt; 操作，该方法创建的集合以最长的集合为准，并且用指定值填充较短的集合。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val zipResult3: List[(Int, Any)] = numbers1.zipAll(numbers2, -1, &#39;a&#39;)
+println(s&amp;quot;zipAll =&amp;gt; $zipResult3&amp;quot;) //  List((1,10), (2,20), (3,30), (4,a), (5,a), (6,a))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子中当 &lt;code&gt;numbers1&lt;/code&gt; 较短时，新集合中就会以 &lt;code&gt;-1&lt;/code&gt; 填充不满足长度的位置，如果 &lt;code&gt;numbers2&lt;/code&gt; 较短，则以 &lt;code&gt;a&lt;/code&gt; 填充。&lt;/p&gt;
+
+&lt;h3 id=&#34;reduce-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;p&gt;Scala 有三个版本的 Reduce 操作，默认的版本第一个元素是集合的最左还是最右是不确定的，由 Scala 编译器自己决定。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceResult = numbers1.reduce((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduce =&amp;gt; $reduceResult&amp;quot;) //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以通过 &lt;code&gt;reduceLeff()&lt;/code&gt; 指定从左开始为集合的第一个元素。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceLeftResult = numbers1.reduceLeft((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduceLeft =&amp;gt; $reduceLeftResult&amp;quot;) //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同样还有 &lt;code&gt;reduceRight()&lt;/code&gt; 的版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceRightResult = numbers1.reduceRight((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduceRight =&amp;gt; $reduceRightResult&amp;quot;) //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。&lt;/p&gt;
+
+&lt;p&gt;Fold 操作也有从左和从右两个版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val foldLeftResult = numbers1.foldLeft(2)((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;) //  -19
+
+val foldRightResult = numbers1.foldRight(0)((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;foldRight =&amp;gt; $foldRightResult&amp;quot;) //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val filterResult = numbers1.filter(_ % 2 == 0)
+println(s&amp;quot;filter =&amp;gt; $filterResult&amp;quot;) //  List(2, 4, 6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;collect-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Collect 操作&lt;/h3&gt;
+
+&lt;p&gt;Collect 操作接收偏函数并返回偏函数处理的分组的结果集。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val collectResult = numbers1.collect(PartialFunction[Int, Option[Int]] {
+	case x if x % 2 == 0 =&amp;gt; Some(x)
+    case _ =&amp;gt; None
+})
+println(s&amp;quot;collect =&amp;gt; $collectResult&amp;quot;) //  List(None, Some(2), None, Some(4), None, Some(6))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;numbers1.foreach(println)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;集合操作默认都是单线程的。但是可以使用 &lt;code&gt;par()&lt;/code&gt; 方法获得进行并发的流式操作的能力，并发使用的是 &lt;code&gt;ForkJoinPool&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;numbers1.par.foreach(println)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 中的并发流式操作和 Java 并不相同。虽然当前控制流中的操作是并发执行的，但是只有所有元素计算完毕后才会进行下一个控制流。且并发本身是不会被传递。而不像 Java 一个元素完成计算后就直接进入下一个控制流。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val parallelResult = numbers1.par.map((x) =&amp;gt; {
+    println(s&amp;quot;stream first: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+}).map((x) =&amp;gt; {
+    println(s&amp;quot;stream second: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+}).map((x) =&amp;gt; {
+    println(s&amp;quot;stream third: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+})
+println(parallelResult)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:152af32176ddf9979e854df274b7c621&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;map-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val numbers1 = listOf(1, 2, 3, 4, 5, 6)
+val numbers2 = listOf(10, 20, 30)
+val numbers3 = listOf(numbers1, numbers2)
+//  Map
+val mapResult: List&amp;lt;Int&amp;gt; = numbers1.map { it * it }
+println(&amp;quot;map =&amp;gt; $mapResult&amp;quot;)    //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val flatMapResult: List&amp;lt;Int&amp;gt; = numbers3.flatMap { it.map { it * 10 } }
+println(&amp;quot;flatMap =&amp;gt; $flatMapResult&amp;quot;) //  [10, 20, 30, 40, 50, 60, 100, 200, 300]         
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;println(&amp;quot;flatten =&amp;gt; ${numbers3.flatten()}&amp;quot;) //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val zipResult1: List&amp;lt;Pair&amp;lt;Int, Int&amp;gt;&amp;gt; = numbers1.zip(numbers2)
+println(&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;)  //  [(1, 10), (2, 20), (3, 30)]
+
+val zipResult2: List&amp;lt;Pair&amp;lt;Int, Int&amp;gt;&amp;gt; = numbers2.zip(numbers1)
+println(&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;)  //  [(10, 1), (20, 2), (30, 3)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reduce-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;p&gt;Kotlin 有两个个版本的 Reduce 操作，默认的版本从左开始。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val reduceLeftResult = numbers1.reduce { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;reduce =&amp;gt; $reduceLeftResult&amp;quot;)  //  -19
+
+val reduceRightResult = numbers1.reduceRight { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;reduceRight =&amp;gt; $reduceRightResult&amp;quot;)    //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。&lt;/p&gt;
+
+&lt;p&gt;Fold 操作也有从左和从右两个版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val foldLeftResult = numbers1.fold(2) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;)  //  -19
+
+val foldRightResult = numbers1.foldRight(0) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldRight =&amp;gt; $foldRightResult&amp;quot;)    //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val filterResult = numbers1.filter { it % 2 == 0 }
+println(&amp;quot;filter =&amp;gt; $filterResult&amp;quot;)  //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;numbers1.forEach { println(it) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 目前并没有并行集合，不过官方计划在将来实现。&lt;/p&gt;
+
+&lt;h2 id=&#34;总结:152af32176ddf9979e854df274b7c621&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Java 1.8 和 Scala 支持并行集合，但是效果完全不同&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_35_collection_function&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 16.方法 vs Lambda 表达式 vs 闭包 - Kotlin 篇</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-kotlin/</link>
+      <pubDate>Mon, 14 Dec 2015 16:05:01 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-kotlin/</guid>
+      <description>
+
+&lt;h2 id=&#34;kotlin-篇:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;Kotlin 篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;方法:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;方法&lt;/h3&gt;
+
+&lt;h4 id=&#34;定义方法:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;定义方法&lt;/h4&gt;
+
+&lt;p&gt;完整的 Kotlin 方法定义语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[访问控制符] fun 方法名(参数列表) [:返回值类型] {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 可以省略变量定义的类型声明，但是在定义参数列表和定义返回值类型时则必须明确指定类型。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun add(x: Int, y: Int): Int {
+    return x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 只有成员方法，没有静态方法，但是可以通过单例来实现静态方法的功能，具体内容见 Object 章节。&lt;/p&gt;
+
+&lt;h4 id=&#34;varargs:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 使用 &lt;code&gt;vararg&lt;/code&gt; 修饰参数来表示变参。&lt;/p&gt;
+
+&lt;p&gt;声明一个变参方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;class Calculator {
+    fun sum(vararg n: Int) {
+        println(n.sum())
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val calculator = Calculator()
+calculator.sum(1, 2, 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;参数默认值:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;参数默认值&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 同 Scala 一样支持参数默认值，但是一旦使用参数默认值时，参数列表的最后一个或最后几个参数都必须有默认值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun say(name: String, word: String = &amp;quot;Hello&amp;quot;) {
+    println(&amp;quot;$word $name&amp;quot;)
+}
+
+say(&amp;quot;Peter&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;返回值:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;返回值&lt;/h4&gt;
+
+&lt;p&gt;Kotlin  同 Java 一样不会必须使用 &lt;code&gt;return&lt;/code&gt; 语句来返回执行结果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun add(x: Int, y: Int): Int {
+    return x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;方法嵌套:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;方法嵌套&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 支持方法嵌套，即一个方法可以定义在另一个方法中，且内层方法可以访问外层方法的成员。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun testMethod() {
+    var x = 1
+    fun add(y: Int): Int {
+        return x + y
+    }
+    println(add(100))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lambda-表达式:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;Lambda 表达式&lt;/h3&gt;
+
+&lt;p&gt;同 Scala 一样，闭包和 Lambda 也合在一节讲。&lt;/p&gt;
+
+&lt;h3 id=&#34;闭包:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;闭包&lt;/h3&gt;
+
+&lt;p&gt;同 Scala 一样，Kotlin 也支持闭包，但是写法有些不同。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个闭包:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;创建一个闭包&lt;/h4&gt;
+
+&lt;p&gt;由于闭包是个代码块，所以最简单的闭包形式如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;{ -&amp;gt; println(&amp;quot;foo&amp;quot;) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;字面量:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;字面量&lt;/h4&gt;
+
+&lt;p&gt;闭包可以存储在一个变量中，这一点是实现函数是一等公民的重要手段。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val excite = { word: String -&amp;gt;
+    &amp;quot;$word!!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;调用闭包:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;调用闭包&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;excite(&amp;quot;Java&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;excite.invoke(&amp;quot;Kotlin&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;多参数:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;多参数&lt;/h4&gt;
+
+&lt;p&gt;同 Scala 一样，Kotlin 中闭包的参数不能有默认值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val plus = { x: Int, y: Int -&amp;gt;
+    println(&amp;quot;$x plus $y is ${x + y}&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;it:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;it&lt;/h4&gt;
+
+&lt;p&gt;同 Groovy 一样闭包只有一个参数时可以使用 &lt;code&gt;it&lt;/code&gt; 直接指代该参数而不用预先声明参数列表。但是不像 Groovy 那么方便，Kotlin 中这一特性仅能用作传递作为参数的闭包中而不能用在定义闭包时。&lt;/p&gt;
+
+&lt;p&gt;以下闭包作为参数传递给方法 &lt;code&gt;filter&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val ints = arrayOf(1, 2, 3)
+ints.filter {
+    it &amp;gt; 3
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下定义闭包时指定 &lt;code&gt;it&lt;/code&gt; 是非法的&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val greeting = { -&amp;gt; println(it) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs-1:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 中闭包不支持变参&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包作为参数:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;闭包作为参数&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun max(numbers: Array&amp;lt;Int&amp;gt;, s: (Array&amp;lt;Int&amp;gt;) -&amp;gt; Int): Int {
+    return s.invoke(numbers)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;传入闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val maxValue = max(arrayOf(3, 10, 2, 1, 40)) {
+    it.max()!!
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;自执行闭包:699a1f3ac3668a624b6c4fa0a441f7e2&#34;&gt;自执行闭包&lt;/h4&gt;
+
+&lt;p&gt;自执行闭包即定义闭包的同时直接执行闭包，一般用于初始化上下文环境，Javascript 中常使用这种方法来初始化文档。&lt;/p&gt;
+
+&lt;p&gt;定义一个自执行的闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;{ x: Int, y: Int -&amp;gt;
+    println(&amp;quot;$x plus $y is ${x + y}&amp;quot;)
+}(1, 3)    //  1 plus 3 is 4
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 16.方法 vs Lambda 表达式 vs 闭包 - Scala 篇</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-scala/</link>
+      <pubDate>Mon, 14 Dec 2015 14:59:46 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-scala/</guid>
+      <description>
+
+&lt;h2 id=&#34;scala-篇:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;Scala 篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;方法:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;方法&lt;/h3&gt;
+
+&lt;h4 id=&#34;定义方法:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;定义方法&lt;/h4&gt;
+
+&lt;p&gt;完整的 Scala 方法定义语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[访问控制符] def 方法名(参数列表) [:返回值类型] [=] {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 可以省略变量定义的类型声明和返回值类型，但是在定义参数列表时则必须明确指定类型。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def add(x: Int, y: Int): Int = {
+  x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 只有成员方法，没有静态方法，但是可以通过单例来实现静态方法的功能，具体内容见 Object 章节。&lt;/p&gt;
+
+&lt;h4 id=&#34;参数列表:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;参数列表&lt;/h4&gt;
+
+&lt;p&gt;Scala 中参数列表必须明确指定参数类型。如果一个方法没有参数列表时，可以省略小括号，但是调用时也不能加上小括号。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  没有小括号
+def info(): Unit = {
+  println(&amp;quot;This is a class called Calculator.&amp;quot;)
+}
+println(info())
+
+//  有小括号
+def info2: Unit = {
+  println(&amp;quot;This is a class called Calculator.&amp;quot;)
+}
+println(info)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Scala 使用 &lt;code&gt;参数类型*&lt;/code&gt; 表示变参。&lt;/p&gt;
+
+&lt;p&gt;声明一个变参方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Calculator {
+  def sum(n: Int*) {
+    println(n.sum)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val calculator = new Calculator
+calculator.sum(1, 2, 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;toc_5:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;_*&lt;/h4&gt;
+
+&lt;p&gt;如果希望将一个 Sequence 作为参数传入上一节的 &lt;code&gt;sum()&lt;/code&gt; 方法的话编辑器会报参数不匹配。此时可以使用 &lt;code&gt;_*&lt;/code&gt; 操作符，&lt;code&gt;_*&lt;/code&gt; 可以将一个 Sequence 展开为多个参数进行传递。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;calculator.sum(1 to 3: _*)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;参数默认值:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;参数默认值&lt;/h4&gt;
+
+&lt;p&gt;Scala 同 Groovy 一样支持参数默认值，但是一旦使用参数默认值时，参数列表的最后一个或最后几个参数都必须有默认值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def say(name: String, word: String = &amp;quot;Hello&amp;quot;): Unit = {
+  println(s&amp;quot;$word $name&amp;quot;)
+}
+
+say(&amp;quot;Peter&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;返回值:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;返回值&lt;/h4&gt;
+
+&lt;p&gt;Scala 中总是会返回方法内部的最后一个语句的执行结果，所以无需 &lt;code&gt;return&lt;/code&gt; 语句。如果没有返回值的话需要声明返回值类型为 &lt;code&gt;Unit&lt;/code&gt;，并此时可以省略 &lt;code&gt;:Unit=&lt;/code&gt;。如果方法没有递归的话返回值类型也可以省略，但是必须使用 &lt;code&gt;=&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;默认返回最后一行的执行结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def add(x: Int, y: Int): Int = {
+  x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;无返回值的情况&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def echo(): Unit = {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;无返回值时可以简写为以下形式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def echo() = {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;方法嵌套:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;方法嵌套&lt;/h4&gt;
+
+&lt;p&gt;Scala 支持方法嵌套，即一个方法可以定义在另一个方法中，且内层方法可以访问外层方法的成员。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def testMethod(): Unit = {
+  var x = 1
+  def add(y: Int): Int = {
+    x + y
+  }
+  println(add(100))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lambda-表达式:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;Lambda 表达式&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，闭包和 Lambda 也合在一节讲。&lt;/p&gt;
+
+&lt;h3 id=&#34;闭包:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;闭包&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，Scala 也支持闭包，但是写法有些不同。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个闭包:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;创建一个闭包&lt;/h4&gt;
+
+&lt;p&gt;由于闭包是个代码块，所以最简单的闭包形式如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;() =&amp;gt; println(&amp;quot;foo&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;字面量:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;字面量&lt;/h4&gt;
+
+&lt;p&gt;闭包可以存储在一个变量中，这一点是实现函数是一等公民的重要手段。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val excite = (word: String) =&amp;gt;
+  s&amp;quot;$word!!&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;调用闭包:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;调用闭包&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;excite(&amp;quot;Java&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;excite.apply(&amp;quot;Scala&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;多参数:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;多参数&lt;/h4&gt;
+
+&lt;p&gt;闭包的参数可以和方法的参数一样拥有多个参数，但是同 Groovy 不一样，Scala 中闭包的参数不能有默认值，且参数列表为多个时必须将参数包裹在小括号内。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val plus =  (x: Int, y: Int) =&amp;gt;
+  println(s&amp;quot;$x plus $y is ${x + y}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;toc_15:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;_&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;_&lt;/code&gt; 是个占位符，当闭包只有一个参数时，使用 &lt;code&gt;_&lt;/code&gt; 可以直接指代该参数而不用预先声明参数列表。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val greeting = &amp;quot;Hello,  &amp;quot; + _
+println(greeting(&amp;quot;Peter&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs-1:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Scala 中闭包不支持变参&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包作为参数:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;闭包作为参数&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def max(numbers: Array[Int], s: (Array[Int]) =&amp;gt; Int): Unit = {
+  s.apply(numbers)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;传入闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val maxValue = max(Array(3, 10, 2, 1, 40), (numbers) =&amp;gt; {
+  numbers.max
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以使用如下方式进行简化&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def max2(numbers: Array[Int])(s: (Array[Int]) =&amp;gt; Int): Unit = {
+  s.apply(numbers)
+}
+
+maxValue = max2(Array(3, 10, 2, 1, 40)) { numbers =&amp;gt;
+  numbers.max
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;自执行闭包:9832eeffc44c8a1200d7b689bf82f929&#34;&gt;自执行闭包&lt;/h4&gt;
+
+&lt;p&gt;自执行闭包即定义闭包的同时直接执行闭包，一般用于初始化上下文环境，Javascript 中常使用这种方法来初始化文档。&lt;/p&gt;
+
+&lt;p&gt;定义一个自执行的闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;((x: Int, y: Int) =&amp;gt; {
+  println(s&amp;quot;$x plus $y is ${x + y}&amp;quot;)
+})(1, 3)    //  1 plus 3 is 4
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 16.方法 vs Lambda 表达式 vs 闭包 - Groovy 篇</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-groovy/</link>
+      <pubDate>Mon, 14 Dec 2015 14:37:28 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-groovy/</guid>
+      <description>
+
+&lt;h2 id=&#34;groovy-篇:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;Groovy 篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;方法:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;方法&lt;/h3&gt;
+
+&lt;h4 id=&#34;定义方法:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;定义方法&lt;/h4&gt;
+
+&lt;p&gt;完整的 Groovy 方法定义语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[访问控制符] [static] def 方法名(参数列表)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 也和 Java 一样有成员方法和静态方法之分。&lt;/p&gt;
+
+&lt;p&gt;成员方法表示类的对象的一种行为，声明时没有关键字 &lt;code&gt;static&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def add(x, y) {
+    x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;静态方法使用关键字 &lt;code&gt;static&lt;/code&gt; 声明，属于类的行为，或称作类对象的行为，因此调用时无需创建任何对象。&lt;code&gt;main()&lt;/code&gt; 方法就是最常见的静态方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;static def main(String[] args) {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Groovy 表示变参的方式与 Java 一样，且变参也只能出现在参数列表的最后一个。&lt;/p&gt;
+
+&lt;p&gt;声明一个变参方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;class Calculator {
+    def sum(int ... n) {
+        print(n.sum())
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def calculator = new Calculator()
+calculator.sum(1, 2, 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;参数默认值:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;参数默认值&lt;/h4&gt;
+
+&lt;p&gt;Groovy 支持参数默认值，但是一旦使用参数默认值时，参数列表的最后一个或最后几个参数都必须有默认值，即 &lt;code&gt;def foo(x, y, z =&amp;quot;bar&amp;quot;)&lt;/code&gt; 和 &lt;code&gt;def foo(x, y = &amp;quot;bar&amp;quot;, z = &amp;quot;bar&amp;quot;)&lt;/code&gt; 都是合法的，但是 &lt;code&gt;def foo(x, y = &amp;quot;bar&amp;quot;, z)&lt;/code&gt; 则是非法的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;static def say(name, word = &amp;quot;Hello&amp;quot;) {
+    println(&amp;quot;$word $name&amp;quot;)
+}
+
+say(&amp;quot;Peter&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;返回值:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;返回值&lt;/h4&gt;
+
+&lt;p&gt;Groovy 中由动态类型的存在，所以可以不声明返回值类型。并且在 Groovy 中方法的最后一个语句的执行结果总是回被返回（也适用于无返回值的时候），所以也无需 &lt;code&gt;return&lt;/code&gt; 语句。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def add(x, y) {
+    x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lambda-表达式:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;Lambda 表达式&lt;/h3&gt;
+
+&lt;p&gt;Groovy 目前还不支持 Java 1.8 的特性，所以 Java 中的 Lambda 表达式和对应的函数式接口无法在 Groovy 中直接使用。但是 Groovy 本身支持闭包，且闭包就是以 Lambda 表达式的形式存在的，所以闭包和 Lambda 合在一节讲。&lt;/p&gt;
+
+&lt;h3 id=&#34;闭包:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;闭包&lt;/h3&gt;
+
+&lt;h4 id=&#34;概念:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;概念&lt;/h4&gt;
+
+&lt;p&gt;闭包是一种带有自由变量的代码块，其最显著的特性就是能够扩大局部变量的生命周期。与 Java 不同，Groovy 支持真正的闭包。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个闭包:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;创建一个闭包&lt;/h4&gt;
+
+&lt;p&gt;由于闭包是个代码块，所以一般意义上最简单的闭包形式如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;{ println(&amp;quot;foo&amp;quot;) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过由于 Java 的普通代码块也是这样的形式，所以为了避免混淆，以上闭包必须写成如下形式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;{ -&amp;gt; println(&amp;quot;foo&amp;quot;) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;综上所述，闭包的语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ 参数列表 -&amp;gt; 执行语句 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;{ x, y -&amp;gt;
+    println &amp;quot;$x plus $y is ${x + y}&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 中定义闭包实际是定义了一个继承自 &lt;code&gt;Closure&lt;/code&gt; 类的匿名内部类，执行闭包实际是执行该类的实例的方法。这一点与 Java 非常相似。&lt;/p&gt;
+
+&lt;h4 id=&#34;字面量:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;字面量&lt;/h4&gt;
+
+&lt;p&gt;闭包可以存储在一个变量中，这一点是实现函数是一等公民的重要手段。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def excite = { word -&amp;gt;
+    &amp;quot;$word!!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;调用闭包:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;调用闭包&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;excite(&amp;quot;Java&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;excite.call(&amp;quot;Groovy&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;多参数:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;多参数&lt;/h4&gt;
+
+&lt;p&gt;闭包的参数可以和方法的参数一样拥有多个参数及默认值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def plus = { int x, int y = 1 -&amp;gt;
+    println &amp;quot;$x plus $y is ${x + y}&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;it:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;it&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;it&lt;/code&gt; 是个隐式参数，当闭包只有一个参数时，使用 &lt;code&gt;it&lt;/code&gt; 可以直接指代该参数而不用预先声明参数列表。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def greeting = { &amp;quot;Hello, $it!&amp;quot; }
+println(greeting(&amp;quot;Peter&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs-1:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;闭包也支持变参&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def contact = { String... args -&amp;gt; args.join(&#39;,&#39;) }
+println(contact(&amp;quot;Java&amp;quot;, &amp;quot;Groovy&amp;quot;, &amp;quot;Scala&amp;quot;, &amp;quot;Kotlin&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;闭包作为参数:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;闭包作为参数&lt;/h4&gt;
+
+&lt;p&gt;由于闭包本质是 &lt;code&gt;Closure&lt;/code&gt; 的子类，所以可以使用 &lt;code&gt;Closure&lt;/code&gt; 作为参数的类型接收一个闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;static def max(numbers, Closure&amp;lt;Integer&amp;gt; closure) {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;进一步简化后&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;static def max(numbers, cls) {
+    cls(numbers)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;传入闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def maxValue = max([3, 10, 2, 1, 40]) {
+    def list = it as List&amp;lt;Integer&amp;gt;
+    list.max()
+}
+assert maxValue == 40
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;自执行闭包:f1f5cc17fac8fa7af8b8d7379224a9db&#34;&gt;自执行闭包&lt;/h4&gt;
+
+&lt;p&gt;自执行闭包即定义闭包的同时直接执行闭包，一般用于初始化上下文环境，Javascript 中常使用这种方法来初始化文档。&lt;/p&gt;
+
+&lt;p&gt;定义一个自执行的闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;{ int x, int y -&amp;gt;
+    println &amp;quot;$x plus $y is ${x + y}&amp;quot;
+}(1, 3) //  1 plus 3 is 4
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 16.方法 vsLambda 表达式 vs 闭包 - Java 篇</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-java/</link>
+      <pubDate>Fri, 11 Dec 2015 12:13:45 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-java/</guid>
+      <description>
+
+&lt;h2 id=&#34;java-篇:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Java 篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;方法:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;方法&lt;/h3&gt;
+
+&lt;h4 id=&#34;定义方法:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;定义方法&lt;/h4&gt;
+
+&lt;p&gt;完整的 Java 定义语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[访问控制符] [static] [返回值类型] 方法名(参数列表)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Java 中方法必须声明在类的内部，且被分为成员方法和静态方法。&lt;/p&gt;
+
+&lt;p&gt;成员方法表示类的对象的一种行为，声明时没有关键字 &lt;code&gt;static&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public int add(int x, int y) {
+    return x + y;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;静态方法使用关键字 &lt;code&gt;static&lt;/code&gt; 声明，属于类的行为，或称作类对象的行为，因此调用时无需创建任何对象。&lt;code&gt;main()&lt;/code&gt; 方法就是最常见的静态方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public static void main(String[] args) {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;varargs:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Varargs&lt;/h4&gt;
+
+&lt;p&gt;Varargs 即参数长度不确定，简称变参。Java 使用符号 &lt;code&gt;...&lt;/code&gt; 表示变参，但是变参只能出现在参数列表的最后一个，即 &lt;code&gt;sum(int x, int y, int...n)&lt;/code&gt; 是合法的，但 &lt;code&gt;sum(int x, int...n, int y)&lt;/code&gt; 或 &lt;code&gt;sum(int...n, int x, int y)&lt;/code&gt; 都是非法的。&lt;/p&gt;
+
+&lt;p&gt;声明一个变参方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class Calculator {
+    public void sum(int... n) {
+        int result = 0;
+        for (int i : n) {
+            result += i;
+        }
+        System.out.println(result);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Calculator calculator = new Calculator();
+calculator.sum(1, 2, 3);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;参数默认值:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;参数默认值&lt;/h4&gt;
+
+&lt;p&gt;Java 不支持参数默认值，所以调用时必须为每一个参数赋值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;private static void say(String name, String word) {
+    if (word == null) {
+        System.out.println(word + &amp;quot; &amp;quot; + name);
+    }
+}
+
+say(&amp;quot;Peter&amp;quot;, null);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;返回值:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;返回值&lt;/h4&gt;
+
+&lt;p&gt;Java 中方法除非返回值类型声明为 &lt;code&gt;void&lt;/code&gt; 表示没有返回值，否则必须在方法中调用 &lt;code&gt;return&lt;/code&gt; 语句返回到调用处。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public int add(int x, int y) {
+    return x + y;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lambda-表达式:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Lambda 表达式&lt;/h3&gt;
+
+&lt;p&gt;所谓的 Lambda 表达式其实就是一个匿名函数。Java 中由于不能有独立于类的函数存在，所以匿名函数一直都是通过定义一个包含抽象方法的匿名内部类来实现的。而 Java 1.8 后引入的 Lambda 表达式其实只是原来实现方式的一种语法糖。&lt;/p&gt;
+
+&lt;p&gt;Java 1.8 以前使用匿名内部类的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;  button.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+        System.out.println(&amp;quot;Perform Click&amp;quot;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Java 1.8 使用 Lambda 的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;button.addActionListener(e -&amp;gt; System.out.println(&amp;quot;Perform Click&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;sam-类型与函数接口:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;SAM 类型与函数接口&lt;/h4&gt;
+
+&lt;p&gt;SAM （Single Abstract Method）是有且仅有一个抽象方法的类型，该类型可以是抽象类也可以是接口。&lt;/p&gt;
+
+&lt;p&gt;函数接口是 Java 1.8 中引入的概念，其实就是一个普通的接口，但是该接口中有且仅有一个抽象方法。所以函数接口就是一种  SAM 类型。&lt;/p&gt;
+
+&lt;p&gt;Java 中的 Lambda 表达式就是通过函数接口来实现的，所以其与 1.8 以前使用匿名内部类的最大区别就是匿名内部类中可以定义多个抽象方法，而要使用 Lambda 表达式则只能定义一个抽象方法。&lt;/p&gt;
+
+&lt;p&gt;定义一个函数接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@FunctionalInterface
+interface Excite {
+    String accept(String from);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上使用了注解 &lt;code&gt;@FunctionalInterface&lt;/code&gt;，在 Java 1.8 的初期版本这个注解用于标示一个接口为函数接口，但在现在的版本已经可以省略这个注解了。&lt;/p&gt;
+
+&lt;h4 id=&#34;使用-lambda-表达式:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;使用 Lambda 表达式&lt;/h4&gt;
+
+&lt;p&gt;Lambda 表达式的基本语法为&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;(参数列表) -&amp;gt; {执行语句}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果执行语句只有一句的话可以省略包裹其的花括号&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Excite excite = (word) -&amp;gt; word + &amp;quot;!!&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后我们可以很方便的调用这个接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;excite.accept(&amp;quot;Java&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 Lambda 语句只有一个语句且只有一个参数，且该语句调用的是一个静态方法，则可以使用符号 &lt;code&gt;::&lt;/code&gt; 进一步缩减代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Excite hello = (w) -&amp;gt; String.valueOf(w);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上等同于&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Excite hello = String::valueOf;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果 Lambda 语句只有一个语句，且该语句为使用类的无参构造方法创建类的实例，则也可以使用符号 &lt;code&gt;::&lt;/code&gt; 进一步缩减代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Excite hello = (w) -&amp;gt; new Word();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上等同于&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Excite hello = Word::new;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;多个参数:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;多个参数&lt;/h4&gt;
+
+&lt;p&gt;函数接口也可以接收多个参数，这些参数可以为泛型而不是具体类型，实际上使用泛型的函数接口更为常见&lt;/p&gt;
+
+&lt;p&gt;以下定义了一个接收两个参数 &lt;code&gt;F1&lt;/code&gt; 和 &lt;code&gt;F2&lt;/code&gt;，返回 &lt;code&gt;T&lt;/code&gt; 类型的接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;interface Convert&amp;lt;F1, F2, T&amp;gt; {
+    T convert(F1 from1, F2 from2);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Convert&amp;lt;Integer, Integer, String&amp;gt; convert = (x, y) -&amp;gt; {
+    int result = x + y;
+    return x + &amp;quot; plus &amp;quot; + y + &amp;quot; is &amp;quot; + result;
+};
+System.out.println(convert.convert(1, 2));  //  1 plus 2 is 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;变参:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;变参&lt;/h4&gt;
+
+&lt;p&gt;在 Lambda 表达式中也一样可以使用变参&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个含有变参的接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;interface Contact&amp;lt;F, T&amp;gt; {
+    T accept(F... from);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Contact&amp;lt;String, String&amp;gt; contact = (args) -&amp;gt; String.join(&amp;quot;,&amp;quot;, args);
+contact.accept(&amp;quot;Java&amp;quot;, &amp;quot;Groovy&amp;quot;, &amp;quot;Scala&amp;quot;, &amp;quot;Kotlin&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;内置函数接口:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;内置函数接口&lt;/h4&gt;
+
+&lt;p&gt;通过以上例子我们可以看到要想使用 Lambda 表达式我们必须先定义一个函数接口，这样用法太过麻烦。所以 Java 提供了一些内置的函数接口供我们调用.&lt;/p&gt;
+
+&lt;h5 id=&#34;predicate:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Predicate&lt;/h5&gt;
+
+&lt;p&gt;Predicate 接口用于接收一个参数并返回 Boolean 值，主要用于处理逻辑动词。该接口还有一个默认方法 &lt;code&gt;negate()&lt;/code&gt; 用于进行逻辑取反。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Predicate&amp;lt;String&amp;gt; predicate = (s) -&amp;gt; s.length() &amp;gt; 0;
+assert predicate.test(&amp;quot;foo&amp;quot;);
+assert !predicate.negate().test(&amp;quot;foo&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;function:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Function&lt;/h5&gt;
+
+&lt;p&gt;Function 接口接收一个参数并返回单一结果，主要用于进行类型转换等功能。该接口也提供了一个 &lt;code&gt;andThen()&lt;/code&gt; 方法用于执行链式操作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Function&amp;lt;String, Integer&amp;gt; toInteger = Integer::valueOf;
+Function&amp;lt;String, String&amp;gt; backToString = toInteger.andThen(String::valueOf);
+assert toInteger.apply(&amp;quot;123&amp;quot;) == 123;
+assert backToString.apply(&amp;quot;123&amp;quot;).equals(&amp;quot;123&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;supplier:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Supplier&lt;/h5&gt;
+
+&lt;p&gt;Supplier 接口没有参数，但是会返回单一结果，可以用于实现工厂方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Supplier&amp;lt;Calculator&amp;gt; calculatorSupplier = Calculator::new;
+assert calculatorSupplier.get().add(1, 2) == 3;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;consumer:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Consumer&lt;/h5&gt;
+
+&lt;p&gt;Consumer 接口接收一个参数，没有返回值，用于对传入的参数进行某些处理。该接口也提供了 &lt;code&gt;andThen()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Consumer&amp;lt;Person&amp;gt; calculatorConsumer = (p) -&amp;gt;
+        System.out.println(&amp;quot;The name is &amp;quot; + p.getName());
+calculatorConsumer.accept(new Person(&amp;quot;Peter&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;comparator:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Comparator&lt;/h5&gt;
+
+&lt;p&gt;Comparator 接口接收两个参数，返回 int 值，用于进行排序操作。该接口提供了 &lt;code&gt;reversed()&lt;/code&gt; 方法进行反序排列。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Comparator&amp;lt;Person&amp;gt; comparator = (p1, p2) -&amp;gt;
+        p1.getAge().compareTo(p2.getAge());
+Person john = new Person(&amp;quot;John&amp;quot;, 20);
+Person alice = new Person(&amp;quot;Alice&amp;quot;, 18);
+
+assert comparator.compare(john, alice) &amp;gt; 0;
+assert comparator.reversed().compare(john, alice) &amp;lt; 0;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;函数接口作为参数:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;函数接口作为参数&lt;/h4&gt;
+
+&lt;p&gt;函数接口也可以作为参数来使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;private static int max(int[] arr, Function&amp;lt;int[], Integer&amp;gt; integerFunction) {
+    return integerFunction.apply(arr);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该接口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;int maxValue = max(new int[]{3, 10, 2, 40}, (s) -&amp;gt; {
+    int max = -1;
+    for (int n : s) {
+        if (max &amp;lt; n) max = n;
+    }
+    return max;
+});
+assert maxValue == 40;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;闭包:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;闭包&lt;/h3&gt;
+
+&lt;h4 id=&#34;概念:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;概念&lt;/h4&gt;
+
+&lt;p&gt;闭包是一种带有自由变量的代码块，其最显著的特性就是能够扩大局部变量的生命周期。&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包与-lambda-表达式:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;闭包与 Lambda 表达式&lt;/h4&gt;
+
+&lt;p&gt;闭包与 Lambda 表达式的概念非常容易让人混淆，但两者确实是不同的东西。Lambda 表达式是匿名函数，而闭包则是实现函数是第一类对象的一种手段。两者的直接关系是 Lambda 表达式可以作为闭包的一种表现形式，但闭包除了 Lambda 表达式也可以表现为多种形式，这也就是在各种语言中闭包的写法会有很多差别的原因。&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包与方法:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;闭包与方法&lt;/h4&gt;
+
+&lt;p&gt;闭包和方法的最大区别是方法执行完毕后其内部的变量便会被释放，而闭包不会。闭包可以进行嵌套，而方法不行。&lt;/p&gt;
+
+&lt;h4 id=&#34;java-中的闭包:d088721b895d71ec0f6e0bbf96ee32a0&#34;&gt;Java 中的闭包&lt;/h4&gt;
+
+&lt;p&gt;Java 中和闭包相近的概念就是匿名类以及本章所说的 Lambda 表达式。但是这两种都不是真正意义上的闭包。&lt;/p&gt;
+
+&lt;p&gt;先看一个例子&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;interface Excite {
+    String accept(String from);
+}
+private static Excite excite(String s) {
+  Excite e = from -&amp;gt; {
+    from = &amp;quot;from=&amp;quot; + from;
+    return from + &amp;quot;,&amp;quot; + s;
+  };
+  return e;
+}
+Excite excite = excite(&amp;quot;hello&amp;quot;);
+System.out.println(excite.accept(&amp;quot;world&amp;quot;)); //  from=world,hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子中 &lt;code&gt;e&lt;/code&gt; 为 Lambda 表达式，其定义在 &lt;code&gt;excite()&lt;/code&gt; 方法中并且访问了该方法的参数列表。按照生命周期，&lt;code&gt;excite()&lt;/code&gt; 的参数 &lt;code&gt;s&lt;/code&gt; 应该在方法被调用后就自动释放，即 &lt;code&gt;Excite excite = excite(&amp;quot;hello&amp;quot;)&lt;/code&gt; 调用后就不存在参数 &lt;code&gt;hello&lt;/code&gt; 了，但实际打印语句还是打印出来了。&lt;/p&gt;
+
+&lt;p&gt;这一表现形式非常像闭包，因为参数明显在其生命周期外还存活。但是如果我们在 Lambda 表达式内试图修改参数 &lt;code&gt;s&lt;/code&gt; 的值后编译器会报 &lt;code&gt;s&lt;/code&gt; 必须为 &lt;code&gt;final&lt;/code&gt; ，这就是说该变量实际并不是自由变量，所以并不是真正的闭包。&lt;/p&gt;
+
+&lt;p&gt;如果查看 Groovy 的闭包形式你可以发现 Groovy 实际也是通过实现继承自 &lt;code&gt;Closure&lt;/code&gt; 类的匿名内部类来实现闭包形式的，这一点与 Java 一致。所以理论上 Java 也能实现真正的闭包，至于 1.8 为什么没有这么做就不得而知了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 16.方法 vs Lambda 表达式 vs 闭包 - 共通篇</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-all/</link>
+      <pubDate>Fri, 11 Dec 2015 12:12:21 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-16-method-lambda-closure-all/</guid>
+      <description>
+
+&lt;h2 id=&#34;共通篇:56c66497db86a5d0e04f79f652b89afb&#34;&gt;共通篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;方法-函数与过程:56c66497db86a5d0e04f79f652b89afb&#34;&gt;方法，函数与过程&lt;/h3&gt;
+
+&lt;p&gt;这三种名词在编程中非常常见，其概念非常相近。一般来说函数 (Function) 是可重复调用带有有输出和输入的代码块。方法 (Method) 是定义在类中，作为类的成员的函数。过程(Subroutine)即没有返回值的函数。也就是说函数是基础，其它两种只是函数的特例。&lt;/p&gt;
+
+&lt;p&gt;由于这些名词容易混淆，在 Java 中统一都使用方法这个名词。而在 Kotlin 中使用关键字 &lt;code&gt;fun&lt;/code&gt; 即表示 Kotlin 中使用的是函数这个名词。为了方便起见，本系列都使用方法这个名字进行描述，只有在牵涉到函数式编程时才使用函数这个名词。&lt;/p&gt;
+
+&lt;h3 id=&#34;lambda-表达式:56c66497db86a5d0e04f79f652b89afb&#34;&gt;Lambda 表达式&lt;/h3&gt;
+
+&lt;p&gt;所谓的 Lambda 表达式其实就是一个匿名函数。&lt;/p&gt;
+
+&lt;h3 id=&#34;sam-类型:56c66497db86a5d0e04f79f652b89afb&#34;&gt;SAM 类型&lt;/h3&gt;
+
+&lt;p&gt;SAM （Single Abstract Method）是有且仅有一个抽象方法的类型，该类型可以是抽象类也可以是接口。&lt;/p&gt;
+
+&lt;h3 id=&#34;闭包:56c66497db86a5d0e04f79f652b89afb&#34;&gt;闭包&lt;/h3&gt;
+
+&lt;p&gt;闭包是一种带有自由变量的代码块，其最显著的特性就是能够扩大局部变量的生命周期。&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包与-lambda-表达式:56c66497db86a5d0e04f79f652b89afb&#34;&gt;闭包与 Lambda 表达式&lt;/h4&gt;
+
+&lt;p&gt;闭包与 Lambda 表达式的概念非常容易让人混淆，但两者确实是不同的东西。Lambda 表达式是匿名函数，而闭包则是实现函数是第一类对象的一种手段。两者的直接关系是 Lambda 表达式可以作为闭包的一种表现形式，但闭包除了 Lambda 表达式也可以表现为多种形式，这也就是在各种语言中闭包的写法会有很多差别的原因。&lt;/p&gt;
+
+&lt;h4 id=&#34;闭包与方法:56c66497db86a5d0e04f79f652b89afb&#34;&gt;闭包与方法&lt;/h4&gt;
+
+&lt;p&gt;闭包和方法的最大区别是方法执行完毕后其内部的变量便会被释放，而闭包不会。闭包可以进行嵌套，而方法不行。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 34.Lazy</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-34-lazy/</link>
+      <pubDate>Tue, 08 Dec 2015 10:44:06 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-34-lazy/</guid>
+      <description>
+
+&lt;h2 id=&#34;共通篇:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;共通篇&lt;/h2&gt;
+
+&lt;p&gt;Lazy变量也就是常说的惰性加载，即变量在初始化时没有进行计算操作，而是延迟到了该变量第一次被使用的时候。在函数式编程中，惰性加载被广泛使用，尤其是对于一些长度未知的列表，如果使用普通方式，恐怕加载时系统就会被拖慢速度甚至于内存溢出。&lt;/p&gt;
+
+&lt;h2 id=&#34;java:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;Java&lt;/h2&gt;
+
+&lt;p&gt;Java 并不支持惰性加载，所以以往一般都是通过代理对象的形式来模拟实习。不过从 Java 1.8 开始可以使用更简单的 Lambda 表达式来实现此功能。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class A {
+    private Supplier&amp;lt;Long&amp;gt; fooField = () -&amp;gt; {
+        Long val = expensiveInit();
+        fooField = () -&amp;gt; val;
+        return val;
+    };
+
+    protected Long expensiveInit() {
+        System.out.println(&amp;quot;Compute...&amp;quot;);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return System.currentTimeMillis();
+    }
+
+    public Long getFoo() {
+        return fooField.get();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用以下代码观察控制台输出就可以看出区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;System.out.println(&amp;quot;Before is &amp;quot; + System.currentTimeMillis());
+A a = new A();
+System.out.println(&amp;quot;After is &amp;quot; + System.currentTimeMillis());
+System.out.println(&amp;quot;Hello 1, &amp;quot; + a.getFoo());
+System.out.println(&amp;quot;Hello 2, &amp;quot; + a.getFoo());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;p&gt;Groovy 中可以通过 &lt;code&gt;@Lazy&lt;/code&gt;  注解和自释放的闭包来实现惰性加载。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;class A {
+    def fooField = {
+        println(&amp;quot;Compute...&amp;quot;)
+        Thread.sleep(3000)
+        System.currentTimeMillis()
+    }()
+
+    @Lazy
+    def lazyField = {
+        println(&amp;quot;Compute...&amp;quot;)
+        Thread.sleep(3000)
+        System.currentTimeMillis()
+    }()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用以下代码观察控制台输出就可以看出区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;println(&amp;quot;Before is ${System.currentTimeMillis()}&amp;quot;)
+def a = new A()
+println(&amp;quot;After is ${System.currentTimeMillis()}&amp;quot;)
+println(&amp;quot;Hello 1, ${a.fooField}&amp;quot;)
+println(&amp;quot;Hello 2, ${a.fooField}&amp;quot;)
+
+println(&amp;quot;Hello 1, ${a.lazyField}&amp;quot;)
+println(&amp;quot;Hello 2, ${a.lazyField}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scala:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;lazy:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;lazy&lt;/h3&gt;
+
+&lt;p&gt;Scala 中通过 &lt;code&gt;lazy&lt;/code&gt; 关键字来实现惰性加载的功能。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class A {
+  val fooField = {
+    println(&amp;quot;Compute...&amp;quot;)
+    Thread.sleep(3000)
+    System.currentTimeMillis()
+  }
+
+  lazy val lazyField = {
+    println(&amp;quot;Compute...&amp;quot;)
+    Thread.sleep(3000)
+    System.currentTimeMillis()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用以下代码观察控制台输出就可以看出区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(s&amp;quot;Before is ${System.currentTimeMillis()}&amp;quot;)
+val a = new A()
+println(s&amp;quot;After is ${System.currentTimeMillis()}&amp;quot;)
+println(s&amp;quot;Hello 1, ${a.fooField}&amp;quot;)
+println(s&amp;quot;Hello 2, ${a.fooField}&amp;quot;)
+
+println(s&amp;quot;Hello 1, ${a.lazyField}&amp;quot;)
+println(s&amp;quot;Hello 2, ${a.lazyField}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;var-val-lazy-val-def-的区别:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;var, val, lazy val, def 的区别&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;var&lt;/code&gt;, &lt;code&gt;val&lt;/code&gt;, &lt;code&gt;lazy val&lt;/code&gt;, &lt;code&gt;def&lt;/code&gt; 这四个在有些时候用法看起来有些相似，很容易让人搞混。接下来通过一个例子来进行区分：&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class A {
+  var max = 100
+  def init(m: Int) = max = m
+  val valValue = Random.nextInt(max)
+  var varValue = Random.nextInt(max)
+  lazy val lazyValValue = Random.nextInt(max)
+  def defValue = Random.nextInt(max)
+}
+
+val a = new A()
+a.init(1000000)
+println(s&amp;quot;val=${a.valValue}&amp;quot;) //  96
+println(s&amp;quot;var=${a.varValue}&amp;quot;) //  9
+println(s&amp;quot;lazy val=${a.lazyValValue}&amp;quot;) //  117261
+println(s&amp;quot;def=${a.defValue}&amp;quot;) //  798062
+
+println(s&amp;quot;val=${a.valValue}&amp;quot;) //  96
+println(s&amp;quot;var=${a.varValue}&amp;quot;) //  9
+println(s&amp;quot;lazy val=${a.lazyValValue}&amp;quot;) //  117261
+println(s&amp;quot;def=${a.defValue}&amp;quot;) //  937263
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从以上的例子中可以知道这四个有以下的区别&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;var&lt;/code&gt; 定义变量，在类初始化时的同时被初始化，除非被手动赋值，再次访问时会直接使用之前的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;val&lt;/code&gt; 定义值（常量），在类初始化时的同时被初始化，无法被修改，再次访问时会直接使用之前的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lazy val&lt;/code&gt; 定义惰性加载值，在第一次使用被初始化，无法被修改，再次访问时会直接使用之前的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;def&lt;/code&gt; 定义函数，单行时看起来很像定义变量，但是访问时实际是调用函数，所以多次调用时值会重新计算&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;kotlin:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;p&gt;Kotlin 中通过 &lt;code&gt;lazy()&lt;/code&gt; 函数来实现惰性加载功能。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;class A {
+    val fooField: Long by lazy {
+        println(&amp;quot;Compute...&amp;quot;)
+        Thread.sleep(3000)
+        System.currentTimeMillis()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用以下代码观察控制台输出就可以看出区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;println(&amp;quot;Before is ${System.currentTimeMillis()}&amp;quot;)
+val a = A()
+println(&amp;quot;After is ${System.currentTimeMillis()}&amp;quot;)
+println(&amp;quot;Hello 1, ${a.fooField}&amp;quot;)
+println(&amp;quot;Hello 2, ${a.fooField}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 中使用惰性加载时还能指定线程安全的模式，默认惰性加载是同步的（LazyThreadSafetyMode.SYNCHRONIZED，只能有一个线程进行修改，结果对所有线程可见），但是也可以指定为公开的(PUBLICATION，所有线程可以同时进行计算，但是只有第一个完成计算的线程会被作为结果) ， 或者不加任何限制(NONE，没有任何线程安全的措施，效率最高，适合本来就是单线程执行计算的程序)。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val fooField2: Long by lazy(LazyThreadSafetyMode.PUBLICATION) {
+    println(&amp;quot;Compute...&amp;quot;)
+    Thread.sleep(3000)
+    System.currentTimeMillis()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;总结:b05145dc63db7fff7c79ee99b4aad208&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;除了 Java 之外，其它三种语言都默认支持惰性加载。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_34_lazy&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Kotlin 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2015/dev-android-using-kotlin/</link>
+      <pubDate>Mon, 30 Nov 2015 17:46:07 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/dev-android-using-kotlin/</guid>
+      <description>
+
+&lt;h1 id=&#34;kotlin-android:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;Kotlin Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;之前介绍了使用 Groovy 开发 Android 程序，本节主要介绍如何使用 Kotlin 开发 Android 程序。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 IDEA 或 Android Studio 中安装 &lt;code&gt;Kotlin&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Kotlin&lt;/code&gt; 进行安装，安装完后再安装 &lt;code&gt;Kotlin Extensions For Android&lt;/code&gt;，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;kotlin-gradle-plugin&lt;/code&gt; 插件和用于扩展 Android 功能的 &lt;code&gt;kotlin-android-extensions&lt;/code&gt; 插件。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    ext.kotlin_version = &#39;1.0.0&#39;
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &amp;quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&amp;quot;
+        classpath &amp;quot;org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &#39;kotlin-android&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 maven 仓库，Kotlin 相关依赖都保存在 maven 中央仓库中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;repositories {
+    jcenter()
+    mavenCentral()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 sourceSets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;android {
+    sourceSets {
+       main.java.srcDirs += &#39;src/main/kotlin&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/KotlinAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;编写代码:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用-kotlin-的语法:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Kotlin 后可以省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    val view = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1) as TextView
+    title.text = getItem(position)
+    return view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-kotlin-extension:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin Extension&lt;/h3&gt;
+
+&lt;p&gt;Kotlin Extension 类似 Android 新加入的 DataBinding，可以直接对控件进行引用，但是使用起来更加方便。&lt;/p&gt;
+
+&lt;p&gt;比如说在 &lt;code&gt;activity_main.xml&lt;/code&gt; 中定义了一个按钮，Kotlin Extension 会生成包含整个 Layout 内容的类 &lt;code&gt;kotlinx.android.synthetic.activity_main&lt;/code&gt;，为了方便起见，在文件头可以全部引入其内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;import kotlinx.android.synthetic.activity_main.*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后就可以直接对其进行引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;button1.text = &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而不使用此功能的话则需要使用以下代码，麻烦了很多&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;((Button)findViewById(R.id.button1)).setText(&amp;quot;hello world&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;button1.setOnClickListener {
+    startActivity(new Intent(this, CountryListActivity.class))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，使用闭包替代回调也是一种通常的做法。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;//  定义耗时任务
+fun findCountries(doneCallback: (List&amp;lt;String&amp;gt;?, Exception?) -&amp;gt; Unit) {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch (e: Exception) {
+        doneCallback(null, e)
+    }
+}
+//  调用该方法
+findCountries{ list, e -&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-kotlin-function-extension:9d05dee5736f4f1c0148629e5dc91f56&#34;&gt;使用 Kotlin Function Extension&lt;/h3&gt;
+
+&lt;p&gt;通常我们会将很多方法放在工具类里，不过通过 Kotlin 的方法扩展功能可以直接将部分功能移到 &lt;code&gt;Activity&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;例：为 &lt;code&gt;Activity&lt;/code&gt; 增加 &lt;code&gt;Toast&lt;/code&gt; 功能&lt;/p&gt;
+
+&lt;p&gt;增加方法扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;public fun Activity.toast(message: CharSequence?, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后在 &lt;code&gt;Activity&lt;/code&gt; 中就可以调用以下代码直接呼出 &lt;code&gt;Toast&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;toast(message)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;例：为 &lt;code&gt;Activity&lt;/code&gt; 添加画面跳转功能&lt;/p&gt;
+
+&lt;p&gt;增加方法扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline public fun &amp;lt;reified T : Activity&amp;gt; Activity.navigate(bundle: Bundle? = null) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) {
+        intent.putExtras(bundle)
+    }
+    startActivity(intent)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后在 &lt;code&gt;Activity&lt;/code&gt; 中就可以调用以下代码直接进行画面跳转。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;navigate&amp;lt;CountryListActivity&amp;gt;()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/KotlinAndroid&#34;&gt;KotlinAndroid&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Groovy 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2015/dev-android-using-groovy/</link>
+      <pubDate>Mon, 30 Nov 2015 10:04:55 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/dev-android-using-groovy/</guid>
+      <description>
+
+&lt;h1 id=&#34;groovy-android:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;Groovy Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;我们都知道 Android 原生应用基本都是使用 Java 开发的，但是实际上 Groovy 也是运行在 JVM 上的，所以也可以用于开发 Android 应用程序，只是需要做一些额外的准备工作。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;既然是使用 Groovy 语言进行开发，所以第一步就是在 IDEA 或 Android Studio 中安装 &lt;code&gt;Groovy&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Groovy&lt;/code&gt; 进行安装，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;gradle-groovy-android-plugin&lt;/code&gt; 插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &#39;org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &#39;groovyx.grooid.groovy-android&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &#39;org.codehaus.groovy:groovy:2.4.5:grooid&#39;
+    // 如果需要使用  Groovy 的 JSON Api 的话还需要配置下面的依赖
+    compile(&#39;org.codehaus.groovy:groovy-json:2.4.5&#39;) {
+        transitive = false
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;配置 packagingOptions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;packagingOptions {
+    exclude &#39;META-INF/LICENSE.txt&#39;
+    exclude &#39;META-INF/LICENSE&#39;
+    exclude &#39;META-INF/NOTICE&#39;
+    exclude &#39;META-INF/DISCLAIMER&#39;
+    exclude &#39;META-INF/groovy-release-info.properties&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/GroovyAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;4.配置 proguard&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-dontobfuscate
+-keep class org.codehaus.groovy.vmplugin.**
+-keep class org.codehaus.groovy.runtime.dgm*
+-keepclassmembers class org.codehaus.groovy.runtime.dgm* {
+    *;
+}
+
+-keepclassmembers class ** implements org.codehaus.groovy.runtime.GeneratedClosure {
+    *;
+}
+
+-dontwarn org.codehaus.groovy.**
+-dontwarn groovy**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;编写代码:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用静态编译:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用静态编译&lt;/h3&gt;
+
+&lt;p&gt;如果不需要使用动态编译的话，可以开启静态编译以获得更好的性能，使用方法就是在类上添加 &lt;code&gt;@CompileStatic&lt;/code&gt; 注解。开启静态编译后一些正常的 Groovy 代码可能无法正常运行，因为静态编译会对类型进行严格的检查，所以代码风格可能需要做出一定改变。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@CompileStatic
+class MainActivity extends AppCompatActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-groovy-的语法:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用 Groovy 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Groovy 后可以省略方法的返回值，省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent)
+    def title = view.findViewById(android.R.id.text1) as TextView
+    title.setText(getItem(position))
+    view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;findViewById(android.R.id.button1).onClickListener = {
+    startActivity(new Intent(this, CountryListActivity.class))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包替代的话代码可以简单不少，不过使用闭包后如果闭包中碰到需要调用当前 Activity 的上下文时比较难处理，需要注意 &lt;code&gt;this&lt;/code&gt;，&lt;code&gt;owner&lt;/code&gt;，&lt;code&gt;delegate&lt;/code&gt; 的区别。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:37dae454deb5adb67c3953dd4e915b1f&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;由于 Android 的机制，网络请求必须放在其它的线程中执行，所以使用 Java 编程时通常都需要定义各种回调接口用于通知耗时任务的完成。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;//  定义耗时任务
+void findCountries(Closure doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch (e) {
+        doneCallback(null, e)
+    }
+}
+//  调用该方法
+findCountries{ List&amp;lt;String&amp;gt; results, Exception e -&amp;gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/GroovyAndroid&#34;&gt;GroovyAndroid&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 33.Reflect 与 Annotation</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/</link>
+      <pubDate>Thu, 26 Nov 2015 11:24:40 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/</guid>
+      <description>
+
+&lt;h2 id=&#34;java:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;Java&lt;/h2&gt;
+
+&lt;h3 id=&#34;注解:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解&lt;/h3&gt;
+
+&lt;p&gt;注解主要用于标示元数据。Java 中声明一个注解使用符号 &lt;code&gt;@interface&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个注解:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;创建一个注解&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Bean {
+    String name();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上创建了一个名为 &lt;code&gt;Bean&lt;/code&gt; 的注解。该注解上使用了标示此自定义注解的两个 JVM 的内置注解：&lt;code&gt;Retention&lt;/code&gt; 和 &lt;code&gt;Target&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Rentention&lt;/code&gt; 表示应该将该注解信息保存在哪里，有 &lt;code&gt;RUNTIME&lt;/code&gt;，&lt;code&gt;CLASS&lt;/code&gt;，&lt;code&gt;SOURCE&lt;/code&gt; 三种。其中 &lt;code&gt;CLASS&lt;/code&gt; 为默认值，只有标示为 &lt;code&gt;RUNTIME&lt;/code&gt; 的注解才可以被反射。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Target&lt;/code&gt; 表示应该将注解放在哪里，有 &lt;code&gt;TYPE&lt;/code&gt;，&lt;code&gt;FIELD&lt;/code&gt;，&lt;code&gt;METHOD&lt;/code&gt;，&lt;code&gt;PARAMETER&lt;/code&gt; 等几种。即声明为 &lt;code&gt;TYPE&lt;/code&gt; 时可以将注解放在类或接口上，声明为 &lt;code&gt;FIELD&lt;/code&gt; 则只能方法属性上。&lt;/p&gt;
+
+&lt;p&gt;以上创建的注解中还包含有一个属性 &lt;code&gt;name&lt;/code&gt;，在使用该注解时必须同时定义此属性。如果使用 &lt;code&gt;String name() default &amp;quot;&amp;quot;;&lt;/code&gt; 替代的话则可以不定义此属性而使用默认值。&lt;/p&gt;
+
+&lt;h4 id=&#34;使用注解:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;使用注解&lt;/h4&gt;
+
+&lt;p&gt;创建三个注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Bean {
+    String name();
+}
+
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.FIELD)
+public @interface BeanField {
+}
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface BeanMethod {
+    String alias() default &amp;quot;&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上创建的注解 &lt;code&gt;Bean&lt;/code&gt; 使用时必须定义 &lt;code&gt;name&lt;/code&gt; 属性，而 &lt;code&gt;BeanMethod&lt;/code&gt; 的 &lt;code&gt;alias&lt;/code&gt; 属性由于有默认值空字符串，所以定义时可以省略 &lt;code&gt;alias&lt;/code&gt; 属性。&lt;/p&gt;
+
+&lt;p&gt;定义一个使用以上注解的类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Bean(name = &amp;quot;t_person&amp;quot;)
+class Person {
+
+    public Person() {
+    }
+
+    public Person(int age) {
+        this.age = age;
+    }
+
+    @BeanField
+    private int age;
+
+    @BeanMethod(alias = &amp;quot;trueAge&amp;quot;)
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(final int age) {
+        this.age = age;
+    }
+
+    @BeanMethod(alias = &amp;quot;hello&amp;quot;)
+    public void sayHello(String message) {
+        System.out.println(&amp;quot;hello &amp;quot; + message);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;反射:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;反射&lt;/h3&gt;
+
+&lt;p&gt;所谓的反射即是在运行时获得类的各种元数据（类本身，类中的方法，类中的属性等）的一种手段。实际开发中反射主要用于编写各种工具，我们需要自己编写反射的情况实际非常少。&lt;/p&gt;
+
+&lt;h4 id=&#34;类的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;类的引用&lt;/h4&gt;
+
+&lt;p&gt;为了对一个类进行反射需要先获得类的信息，即获得类的引用，Java 中需要使用以下方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Class&amp;lt;?&amp;gt; clazz = Person.class;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;方法的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;方法的引用&lt;/h4&gt;
+
+&lt;p&gt;方法存在于类中，所以获得方法的引用前需要先获得类的引用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Method setAgeMethod = clazz.getMethod(&amp;quot;setAge&amp;quot;, int.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上使用了 &lt;code&gt;getMethod()&lt;/code&gt; 方法获得了 &lt;code&gt;Person&lt;/code&gt; 类中的 &lt;code&gt;setAge(int)&lt;/code&gt; 方法的引用。&lt;code&gt;getMethod()&lt;/code&gt; 方法的第一个参数为方法名，之后接着的为表示方法的参数列表的变参。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;与 &lt;code&gt;getMethod()&lt;/code&gt; 类型还有一个名为 &lt;code&gt;getDeclaredMethod()&lt;/code&gt; 的方法，两者最显著的区别是前者只能获得公开成员，而后者可以获得私有成员。基本上方法，属性，注解等的引用都有这两种方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;获得方法的引用后，可以通过 &lt;code&gt;invoke()&lt;/code&gt; 执行该方法。&lt;code&gt;invoke()&lt;/code&gt; 的第一个参数为需要执行该方法的对象，之后接着的为传入该方法的参数列表。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Method setAgeMethod = clazz.getMethod(&amp;quot;setAge&amp;quot;, int.class);
+setAgeMethod.invoke(person, 100);
+Method getAgeMethod = clazz.getMethod(&amp;quot;getAge&amp;quot;);
+int age = (int) getAgeMethod.invoke(person);
+System.out.println(&amp;quot;Age is &amp;quot; + age);    //  100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;属性的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;属性的引用&lt;/h4&gt;
+
+&lt;p&gt;属性的引用基本同方法的引用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Field ageField = clazz.getDeclaredField(&amp;quot;age&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过属性的引用来获得属性的值只需要通过 &lt;code&gt;getXXX()&lt;/code&gt; 之类的方法就可以了，该方法参数为持有该属性的对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;ageField.setAccessible(true);
+System.out.println(&amp;quot;Age is &amp;quot; + ageField.getInt(person));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上由于 &lt;code&gt;age&lt;/code&gt; 在声明时为私有变量，所以需要先使用 &lt;code&gt;setAccessible()&lt;/code&gt; 才能进行访问。&lt;/p&gt;
+
+&lt;h4 id=&#34;构造方法的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;构造方法的引用&lt;/h4&gt;
+
+&lt;p&gt;构造方法的引用也和其它引用差不多，直接看例子就可以了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Constructor&amp;lt;Person&amp;gt; constructor = (Constructor&amp;lt;Person&amp;gt;) clazz.getConstructor(int.class);
+Person person1 = constructor.newInstance(18);
+System.out.println(&amp;quot;Age is &amp;quot; + person1.getAge());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;注解的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Bean bean = clazz.getAnnotation(Bean.class);
+String name = bean.name();
+System.out.println(&amp;quot;Name is &amp;quot; + name);  //  t_person
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;遍历类的成员:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;遍历类的成员&lt;/h4&gt;
+
+&lt;p&gt;实际开发中由于反射主要用于编写工具，所以大部分情况下我们都不知道反射的类的结构，所以通常都需要对类的成员进行遍历并结合以上的所有方法。下面是一个简单的例子。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Field[] fields = clazz.getDeclaredFields();
+for (Field field : fields) {
+    Annotation[] annotations = field.getDeclaredAnnotations();
+    if (annotations == null || annotations.length == 0) continue;
+    System.out.println(&amp;quot;Find field annotation &amp;quot; + annotations[0].annotationType().getSimpleName());
+}
+
+Method[] methods = clazz.getDeclaredMethods();
+for (Method method : methods) {
+    Annotation[] annotations = method.getDeclaredAnnotations();
+    if (annotations == null || annotations.length == 0) continue;
+    System.out.println(&amp;quot;Find method annotation &amp;quot; + annotations[0].annotationType().getSimpleName());  //  BeanMethod
+
+    BeanMethod beanMethod = (BeanMethod) annotations[0];
+    String alias = beanMethod.alias();
+    System.out.println(&amp;quot;Alias is &amp;quot; + alias);    //  trueAge
+
+    if (method.getName().equals(&amp;quot;sayHello&amp;quot;)) {
+        method.invoke(person, &amp;quot;world&amp;quot;);
+    }
+    System.out.println(&amp;quot;====================&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;h3 id=&#34;注解-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解&lt;/h3&gt;
+
+&lt;p&gt;Groovy 用法同 Java。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个注解-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;创建一个注解&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@interface Bean {
+    String name()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;使用注解-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;使用注解&lt;/h4&gt;
+
+&lt;p&gt;创建三个注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@interface Bean {
+    String name()
+}
+
+@Retention(RetentionPolicy.CLASS)
+@Target(ElementType.FIELD)
+@interface BeanField {
+}
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface BeanMethod {
+    String alias() default &amp;quot;&amp;quot;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个使用以上注解的类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Bean(name = &amp;quot;t_person&amp;quot;)
+class Person {
+
+    @BeanField
+    def int age
+
+    @BeanMethod(alias = &amp;quot;trueAge&amp;quot;)
+    def int getAge() {
+        age
+    }
+
+    def void setAge(int age) {
+        this.age = age
+    }
+
+    @BeanMethod(alias = &amp;quot;hello&amp;quot;)
+    def void sayHello(String message) {
+        println(&amp;quot;hello $message&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;反射-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;反射&lt;/h3&gt;
+
+&lt;p&gt;Groovy 中的反射与 Java 一样，不过 Groovy 中拥有更强大的元编程，在以后会提起。&lt;/p&gt;
+
+&lt;h4 id=&#34;类的引用-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;类的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def clazz = Person.class
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;方法的引用-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;方法的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def setAgeMethod = clazz.getMethod(&amp;quot;setAge&amp;quot;, int.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def setAgeMethod = clazz.getMethod(&amp;quot;setAge&amp;quot;, int.class)
+setAgeMethod.invoke(person, 100)
+def getAgeMethod = clazz.getMethod(&amp;quot;getAge&amp;quot;)
+int age = (int) getAgeMethod.invoke(person)
+println(&amp;quot;Age is &amp;quot; + age)    //  100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除了使用 &lt;code&gt;invoke()&lt;/code&gt;，Groovy 还有另一种方式来执行方法，使用时看起来有些像 JavaScript 的 &lt;code&gt;eval()&lt;/code&gt; 函数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;person.&amp;quot;${setAgeMethod.name}&amp;quot;(20)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;属性的引用-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;属性的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def ageField = clazz.getDeclaredField(&amp;quot;age&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;获得属性的值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;ageField.setAccessible(true)
+println(&amp;quot;Age is &amp;quot; + ageField.getInt(person))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;构造方法的引用-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;构造方法的引用&lt;/h4&gt;
+
+&lt;p&gt;如果使用构造方法的引用则必须先定义需要的构造方法，但这样会丧失了 Groovy 构造方法的带名参数的功能。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def constructor = clazz.getConstructor(int.class)
+def person1 = constructor.newInstance(18)
+println(&amp;quot;Age is &amp;quot; + person1.getAge())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;注解的引用-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;Bean bean = clazz.getAnnotation(Bean.class)
+def name = bean.name()
+println(&amp;quot;name is &amp;quot; + name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;遍历类的成员-1:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;遍历类的成员&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;clazz.declaredFields.findAll {
+    it.declaredAnnotations != null &amp;amp;&amp;amp; it.declaredAnnotations.size() &amp;gt; 0
+}.each {
+    println(&amp;quot;Find field annotation ${it.annotations[0].annotationType().simpleName}&amp;quot;)
+}
+
+clazz.declaredMethods.findAll {
+    it.declaredAnnotations != null &amp;amp;&amp;amp; it.declaredAnnotations.size() &amp;gt; 0
+}.each {
+    println(&amp;quot;Find method annotation ${it.annotations[0].annotationType().simpleName}&amp;quot;)
+
+    def alias = (it.annotations[0] as BeanMethod).alias()
+    println(&amp;quot;Alias is $alias&amp;quot;)
+
+    if (it.name == &amp;quot;sayHello&amp;quot;) {
+        it.invoke(person, &amp;quot;world&amp;quot;)
+    }
+    println(&amp;quot;====================&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scala:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;注解-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解&lt;/h3&gt;
+
+&lt;p&gt;Scala 大多情况下直接使用 Java 的注解即可。Scala 本身虽然也提供了Scala 风格的注解功能，但功能很弱，完全可以使用 Java 的进行替代。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个注解-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;创建一个注解&lt;/h4&gt;
+
+&lt;p&gt;Scala 创建注解需要继承 ClassfileAnnotation 或 StaticAnnotation。前者类似 Java 中的 Runtime，可以被反射，后者则无法被反射。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Bean(val name: String) extends ClassfileAnnotation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;使用注解-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;使用注解&lt;/h4&gt;
+
+&lt;p&gt;创建三个注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Bean(val name: String) extends ClassfileAnnotation
+class BeanField extends StaticAnnotation
+class BeanMethod(val alias: String = &amp;quot;&amp;quot;) extends StaticAnnotation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个使用以上注解的类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;@Bean(name = &amp;quot;t_person&amp;quot;)
+class Person {
+	@BeanField
+	private var privateAge: Int = 0
+    
+    @BeanMethod(alias = &amp;quot;trueAge&amp;quot;)
+    def age_=(pAge: Int) {
+      privateAge = pAge
+    }
+
+    def age = privateAge
+
+    @BeanMethod
+    def sayHello(message: String) = println(s&amp;quot;hello $message&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;反射-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;反射&lt;/h3&gt;
+
+&lt;p&gt;Scala 有自己的反射 Api，功能比 Java 要更丰富，但是个人感觉非常难用，还是直接使用 Java 的更加方便。对 Scala 的 Api 有兴趣的可以直接去官网查看文档。&lt;/p&gt;
+
+&lt;p&gt;下面列一个简单的根据类生成对象的 Scala 原生 Api 的例子，体验一下有多难用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val classLoaderMirror = runtimeMirror(getClass.getClassLoader)
+val typePerson = typeOf[Person]
+val classPerson = typePerson.typeSymbol.asClass
+val classMirror = classLoaderMirror.reflectClass(classPerson)
+val methodSymbol = typePerson.decl(termNames.CONSTRUCTOR).asMethod
+val methodMirror = classMirror.reflectConstructor(methodSymbol)
+val p: Person = methodMirror(10).asInstanceOf[Person]
+p.age = 16
+println(p.age)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;注解-3:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;注解&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 用法类似 Java，但还是有很大区别。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建一个注解-3:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;创建一个注解&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;AnnotationRetention&lt;/code&gt; 类似 Java 的 &lt;code&gt;RetentionPolicy&lt;/code&gt;。&lt;code&gt;AnnotationTarget&lt;/code&gt; 类似 Java 的 &lt;code&gt;ElementType&lt;/code&gt;，但是由于 Kotlin 的特性，其值有 &lt;code&gt;FIELD&lt;/code&gt;，&lt;code&gt;PROPERTY_GETTER&lt;/code&gt; 等种类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;使用注解-3:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;使用注解&lt;/h4&gt;
+
+&lt;p&gt;创建三个注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
+@Repeatable
+@MustBeDocumented
+annotation class Bean(val name: String)
+
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FIELD)
+annotation class BeanField
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.FUNCTION)
+annotation class BeanMethod(val alias: String = &amp;quot;&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个使用以上注解的类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;@Bean(name = &amp;quot;t_person&amp;quot;)
+class Person {
+    @BeanField var age: Int = 0
+        @BeanMethod(alias = &amp;quot;trueAge&amp;quot;) get() = field
+
+    @BeanMethod(alias = &amp;quot;hello&amp;quot;) fun sayHello(message: String) {
+        println(&amp;quot;hello $message&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;反射-3:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;反射&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 中的反射可以通过符号 &lt;code&gt;::&lt;/code&gt; 直接对各种类和成员进行引用，但是如果想通过字符串进行引用的话就非常麻烦。&lt;/p&gt;
+
+&lt;h4 id=&#34;类的引用-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;类的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val clazz = Person::class
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;函数的引用:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;函数的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val sayHello = Person::sayHello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行该函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;println(sayHello.invoke(person, &amp;quot;world&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就像类中的函数一样也可以直接对定义在类外的函数进行引用，并将该引用作为参数进行传递&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun isOdd(x: Int) = x % 2 != 0
+val numbers = listOf(1, 2, 3)
+println(numbers.filter(::isOdd))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;属性的引用-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;属性的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;var name = Person::age
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;获得属性的值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;name.get(person)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同样也可以对类外的属性进行引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;var x = 2
+println(::x.get())
+::x.set(3)
+println(x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;构造方法的引用-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;构造方法的引用&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;::Person
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun factory(f: () -&amp;gt; Person) {
+    val p = f()
+}
+factory(::Person)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;遍历类的成员-2:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;遍历类的成员&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val bean = clazz.annotations.first {
+    it.annotationType().typeName == Bean::class.qualifiedName
+} as Bean
+println(&amp;quot;name is ${bean.name}&amp;quot;) //  t_person
+
+val properties = clazz.declaredMemberProperties
+properties.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.annotations[0].annotationClass.simpleName)
+}
+
+val functions = clazz.declaredMemberFunctions
+functions.filter {
+    it.annotations.isNotEmpty()
+}.forEach {
+    println(it.name)
+    println(it.annotations[0].annotationClass.simpleName)    //  BeanMethod
+
+    val beanMethod = it.annotations[0] as BeanMethod
+    println(&amp;quot;alias is ${beanMethod.alias}&amp;quot;) //  hello
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;总结:740f0caeeea7607b82cb0eaeb8782946&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;注解使用场景很多，但是一般只要理解内置注解的作用，很少需要自己定义注解&lt;/li&gt;
+&lt;li&gt;反射 Api 大都比较难用，但是实际使用场景并不多&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_33_reflect_annotation&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 32.Shell</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-32-shell/</link>
+      <pubDate>Tue, 24 Nov 2015 07:00:22 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-32-shell/</guid>
+      <description>
+
+&lt;h2 id=&#34;java:29779a60c91f08acea56b272103543be&#34;&gt;Java&lt;/h2&gt;
+
+&lt;h3 id=&#34;执行-shell-命令:29779a60c91f08acea56b272103543be&#34;&gt;执行 Shell 命令&lt;/h3&gt;
+
+&lt;p&gt;Java 中执行 Shell 命令主要依靠 Runtime 和 Process 两个类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt; try {
+    Runtime runtime = Runtime.getRuntime();
+    Process process = runtime.exec(&amp;quot;ls -al ..&amp;quot;);
+    //	等待 Shell 执行的结果，0 为正常执行完毕
+    int exitValue = process.waitFor();
+    if (exitValue != 0) {
+        System.out.println(&amp;quot;exit with &amp;quot; + exitValue);
+        return;
+    }
+    //	输出 Shell 执行的结果
+    try (InputStream in = process.getInputStream();
+         InputStreamReader isr = new InputStreamReader(in);
+         BufferedReader reader = new BufferedReader(isr)) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子可以看到在 Java 中执行 Shell 命令还是比较复杂的，简单的 &lt;code&gt;ls&lt;/code&gt; 也需要不少代码，不过其中大部分都是普通的 IO 流操作。&lt;/p&gt;
+
+&lt;h3 id=&#34;pipe-操作:29779a60c91f08acea56b272103543be&#34;&gt;Pipe 操作&lt;/h3&gt;
+
+&lt;p&gt;Pipe 操作在 Shell 命令中非常常见，可惜的是 Java 无法直接通过执行 Shell 命令来实现此功能，而必须使用执行脚本的方式才能正常执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try {
+    Runtime runtime = Runtime.getRuntime();
+    String[] cmd = {&amp;quot;/bin/sh&amp;quot;, &amp;quot;-c&amp;quot;, &amp;quot;ls -al .. | grep JGSK&amp;quot;};
+    Process process = runtime.exec(cmd);
+
+    int exitValue = process.waitFor();
+    if (exitValue != 0) {
+        System.out.println(&amp;quot;exit with &amp;quot; + exitValue);
+        return;
+    }
+
+    try (InputStream in = process.getInputStream();
+         InputStreamReader isr = new InputStreamReader(in);
+         BufferedReader reader = new BufferedReader(isr)) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;相比较直接执行命令而言，只是 &lt;code&gt;runtime.exec()&lt;/code&gt; 这个方法的参数有了变化。&lt;/p&gt;
+
+&lt;h3 id=&#34;从控制台读取输入:29779a60c91f08acea56b272103543be&#34;&gt;从控制台读取输入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Scanner scanner = new Scanner(System.in);
+System.out.println(scanner.nextLine());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:29779a60c91f08acea56b272103543be&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;h3 id=&#34;执行-shell-命令-1:29779a60c91f08acea56b272103543be&#34;&gt;执行 Shell 命令&lt;/h3&gt;
+
+&lt;p&gt;Groovy 中对 Java 的方法做了一些包装，使用起来更加简单。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def p = &amp;quot;ls -al ..&amp;quot;.execute()
+def exitValue = p.waitFor()
+if (exitValue != 0) {
+    println(&amp;quot;exit with $exitValue&amp;quot;)
+    return
+}
+println &amp;quot;${p.text}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;pipe-操作-1:29779a60c91f08acea56b272103543be&#34;&gt;Pipe 操作&lt;/h3&gt;
+
+&lt;p&gt;Groovy 也无法直接在命令中执行 Pipe 操作，但是却提供了 &lt;code&gt;pipe()&lt;/code&gt; 方法用以连接两个 &lt;code&gt;Process&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def p1 = &amp;quot;ls -al ..&amp;quot;.execute()
+def p2 = &amp;quot;grep JGSK&amp;quot;.execute()
+def p3 = p1.pipeTo(p2)
+exitValue = p3.waitFor()
+if (exitValue != 0) {
+    println(&amp;quot;exit with $exitValue&amp;quot;)
+    return
+}
+println &amp;quot;${p3.text}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;从控制台读取输入-1:29779a60c91f08acea56b272103543be&#34;&gt;从控制台读取输入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def scanner = new Scanner(System.in)
+println(scanner.nextLine())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scala:29779a60c91f08acea56b272103543be&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;执行-shell-命令-2:29779a60c91f08acea56b272103543be&#34;&gt;执行 Shell 命令&lt;/h3&gt;
+
+&lt;p&gt;Scala 执行 Shell 命令只要使用 &lt;code&gt;!&lt;/code&gt; 方法就可以了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val exitValue = &amp;quot;ls -al ..&amp;quot; !
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子会进行阻塞并返回执行结果，0 表示正常执行完毕。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val result = &amp;quot;ls -al ..&amp;quot; !!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子会进行阻塞并返回执行完毕的输出结果，如果没有正常执行完毕则抛出异常。&lt;/p&gt;
+
+&lt;p&gt;通过以上两个例子可以看到 Scala 操作 Shell 简简单单一句话就可以搞定。&lt;/p&gt;
+
+&lt;h3 id=&#34;pipe-操作-2:29779a60c91f08acea56b272103543be&#34;&gt;Pipe 操作&lt;/h3&gt;
+
+&lt;p&gt;Scala 进行 Pipe 操作非常接近实际在 Shell 中执行的命令，只是使用 &lt;code&gt;#|&lt;/code&gt; 替换了 &lt;code&gt;|&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;ls -al ..&amp;quot; #| &amp;quot;grep JGSK&amp;quot; !
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;实际上 &lt;code&gt;#&lt;/code&gt; 可以与各种操作结合用在多种地方，比如说文件的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;&amp;quot;ls -al ..&amp;quot; #&amp;gt; new File(&amp;quot;shell.txt&amp;quot;) !
+&amp;quot;ls -al ..&amp;quot; #&amp;gt;&amp;gt; new File(&amp;quot;shell.txt&amp;quot;) !
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;从控制台读取输入-2:29779a60c91f08acea56b272103543be&#34;&gt;从控制台读取输入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(StdIn.readLine())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:29779a60c91f08acea56b272103543be&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;执行-shell-命令-3:29779a60c91f08acea56b272103543be&#34;&gt;执行 Shell 命令&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 目前貌似没有自己的 Api，所以只能调用 Java 的方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val runtime: Runtime = Runtime.getRuntime()
+val process: Process = runtime.exec(&amp;quot;ls -al ..&amp;quot;)
+val exitValue = process.waitFor()
+if (exitValue != 0) {
+    println(&amp;quot;exit with $exitValue&amp;quot;)
+    return
+}
+
+process.inputStream.bufferedReader().lines().forEach {
+    println(it)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;从控制台读取输入-3:29779a60c91f08acea56b272103543be&#34;&gt;从控制台读取输入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;println(readLine())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;总结:29779a60c91f08acea56b272103543be&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;各种语言都可以进行 Shell 操作，但是只有 Scala 和 Groovy 的 api 具有实际生产力。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_32_shell&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 31.Test</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-31-test/</link>
+      <pubDate>Sun, 22 Nov 2015 22:49:33 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-31-test/</guid>
+      <description>
+
+&lt;h2 id=&#34;共通篇:bc2383029d84506112e2b7660a744c45&#34;&gt;共通篇&lt;/h2&gt;
+
+&lt;h3 id=&#34;测试过程分类:bc2383029d84506112e2b7660a744c45&#34;&gt;测试过程分类&lt;/h3&gt;
+
+&lt;p&gt;测试过程通常有 N 种分类，一般常说的有那么几种： UT，IT(CT)，ST，MT。&lt;/p&gt;
+
+&lt;p&gt;UT 单元测试属于白盒测试，是测试中的最小单元，一般用于测试单独的方法，检测方法的正确性。&lt;/p&gt;
+
+&lt;p&gt;IT 集成测试（又可称为 CT 结合测试），属于灰盒测试，在单元测试之后进行，一般用于测试各个接口之间的数据传递功能，由数个单元测试的对象组成。&lt;/p&gt;
+
+&lt;p&gt;ST 系统测试，属于黑盒测试，在集成测试之后进行，用于测试系统与原定于的需求的契合度。&lt;/p&gt;
+
+&lt;p&gt;MT 随机测试，属于黑盒测试，测试要求随机，可以无需知道任何业务逻辑，主要用于测试系统的稳定性。&lt;/p&gt;
+
+&lt;h3 id=&#34;测试相关技术:bc2383029d84506112e2b7660a744c45&#34;&gt;测试相关技术&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;TDD&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;TDD 为测试驱动开发。步骤一般是先按照预期的调用方式编写调用测试用例，然后做最小修改使测试用例可以跑通，然后继续写下一个测试用例，所有测试用例跑通后一个可用的类便编写完成。&lt;/p&gt;
+
+&lt;p&gt;TDD 的最大优点就是编写的代码是可测试的，容易调用的，解决了空想造成的代码耦合度高，不可测试，很难调用的问题。有不少人提倡所有开发都应该使用 TDD 技术，但是 TDD 本身会加大工作量，有时会为了不必要的解耦增加系统的复杂性。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;BDD&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;BDD 为行为驱动开发。其最大的特色是编写测试用例之前先使用自然语言来编写该段代码的目的，本质上是对原来的测试驱动开发做了扩展。由于使用了自然语言来进行描述，因此非程序员也能进行一定程度的阅读，而不用等程序员来进行翻译。&lt;/p&gt;
+
+&lt;h2 id=&#34;java:bc2383029d84506112e2b7660a744c45&#34;&gt;Java&lt;/h2&gt;
+
+&lt;h3 id=&#34;概述:bc2383029d84506112e2b7660a744c45&#34;&gt;概述&lt;/h3&gt;
+
+&lt;p&gt;Java 中 Unit Test 主要有这么三个概念：Test Runner，Test Suit，Test Case。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test Runner 主要用于运行测试用例。&lt;/li&gt;
+&lt;li&gt;Test Suit 用于收集 Test Case，是 Test Case 的集合。&lt;/li&gt;
+&lt;li&gt;Test Case 即测试用例，默认的 Test Case 访问权限为 &lt;code&gt;public&lt;/code&gt; 且方法名开头为 &lt;code&gt;test&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;实现-unittest:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 UnitTest&lt;/h3&gt;
+
+&lt;p&gt;第一种方式是继承 &lt;code&gt;TestCase&lt;/code&gt; ，该类有两个特殊方法 &lt;code&gt;setUp()&lt;/code&gt; 和 &lt;code&gt;tearDown()&lt;/code&gt;，前者在每个测试用例执行前执行，后者在每个测试用例执行完执行。所有以 &lt;code&gt;test&lt;/code&gt; 开头的方法都会被认为是测试用例。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Test01 extends TestCase {
+
+    private Calculator calculator;
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        calculator = new Calculator();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        System.out.println(&amp;quot;End test...&amp;quot;);
+    }
+
+    public void testSum() {
+        assert 3 == calculator.sum(1, 2);
+        assert 3 != calculator.sum(2, 5);
+    }
+
+    public void testMock() {
+        Calculator calculator = Mockito.mock(Calculator.class);
+        Mockito.when(calculator.sum(1, 2)).thenReturn(10);
+        assert 10 == calculator.sum(1, 2);
+        assert 0 == calculator.sum(1, 20);
+    }
+
+    public void testStory() {
+        Animal elephant = new Animal(&amp;quot;Elephant&amp;quot;);
+        Animal giraffa = new Animal(&amp;quot;Giraffa&amp;quot;);
+        Refrigerator refrigerator = new Refrigerator();
+
+        refrigerator.putInto(giraffa);
+        assert !refrigerator.isEmpty();
+
+        refrigerator.takeOut();
+        refrigerator.putInto(elephant);
+        assert !refrigerator.isEmpty();
+
+        Animal animal = refrigerator.takeOut();
+        assert refrigerator.isEmpty();
+        assertEquals(animal, elephant);
+    }
+
+    private class Calculator {
+        public int sum(int x, int y) {
+            return x + y;
+        }
+    }
+
+    private class Refrigerator {
+        private Animal animal;
+
+        public boolean putInto(Animal animal) {
+            if (isEmpty()) {
+                this.animal = animal;
+                return true;
+            }
+            return false;
+        }
+
+        public Animal takeOut() {
+            if (isEmpty()) return null;
+            Animal temp = animal;
+            animal = null;
+            return temp;
+        }
+
+        public boolean isEmpty() {
+            return animal == null;
+        }
+    }
+
+    private class Animal {
+        public String type;
+
+        public Animal(String type) {
+            this.type = type;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二种方式是使用注解，适合那些无法继承 TestCase 的类。标为 &lt;code&gt;@Test&lt;/code&gt; 的方法会被收集为测试用例，标为 &lt;code&gt;@Before&lt;/code&gt; 的方法会在每个测试用例执行前执行，标为 &lt;code&gt;@After&lt;/code&gt; 的方法会在每个测试用例后执行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Test02 {
+
+    private Calculator calculator;
+
+    @Before
+    public void setUp() {
+        calculator = new Calculator();
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println(&amp;quot;End test...&amp;quot;);
+    }
+
+    @Test
+    public void testSum() {
+        assert 3 == calculator.sum(1, 2);
+        assert 3 != calculator.sum(2, 5);
+    }
+
+    @Test
+    public void testMock() {
+        Calculator calculator = Mockito.mock(Calculator.class);
+        Mockito.when(calculator.sum(1, 2)).thenReturn(10);
+        assert 10 == calculator.sum(1, 2);
+        assert 0 == calculator.sum(1, 20);
+    }
+
+    private class Calculator {
+        public int sum(int x, int y) {
+            return x + y;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:bc2383029d84506112e2b7660a744c45&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;h3 id=&#34;实现-unittest-1:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 UnitTest&lt;/h3&gt;
+
+&lt;p&gt;继承 &lt;code&gt;GroovyTestCase&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;class Test01 extends GroovyTestCase {
+
+    private Calculator calculator
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp()
+        calculator = new Calculator()
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown()
+        println(&amp;quot;End test...&amp;quot;)
+    }
+
+    def testSum() {
+        assert 3 == calculator.sum(1, 2)
+        assert 3 != calculator.sum(2, 5)
+    }
+
+    def testMock() {
+        Calculator calculator = Mockito.mock(Calculator.class)
+        Mockito.when(calculator.sum(1, 2)).thenReturn(10)
+        assert 10 == calculator.sum(1, 2)
+        assert 0 == calculator.sum(1, 20)
+    }
+
+    def testStory() {
+        Animal elephant = new Animal(type: &amp;quot;Elephant&amp;quot;)
+        Animal giraffa = new Animal(type: &amp;quot;Giraffa&amp;quot;)
+        Refrigerator refrigerator = new Refrigerator()
+
+        refrigerator.putInto(giraffa)
+        assert !refrigerator.isEmpty()
+
+        refrigerator.takeOut()
+        refrigerator.putInto(elephant)
+        assert !refrigerator.isEmpty()
+
+        Animal animal = refrigerator.takeOut()
+        assert refrigerator.isEmpty()
+        assertEquals(animal, elephant)
+    }
+
+    class Calculator {
+        def sum(x, y) {
+            x + y
+        }
+    }
+
+    class Refrigerator {
+        private Animal animal
+
+        def putInto(Animal animal) {
+            if (isEmpty()) {
+                this.animal = animal
+                true
+            }
+            false
+        }
+
+        def Animal takeOut() {
+            if (isEmpty()) return null
+            def temp = animal
+            animal = null
+            temp
+        }
+
+        def isEmpty() {
+            animal == null
+        }
+    }
+
+    class Animal {
+        public String type
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Groovy 也能使用注解实现测试用例，但是使用注解时必须使用静态声明，没有继承方便。&lt;/p&gt;
+
+&lt;h2 id=&#34;scala:bc2383029d84506112e2b7660a744c45&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;实现-unittest-2:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 UnitTest&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Test01 extends TestCase {
+  private var calculator: Calculator = null
+
+  override def setUp() {
+    calculator = new Calculator()
+  }
+
+  override def tearDown() {
+    println(&amp;quot;End test...&amp;quot;)
+  }
+
+  def testSum() {
+    assert(3 == calculator.sum(1, 2))
+    assert(3 != calculator.sum(2, 5))
+  }
+
+  def testMock() {
+    val calculator: Calculator = Mockito.mock(classOf[Calculator])
+    Mockito.when(calculator.sum(1, 2)).thenReturn(10)
+    assert(10 == calculator.sum(1, 2))
+    assert(0 == calculator.sum(1, 20))
+  }
+
+  def testStory() {
+    val elephant: Animal = new Animal(&amp;quot;Elephant&amp;quot;)
+    val giraffa: Animal = new Animal(&amp;quot;Giraffa&amp;quot;)
+    val refrigerator: Refrigerator = new Refrigerator
+    refrigerator.putInto(giraffa)
+    assert(!refrigerator.isEmpty)
+    refrigerator.takeOut
+    refrigerator.putInto(elephant)
+    assert(!refrigerator.isEmpty)
+    val animal: Animal = refrigerator.takeOut
+    assert(refrigerator.isEmpty)
+    assert(animal == elephant)
+  }
+}
+
+class Calculator {
+  def sum(x: Int, y: Int): Int = x + y
+}
+
+class Refrigerator {
+  private var animal: Animal = null
+
+  def putInto(animal: Animal): Boolean = {
+    if (isEmpty) {
+      this.animal = animal
+      true
+    } else {
+      false
+    }
+  }
+
+  def takeOut: Animal = {
+    if (isEmpty) {
+      null
+    } else {
+      val temp = animal
+      animal = null
+      temp
+    }
+  }
+
+  def isEmpty: Boolean = {
+    animal == null
+  }
+}
+
+class Animal(val `type`: String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;实现-scalatest:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 ScalaTest&lt;/h3&gt;
+
+&lt;p&gt;Scala Test 是 Scala 的一个测试框架，比起直接使用 JUnit 能够写出更优美的代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;@RunWith(classOf[JUnitRunner])
+class ScalaTest01 extends FunSuite with BeforeAndAfter {
+
+  private var calculator: Calculator = null
+
+  before {
+    calculator = new Calculator
+  }
+
+  after {
+    println(&amp;quot;End test...&amp;quot;)
+  }
+
+  test(&amp;quot;Sum&amp;quot;) {
+    assert(3 == calculator.sum(1, 2))
+    assert(3 != calculator.sum(2, 5))
+  }
+
+  test(&amp;quot;Story&amp;quot;) {
+    val elephant: Animal = new Animal(&amp;quot;Elephant&amp;quot;)
+    val giraffa: Animal = new Animal(&amp;quot;Giraffa&amp;quot;)
+    val refrigerator: Refrigerator = new Refrigerator
+    refrigerator.putInto(giraffa)
+    assert(!refrigerator.isEmpty)
+    refrigerator.takeOut
+    refrigerator.putInto(elephant)
+    assert(!refrigerator.isEmpty)
+    val animal: Animal = refrigerator.takeOut
+    assert(refrigerator.isEmpty)
+    assert(animal == elephant)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;实现-spec2:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 Spec2&lt;/h3&gt;
+
+&lt;p&gt;Spec2 是另一个 Scala 的测试框架，使用它可以简单的完成 BDD 的测试用例的编写。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class SpecTest extends Specification with BeforeAfterEach with Mockito {
+
+    private var calculator: Calculator = null
+    override protected def after: Any = {
+        println(&amp;quot;End test...&amp;quot;)
+    }
+    override protected def before: Any = {
+        calculator = new Calculator
+    }
+
+    &amp;quot;Arithmetic&amp;quot; should {
+        &amp;quot;sum&amp;quot; in {
+            &amp;quot;two numbers&amp;quot; in {
+                calculator.sum(1, 2) mustEqual 3
+                calculator.sum(2, 5) mustNotEqual 3
+            }
+        }
+    }
+
+    &amp;quot;TestMock&amp;quot; should {
+        &amp;quot;mock sum method&amp;quot; in {
+            &amp;quot;two numbers&amp;quot; in {
+                val calculator = mock[Calculator]
+                calculator.sum(1, 2) returns 10
+                calculator.sum(1, 2) mustEqual 10
+                calculator.sum(1, 20) mustEqual 0
+            }
+        }
+    }
+
+    &amp;quot;Story&amp;quot; should {
+        val elephant: Animal = new Animal(&amp;quot;Elephant&amp;quot;)
+        val giraffa: Animal = new Animal(&amp;quot;Giraffa&amp;quot;)
+        val refrigerator: Refrigerator = new Refrigerator
+
+        &amp;quot;&amp;quot;&amp;quot;
+           1. put giraffa
+           2. takeout giraffa
+           3. put elephant
+           4. takeout elephant
+           the refrigerator should be empty&amp;quot;&amp;quot;&amp;quot; in {
+            refrigerator.putInto(giraffa)
+            refrigerator.isEmpty mustEqual false
+
+            refrigerator.takeOut
+            refrigerator.isEmpty mustEqual true
+
+            refrigerator.putInto(elephant)
+            val animal: Animal = refrigerator.takeOut
+            refrigerator.isEmpty mustEqual true
+            animal mustEqual elephant
+        }
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:bc2383029d84506112e2b7660a744c45&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;实现-unittest-3:bc2383029d84506112e2b7660a744c45&#34;&gt;实现 UnitTest&lt;/h3&gt;
+
+&lt;p&gt;第一种方式，继承 TestCase&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;class Test01 : TestCase() {
+
+    private var calculator: Calculator? = null
+
+    override fun setUp() {
+        super.setUp()
+        calculator = Calculator()
+    }
+
+    override fun tearDown() {
+        super.tearDown()
+        println(&amp;quot;End test...&amp;quot;)
+    }
+
+    fun testSum() {
+        assert(3 == calculator?.sum(1, 2))
+        assert(3 != calculator?.sum(2, 5))
+    }
+
+    fun testMock() {
+        val calculator = Mockito.mock&amp;lt;Calculator&amp;gt;(Calculator::class.java)
+        Mockito.`when`&amp;lt;Int&amp;gt;(calculator.sum(1, 2)).thenReturn(10)
+        assert(10 == calculator.sum(1, 2))
+        assert(0 == calculator.sum(1, 20))
+    }
+
+    fun testStory() {
+        val elephant = Animal(&amp;quot;Elephant&amp;quot;)
+        val giraffa = Animal(&amp;quot;Giraffa&amp;quot;)
+        val refrigerator: Refrigerator = Refrigerator()
+
+        refrigerator.putInto(giraffa)
+        assert(!refrigerator.isEmpty())
+
+        refrigerator.takeOut()
+        refrigerator.putInto(elephant)
+        assert(!refrigerator.isEmpty())
+
+        val animal = refrigerator.takeOut()
+        assert(refrigerator.isEmpty())
+        assertEquals(animal, elephant)
+    }
+
+}
+
+//  Declared open when using mock
+open class Calculator {
+    open fun sum(x: Int, y: Int): Int {
+        return x + y
+    }
+}
+
+class Refrigerator {
+    private var animal: Animal? = null
+
+    fun putInto(animal: Animal): Boolean {
+        if (isEmpty()) {
+            this.animal = animal
+            return true
+        }
+        return false
+    }
+
+    fun takeOut(): Animal? {
+        if (isEmpty()) return null
+        val temp = animal
+        animal = null
+        return temp
+    }
+
+    fun isEmpty(): Boolean {
+        return animal == null
+    }
+}
+
+class Animal(type: String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第二种方式，使用注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;class Test02 {
+
+    private var calculator: Calculator? = null
+
+    @Before
+    fun setUp() {
+        calculator = Calculator()
+    }
+
+    @After
+    fun tearDown() {
+        println(&amp;quot;End test...&amp;quot;)
+    }
+
+    @Test
+    fun testSum() {
+        assert(3 == calculator?.sum(1, 2))
+        assert(3 != calculator?.sum(2, 5))
+    }
+
+    @Test
+    fun testMock() {
+        val calculator = Mockito.mock&amp;lt;Calculator&amp;gt;(Calculator::class.java)
+        Mockito.`when`&amp;lt;Int&amp;gt;(calculator.sum(1, 2)).thenReturn(10)
+        assert(10 == calculator.sum(1, 2))
+        assert(0 == calculator.sum(1, 20))
+    }
+
+    @Test
+    fun testStory() {
+        val elephant = Animal(&amp;quot;Elephant&amp;quot;)
+        val giraffa = Animal(&amp;quot;Giraffa&amp;quot;)
+        val refrigerator: Refrigerator = Refrigerator()
+
+        refrigerator.putInto(giraffa)
+        assert(!refrigerator.isEmpty())
+
+        refrigerator.takeOut()
+        refrigerator.putInto(elephant)
+        assert(!refrigerator.isEmpty())
+
+        val animal = refrigerator.takeOut()
+        assert(refrigerator.isEmpty())
+        assertEquals(animal, elephant)
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;其它测试框架:bc2383029d84506112e2b7660a744c45&#34;&gt;其它测试框架&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 还有一种测试框架名为 Spek，同 Scala 的 Specs2 一样，也可以用于进行 BDD 测试，不过目前其还只是 &lt;code&gt;0.1.x&lt;/code&gt; 版本，还没有达到可以放心用在生成环境的时候，这里就不介绍了，有兴趣可以访问 &lt;a href=&#34;http://jetbrains.github.io/spek/index.html&#34;&gt;官网&lt;/a&gt; 了解详情。&lt;/p&gt;
+
+&lt;h2 id=&#34;总结:bc2383029d84506112e2b7660a744c45&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;JUnit 是所有测试的核心框架。&lt;/li&gt;
+&lt;li&gt;一般编写测试用例可以使用继承和注解两种方式，继承的代码量更少，注解更加灵活。&lt;/li&gt;
+&lt;li&gt;Scala 除了可以直接使用 JUnit，也可以使用 scalaTest 和 Specs2 进行测试。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_31_test&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 30.Thread 与 Future</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-30-thread-future/</link>
+      <pubDate>Fri, 06 Nov 2015 14:26:07 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-30-thread-future/</guid>
+      <description>
+
+&lt;h2 id=&#34;java:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Java&lt;/h2&gt;
+
+&lt;h3 id=&#34;thread:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Thread&lt;/h3&gt;
+
+&lt;p&gt;线程主要用于执行并发任务，提高 CPU 的运行效率。在各种参考中都有线程相关的各种概念，在这里就补多废话了。在Java 中线程相关的概念主要有两个： Thread 和 Runnable。&lt;/p&gt;
+
+&lt;p&gt;Runnable 是一个只含有 &lt;code&gt;run()&lt;/code&gt; 方法的接口，该接口定义了线程所要执行的代码。Thread 表示线程，本身实现了 Runnable 接口，可以执行自己的 &lt;code&gt;run()&lt;/code&gt; 方法也可以执行传入的 Runnable 接口的 &lt;code&gt;run()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;p&gt;定义一个简单的线程&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;new Thread(() -&amp;gt; {
+    System.out.println(&amp;quot;async&amp;quot;);
+}, &amp;quot;thread-01&amp;quot;).start();
+System.out.println(&amp;quot;sync&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;thread-pool:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Thread Pool&lt;/h3&gt;
+
+&lt;p&gt;如果总是建立新的线程，CPU 资源很快会被耗尽，因此便有了线程池。线程池本质是预先建立好一些空闲线程放在池子中，当需要在线程中执行代码时便从池中取出空闲的线程来运行，运行完毕后线程继续放回池中，如果需要执行代码但是池中没有线程时根据不同的线程池的策略或者新建线程或者将请求放在等待队列中。&lt;/p&gt;
+
+&lt;p&gt;Java 中创建线程池非常简单，主要使用 &lt;code&gt;Executors&lt;/code&gt; 这一个工具类。&lt;/p&gt;
+
+&lt;p&gt;创建一个单线程的线程池&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;ExecutorService service = Executors.newSingleThreadExecutor();
+service.execute(() -&amp;gt; System.out.println(&amp;quot;Running in a pool.&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;callable-与-future:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Callable 与 Future&lt;/h3&gt;
+
+&lt;p&gt;Callable 与 Future 主要用于从线程中获得返回结果。Callable 用于在线程中执行计算并返回结果，Future 用于等待线程的结果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;ExecutorService service = Executors.newSingleThreadExecutor();
+Callable&amp;lt;String&amp;gt; callable = () -&amp;gt; &amp;quot;Hello World&amp;quot;;
+Future&amp;lt;String&amp;gt; future = service.submit(callable);
+String result = future.get();
+System.out.println(result);
+service.shutdown();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;timer:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Timer&lt;/h3&gt;
+
+&lt;p&gt;Timer 用于执行定时任务，也可以用 ScheduledThreadPool 进行替代。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Timer timer = new Timer(&amp;quot;timer&amp;quot;, true);
+TimerTask task = new TimerTask() {
+    @Override
+    public void run() {
+        System.out.println(&amp;quot;ping!&amp;quot;);
+    }
+};
+timer.schedule(task, 100, 100);
+Thread.sleep(1000);
+timer.cancel();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;CompletableFuture&lt;/h3&gt;
+
+&lt;h4 id=&#34;概念:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;概念&lt;/h4&gt;
+
+&lt;p&gt;CompletableFuture 是 Java 1.8 新加入的类，提供了事件驱动的编程模型，能够大幅简化异步调用的繁琐过程从而避免陷入回调地狱。&lt;/p&gt;
+
+&lt;p&gt;CompletableFuture 继承自 Future，所以也表示未来的值，但是 CompletableFuture 表示的未来的值可以是预期的，即你可以明确表明你知道将会发生什么。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;创建 CompletableFuture&lt;/h4&gt;
+
+&lt;p&gt;创建一个最简单的 CompletableFuture 的实例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;CompletableFuture&amp;lt;Integer&amp;gt; firstFuture = new CompletableFuture&amp;lt;&amp;gt;();
+firstFuture.complete(10);
+int value = firstFuture.get();
+System.out.println(value);  //  10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上调用 &lt;code&gt;complete()&lt;/code&gt; 表示我知道这个 Future 会返回 10。这个例子是最简单的同步调用方式，下面使用工厂类创建一个支持异步调用的 CompletableFuture 实例。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt; ExecutorService service = Executors.newFixedThreadPool(10);
+ CompletableFuture&amp;lt;Integer&amp;gt; secondFuture = CompletableFuture.supplyAsync(() -&amp;gt; {
+      //  long running
+      return new Random().nextInt(1000);
+  }, service);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上 &lt;code&gt;supplyAsync()&lt;/code&gt; 创建了一个支持异步调用的 CompletableFuture，该 CompletableFuture 的任务运行在指定的线程池中。&lt;/p&gt;
+
+&lt;h4 id=&#34;在同一个-completablefuture-上执行链式操作:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;在同一个 CompletableFuture 上执行链式操作&lt;/h4&gt;
+
+&lt;p&gt;CompletableFuture 的用法类似 Javascript 的 Promise 编程的概念。使用 &lt;code&gt;thenApplyAsync()&lt;/code&gt; 或 &lt;code&gt;thenApply()&lt;/code&gt; 可以在同一个 CompletableFuture 上可以执行多个链式操作，前一个操作完成后才能执行下一个操作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;CompletableFuture&amp;lt;String&amp;gt; thirdFuture = secondFuture.thenApplyAsync(integer -&amp;gt; {
+    if (integer &amp;lt; 900) {
+        throw new IllegalArgumentException();
+    }
+    return &amp;quot;&amp;quot; + integer;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;完成-completablefuture:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;完成 CompletableFuture&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;thenAcceptAsync()&lt;/code&gt; 或 &lt;code&gt;thenAccept()&lt;/code&gt; 可以在一个 CompletableFuture 完成所有操作后执行收尾操作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;CompletableFuture&amp;lt;Void&amp;gt; lastFuture = thirdFuture.thenAcceptAsync(s -&amp;gt; System.out.println(&amp;quot;Result is &amp;quot; + s));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;异常处理:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;异常处理&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;exceptionally()&lt;/code&gt; 方法会在 CompletableFuture 执行中发生异常时被调用，可以在该方法中处理异常。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;CompletableFuture&amp;lt;String&amp;gt; safe1 = thirdFuture.exceptionally(throwable -&amp;gt; {
+        //  throwable is CompletionException
+        if (throwable != null &amp;amp;&amp;amp; (throwable.getCause() instanceof IllegalArgumentException)) {
+            return &amp;quot;Too small.&amp;quot;;
+        } else if (throwable != null) {
+            return throwable.getMessage();
+        }
+        return null;
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者也可以使用 &lt;code&gt;handleAsync()&lt;/code&gt; 方法，无论异常是否发生，该方法都会被调用，所以即可以在返回前处理异常也可以处理返回值。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;CompletableFuture&amp;lt;String&amp;gt; safe2 = thirdFuture.handleAsync((s, throwable) -&amp;gt; {
+    //  throwable is CompletionException
+    if (throwable != null &amp;amp;&amp;amp; (throwable.getCause() instanceof IllegalArgumentException)) {
+        return &amp;quot;Result is too small.&amp;quot;;
+    } else if (throwable != null) {
+        return throwable.getMessage();
+    }
+    return s;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;p&gt;与 Java 相同，但是由于 Groovy 暂不支持 Java 1.8 的新增特性，所以一些代码写起来会比 Java 麻烦。&lt;/p&gt;
+
+&lt;h2 id=&#34;scala:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;thread-1:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Thread&lt;/h3&gt;
+
+&lt;p&gt;用法同 Java。&lt;/p&gt;
+
+&lt;h3 id=&#34;executioncontext:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;ExecutionContext&lt;/h3&gt;
+
+&lt;p&gt;ExecutionContext 可以看做 Java 中的线程池，实际上其本质也是通过 Java 的 &lt;code&gt;ExecutorService&lt;/code&gt; 来实现的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val executor = Executors.newFixedThreadPool(1)
+implicit val service = ExecutionContext.fromExecutor(executor)
+service.execute(new Runnable {
+  override def run(): Unit = {
+    println(&amp;quot;Running in a pool.&amp;quot;)
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子定义了一个容量为 1 的线程池，并且通过隐式转换（具体见 Scala 的隐式转换一章）使 ExecutionContext 运行在该线程池中。&lt;/p&gt;
+
+&lt;p&gt;除了自定义线程池之外，Scala 还有一个全局的默认线程池 &lt;code&gt;scala.concurrent.ExecutionContext.Implicits.global&lt;/code&gt;，通常来说这个线程池仅用于测试。因为你不知道其它人或者你引用的其它库中是否有使用默认的线程池进行大量长时间操作。&lt;/p&gt;
+
+&lt;h3 id=&#34;future:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Future&lt;/h3&gt;
+
+&lt;p&gt;Scala 中的 Future 表示尚未完成的计算结果，执行在指定的 ExecutionContext 中。一个 Future 一旦被赋值后就不可被改变，可以用于编写高效的并行代码。&lt;/p&gt;
+
+&lt;h4 id=&#34;创建-future:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;创建 Future&lt;/h4&gt;
+
+&lt;p&gt;使用 &lt;code&gt;Future{}&lt;/code&gt; 创建 Future 对象&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val s = &amp;quot;Hello&amp;quot;
+val f1: Future[String] = Future {
+  s + &amp;quot; future!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;回调:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;回调&lt;/h4&gt;
+
+&lt;p&gt;Future 支持三种回调方式&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;onSuccess&lt;/code&gt; 用于在 Future 完成后对计算结果进行某些操作&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;onFailure&lt;/code&gt; 用于处理在 Future 计算过程中发生的异常&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;onComplete&lt;/code&gt; 用于在 Future 处理完成后进行某些操作，其接收的参数为 Try[T] 类型，子类为 Success[T] 和 Failure[T]，所以可以在其方法体内同时完成成功和失败的后续处理。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val s = &amp;quot;Hello&amp;quot;
+//	使用 Future{} 创建 Future 对象
+val f1: Future[String] = Future {
+  s + &amp;quot; future!&amp;quot;
+}
+f1 onSuccess {
+    case msg =&amp;gt;
+        println(msg)
+}
+f1 onFailure {
+    case e =&amp;gt;
+        e.printStackTrace()
+}
+f1 onComplete {
+    case Success(msg) =&amp;gt; println(s&amp;quot;Success $msg&amp;quot;)
+    case Failure(e) =&amp;gt; println(s&amp;quot;Failure ${e.getMessage}&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一个 Future 上 可以定义多个 &lt;code&gt;onSuccess&lt;/code&gt; 等类型的回调方法，但是所有的回调方法返回值都是 &lt;code&gt;Unit&lt;/code&gt; 所以无法进行链式操作，同时执行多个回调的顺序的也不保证。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;val f2 = Future {
+    Thread.sleep(10)
+}
+f2 onSuccess {
+    case _ =&amp;gt; println(&amp;quot;a&amp;quot;)
+}
+f2 onSuccess {
+    case _ =&amp;gt; println(&amp;quot;b&amp;quot;)
+}
+f2 onSuccess {
+    case _ =&amp;gt; println(&amp;quot;c&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;组合:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;组合&lt;/h4&gt;
+
+&lt;p&gt;Callback 虽然方便，但是在复杂场景下光使用 Callback 很容易陷入回调地狱。&lt;/p&gt;
+
+&lt;p&gt;最简单的回调地狱&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;Future {
+    1
+} onSuccess {
+    case x =&amp;gt; Future {
+        x + 3
+    } onSuccess {
+        case x =&amp;gt; Future {
+            x * 10
+        } onSuccess {
+            case x =&amp;gt;
+                println(s&amp;quot;Result of callback hell is $x&amp;quot;) //  40
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为此 Scala 为 Future 提供了多种组合方式。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;map&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;map&lt;/code&gt; 用于在 Future 执行完毕后产生新的 Future 并执行后续操作，无论异常是否会发生，Future 的结果都会进行传递。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val f1 = Future {
+    1	//	or 1/0
+}
+val f2 = f1 map { x =&amp;gt;
+    x + 3
+}
+f2 map { x =&amp;gt;
+    x * 10
+} onComplete {
+    case Success(x) =&amp;gt; println(s&amp;quot;Result of map is $x&amp;quot;) //  40
+    case Failure(e) =&amp;gt; e.printStackTrace()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Recovery&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;recover&lt;/code&gt; 用于在 Future 执行过程中发生异常时进行一些拯救工作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;Future {
+    1 / 0
+} recover {
+    case e: ArithmeticException =&amp;gt; 0
+} map { x =&amp;gt;
+    x + 3
+} map { x =&amp;gt;
+    x * 10
+} onComplete {
+    case Success(x) =&amp;gt; println(s&amp;quot;Result of recover is $x&amp;quot;) //  30
+    case Failure(e) =&amp;gt; e.printStackTrace()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fallback&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fallback&lt;/code&gt; 用于在 Future 执行过程中发生异常时执行另一个 Future。如果异常没有发生，原始 Future 的结果会被返回。如果原始 Future 发生异常，新 Future 成功执行则返回新 Future 的结果，如果新 Future 中也发生异常，则原始 Future 的异常会被返回。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val f3 = Future {
+    1 / 0
+}
+val f4 = Future {
+    10
+}
+f3 fallbackTo f4 map { x =&amp;gt;
+    x + 3
+} onComplete {
+    case Success(x) =&amp;gt; println(s&amp;quot;Result of fallback is $x&amp;quot;) //  13
+    case Failure(e) =&amp;gt; e.printStackTrace()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Then&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;then&lt;/code&gt; 听起来容易让人混淆，以为是连续多个 Future，前一个执行完的结果会被传递到后一个。但是实际 &lt;code&gt;then&lt;/code&gt; 是为了解决副作用的问题，即 &lt;code&gt;then&lt;/code&gt; 连接的多个 Furtue 总是返回初始 Future 的结果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;Future {
+    1
+} andThen {
+    case Success(x) =&amp;gt;
+        x + 1
+} andThen {
+    case Success(x) =&amp;gt;
+        x + 10
+} andThen {
+    case Success(x) =&amp;gt;
+        println(s&amp;quot;Result of then is $x&amp;quot;) //  1
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由以上例子可知 &lt;code&gt;x&lt;/code&gt; 的值并没有发生改变。&lt;/p&gt;
+
+&lt;h4 id=&#34;blocking:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Blocking&lt;/h4&gt;
+
+&lt;p&gt;Future 可以像 Java 的 Future 一样通过阻塞操作获得执行结果。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val f1 = Future {
+  1
+}
+val result = Await result(f1, Duration(3, TimeUnit.SECONDS))
+println(result)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;promise:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Promise&lt;/h3&gt;
+
+&lt;p&gt;Promise 与 Future 不同，Future 只提供了读取计算值的接口，而 Promise 是一个拥有单个 Future 的容器，提供了写入计算值的接口。Java 1.8 提供的 CompletableFuture 就与 Promise 有些相似。&lt;/p&gt;
+
+&lt;p&gt;Promise 可以通过调用 &lt;code&gt;success()&lt;/code&gt;，&lt;code&gt;complete()&lt;/code&gt;，&lt;code&gt;failure()&lt;/code&gt; 来直接调用其内部 Future 对应的 &lt;code&gt;onSuccess()&lt;/code&gt; 等方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val p1 = Promise[Int]()
+val f1 = p1.future
+Future {
+  val i = Random.nextInt(100)
+  p1.success(i)
+}
+Future {
+  f1 onSuccess {
+    case x =&amp;gt; println(x)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Promise 在计算完成后就不允许再进行计算，否则会抛出异常，所以可以使用 &lt;code&gt;tryXXX()&lt;/code&gt; 版本来替换以上版本来避免异常的发生。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;p1.trySuccess(1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Promise 也可以使用 &lt;code&gt;completeWith()&lt;/code&gt; 方法来调用其它 Future 来代替其内置的 Future 进行计算&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt; def heavyFuture = {
+  val p = Promise[Int]()
+  val f = Future {
+    1000
+  }
+  p completeWith f
+  p.future
+}
+
+val f = heavyFuture
+f onSuccess { case x =&amp;gt; println(x) } // 1000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;syncvar:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;SyncVar&lt;/h3&gt;
+
+&lt;p&gt;SyncVar 负责存储单一值，其所有操作都是同步的，所以可以通过它安全地访问各种可变对象。&lt;/p&gt;
+
+&lt;p&gt;其最主要的由三个方法：&lt;code&gt;get()&lt;/code&gt;，&lt;code&gt;take()&lt;/code&gt;，&lt;code&gt;put()&lt;/code&gt;，其中 &lt;code&gt;get()&lt;/code&gt; 和 &lt;code&gt;take()&lt;/code&gt; 都负责从对象中获取值，且提供了无参版本和有超时时间的版本，区别是 &lt;code&gt;get()&lt;/code&gt; 仅仅取出数据，而 &lt;code&gt;take()&lt;/code&gt; 取出后会把原来的数据删除。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val v = new SyncVar[Int]
+Future {
+  Thread.sleep(10)
+  v.put(3)
+}
+var result = v.get
+println(&amp;quot;result&amp;quot;, result, Thread.currentThread().getName) //(result,3,main)
+
+result = v.take()
+println(&amp;quot;take&amp;quot;, result, Thread.currentThread().getName) //(take,3,main)
+
+//  以下代码由于值已经被取出所以会一直阻塞下去
+v.get
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;p&gt;Kotlin 基本就是直接调用 Java 代码，但是由于 Kotlin 对部分方法进行了包装，所以可以节省一定的代码量。&lt;/p&gt;
+
+&lt;h3 id=&#34;thread-2:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Thread&lt;/h3&gt;
+
+&lt;p&gt;定义一个简单自动启动的线程&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;thread {
+    println(&amp;quot;async&amp;quot;)
+}
+println(&amp;quot;sync&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 可以直接使用 Lambda 表达式生成 Thread，在创建时也可以像以下方法一样传入默认参数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;thread(start = false,
+        isDaemon = true,
+        name = &amp;quot;t1&amp;quot;) {
+    println(&amp;quot;running&amp;quot;)
+}.start()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;thread-pool-1:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Thread Pool&lt;/h3&gt;
+
+&lt;p&gt;创建一个单线程的线程池&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val service = Executors.newSingleThreadExecutor()
+service.execute {
+    println(&amp;quot;Running in a pool.&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;callable-与-future-1:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Callable 与 Future&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val future = service.submit(
+        Callable() {
+            &amp;quot;Hello World&amp;quot;
+        }
+)
+val result = future.get()
+println(result)
+service.shutdown()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;timer-1:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;Timer&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val fixedRateTimer = fixedRateTimer(name = &amp;quot;timer&amp;quot;,
+        daemon = true, initialDelay = 100, period = 100) {
+    println(&amp;quot;ping!&amp;quot;)
+}
+Thread.sleep(1000)
+fixedRateTimer.cancel()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;completablefuture-1:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;CompletableFuture&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val firstFuture = CompletableFuture&amp;lt;Int&amp;gt;()
+firstFuture.complete(10)
+println(firstFuture.get())
+
+service = Executors.newFixedThreadPool(10)
+val secondFuture = CompletableFuture.supplyAsync(Supplier {
+    Random().nextInt(1000)
+}, service)
+println(secondFuture.get())
+service.shutdown()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;总结:478c14dbe13b6b3aa481a4bf3a0c02ba&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;不同语言的内部实现都是依赖 Java API，所以非常相似&lt;/li&gt;
+&lt;li&gt;Scala 的 Future 和 Promise 和 Java 1.8 引入的 CompletableFuture 可以更好的写出异步代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_30_thread_future&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 29. 与 Java 交互</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-29-with-java/</link>
+      <pubDate>Tue, 20 Oct 2015 07:00:27 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-29-with-java/</guid>
+      <description>
+
+&lt;h2 id=&#34;共通篇:bc706a04c6fefebd859726a9bb301b67&#34;&gt;共通篇&lt;/h2&gt;
+
+&lt;p&gt;Groovy，Scala 和 Kotlin 都是 JVM 上的语言，在设计之初就考虑到了与 Java 的兼容性，所以这三门语言几乎都能无缝调用 Java 代码，因此也能很简单地实用现在众多成熟的 Java 类库。而 Java 调用这三门语言也不是太麻烦，所以可以根据实用场景在这四门语言中进行便捷地切换。&lt;/p&gt;
+
+&lt;h2 id=&#34;groovy:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;h3 id=&#34;groovy-调用-java:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Groovy 调用 Java&lt;/h3&gt;
+
+&lt;p&gt;Groovy 调用 Java 就像 Java 调用 Java 一样没有任何其它操作。&lt;/p&gt;
+
+&lt;p&gt;定义一个 Java 类 &lt;code&gt;JavaBean.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaBean {
+
+    private String name;
+
+    public JavaBean(String name) {
+        this.name = name;
+    }
+
+    public int calc(int x, int y) {
+        return x + y;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static void hello(JavaBean bean) {
+        System.out.println(&amp;quot;Hello, this is &amp;quot; + bean.name);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写一个 Groovy 类调用以上的 Java Bean&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;class GroovyCallJava {
+
+    static void main(args) {
+        JavaBean javaBean = new JavaBean(&amp;quot;JavaBean&amp;quot;)
+        println javaBean.getName()  //  JavaBean
+        println javaBean.calc(2, 3) //  5
+        JavaBean.hello(javaBean)    //  Hello, this is JavaBean
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;java-调用-groovy:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Java 调用 Groovy&lt;/h3&gt;
+
+&lt;p&gt;编写一个 Groovy 类 &lt;code&gt;GroovyBean.groovy&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;class GroovyBean {
+
+    def name
+
+    GroovyBean(name) {
+        this.name = name
+    }
+
+
+    def calc(x, y) {
+        x + y
+    }
+
+    static def hello(GroovyBean bean) {
+        println(&amp;quot;Hello, this is ${bean.name}&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写调用以上 Groovy 代码的 Java 类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaCallGroovy {
+
+    public static void main(String[] args) {
+        GroovyBean groovyBean = new GroovyBean(&amp;quot;GroovyBean&amp;quot;);
+        System.out.println(groovyBean.getName());   //  GroovyBean
+        System.out.println(groovyBean.calc(2, 3));  //  5
+        GroovyBean.hello(groovyBean);               //  Hello, this is GroovyBean
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scala:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;scala-调用-java:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Scala 调用 Java&lt;/h3&gt;
+
+&lt;p&gt;Scala 调用 Java 也非常简单&lt;/p&gt;
+
+&lt;p&gt;定义一个 Java 类 &lt;code&gt;JavaBean.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaBean {
+
+    private String name;
+
+    public JavaBean(String name) {
+        this.name = name;
+    }
+
+    public int calc(int x, int y) {
+        return x + y;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static void hello(JavaBean bean) {
+        System.out.println(&amp;quot;Hello, this is &amp;quot; + bean.name);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写一个 Scala 类调用以上的 Java Bean&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Scala&#34;&gt;object ScalaCallJava extends App {
+
+  val javaBean = new JavaBean(&amp;quot;JavaBean&amp;quot;)
+  println(javaBean.getName) //  JavaBean
+  println(javaBean.calc(2, 3)) //  5
+
+  JavaBean.hello(javaBean) //  Hello, this is JavaBean
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;java-调用-scala:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Java 调用 Scala&lt;/h3&gt;
+
+&lt;p&gt;Java 调用 Scala 时需要注意 &lt;code&gt;class&lt;/code&gt; 和 &lt;code&gt;object&lt;/code&gt; 的区别。此外在 Scala 对象中如果属性没有声明为 &lt;code&gt;@BeanProperty&lt;/code&gt; 的话，调用时需要使用 &lt;code&gt;对象.属性名()&lt;/code&gt; 来调用，声明后才可以使用 Java 风格的 &lt;code&gt;对象.get属性名()&lt;/code&gt; 来调用。&lt;/p&gt;
+
+&lt;p&gt;编写一个 Scala 类 &lt;code&gt;ScalaBean.scala&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class ScalaBean(@BeanProperty val name: String) {
+
+  val age: Int = 10
+
+  def calc(x: Int, y: Int) = x + y
+}
+
+object ScalaBean {
+
+  def hello(bean: ScalaBean): Unit = println(s&amp;quot;Hello, this is ${bean.name}&amp;quot;)
+}
+
+object ScalaUtils {
+  def foo = println(&amp;quot;Foo...&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写调用以上 Scala 代码的 Java 类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaCallScala {
+
+    public static void main(String[] args) {
+        ScalaBean scalaBean = new ScalaBean(&amp;quot;ScalaBean&amp;quot;);
+        // Scala 属性的默认调用方式
+        System.out.println(scalaBean.name());       //  ScalaBean
+        // 声明为 @BeanProperty 后提供的调用方式
+        System.out.println(scalaBean.getName());    //  ScalaBean
+        System.out.println(scalaBean.age());        //  10
+        System.out.println(scalaBean.calc(2, 3));    //  5
+
+        // 调用 Scala的单例对象，本质上调用的是下面一行
+        ScalaBean.hello(scalaBean);                 //  Hello, this is ScalaBean
+        ScalaBean$.MODULE$.hello(scalaBean);        //  Hello, this is ScalaBean
+
+        ScalaUtils.foo();   //  Foo...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;kotlin-调用-java:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Kotlin 调用 Java&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 调用 Java 也非常简单，但是如果 Java 的方法名是类似 &lt;code&gt;is&lt;/code&gt; 这种在 Kotlin 是关键字，在 Java 中只是普通字符的场合，Kotlin 中调用时需要使用 &amp;ldquo;``&amp;rdquo; 括起来。&lt;/p&gt;
+
+&lt;p&gt;定义一个 Java 类 &lt;code&gt;JavaBean.java&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaBean {
+
+    private String name;
+
+    public JavaBean(String name) {
+        this.name = name;
+    }
+
+    public int calc(int x, int y) {
+        return x + y;
+    }
+
+    public boolean is(String name) {
+        return this.name.equals(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static void hello(JavaBean bean) {
+        System.out.println(&amp;quot;Hello, this is &amp;quot; + bean.name);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写一个 Kotlin 类调用以上的 Java Bean&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun main(args: Array&amp;lt;String&amp;gt;) {
+    val javaBean = JavaBean(&amp;quot;JavaBean&amp;quot;)
+    println(javaBean.name)     //  JavaBean
+    println(javaBean.calc(2, 3))    //  5
+
+    JavaBean.hello(javaBean)        //  Hello, this is Peter
+
+    //  Escaping for Java identifiers that are keywords in Kotlin
+    println(javaBean.`is`(&amp;quot;Peter&amp;quot;)) //  true
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这种使用方式可以让 Java 享受到 Kotlin 优雅的空值处理方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val list = ArrayList&amp;lt;JavaBean&amp;gt;()
+list.add(javaBean)
+val nullable: JavaBean? = list[0]
+val notNull: JavaBean = list[0]
+nullable?.name
+notNull.name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;java-调用-kotlin:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Java 调用 Kotlin&lt;/h3&gt;
+
+&lt;p&gt;Java 调用 Kotlin 有几点比较特殊的，接下来一一说明。&lt;/p&gt;
+
+&lt;h4 id=&#34;class-与-object:bc706a04c6fefebd859726a9bb301b67&#34;&gt;Class 与 Object&lt;/h4&gt;
+
+&lt;p&gt;编写一个 Kotlin 类 &lt;code&gt;ScalaBean.scala&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class KotlinBean(val name: String) {
+
+    fun calc(x: Int, y: Int): Int {
+        return x + y
+    }
+
+    companion object {
+         @JvmStatic fun hello(bean: KotlinBean) {
+            println(&amp;quot;Hello, this is ${bean.name}&amp;quot;)
+        }
+
+        fun echo(msg: String, bean: KotlinBean) {
+            println(&amp;quot;$msg, this is ${bean.name}&amp;quot;)
+        }
+    }
+}
+
+object KotlinUtils {
+     @JvmStatic fun foo() {
+        println(&amp;quot;Foo...&amp;quot;)
+    }
+
+    fun bar() {
+        println(&amp;quot;Bar...&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编写调用以上 Kotlin 代码的 Java 类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class JavaCallKotlin {
+
+    public static void main(String[] args) {
+        //  Class
+        KotlinBean kotlinBean = new KotlinBean(&amp;quot;Peter&amp;quot;);
+        System.out.printf(kotlinBean.getName());    //  Peter
+        System.out.println(kotlinBean.calc(2, 3));  //  5
+
+        KotlinBean.hello(kotlinBean);               //  Hello, this is Peter
+        KotlinBean.Companion.echo(&amp;quot;GoodBye&amp;quot;, kotlinBean);   //  GoodBye, this is Peter
+
+        //  Object
+        KotlinUtils.foo();
+        KotlinUtils.INSTANCE.bar();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上示例中使用了 &lt;code&gt;JvmStatic&lt;/code&gt; 注解，该注解用于生成静态方法，如果没有使用该注解的话就必须使用隐式的单例对象 &lt;code&gt;INSTANCE$&lt;/code&gt; 来调用 &lt;code&gt;object&lt;/code&gt; 中的方法。这种处理方式与 Scala 非常相似，只是 Scala 是自动生成的罢了。&lt;/p&gt;
+
+&lt;h4 id=&#34;fun:bc706a04c6fefebd859726a9bb301b67&#34;&gt;fun&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 中方法是可以脱离类而存在的，而在 Java 中这种方式是不允许的。定义这种方法时实际上 Kotlin 是产生了一个与包名相同的类来存储这些方法，所以 Java 中也需要使用包名调用这些方法。&lt;/p&gt;
+
+&lt;p&gt;定义一个脱离类的 Kotlin 的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;package com.bookislife.jgsk.kotlin._29_java
+fun foobar() {
+    println(&amp;quot;A function without class.&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在 Java 中调用以上方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;_29_javaPackage.foobar();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;检查异常:bc706a04c6fefebd859726a9bb301b67&#34;&gt;检查异常&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 不存在检查异常，但是 Java 中却到处都是检查异常，如果想抛出检查异常需要使用 &lt;code&gt;@throws(exceptionClassName::class)&lt;/code&gt; 的语法。&lt;/p&gt;
+
+&lt;p&gt;Kotlin 代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;@Throws(IOException::class) fun declaredThrowAnException() {
+    throw IOException()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Java 代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;try {
+    _29_javaPackage.declaredThrowAnException();
+} catch (IOException ignored) {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;重载:bc706a04c6fefebd859726a9bb301b67&#34;&gt;重载&lt;/h4&gt;
+
+&lt;p&gt;Kotlin 拥有方法默认值和带名参数的特点，所以只需要定义一个包含所有参数的方法就可以满足需求。而 Java 没有这一特性，所以需要定义多个参数列表不同的同名方法，即重载才能满足需求。在 Kotlin 中可以直接使用 &lt;code&gt;jvmOverloads&lt;/code&gt; 注解自动生成这些重载方法来让 Java 进行调用。&lt;/p&gt;
+
+&lt;p&gt;Kotlin 代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;@JvmOverloads fun f(a: String, b: Int = 0, c: String = &amp;quot;c&amp;quot;) {
+    println(&amp;quot;a=$a b=$b c=$c&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Java 代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;_29_javaPackage.f(&amp;quot;x&amp;quot;);             //  a=x b=0 c=c
+_29_javaPackage.f(&amp;quot;x&amp;quot;, 10);         //  a=x b=10 c=c
+_29_javaPackage.f(&amp;quot;x&amp;quot;, 10, &amp;quot;z&amp;quot;);    //  a=x b=10 c=z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;总结:bc706a04c6fefebd859726a9bb301b67&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;三种语言都能比较简单地与 Java 互相调用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_29_java&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

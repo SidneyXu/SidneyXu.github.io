@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Pixel Space</title>
+    <link>http://git.bookislife.com/tags/blog/</link>
+    <description>Recent content in Blog on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 11 Sep 2015 15:49:56 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>如何使用 Hugo 搭建个人博客</title>
+      <link>http://git.bookislife.com/post/2015/how-to-use-hugo/</link>
+      <pubDate>Fri, 11 Sep 2015 15:49:56 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/how-to-use-hugo/</guid>
+      <description>
+
+&lt;h2 id=&#34;相关网站:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;相关网站&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes/&#34;&gt;主题&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;推荐主题&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;bootie-docs&lt;/li&gt;
+&lt;li&gt;casper&lt;/li&gt;
+&lt;li&gt;hyde-x&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;使用-hugo:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;使用 Hugo&lt;/h2&gt;
+
+&lt;h3 id=&#34;安装:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;安装&lt;/h3&gt;
+
+&lt;p&gt;直接下载对应的安装包即可&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;https://github.com/spf13/hugo/releases&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;如果是Mac平台的话也可以直接执行以下命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立站点:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;建立站点&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new site /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果是 Windows 平台的话则使用 &amp;ldquo;hugo.exe&amp;rdquo; 替代上述命令中的 &amp;ldquo;hugo&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo.exe new site /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;创建文章:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;创建文章&lt;/h3&gt;
+
+&lt;p&gt;进入刚创建的站点的根目录&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /path/to/site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建 about.md&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编辑创建的 about.md 文件，在文件尾端添加以下内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## A headline
+
+Some Content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建另一篇文章&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建后随意输入任意内容&lt;/p&gt;
+
+&lt;h3 id=&#34;下载主题:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;下载主题&lt;/h3&gt;
+
+&lt;p&gt;在根目录执行以下命令会下载所有主题&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --recursive https://github.com/spf13/hugoThemes themes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果网速慢的话，上述方式很可能不成功，此时在站点根目录执行以下命令下载任一一个主题（此处下载的是 hyde-x 主题）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir themes
+cd themes
+git clone https://github.com/zyro/hyde-x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;运行服务器:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;运行服务器&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo server --theme=hyde-x --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上，&lt;code&gt;theme&lt;/code&gt; 用于指定主题名，&lt;code&gt;buildDrafts&lt;/code&gt; 用于运行 build 草稿，&lt;code&gt;watch&lt;/code&gt; 用于监控文件的改动。&lt;/p&gt;
+
+&lt;p&gt;启动完毕后可以在浏览器中输入以下命令观察生成的站点&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://localhost:1313
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;托管博客到-github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;托管博客到 Github Pages&lt;/h2&gt;
+
+&lt;h3 id=&#34;github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;Github Pages&lt;/h3&gt;
+
+&lt;p&gt;Github Pages 是 Github提供的免费静态网页控件。总共分为两种：User 及 Project。&lt;/p&gt;
+
+&lt;p&gt;User 仓库名必须为 &lt;code&gt;username.github.io&lt;/code&gt;，该仓库的 &lt;code&gt;master&lt;/code&gt; 分支用于托管静态网站，访问地址为 &lt;code&gt;username.github.io&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;project 仓库名可以为任意，该仓库的 &lt;code&gt;gh-pages&lt;/code&gt; 分支用于托管静态网站，访问地址为 &lt;code&gt;username.github.io/projectName&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;提交静态网页到-github-pages:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;提交静态网页到 Github Pages&lt;/h3&gt;
+
+&lt;p&gt;Hugo 创建的静态网页全部都在站点根目录的 &lt;code&gt;public&lt;/code&gt; 目录，所以只需要提交 public 下的所有文件到 Github 上就可以生成静态网站。所以最基本的方法就是建立两个分支，一个管理除 &lt;code&gt;public&lt;/code&gt;文件夹之外的全部源文件，一个管理 &lt;code&gt;public&lt;/code&gt; 文件夹下的所有文件。不过这种方式非常繁琐，我没有采用。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-wercker-进行自动部署:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;使用 Wercker 进行自动部署&lt;/h3&gt;
+
+&lt;p&gt;Wercker 和 TravisCI 一样都是免费的 CI 服务。Wercker 建立在Docker上，可以帮我们自动完成静态网站的生成和提交。&lt;/p&gt;
+
+&lt;h4 id=&#34;具体步骤:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;具体步骤&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;访问&lt;a href=&#34;http://wercker.com&#34;&gt;Wercker官方网站&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;注册账号&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;settings&lt;/code&gt; -&amp;gt; &lt;code&gt;Git Connection&lt;/code&gt; -&amp;gt; 选择 &lt;code&gt;github&lt;/code&gt; 后连接到你的github账号
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-git-connections.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;点击 &lt;code&gt;create&lt;/code&gt; 按钮，创建你的应用
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-add-app.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择在 Github 上需要作为静态网站的仓库
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-repository.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择仓库的拥有者，通常只要选择你自己的账号就可以了
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-select-owner.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;配置访问权限 (Configure access)，直接选择默认的选择 [Next step]&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;前面都执行后到这一步时 Wercker 会显示 &lt;code&gt;wercker.yml&lt;/code&gt; 文件的代码模板，直接在作为静态网站的工程的根路径建立 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，拷贝网页上显示的代码到该文件并保存，选择 &lt;code&gt;Next Step&lt;/code&gt;。
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09werckeryml.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Make my app public&lt;/code&gt; 保持原样，选择 &lt;code&gt;Finish&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;此时项目已经初步设置完毕，画面上会显示 &lt;code&gt;Build now&lt;/code&gt; 按钮，不过还没有到 build 的时间，接下来需要修改 &lt;code&gt;wercker.yml&lt;/code&gt; 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;Registry&lt;/code&gt;，检索 &lt;code&gt;hugo build&lt;/code&gt;
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09wercker-search.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;根据提示将代码粘帖到 &lt;code&gt;wercker.yml&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;box: debian
+build:
+    steps:
+        - arjen/hugo-build@1.5.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;提交 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，此时 wercker 应该会自动进行第一次构建&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;接下来继续检索 &lt;code&gt;gh pages&lt;/code&gt;，根据提示继续修改 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，其中 &lt;code&gt;domain&lt;/code&gt; 换成你自己的域名，这个值会被写到CNAME文件中，&lt;code&gt;$GIT_TOKEN&lt;/code&gt; 为定义的一个变量，它的值之后会进行设置，&lt;code&gt;basedir&lt;/code&gt; 为需要同步到 &lt;code&gt;gh-pages&lt;/code&gt; 分支的文件夹名&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;box: debian
+build:
+    steps:
+        - arjen/hugo-build@1.5.0
+deploy:
+    steps:
+        - lukevivier/gh-pages@0.2.1:
+            token: $GIT_TOKEN
+            domain: git.bookislife.com
+            basedir: public
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择应用 -&amp;gt; &lt;code&gt;Settings&lt;/code&gt; -&amp;gt; &lt;code&gt;Deploy targets&lt;/code&gt; -&amp;gt; &lt;code&gt;Add deploy targets&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09adding-a-github-pages-step.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;按照下图进行配置，其中 &lt;code&gt;Deploy target name&lt;/code&gt; 可以任意填写，&lt;code&gt;GIT_TOKEN&lt;/code&gt; 变量对应的 text 需要填写你在 github 上建立的 token，具体可参照 &lt;a href=&#34;https://help.github.com/articles/creating-an-access-token-for-command-line-use/&#34;&gt;Github help&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/2015/09configure-the-deploy-step.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;OK&lt;/code&gt; 完成所有设置并提交 &lt;code&gt;wercker.yml&lt;/code&gt; 文件，此时 wercker 应该会自动进行b uild 后并将 &lt;code&gt;public&lt;/code&gt; 文件夹下的文件同步到 &lt;code&gt;gh-pages&lt;/code&gt; 分支下。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;问题汇总&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;有时 build 后会报 &lt;code&gt;unknown host: github.com&lt;/code&gt;，此时无视即可，服务器偶尔的抽风，过个几分钟再试就可以了&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果报 &lt;code&gt;wrecker.yml&lt;/code&gt; 无法解析的话通常是yml文件中含有tab键，全部替换成空格就可以了&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;如果 build 成功完成了，但是deploy时报 &lt;code&gt;git: command not found&lt;/code&gt;，这是应为没有安装 git，需要修改 &lt;code&gt;wrecker.yml&lt;/code&gt; 来安装git，完整代码如下&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;   box: debian
+   build:
+       steps:
+           - arjen/hugo-build@1.5.0
+   deploy:
+       steps:   
+           - script:
+               name: install git
+               code: |
+                   apt-get update
+                   apt-get install git -y
+           - lukevivier/gh-pages@0.2.1:
+               token: $GIT_TOKEN
+               domain: git.bookislife.com
+               basedir: public  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;参考资料:c012d43b2ad1e45154ca163811ec76d1&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/overview/quickstart/&#34;&gt;Hugo Quickstart Guide&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://gohugo.io/tutorials/automated-deployments/&#34;&gt;Automated deployments with Wercker&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>个人博客平台的选择</title>
+      <link>http://git.bookislife.com/post/2015/personal-blog-choosen/</link>
+      <pubDate>Fri, 11 Sep 2015 14:20:23 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/personal-blog-choosen/</guid>
+      <description>
+
+&lt;h2 id=&#34;静态页面生成器汇总:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;静态页面生成器汇总&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://staticsitegenerators.net/&#34;&gt;staticsitegenerators/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.staticgen.com/&#34;&gt;staticgen&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;现在流行使用静态页面生成器配合 Github pages 搭建个人博客。从上述两个网站可以看到现在静态页面生成器多如牛毛，但流行的也就那么几天。下面我挑了一些一个个尝试了一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;ruby:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Ruby&lt;/h2&gt;
+
+&lt;h3 id=&#34;middleman:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Middleman&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/middleman/middleman&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://middlemanapp.com/&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;需要翻墙，折腾了几次虽然成功启动了但是估计有什么东西没下完整，生成的页面非常古怪&lt;/p&gt;
+
+&lt;h3 id=&#34;jekyll:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Jekyll&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://jekyllrb.com/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jekyll/jekyll&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;最流行的静态页面生成器，也被Github所使用。本身有各种各样的中文安装和设置教程，但是仍然不能掩盖其安装的复杂性，不适合懒人。&lt;/p&gt;
+
+&lt;p&gt;jekyll-now&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/barryclark/jekyll-now&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;无需安装任何东西，只要clone一下，改一下 CNAME 文件，按照Jekyll的要求编写文章，然后commit就能够看到效果。最重要的是和其它需要两个分支的生成器相比，其只需要一个分支即可，非常适合不喜欢折腾的人。&lt;/p&gt;
+
+&lt;h2 id=&#34;node-js:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Node.js&lt;/h2&gt;
+
+&lt;h3 id=&#34;docpad:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;DocPad&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docpad.org/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/docpad/docpad&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;配置麻烦，效果一般&lt;/p&gt;
+
+&lt;h3 id=&#34;hexo:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Hexo&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://hexo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;台湾同胞写的生成器，所以中文文档非常丰富。Github上有许多主题，目前star最多的应该是&lt;a href=&#34;https://github.com/iissnan/hexo-theme-next&#34;&gt;Next主题&lt;/a&gt;，该主题基本上包含了大部分比较流行的功能，值得推荐。&lt;/p&gt;
+
+&lt;h2 id=&#34;python:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Python&lt;/h2&gt;
+
+&lt;h3 id=&#34;pelican:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;pelican&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://getpelican.com/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/getpelican/pelican&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;主题太丑，性能是个问题&lt;/p&gt;
+
+&lt;h2 id=&#34;go:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Go&lt;/h2&gt;
+
+&lt;h3 id=&#34;hugo:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Hugo&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gohugo.io/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugo&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes/&#34;&gt;主题&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;官方文档写得很详细，生成速度非常理想，远超过其它引擎，所以如果有大量博文要写的话，Hugo 是最推荐的。唯一的缺憾是中文资料非常匮乏，还有一些常见特性还未开发完毕。&lt;/p&gt;
+
+&lt;h2 id=&#34;番外:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;番外&lt;/h2&gt;
+
+&lt;h3 id=&#34;wordpress:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Wordpress&lt;/h3&gt;
+
+&lt;p&gt;最流行的博客平台，需要自行购买服务器进行搭建。主题和教程非常丰富。个人觉得 Github pages 应该是存放技术相关的博客，其它内容可以放到 wordpress 上。&lt;/p&gt;
+
+&lt;h3 id=&#34;ghost:d1a0d4bbb9470dc27a71b20cc82bf702&#34;&gt;Ghost&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://ghost.org/&#34;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.ghostchina.com/&#34;&gt;中文社区&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;拥有admin页面，支持在线编辑Markdown，一度是我的选择。但是由于Ghost的文件是保存在sqlite中，无法直接使用 &lt;code&gt;.md&lt;/code&gt; 文件，所以必须在线编辑，最后只能 pass。此外，在速度上个人觉得也不是太理想。&lt;/p&gt;
+
+&lt;p&gt;综上，个人推荐的搭建个人博客的平台主要有 Jekyll, Hexo, Hugo, Wordpress。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="scala, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Scala - 04.隐式转换及类型约束"/>
+<meta property="og:site_name" content="JGSK - Scala - 04.隐式转换及类型约束"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-scala-04-implict/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-17"/>
+<meta property="article:modified_time" content="2015-12-17"/>
+
+
+
+<meta property="article:tag" content="scala">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Scala - 04.隐式转换及类型约束">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Scala - 04.隐式转换及类型约束 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-scala-04-implict/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Scala%20-%2004.%e9%9a%90%e5%bc%8f%e8%bd%ac%e6%8d%a2%e5%8f%8a%e7%b1%bb%e5%9e%8b%e7%ba%a6%e6%9d%9f-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f&title=JGSK%20-%20Scala%20-%2004.%e9%9a%90%e5%bc%8f%e8%bd%ac%e6%8d%a2%e5%8f%8a%e7%b1%bb%e5%9e%8b%e7%ba%a6%e6%9d%9f&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-scala-04-implict%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Scala - 04.隐式转换及类型约束</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#隐式转换与类型约束:4e02853b676946db3585dce8a815c3d4">隐式转换与类型约束</a>
+<ul>
+<li><a href="#隐式操作:4e02853b676946db3585dce8a815c3d4">隐式操作</a>
+<ul>
+<li><a href="#隐式转换:4e02853b676946db3585dce8a815c3d4">隐式转换</a></li>
+<li><a href="#隐式参数与隐式值:4e02853b676946db3585dce8a815c3d4">隐式参数与隐式值</a></li>
+<li><a href="#隐式类:4e02853b676946db3585dce8a815c3d4">隐式类</a></li>
+</ul></li>
+<li><a href="#类型约束:4e02853b676946db3585dce8a815c3d4">类型约束</a>
+<ul>
+<li><a href="#toc_6:4e02853b676946db3585dce8a815c3d4">&lt;:&lt;</a></li>
+<li><a href="#toc_7:4e02853b676946db3585dce8a815c3d4">=:=</a></li>
+</ul></li>
+<li><a href="#类型参数边界:4e02853b676946db3585dce8a815c3d4">类型参数边界</a>
+<ul>
+<li><a href="#与-视图边界:4e02853b676946db3585dce8a815c3d4">=&gt; 与 视图边界</a></li>
+<li><a href="#上下文边界:4e02853b676946db3585dce8a815c3d4">上下文边界</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="隐式转换与类型约束:4e02853b676946db3585dce8a815c3d4">隐式转换与类型约束</h2>
+
+<h3 id="隐式操作:4e02853b676946db3585dce8a815c3d4">隐式操作</h3>
+
+<h4 id="隐式转换:4e02853b676946db3585dce8a815c3d4">隐式转换</h4>
+
+<p>隐式转换是通过在指定的上下文环境中定义一个类型转换的函数来在必要时完成变量的自动类型转换。和子类到父类的自动类型转换不同，隐式转换是通过函数来实现的，所以原类型和目标类型可以没有任何关系。</p>
+
+<p>Scala 中定义一个隐式转换函数只要在普通函数前加上关键字 <code>implicit</code> 就可以了。</p>
+
+<p>例</p>
+
+<p>定义一个对 <code>Int</code> 类型扩展的类 <code>SuperInt</code></p>
+
+<pre><code class="language-scala">class SuperInt(val i: Int) {
+    def triple = i * i * i
+}
+</code></pre>
+
+<p>定义一个隐式转换函数，用于将 <code>Int</code> 类型的参数转换为 <code>SuperInt</code> 类型。</p>
+
+<pre><code class="language-scala">implicit def int2SuperInt(i: Int): SuperInt = new SuperInt(i)
+</code></pre>
+
+<p>定义一个使用 <code>SuperInt</code> 作为参数的函数</p>
+
+<pre><code class="language-scala">def showTripleResult(i: SuperInt): Unit = {
+    println(s&quot;Result is ${i.triple}&quot;)
+}
+</code></pre>
+
+<p>使用隐式转换</p>
+
+<pre><code class="language-scala">val i: Int = 3
+showTripleResult(i) //  Result is 27
+</code></pre>
+
+<p>以上例子中 <code>showTripleResult()</code> 函数需要 <code>SuperInt</code> 类型的参数，而传入的参数为 <code>Int</code> 类型，此时编译器会在上下文环境中查找是否有能够将 <code>Int</code> 类型参数转换为 <code>SuperInt</code> 类型的隐式转换函数。</p>
+
+<p>事实上隐式转换是完全自动完成的，以下例子可以完全体现这点</p>
+
+<pre><code class="language-scala">println(i.triple) //  27
+</code></pre>
+
+<p>由于隐式转换的功能过于强大，所以必须限定隐式转换的上下文，否则的话会使代码非常难以阅读。最常见的作法是直接定义一个 <code>Object</code>，将转换函数都放在里面。</p>
+
+<pre><code class="language-scala">object Context {
+    //  Implicit Conversion
+    implicit def int2SuperInt(i: Int): SuperInt = new SuperInt(i)
+}
+</code></pre>
+
+<p>然后在使用的地方先进行引用</p>
+
+<pre><code class="language-scala">import Context._
+</code></pre>
+
+<h4 id="隐式参数与隐式值:4e02853b676946db3585dce8a815c3d4">隐式参数与隐式值</h4>
+
+<p>隐式参数指的是向函数传入部分参数，余下的参数由编译器自动从上下文环境中寻找符合需要的参数类型的隐式值。</p>
+
+<p>Scala 中定义一个隐式参数只要在参数前加上关键字 <code>implicit</code> 就可以了，隐式值也是类似。</p>
+
+<p>例</p>
+
+<p>定义一个包含隐式参数的函数</p>
+
+<pre><code class="language-scala">def show(msg: String)(implicit prefix: String) = println(s&quot;$prefix $msg&quot;)
+</code></pre>
+
+<p>定义一个隐式值</p>
+
+<pre><code class="language-scala">implicit val stringValue = &quot;Hello&quot;
+</code></pre>
+
+<p>调用该函数</p>
+
+<pre><code class="language-scala">show(&quot;World&quot;) //  Hello World
+show(&quot;Bye&quot;)(&quot;Good&quot;) //  Good Bye
+</code></pre>
+
+<p><code>show()</code> 函数需要接收两个参数，当调用 <code>show(&quot;World&quot;)</code> 时由于缺少了 <code>String</code> 类型的隐式参数 <code>prefix</code>，Scala 会自动从上下文找寻找存在的 <code>String</code> 类型的隐式值 <code>stringValue</code> 传入 <code>show()</code> 函数。</p>
+
+<p>使用隐式参数时有以下两点需要注意</p>
+
+<ul>
+<li>由于隐式参数是根据参数类型来寻找隐式值的，所以如果上下文环境中有多个相同类型的隐式值时，Scala 会报 &ldquo;ambiguous implicit values&rdquo; 错误。</li>
+<li>隐式参数最好使用特别的数据类型，而不要使用 <code>String</code> 等常用类型，否则可能会引发问题</li>
+</ul>
+
+<h4 id="隐式类:4e02853b676946db3585dce8a815c3d4">隐式类</h4>
+
+<p>隐式类可以看做是隐式转换的语法糖，Scala 能够在必要时将源类型自动转换为隐式类的类型。</p>
+
+<p>定义一个隐式类</p>
+
+<pre><code class="language-scala">object Context {
+    implicit class Calculator(i: Int) {
+        def add(a: Int) = a + i
+    }
+}
+</code></pre>
+
+<p>使用该隐式类</p>
+
+<pre><code class="language-scala">println(3.add(5))   //  8
+</code></pre>
+
+<p>Scala 发现 <code>Int</code> 变量 <code>3</code> 没有 <code>add()</code> 方法时，会自动查找是否能够在上下文环境中将该变量转换为包含 <code>add()</code> 方法的目标类型，这里就是类 <code>Calculator</code>。</p>
+
+<p>隐式类在使用时有以下原则</p>
+
+<ul>
+<li>隐式类必须定义在另外一个类中</li>
+<li>隐式类的构造器有且只能有一个不是 <code>implicit</code> 的参数</li>
+<li>作用域中不能有任何标示符（方法名，变量名等）与隐式类同名</li>
+</ul>
+
+<h3 id="类型约束:4e02853b676946db3585dce8a815c3d4">类型约束</h3>
+
+<p>类型约束用于对参数类型进行限制，看起来有些像泛型章节所提到的类型参数边界，但是类型约束更加严格。</p>
+
+<h4 id="toc_6:4e02853b676946db3585dce8a815c3d4">&lt;:&lt;</h4>
+
+<p><code>&lt;:&lt;</code> 用于限制参数类型必须为某一个类型本身或该类型的子类。</p>
+
+<p>例</p>
+
+<p>定义三个类型</p>
+
+<pre><code class="language-scala">class Person(val name: String)
+
+class Student(name: String) extends Person(name)
+
+class Animal(val name: String)
+</code></pre>
+
+<p>定义方法</p>
+
+<pre><code class="language-scala">def makeFriends[A](a: A)(implicit ev: A &lt;:&lt; Person): Unit = {}
+</code></pre>
+
+<p>以上 <code>makeFriends()</code> 方法限制其泛型参数 <code>A</code> 必须为类型 <code>Person</code> 或其子类</p>
+
+<p>调用该方法</p>
+
+<pre><code class="language-scala">//  正常调用
+val peter = new Person(&quot;Peter&quot;)
+makeFriends(peter)
+
+//  错误调用，会报 type mismatch 异常，因为 Animal 不是 Person 的子类
+val cat = new Animal(&quot;Cat&quot;)
+makeFriends(cat)
+</code></pre>
+
+<p>通过以上的例子可以看到 <code>&lt;:&lt;</code> 的作用似乎与 <code>&lt;:</code> 非常类似，但是前者更为严格。</p>
+
+<p>有如下两个方法，第一个方法使用了上边界，第二个方法使用了类型约束</p>
+
+<pre><code class="language-scala">def foo[A, B &lt;: A](a: A, b: B) {}
+def foo2[A, B](a: A, b: B)(implicit ev: B &lt;:&lt; A) {}
+</code></pre>
+
+<p>向以上方法传入参数</p>
+
+<pre><code class="language-scala">foo(peter, cat)
+foo2(peter, cat)
+</code></pre>
+
+<p>结果第一行正常执行，因为 <code>Animal</code> 类型虽然与 <code>Person</code> 无关，但是编译器一旦发现 <code>B</code> 需要为 <code>A</code> 的子类时，就会将 <code>Animal</code> 类型提升为 <code>Any</code> 类型，此时自然 <code>Person</code> 是其子类，所以方法通过了检查。而第二行则直接报错，因为类型约束只会直接检查，不会自动进行类型转换。</p>
+
+<h4 id="toc_7:4e02853b676946db3585dce8a815c3d4">=:=</h4>
+
+<p><code>=:=</code> 用于限制参数类型必须为某一类型。</p>
+
+<p>例</p>
+
+<p>定义方法</p>
+
+<pre><code class="language-scala">def bar[A](a: A)(implicit ev: A =:= Person): Unit = {}
+</code></pre>
+
+<p>以上指定了类型 <code>A</code> 必须为 <code>Person</code> 类型。</p>
+
+<p>调用该方法</p>
+
+<pre><code class="language-scala">//  正常调用
+val peter = new Person(&quot;Peter&quot;)
+bar(peter)
+
+//  错误调用，Student 类型不是 Person 类型
+val jane = new Student(&quot;Jane&quot;)
+bar(jane)
+</code></pre>
+
+<p>可以看到 <code>=:=</code> 和 <code>&lt;:&lt;</code> 一样不会进行类型转换，不会认为子类就是父类。</p>
+
+<h3 id="类型参数边界:4e02853b676946db3585dce8a815c3d4">类型参数边界</h3>
+
+<p>因为隐式操作的存在类型参数边界又多了几个，因此本节是对泛型一节中的类型参数边界的补充。</p>
+
+<h4 id="与-视图边界:4e02853b676946db3585dce8a815c3d4">=&gt; 与 视图边界</h4>
+
+<p><code>=&gt;</code> 用于限定对于参数类型 A 来说，必须存在一个隐式转换能够将 A 转变为目标类型。</p>
+
+<p>例</p>
+
+<p>定义一个方法</p>
+
+<pre><code class="language-scala"> def limitView[A](a: Person)(implicit ev1: A =&gt; Person) {}
+</code></pre>
+
+<p>以上方法限定了上下文环境中必须存在一个转换函数能够将类型 <code>A</code> 转换为类型 <code>Person</code>。</p>
+
+<pre><code class="language-scala">val linda = new Teacher(&quot;Linda&quot;)
+implicit def teacher2Person(t: Teacher): Person = new Person(t.name)
+limitView(peter)
+</code></pre>
+
+<p>这种做法与视图边界(View Bound) 相同，不过视图边界早已经被废弃，但是还是有不少代码中使用了视图边界，所以还是需要知道以下，以下就是使用视图边界的写法：</p>
+
+<pre><code class="language-scala">def limitViewOld[A &lt;% Person](a: Person) {}
+</code></pre>
+
+<h4 id="上下文边界:4e02853b676946db3585dce8a815c3d4">上下文边界</h4>
+
+<p>上下文边界用于限定对于类型 <code>[A: Bound]</code> 来说，必须存在一个隐式转换可以使类型 <code>[A: Bound]</code> 变为类型 <code>Bound[A]</code>。上下文边界实际是 <code>def f[A](a: A)(implicit ev: Bound[A])</code> 的语法糖。</p>
+
+<p>例</p>
+
+<p>定义一个方法</p>
+
+<pre><code class="language-scala">def append[A: ArrayBuffer](a: A): Unit = {
+    var arrayBuffer = implicitly[ArrayBuffer[A]]
+    arrayBuffer += a
+}
+</code></pre>
+
+<p>其中 <code>implicitly</code> 用于从上下文环境中获得指定类型的隐式值。</p>
+
+<p>调用该方法</p>
+
+<pre><code class="language-scala">implicit val persons = ArrayBuffer[Person]()
+append(peter)
+persons.foreach { p =&gt; println(p.name) }
+</code></pre>
+
+<p>以上的例子即表示对于类型 <code>Person</code> 来说，必须存在一个隐式转换能够将 <code>Person</code> 转换为 <code>ArrayBuffer[Person]</code>。</p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-17 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-scala-06-actor/"><i class="icon-arrow-left"></i> JGSK - Scala - 06.Actor</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/">JGSK - Scala - 02.高阶函数 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="451">
+<meta itemprop="datePublished" content="2015-12-17">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-scala-04-implict/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-04-implict\/';
+    var disqus_title = 'JGSK - Scala - 04.隐式转换及类型约束';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-scala-04-implict\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

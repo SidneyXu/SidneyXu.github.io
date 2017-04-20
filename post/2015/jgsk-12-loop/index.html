@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 12.循环"/>
+<meta property="og:site_name" content="JGSK - 12.循环"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-12-loop/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-18"/>
+<meta property="article:modified_time" content="2015-09-18"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 12.循环">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 12.循环 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-12-loop/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2012.%e5%be%aa%e7%8e%af-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f&title=JGSK%20-%2012.%e5%be%aa%e7%8e%af&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-12-loop%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 12.循环</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:02e53dd9e6cd0b78d2c23338384d0dac">Java 篇</a>
+<ul>
+<li><a href="#for:02e53dd9e6cd0b78d2c23338384d0dac">For</a></li>
+<li><a href="#while:02e53dd9e6cd0b78d2c23338384d0dac">While</a></li>
+<li><a href="#continue-和-break:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</a></li>
+</ul></li>
+<li><a href="#groovy-篇:02e53dd9e6cd0b78d2c23338384d0dac">Groovy 篇</a>
+<ul>
+<li><a href="#for-1:02e53dd9e6cd0b78d2c23338384d0dac">For</a></li>
+<li><a href="#while-1:02e53dd9e6cd0b78d2c23338384d0dac">While</a></li>
+<li><a href="#for-range:02e53dd9e6cd0b78d2c23338384d0dac">For-Range</a></li>
+<li><a href="#continue-和-break-1:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</a></li>
+</ul></li>
+<li><a href="#scala-篇:02e53dd9e6cd0b78d2c23338384d0dac">Scala 篇</a>
+<ul>
+<li><a href="#for-2:02e53dd9e6cd0b78d2c23338384d0dac">For</a></li>
+<li><a href="#while-2:02e53dd9e6cd0b78d2c23338384d0dac">While</a></li>
+<li><a href="#power-for:02e53dd9e6cd0b78d2c23338384d0dac">Power For</a>
+<ul>
+<li><a href="#range:02e53dd9e6cd0b78d2c23338384d0dac">Range</a></li>
+<li><a href="#guard:02e53dd9e6cd0b78d2c23338384d0dac">Guard</a></li>
+<li><a href="#yield:02e53dd9e6cd0b78d2c23338384d0dac">Yield</a></li>
+</ul></li>
+<li><a href="#continue-和-break-2:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:02e53dd9e6cd0b78d2c23338384d0dac">Kotlin 篇</a>
+<ul>
+<li><a href="#for-3:02e53dd9e6cd0b78d2c23338384d0dac">For</a></li>
+<li><a href="#while-3:02e53dd9e6cd0b78d2c23338384d0dac">While</a></li>
+<li><a href="#range-1:02e53dd9e6cd0b78d2c23338384d0dac">Range</a></li>
+<li><a href="#repeat:02e53dd9e6cd0b78d2c23338384d0dac">Repeat</a></li>
+<li><a href="#continue-和-break-3:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</a></li>
+</ul></li>
+<li><a href="#总结:02e53dd9e6cd0b78d2c23338384d0dac">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java-篇:02e53dd9e6cd0b78d2c23338384d0dac">Java 篇</h2>
+
+<h3 id="for:02e53dd9e6cd0b78d2c23338384d0dac">For</h3>
+
+<p><code>for</code> 语句可以说是最常用的循环语句了。Java 支持普通的 <code>for</code> 语句以及增强型的 <code>for-each</code> 语句。</p>
+
+<p>for 语句</p>
+
+<pre><code class="language-java">for (int i = 0; i &lt; 3; i++) {
+    System.out.println(&quot;Repeat For &quot; + i);
+}
+</code></pre>
+
+<p>for-each 语句</p>
+
+<pre><code class="language-java">int[] arr = {1, 2, 3};
+for (int a : arr) {
+    System.out.println(&quot;Repeat For-Each &quot; + a);
+}
+</code></pre>
+
+<h3 id="while:02e53dd9e6cd0b78d2c23338384d0dac">While</h3>
+
+<p><code>while</code> 是另一种常用的循环语句，有 <code>while</code> 和 <code>do..while</code> 两种形式。</p>
+
+<p>while</p>
+
+<pre><code class="language-java">while (i &lt; arr.length) {
+    System.out.println(&quot;Repeat While &quot; + arr[i++]);
+}
+</code></pre>
+
+<p>do..while</p>
+
+<pre><code class="language-java">do {
+    i++;
+    System.out.println(&quot;Repeat Do-While &quot; + i);
+} while (i &lt; arr.length);
+</code></pre>
+
+<h3 id="continue-和-break:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</h3>
+
+<p>Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。</p>
+
+<p>Continue</p>
+
+<pre><code class="language-java">for (int i : Arrays.asList(1, 2, 3, 4, 5)) {
+    if (i == 3) continue;
+    System.out.println(&quot;Continue &quot; + i);    //  1 2 4 5
+}
+</code></pre>
+
+<p>Break</p>
+
+<pre><code class="language-java">for (int i : Arrays.asList(1, 2, 3, 4, 5)) {
+    if (i == 3) break;
+    System.out.println(&quot;Break &quot; + i);   //  1 2
+}
+</code></pre>
+
+<h2 id="groovy-篇:02e53dd9e6cd0b78d2c23338384d0dac">Groovy 篇</h2>
+
+<h3 id="for-1:02e53dd9e6cd0b78d2c23338384d0dac">For</h3>
+
+<p>Groovy 中的 <code>for</code> 语句基本与 Java 一致。</p>
+
+<pre><code class="language-groovy">for (def i = 0; i &lt; 3; i++) {
+  println &quot;Repeat For ${i}&quot;
+}
+
+def arr = [1, 2, 3]
+for (def a : arr) {    
+  println(&quot;Repeat For-Each ${a}&quot;)
+}
+</code></pre>
+
+<h3 id="while-1:02e53dd9e6cd0b78d2c23338384d0dac">While</h3>
+
+<p>Groovy 没有 <code>do..while</code>  语句，只有 普通的<code>while</code> 语句。</p>
+
+<pre><code class="language-groovy">while (i &lt; arr.size()) {    
+  println(&quot;Repeat While ${arr[i++]}&quot;)
+}
+</code></pre>
+
+<h3 id="for-range:02e53dd9e6cd0b78d2c23338384d0dac">For-Range</h3>
+
+<p>Groovy 中有一个 Java 中没有的概念：Range，表示一个有序的范围，具体在下节会介绍。Range 结合 <code>for</code> 语句可以形成更加简便，直观的循环语句。</p>
+
+<p>构造一个 Range 非常简单，<code>n1..n2</code> 就可以表示一个简单的 Range 对象</p>
+
+<p>以下例子表示从 0 循环到 3，每次步长为1，左右都是闭区间，相比较普通的 <code>for</code> 循环，这种做法更加优美</p>
+
+<pre><code class="language-groovy">for (a in 0..3) {    
+  println &quot;Repeat Range ${a}&quot;
+}
+</code></pre>
+
+<p>当然倒序也是可以的，步长为被自动修正为 -1。</p>
+
+<pre><code class="language-groovy">for (a in 3..0) {    
+  println &quot;Repeat Reverse-Range ${a}&quot;
+}
+```language
+</code></pre>
+
+<p>也可以通过 <code>n1..n2</code> 这样的语法来指定左闭右开。</p>
+
+<pre><code class="language-groovy">for (a in 0..&lt;3) {    
+  println &quot;Repeat Range ${a}&quot;
+}
+</code></pre>
+
+<h3 id="continue-和-break-1:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</h3>
+
+<p>Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。</p>
+
+<p>Continue</p>
+
+<pre><code class="language-groovy">for (i in 1..5) {
+    if (i == 3) continue
+    println(&quot;Continue $i&quot;)
+}
+</code></pre>
+
+<p>Break</p>
+
+<pre><code class="language-groovy">for (i in 1..5) {
+    if (i == 3) break
+    println(&quot;Break $i&quot;)
+}
+</code></pre>
+
+<h2 id="scala-篇:02e53dd9e6cd0b78d2c23338384d0dac">Scala 篇</h2>
+
+<h3 id="for-2:02e53dd9e6cd0b78d2c23338384d0dac">For</h3>
+
+<p>Scala 的 <code>for</code> 语句与其它语言都不同，没有最基本的 C 风格的 <code>for (;;)</code> 语句，但是却有类似的 <code>for-each</code> 语句。</p>
+
+<pre><code class="language-scala">val arr = Array(1, 2, 3)
+for (a &lt;- arr) {  
+  println(s&quot;Repeat For-Each $a&quot;)
+}
+</code></pre>
+
+<p>也可以基于索引进行遍历</p>
+
+<pre><code class="language-scala">for (i &lt;- arr.indices) {  
+  println(s&quot;Repeat For-Each ${arr(i)}&quot;)
+}
+</code></pre>
+
+<p>当然 Scala 的 <code>for</code> 语句不可能如此简单，更强大的功能在接下来会提到。</p>
+
+<h3 id="while-2:02e53dd9e6cd0b78d2c23338384d0dac">While</h3>
+
+<p>Scala 支持基本的 <code>while</code> 和 <code>do-while</code> 语句。</p>
+
+<p>while</p>
+
+<pre><code class="language-scala">val arr = Array(1, 2, 3)
+var i = 0
+while (i &lt; arr.length) {  
+  println(s&quot;Repeat While ${arr(i)}&quot;)  i += 1
+}
+</code></pre>
+
+<p>do-while</p>
+
+<pre><code>do {  
+  i += 1  
+  println(s&quot;Repeat While $i&quot;)
+} while (i &lt; 5)
+
+</code></pre>
+
+<h3 id="power-for:02e53dd9e6cd0b78d2c23338384d0dac">Power For</h3>
+
+<h4 id="range:02e53dd9e6cd0b78d2c23338384d0dac">Range</h4>
+
+<p>同 Groovy 一样，Scala 更高级的 <code>for</code> 循环也是通过 <code>Range</code> 对象来实现的。
+Scala 使用方法 <code>to()</code> 和 <code>until()</code> 来创建 <code>for</code> 循环，后者是前者的倒序形式，且使用 <code>for</code> 循环时循环变量无需预先定义，直接使用就可以了。</p>
+
+<p>For-To</p>
+
+<pre><code class="language-scala">for (i &lt;- 0 to 3) {  
+  println(s&quot;Repeat For $i&quot;)
+}
+</code></pre>
+
+<p>因为 Scala 一切皆对象，所以以上的 <code>0 to 3</code> 实际方法 <code>0.to(3)</code> 简写形式，且循环变量 <code>i</code> 无需预先定义为 <code>var i</code>。</p>
+
+<p>For-Until</p>
+
+<pre><code class="language-scala">for (i &lt;- 0 until 3) {  
+  println(s&quot;Repeat For-Until $i&quot;)
+}
+</code></pre>
+
+<p>指定步长</p>
+
+<p>使用关键字 <code>by</code> 可以在循环时指定步长</p>
+
+<pre><code class="language-scala">for (i &lt;- 0 to 5 by 2) {  
+  println(s&quot;Repeat For $i&quot;)
+}
+</code></pre>
+
+<p>此外，Scala 在一个 <code>for</code> 循环中可以同时对多个变量进行循环，每个变量间以符号 <code>;</code> 进行分隔。</p>
+
+<pre><code class="language-scala">for (i &lt;- 0 to 3; j &lt;- 2 to 4) {
+  println(s&quot;Repeat For $i, $j&quot;)
+}
+</code></pre>
+
+<h4 id="guard:02e53dd9e6cd0b78d2c23338384d0dac">Guard</h4>
+
+<p>Scala 的 <code>for</code> 循环中可以插入 <code>if</code> 语句用于在循环中进行一些逻辑判断，这种 <code>if</code> 语句被称作为 &ldquo;guard&rdquo;（守护者）。</p>
+
+<pre><code class="language-scala">val list = List(1, 2, 3)
+for (i &lt;- list if i != 2; if i &gt; 1) {  
+  println(s&quot;Repeat with Guard $i&quot;)
+}
+</code></pre>
+
+<h4 id="yield:02e53dd9e6cd0b78d2c23338384d0dac">Yield</h4>
+
+<p><code>yield</code> 用于从 <code>for</code> 循环抽取所有符合特定条件的值，这种 <code>for</code> 循环被称作为 for 推导式。</p>
+
+<pre><code class="language-scala">val list = List(1, 2, 3)
+val ret = for {i &lt;- list 
+  if i != 3
+} yield i
+println(s&quot;Repeat with Yield $ret&quot;)
+</code></pre>
+
+<p>以上返回结果 <code>ret</code> 为一个 <code>List</code> 对象，其内容为所有符合循环条件的 <code>i</code> 的值，即 <code>1, 2, 4, 5</code>。</p>
+
+<h3 id="continue-和-break-2:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</h3>
+
+<p>Scala 和其它语言不同，其并没有提供 <code>break</code> 和 <code>continue</code> 作为关键字。直到 Scala 2.8 以前都必须手动实现这些功能，Scala 2.8 以后引入了 <code>Breaks</code> 工具类可以完成 Continue 和 Break 的功能。</p>
+
+<p><code>Breaks</code> 拥有两个方法：<code>breakable()</code> 用于定义控制的语句块，<code>break()</code> 用于从 <code>breakable()</code> 定义的语句块中跳出。</p>
+
+<p>Continue</p>
+
+<p>循环体内的 <code>breakable</code> 实现了 Continue 的功能</p>
+
+<pre><code class="language-scala">for (i &lt;- 1 to 5) {
+  Breaks.breakable {
+    if (i == 3) Breaks.break()
+    println(&quot;Continue &quot; + i)
+  }
+}
+</code></pre>
+
+<p>Break</p>
+
+<p>包裹循环体的 <code>breakable</code> 实现了 Break 的功能</p>
+
+<pre><code class="language-scala">Breaks.breakable {
+  for (i &lt;- 1 to 5) {
+    if (i == 3) Breaks.break()
+    println(&quot;Break &quot; + i)
+  }
+}
+</code></pre>
+
+<h2 id="kotlin-篇:02e53dd9e6cd0b78d2c23338384d0dac">Kotlin 篇</h2>
+
+<h3 id="for-3:02e53dd9e6cd0b78d2c23338384d0dac">For</h3>
+
+<p>同 Scala 一样，Kotlin 也没有传统的 <code>for</code> 语句，基本用法同 Scala。</p>
+
+<pre><code class="language-kotlin">for ( a in arr) {    
+  println(&quot;Repeat Power For $a&quot;);
+}
+</code></pre>
+
+<p>基于索引</p>
+
+<pre><code class="language-kotlin">for (i in arr.indices) {    
+  println(&quot;Repeat For-indices ${arr[i]}&quot;)
+}
+</code></pre>
+
+<h3 id="while-3:02e53dd9e6cd0b78d2c23338384d0dac">While</h3>
+
+<p><code>while</code> 语句的用法也与 Scala 相似.</p>
+
+<pre><code class="language-kotlin">val arr = intArrayOf(1, 2, 3)
+var i = 0
+while ( i &lt; arr.size ) {
+  println(&quot;Repeat While ${arr[i++]}&quot;)
+}
+i = 0
+do {
+  i++
+  println(&quot;Repeat Do-While $i&quot;)
+} while (i &lt; 5)
+</code></pre>
+
+<h3 id="range-1:02e53dd9e6cd0b78d2c23338384d0dac">Range</h3>
+
+<p>Kotlin 的增强型 <code>for</code> 也基于 <code>Range</code> 对象。</p>
+
+<pre><code class="language-kotlin">for (a in 0..3)
+  println(&quot;Repeat Range $a&quot;)
+</code></pre>
+
+<p>倒序</p>
+
+<pre><code class="language-kotlin">for (a in 3 downTo 0)
+  println(&quot;Repeat Reverse-Range $a&quot;)
+</code></pre>
+
+<p>指定步长</p>
+
+<pre><code class="language-kotlin">for (a in 0..5 step 2)
+  println(&quot;Repeat Range with Step $a&quot;)
+</code></pre>
+
+<h3 id="repeat:02e53dd9e6cd0b78d2c23338384d0dac">Repeat</h3>
+
+<p>在 Kotlin 中还可以通过 <code>repeat</code> 操作来实现重复指定次数的操作。</p>
+
+<pre><code class="language-kotlin">repeat(3) {
+    println(&quot;Repeat $it times&quot;)
+}
+</code></pre>
+
+<h3 id="continue-和-break-3:02e53dd9e6cd0b78d2c23338384d0dac">Continue 和 Break</h3>
+
+<p>Continue 和 Break 都用于进行流程控制。Continue 用于跳过本次循环，直接进入下次循环。Break 用于跳出当前循环。</p>
+
+<p>Continue</p>
+
+<pre><code class="language-kotlin">for (i in 1..5) {
+    if (i == 3) continue
+    println(&quot;Continue $i&quot;)
+}
+</code></pre>
+
+<p>Break</p>
+
+<pre><code class="language-kotlin">for (i in 1..5) {
+    if (i == 3) break
+    println(&quot;Break $i&quot;)
+}
+</code></pre>
+
+<h2 id="总结:02e53dd9e6cd0b78d2c23338384d0dac">总结</h2>
+
+<ul>
+<li>Java 与 Groovy 的<code>for</code>语句相似，Scala 与 Kotlin 的<code>for</code> 语句相似</li>
+<li>Groovy 不支持 <code>do-while</code> 语句</li>
+<li>除了 Java 之外，其它语言都支持基于 Range 的增强型 <code>for</code> 循环</li>
+<li>Scala 的 <code>for</code> 循环功能最强大</li>
+<li>除了 Scala 之外，其它语言都支持 <code>break</code> 和 <code>continue</code>，Scala 则必须使用 <code>Breaks</code> 工具类</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_12_loop</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-18 </h4>
+          <h5 id="wc"> 900 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  4 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-13-collection-and-range/"><i class="icon-arrow-left"></i> JGSK - 13.数组，集合与范围</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-11-if-condition/">JGSK - 11.条件表达式 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="822">
+<meta itemprop="datePublished" content="2015-09-18">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-12-loop/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-12-loop\/';
+    var disqus_title = 'JGSK - 12.循环';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-12-loop\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

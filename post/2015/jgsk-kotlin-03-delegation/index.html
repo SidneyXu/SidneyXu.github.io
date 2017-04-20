@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - Kotlin - 03.委托"/>
+<meta property="og:site_name" content="JGSK - Kotlin - 03.委托"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-kotlin-03-delegation/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-12-10"/>
+<meta property="article:modified_time" content="2015-12-10"/>
+
+
+
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - Kotlin - 03.委托">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - Kotlin - 03.委托 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-kotlin-03-delegation/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%20Kotlin%20-%2003.%e5%a7%94%e6%89%98-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f&title=JGSK%20-%20Kotlin%20-%2003.%e5%a7%94%e6%89%98&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-kotlin-03-delegation%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - Kotlin - 03.委托</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#类的委托:1a8829e3bdb0b396a545ae85b9e002e3">类的委托</a></li>
+<li><a href="#属性的委托:1a8829e3bdb0b396a545ae85b9e002e3">属性的委托</a></li>
+<li><a href="#标准委托:1a8829e3bdb0b396a545ae85b9e002e3">标准委托</a>
+<ul>
+<li><a href="#lazy:1a8829e3bdb0b396a545ae85b9e002e3">Lazy</a></li>
+<li><a href="#observable:1a8829e3bdb0b396a545ae85b9e002e3">Observable</a></li>
+<li><a href="#not-null:1a8829e3bdb0b396a545ae85b9e002e3">Not Null</a></li>
+<li><a href="#以-map-形式保存属性的值:1a8829e3bdb0b396a545ae85b9e002e3">以 Map 形式保存属性的值</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结:1a8829e3bdb0b396a545ae85b9e002e3">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h3 id="类的委托:1a8829e3bdb0b396a545ae85b9e002e3">类的委托</h3>
+
+<p>类的委托即一个类中定义的方法实际是调用另一个类的对象的方法来实现的。</p>
+
+<p>在 Java 中实现委托机制就像下面的例子一样，非常麻烦。</p>
+
+<pre><code class="language-java">class Base {
+  public void echo(String message){
+    System.out.println(message);
+  }
+}
+//  委托类
+class Delegation {
+    private Base base;
+    public Delegation(){
+        this.base = new Base();
+    }
+    //  实际调用的是 Base 类的方法
+    public void echo(String message){
+        base.echo(message);
+    }
+}
+</code></pre>
+
+<p>而在 Kotlin 中只要被委托的类实现了接口，那么就可以很简单的建立一个拥有此接口所有公共实现方法的委托类。</p>
+
+<p>创建接口和实现此接口的被委托的类</p>
+
+<pre><code class="language-kotlin">interface Base {
+    fun echo(msg: String)
+}
+
+class BaseImpl(val prefix: String) : Base {
+    override fun echo(msg: String) {
+        println(&quot;$prefix $msg&quot;)
+    }
+}
+</code></pre>
+
+<p>建立委托类</p>
+
+<pre><code class="language-kotlin">class Derived(b: Base) : Base by b
+</code></pre>
+
+<p>以上 <code>Derived</code> 类继承了所有来自 <code>Base</code> 的方法，并且委托一个传入的 <code>Base</code> 类的对象来 执行这些方法。</p>
+
+<p>使用委托类</p>
+
+<pre><code class="language-kotlin">val b = BaseImpl(&quot;Hello&quot;)
+b.echo(&quot;World&quot;) //  Hello World
+val d = Derived(b)  //  Hello World
+d.echo(&quot;World&quot;)
+</code></pre>
+
+<h3 id="属性的委托:1a8829e3bdb0b396a545ae85b9e002e3">属性的委托</h3>
+
+<p>属性的委托指的一个类的某个属性的值不是在类中直接进行定义，而是由某个类的方法来进行 setter 和 getter。默认属性委托都是线程安全的。属性委托适合那些属性的需要复杂的计算但是计算过程可以被重用的场合。</p>
+
+<p>定义一个被委托的类</p>
+
+<p>该类需要包含 <code>getValue()</code> 方法和 <code>setValue()</code> 方法，且参数 <code>thisRef</code> 为进行委托的类的对象，<code>prop</code> 为进行委托的属性的对象。</p>
+
+<pre><code class="language-kotlin">class Delegate {
+
+    private var message = &quot;Default Message&quot;
+
+    operator fun getValue(thisRef: Any?, prop: KProperty&lt;*&gt;): String {
+        return &quot;${prop.name} = $message from $thisRef&quot;
+    }
+
+    operator fun setValue(thisRef: Any?, prop: KProperty&lt;*&gt;, value: String) {
+        message = value
+    }
+}
+</code></pre>
+
+<p>定义包含属性委托的类</p>
+
+<pre><code class="language-kotlin">class Example {
+    var msg: String by Delegate()
+}
+</code></pre>
+
+<p>访问该属性</p>
+
+<pre><code class="language-kotlin">val e = Example()
+println(e.msg)  //  msg = Default Message
+
+e.msg = &quot;New Message&quot;
+println(e.msg)  //  msg = New Message
+</code></pre>
+
+<p>在使用属性委托时，被委托的类的方法（即接收者）的返回值必须与委托的属性相同或者其父类。</p>
+
+<h3 id="标准委托:1a8829e3bdb0b396a545ae85b9e002e3">标准委托</h3>
+
+<p>Kotlin 的标准库中已经内置了很多工厂方法来实现属性的委托。</p>
+
+<h4 id="lazy:1a8829e3bdb0b396a545ae85b9e002e3">Lazy</h4>
+
+<p><code>lazy</code> 用于进行惰性加载，在 <code>JGSK - 34.Lazy</code> 章节中已经介绍过了。</p>
+
+<h4 id="observable:1a8829e3bdb0b396a545ae85b9e002e3">Observable</h4>
+
+<p><code>observable</code> 可以用于实现观察者模式。</p>
+
+<p>定义包含被委托的属性的类</p>
+
+<p><code>Delegates.observable</code> 接收三个参数：包含委托的属性的元数据的 <code>KProperty</code> 对象，旧值，新值。</p>
+
+<pre><code class="language-kotlin">class User {
+    var name: String by Delegates.observable(&quot;&lt;init value&gt;&quot;) {
+        prop, old, new -&gt;
+        if (old != new) {
+            println(&quot;$old -&gt; $new&quot;)
+        }
+    }
+}
+</code></pre>
+
+<p>访问该属性</p>
+
+<pre><code class="language-kotlin">val user = User()
+user.name = &quot;first&quot; //  &lt;init value&gt; -&gt; first
+user.name = &quot;first&quot;
+user.name = &quot;second&quot;    //  first -&gt; second
+</code></pre>
+
+<p>也可以使用 <code>vetoable</code> 代替 <code>observable</code>，该方法拥有布尔类型的返回值，返回 <code>false</code> 的话可以取消对该属性的修改。</p>
+
+<p>在以上 <code>User</code> 中定义一个新属性</p>
+
+<pre><code class="language-kotlin">var age: Int by Delegates.vetoable(0) {
+    prop, old, new -&gt;
+    println(&quot;$old -&gt; $new&quot;)
+    if (new &lt; 20) true else false
+}
+</code></pre>
+
+<p>访问该属性</p>
+
+<pre><code class="language-kotlin">user.age = 10   //  0 -&gt; 10
+println(user.age)   //  10
+user.age = 20   //  10 -&gt; 20
+println(user.age)   //  20
+</code></pre>
+
+<h4 id="not-null:1a8829e3bdb0b396a545ae85b9e002e3">Not Null</h4>
+
+<p><code>notNull</code> 适用于那些无法在初始化阶段就确定属性值的场合。</p>
+
+<pre><code class="language-kotlin">class Foo {
+    var notNullBar: String by Delegates.notNull&lt;String&gt;()
+}
+
+foo.notNullBar = &quot;bar&quot;
+println(foo.notNullBar)
+</code></pre>
+
+<p>需要注意，如果属性在赋值前就被访问的话则会抛出异常。</p>
+
+<h4 id="以-map-形式保存属性的值:1a8829e3bdb0b396a545ae85b9e002e3">以 Map 形式保存属性的值</h4>
+
+<p>Kotlin 中有一种特别的委托，可以以 Map 作为一个类的构造方法的参数，访问该类的属性就是访问该 Map 的键值对。这种做法非常类似 Groovy 中的带名构造方法。</p>
+
+<p>要实现这一功能需要得意于 Kotlin 内置的属性的扩展方法 <code>kotlin.properties.getValue</code></p>
+
+<p>例</p>
+
+<pre><code class="language-kotlin">import kotlin.properties.getValue
+
+class Person(val map: Map&lt;String, Any?&gt;) {
+    val name: String by map
+    val age: Int by map
+}
+</code></pre>
+
+<p>可以像普通类一样访问其各个属性</p>
+
+<pre><code class="language-kotlin">val person = Person(mapOf(
+        &quot;name&quot; to &quot;John&quot;,
+        &quot;age&quot; to 25
+))
+println(person.name)
+println(person.age)
+</code></pre>
+
+<p>对于可变值，可以使用 <code>MutableMap</code> 代替，并导入扩展方法 <code>kotlin.properties.setValue</code></p>
+
+<pre><code class="language-kotlin">import kotlin.properties.setValue
+
+class MutablePerson(val map: MutableMap&lt;String, Any?&gt;) {
+    var name: String by map
+    var age: Int     by map
+}
+</code></pre>
+
+<h2 id="总结:1a8829e3bdb0b396a545ae85b9e002e3">总结</h2>
+
+<ul>
+<li>Kotlin 支持类的委托和属性的委托。</li>
+<li>标准库中内置 <code>lazy</code>,<code>observable</code>,<code>vetoable</code> 等实现委托的工厂方法。</li>
+<li>可以使用 map 委托来实现类似 Groovy 的默认构造方法</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/k03_delegate</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-12-10 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-kotlin-04.this/"><i class="icon-arrow-left"></i> JGSK - Kotlin - 04.this</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-scala-01.apply/">JGSK - Scala - 01.apply <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="405">
+<meta itemprop="datePublished" content="2015-12-10">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-kotlin-03-delegation/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-kotlin-03-delegation\/';
+    var disqus_title = 'JGSK - Kotlin - 03.委托';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-kotlin-03-delegation\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

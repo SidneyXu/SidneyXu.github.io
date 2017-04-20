@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 14.映射与元祖"/>
+<meta property="og:site_name" content="JGSK - 14.映射与元祖"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-14-map-and-turple/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-18"/>
+<meta property="article:modified_time" content="2015-09-18"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 14.映射与元祖">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 14.映射与元祖 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-14-map-and-turple/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2014.%e6%98%a0%e5%b0%84%e4%b8%8e%e5%85%83%e7%a5%96-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f&title=JGSK%20-%2014.%e6%98%a0%e5%b0%84%e4%b8%8e%e5%85%83%e7%a5%96&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-14-map-and-turple%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 14.映射与元祖</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共通篇:6a0bad0e8e04ebde9b43f5b00d269ae9">共通篇</a></li>
+<li><a href="#java-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Java 篇</a>
+<ul>
+<li><a href="#映射:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</a>
+<ul>
+<li><a href="#建立一个-map:6a0bad0e8e04ebde9b43f5b00d269ae9">建立一个 Map</a></li>
+<li><a href="#修改-map:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</a></li>
+<li><a href="#其它操作:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</a></li>
+</ul></li>
+<li><a href="#元组:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</a></li>
+</ul></li>
+<li><a href="#groovy-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Groovy 篇</a>
+<ul>
+<li><a href="#映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</a>
+<ul>
+<li><a href="#建立一个-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">建立一个 Map</a></li>
+<li><a href="#修改-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</a></li>
+<li><a href="#其它操作-1:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</a></li>
+</ul></li>
+<li><a href="#元组-1:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</a></li>
+</ul></li>
+<li><a href="#scala-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Scala 篇</a>
+<ul>
+<li><a href="#映射-2:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</a>
+<ul>
+<li><a href="#不可变映射:6a0bad0e8e04ebde9b43f5b00d269ae9">不可变映射</a>
+<ul>
+<li><a href="#创建一个-map:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</a></li>
+<li><a href="#获取值:6a0bad0e8e04ebde9b43f5b00d269ae9">获取值</a></li>
+</ul></li>
+<li><a href="#可变映射:6a0bad0e8e04ebde9b43f5b00d269ae9">可变映射</a>
+<ul>
+<li><a href="#创建一个-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</a></li>
+</ul></li>
+<li><a href="#修改-map-2:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</a></li>
+<li><a href="#其它操作-2:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</a></li>
+</ul></li>
+<li><a href="#元组-2:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Kotlin 篇</a>
+<ul>
+<li><a href="#映射-3:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</a>
+<ul>
+<li><a href="#不可变映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">不可变映射</a>
+<ul>
+<li><a href="#创建一个-map-2:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</a></li>
+<li><a href="#获取值-1:6a0bad0e8e04ebde9b43f5b00d269ae9">获取值</a></li>
+</ul></li>
+<li><a href="#可变映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">可变映射</a>
+<ul>
+<li><a href="#创建一个-map-3:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</a></li>
+</ul></li>
+<li><a href="#修改-map-3:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</a></li>
+<li><a href="#其它操作-3:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</a></li>
+</ul></li>
+<li><a href="#元组-pair-和-triple:6a0bad0e8e04ebde9b43f5b00d269ae9">元组, Pair 和 Triple</a></li>
+</ul></li>
+<li><a href="#总结:6a0bad0e8e04ebde9b43f5b00d269ae9">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共通篇:6a0bad0e8e04ebde9b43f5b00d269ae9">共通篇</h2>
+
+<p>映射是由键值对组成的一组数据的集合。映射通常基于哈希表，最常见的实现就是 HashMap。</p>
+
+<p>元组类似列表，也是表示一组数据，但是元组中的数据通常都是不同类型或者数据间表示不同含义。且元组通常只用于传递数据，所以不能进行修改。</p>
+
+<h2 id="java-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Java 篇</h2>
+
+<h3 id="映射:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</h3>
+
+<h4 id="建立一个-map:6a0bad0e8e04ebde9b43f5b00d269ae9">建立一个 Map</h4>
+
+<pre><code class="language-java">Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+</code></pre>
+
+<p>同 List 一样，Java 1.7 后可以使用 Diamond 语法写成以下形式</p>
+
+<pre><code class="language-java">Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+</code></pre>
+
+<p>同时 <code>Collections</code> 也提供了一个无法进行任何写操作的空映射</p>
+
+<pre><code class="language-java">Map&lt;String, Integer&gt; emptyMap = Collections.emptyMap();
+//  试图调用以下方法会报 UnsupportedOperationException
+//        emptyMap.put(&quot;x&quot;, 1);
+</code></pre>
+
+<h4 id="修改-map:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</h4>
+
+<p>Put</p>
+
+<p>在映射中，与映射中已有键相同表示修改，与已有键完全不相同表示添加</p>
+
+<pre><code class="language-java">map.put(&quot;name&quot;, &quot;Peter&quot;);
+</code></pre>
+
+<p>Delete</p>
+
+<pre><code class="language-java">map.remove(&quot;age&quot;);
+</code></pre>
+
+<p>Get</p>
+
+<pre><code class="language-java">String name = (String) map.get(&quot;name&quot;);  
+</code></pre>
+
+<p>在 Java 1.8 中提供了如果指定的键不存在则返回默认值的接口</p>
+
+<pre><code class="language-java">int height = (int) map.getOrDefault(&quot;height&quot;, 170);
+</code></pre>
+
+<h4 id="其它操作:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</h4>
+
+<p>获得长度</p>
+
+<pre><code class="language-java">System.out.println(map.size());
+</code></pre>
+
+<p>遍历映射</p>
+
+<pre><code class="language-java">for (Map.Entry&lt;String, Object&gt; entry : map.entrySet()) {
+    System.out.println(&quot;Traverse &quot; + entry.getKey() + &quot; is &quot; + entry.getValue());
+}
+</code></pre>
+
+<h3 id="元组:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</h3>
+
+<p>Java 不支持元组</p>
+
+<h2 id="groovy-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Groovy 篇</h2>
+
+<h3 id="映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</h3>
+
+<h4 id="建立一个-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">建立一个 Map</h4>
+
+<p>创建空 Map</p>
+
+<pre><code class="language-groovy">def emptyMap = [:]
+</code></pre>
+
+<p>创建时指定内容</p>
+
+<pre><code class="language-groovy">def map = [name: &quot;Peter&quot;, &quot;age&quot;: 12, &quot;national&quot;: &quot;USA&quot;]
+</code></pre>
+
+<p>Groovy 中的 Map 默认是使用 <code>LinkedHashMap</code> 实现的。</p>
+
+<h4 id="修改-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</h4>
+
+<p>Put</p>
+
+<p>Groovy 有三种方式可以修改 Map</p>
+
+<pre><code class="language-groovy">map.put(&quot;name&quot;, &quot;Jane&quot;)
+map.age = 20
+map[&quot;sex&quot;] = &quot;Female&quot;
+</code></pre>
+
+<p>Delete</p>
+
+<pre><code class="language-groovy">map.remove(&quot;age&quot;);
+</code></pre>
+
+<p>Get</p>
+
+<p>同 Put 一样，Groovy 有三种方式可以获取键值</p>
+
+<pre><code class="language-groovy">assert map.get(&quot;name&quot;) == &quot;Jane&quot;
+assert map[&quot;name&quot;] == &quot;Jane&quot;
+assert map.name == &quot;Jane&quot;
+</code></pre>
+
+<p>或者可以使用以下方法在指定的键不存在时返回默认值</p>
+
+<pre><code class="language-groovy">assert map.getOrDefault(&quot;height&quot;, 170) == 170
+</code></pre>
+
+<h4 id="其它操作-1:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</h4>
+
+<p>获得长度</p>
+
+<pre><code class="language-groovy">println(map.size())
+</code></pre>
+
+<p>遍历映射</p>
+
+<pre><code class="language-groovy">for (entry in map) {
+    println(&quot;Traverse ${entry.key} is ${entry.value}&quot;)
+}
+</code></pre>
+
+<h3 id="元组-1:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</h3>
+
+<p>创建元组</p>
+
+<pre><code class="language-groovy">def t1 = new Tuple()
+def t2 = new Tuple(1, 2, 3)
+def t3 = new Tuple(1, &quot;abc&quot;, [10, 20, 30], [name: &quot;Peter&quot;, &quot;age&quot;: 12])
+</code></pre>
+
+<p>元组创建后就不支持修改操作</p>
+
+<p>获取数据</p>
+
+<p>元组访问时基于索引，且索引可以为负值</p>
+
+<pre><code class="language-groovy">assert t3.get(0) == 1
+assert t3[1] == &quot;abc&quot;
+assert t3[-1][&quot;name&quot;] == &quot;Peter&quot;
+</code></pre>
+
+<h2 id="scala-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Scala 篇</h2>
+
+<h3 id="映射-2:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</h3>
+
+<p>同列表一样，Scala 支持不可变映射和可变映射，且不可变映射为默认实现</p>
+
+<h4 id="不可变映射:6a0bad0e8e04ebde9b43f5b00d269ae9">不可变映射</h4>
+
+<h5 id="创建一个-map:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</h5>
+
+<p>创建空 Map</p>
+
+<pre><code class="language-scala">val empty = Map()
+</code></pre>
+
+<p>创建时指定内容</p>
+
+<pre><code class="language-scala">val immutableMap = Map(&quot;name&quot; -&gt; &quot;Peter&quot;, &quot;age&quot; -&gt; 12, &quot;national&quot; -&gt; &quot;USA&quot;)
+</code></pre>
+
+<h5 id="获取值:6a0bad0e8e04ebde9b43f5b00d269ae9">获取值</h5>
+
+<pre><code class="language-scala">println(immutableMap.get(&quot;name&quot;).get)
+</code></pre>
+
+<p>或者调用以下方法在键不存在时返回默认值</p>
+
+<pre><code class="language-scala">println(immutableMap.getOrElse(&quot;height&quot;, 170))
+</code></pre>
+
+<p>注意第一种方法 <code>get(key)</code> 返回的是一个 <code>Option</code> 对象而不是值本身，需要再调用 <code>get</code> 才能获得值。</p>
+
+<h4 id="可变映射:6a0bad0e8e04ebde9b43f5b00d269ae9">可变映射</h4>
+
+<h5 id="创建一个-map-1:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</h5>
+
+<pre><code class="language-scala">val mutableMap = mutable.HashMap(&quot;name&quot; -&gt; &quot;Peter&quot;, &quot;age&quot; -&gt; 12, &quot;national&quot; -&gt; &quot;USA&quot;)
+</code></pre>
+
+<h4 id="修改-map-2:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</h4>
+
+<p>Put</p>
+
+<p>Scala 有两种种方式可以修改 Map</p>
+
+<pre><code class="language-scala">mutableMap.put(&quot;name&quot;, &quot;Jane&quot;)
+mutableMap(&quot;age&quot;) = 20
+</code></pre>
+
+<p>或者通过 <code>+=</code> 根据现有映射返回新映射</p>
+
+<pre><code class="language-scala">mutableMap += (&quot;id&quot; -&gt; 10)
+</code></pre>
+
+<p>Delete</p>
+
+<pre><code class="language-scala">map.remove(&quot;age&quot;)
+</code></pre>
+
+<p>Get</p>
+
+<p>同不可变映射</p>
+
+<pre><code class="language-scala">println(mutableMap.get(&quot;name&quot;).get)
+println(mutableMap.getOrElse(&quot;height&quot;, 170))
+</code></pre>
+
+<h4 id="其它操作-2:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</h4>
+
+<p>获得长度</p>
+
+<pre><code class="language-scala">println(mutableMap.size)
+</code></pre>
+
+<p>遍历映射</p>
+
+<pre><code class="language-scala">for ((k, v) &lt;- mutableMap) {
+  println(s&quot;Traverse $k is $v&quot;)
+}
+</code></pre>
+
+<h3 id="元组-2:6a0bad0e8e04ebde9b43f5b00d269ae9">元组</h3>
+
+<p>创建元组</p>
+
+<pre><code class="language-scala">val t1 = ()
+val t2 = (1, 2, 3)
+val t3 = (1, &quot;abc&quot;, List(10, 20, 30), Map(&quot;name&quot; -&gt; &quot;Peter&quot;, &quot;age&quot; -&gt; 12))
+</code></pre>
+
+<p>元组创建后就不支持修改操作</p>
+
+<p>获取数据</p>
+
+<p>元组访问时使用属性 <code>_n</code></p>
+
+<pre><code class="language-scala">println(t3._1)
+println(t3._2)
+</code></pre>
+
+<h2 id="kotlin-篇:6a0bad0e8e04ebde9b43f5b00d269ae9">Kotlin 篇</h2>
+
+<h3 id="映射-3:6a0bad0e8e04ebde9b43f5b00d269ae9">映射</h3>
+
+<p>同Scala 一样，Kotlin 支持不可变映射和可变映射，且不可变映射为默认实现</p>
+
+<h4 id="不可变映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">不可变映射</h4>
+
+<h5 id="创建一个-map-2:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</h5>
+
+<p>创建空 Map</p>
+
+<pre><code class="language-kotlin">val empty = emptyMap&lt;String, String&gt;()
+</code></pre>
+
+<p>创建时指定内容</p>
+
+<pre><code class="language-kotlin">val immutableMap = mapOf(&quot;name&quot; to &quot;Peter&quot;, &quot;age&quot; to 12, &quot;national&quot; to &quot;USA&quot;)
+</code></pre>
+
+<p>Kotlin 中的不可变映射是通过 Java 的 <code>java.util.LinkedHashMap</code> 类来实现的。</p>
+
+<h5 id="获取值-1:6a0bad0e8e04ebde9b43f5b00d269ae9">获取值</h5>
+
+<pre><code class="language-kotlin">println(immutableMap.get(&quot;name&quot;))
+println(immutableMap[&quot;name&quot;])
+</code></pre>
+
+<p>或者调用以下方法在键不存在时返回默认值</p>
+
+<pre><code class="language-kotlin">println(immutableMap.getOrElse(&quot;height&quot;) { 170 })
+</code></pre>
+
+<p>注意第二个方法的第二个参数为闭包，在之后会谈到</p>
+
+<h4 id="可变映射-1:6a0bad0e8e04ebde9b43f5b00d269ae9">可变映射</h4>
+
+<h5 id="创建一个-map-3:6a0bad0e8e04ebde9b43f5b00d269ae9">创建一个 Map</h5>
+
+<pre><code class="language-kotlin">val mutableMap = hashMapOf(&quot;name&quot; to &quot;Peter&quot;, &quot;age&quot; to 12, &quot;national&quot; to &quot;USA&quot;)
+</code></pre>
+
+<p>Kotlin 中可变映射是使用 <code>java.util.HashMap</code> 等类来实现的</p>
+
+<h4 id="修改-map-3:6a0bad0e8e04ebde9b43f5b00d269ae9">修改 Map</h4>
+
+<p>Put</p>
+
+<p>Kotlin 有两种种方式可以修改 Map</p>
+
+<pre><code class="language-kotlin">mutableMap.put(&quot;name&quot;, &quot;Jane&quot;)
+mutableMap[&quot;age&quot;] = 20
+</code></pre>
+
+<p>Delete</p>
+
+<pre><code class="language-kotlin">mutableMap.remove(&quot;age&quot;)
+</code></pre>
+
+<p>Get</p>
+
+<p>同不可变映射</p>
+
+<pre><code class="language-kotlin">println(mutableMap.get(&quot;name&quot;))
+println(mutableMap[&quot;name&quot;])
+println(mutableMap.getOrElse(&quot;height&quot;) { 170 })
+</code></pre>
+
+<h4 id="其它操作-3:6a0bad0e8e04ebde9b43f5b00d269ae9">其它操作</h4>
+
+<p>获得长度</p>
+
+<pre><code class="language-kotlin">println(mutableMap.size)
+</code></pre>
+
+<p>遍历映射</p>
+
+<pre><code class="language-kotlin">for ((k, v) in mutableMap) {
+    println(&quot;Traverse $k is $v&quot;)
+}
+</code></pre>
+
+<h3 id="元组-pair-和-triple:6a0bad0e8e04ebde9b43f5b00d269ae9">元组, Pair 和 Triple</h3>
+
+<p>Kotlin 曾经支持 过元组，不过后来整个功能都被移除了，因为 Kotlin 开发团队认为 Tuple 的作用并不大，具体讨论可以见 <a href="http://kotlin-developers.1258.x6.nabble.com/Dropping-tuples-td4999859.html">Dropping tuples</a> 和 <a href="http://blog.jetbrains.com/kotlin/migrating-tuples/">Migrating Tuples</a>。</p>
+
+<p>替代的可以使用可以包含两个参数的 Pair 或三个参数的 Triple 来实现类似的功能。</p>
+
+<pre><code class="language-kotlin">//  Pair
+val pair = Pair(1, &quot;abc&quot;)
+println(pair.first)
+
+//  Triple
+val triple = Triple(1, &quot;abc&quot;, 2)
+println(triple.second)
+</code></pre>
+
+<h2 id="总结:6a0bad0e8e04ebde9b43f5b00d269ae9">总结</h2>
+
+<ul>
+<li>Groovy 和 Scala 支持元组</li>
+<li>Scala 与 Kotlin 默认映射为不可变形式</li>
+<li>Java 1.8 及其它语言都支持 <code>getOrElse</code> 操作</li>
+<li>Scala 从 Map 中直接取出的为 <code>Option</code> 对象而不是值本身</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_14_map</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-18 </h4>
+          <h5 id="wc"> 600 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-15-class-java/"><i class="icon-arrow-left"></i> JGSK - 15.类 - Java 篇</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-13-collection-and-range/">JGSK - 13.数组，集合与范围 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="500">
+<meta itemprop="datePublished" content="2015-09-18">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-14-map-and-turple/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-14-map-and-turple\/';
+    var disqus_title = 'JGSK - 14.映射与元祖';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-14-map-and-turple\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

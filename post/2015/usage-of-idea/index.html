@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="idea, 快捷键, template, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="Intellj IDEA 的使用"/>
+<meta property="og:site_name" content="Intellj IDEA 的使用"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/usage-of-idea/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-11"/>
+<meta property="article:modified_time" content="2015-09-11"/>
+
+
+
+<meta property="article:tag" content="idea">
+<meta property="article:tag" content="快捷键">
+<meta property="article:tag" content="template">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="Intellj IDEA 的使用">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> Intellj IDEA 的使用 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/usage-of-idea/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=Intellj%20IDEA%20%e7%9a%84%e4%bd%bf%e7%94%a8-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f&title=Intellj%20IDEA%20%e7%9a%84%e4%bd%bf%e7%94%a8&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fusage-of-idea%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">Intellj IDEA 的使用</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#快捷键:7b43f692620268dd2f7ce71dcd669d96">快捷键</a></li>
+<li><a href="#常用设置:7b43f692620268dd2f7ce71dcd669d96">常用设置</a>
+<ul>
+<li><a href="#在被修改的文件标签上显示星号:7b43f692620268dd2f7ce71dcd669d96">在被修改的文件标签上显示星号</a></li>
+<li><a href="#显示行号:7b43f692620268dd2f7ce71dcd669d96">显示行号</a></li>
+<li><a href="#自动导入引用的包:7b43f692620268dd2f7ce71dcd669d96">自动导入引用的包</a></li>
+<li><a href="#关闭重启后自动打开最后一个工程:7b43f692620268dd2f7ce71dcd669d96">关闭重启后自动打开最后一个工程</a></li>
+<li><a href="#设置编码格式:7b43f692620268dd2f7ce71dcd669d96">设置编码格式</a></li>
+<li><a href="#修改自动完成快捷键:7b43f692620268dd2f7ce71dcd669d96">修改自动完成快捷键</a></li>
+<li><a href="#显示-quick-document:7b43f692620268dd2f7ce71dcd669d96">显示 Quick Document</a></li>
+<li><a href="#多行-tab-页:7b43f692620268dd2f7ce71dcd669d96">多行 Tab 页</a></li>
+<li><a href="#配置-quick-lists:7b43f692620268dd2f7ce71dcd669d96">配置 Quick Lists</a></li>
+</ul></li>
+<li><a href="#使用技巧:7b43f692620268dd2f7ce71dcd669d96">使用技巧</a>
+<ul>
+<li><a href="#在命令行中通过-idea-打开指定文件:7b43f692620268dd2f7ce71dcd669d96">在命令行中通过 IDEA 打开指定文件</a></li>
+<li><a href="#修改-tostring-实现方式:7b43f692620268dd2f7ce71dcd669d96">修改 toString() 实现方式</a></li>
+<li><a href="#查看最近更改过的文件和内容:7b43f692620268dd2f7ce71dcd669d96">查看最近更改过的文件和内容</a></li>
+<li><a href="#修改默认-gitignore:7b43f692620268dd2f7ce71dcd669d96">修改默认 .gitignore</a></li>
+<li><a href="#建立-live-template:7b43f692620268dd2f7ce71dcd669d96">建立 Live Template</a></li>
+<li><a href="#添加-file-template:7b43f692620268dd2f7ce71dcd669d96">添加 File Template</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="快捷键:7b43f692620268dd2f7ce71dcd669d96">快捷键</h2>
+
+<table>
+<thead>
+<tr>
+<th align="right">快捷键</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">cmd+n</td>
+<td align="center">查找类</td>
+</tr>
+
+<tr>
+<td align="right">control+n</td>
+<td align="center">生成代码</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+l</td>
+<td align="center">格式化</td>
+</tr>
+
+<tr>
+<td align="right">cmd+f</td>
+<td align="center">查找文本</td>
+</tr>
+
+<tr>
+<td align="right">cmd+r</td>
+<td align="center">查找替换</td>
+</tr>
+
+<tr>
+<td align="right">cmd+p</td>
+<td align="center">方法参数提示</td>
+</tr>
+
+<tr>
+<td align="right">control+j</td>
+<td align="center">quick doc</td>
+</tr>
+
+<tr>
+<td align="right">cmd+shift+n</td>
+<td align="center">查找文件</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+shift+n</td>
+<td align="center">查找类中的成员</td>
+</tr>
+
+<tr>
+<td align="right">shift+f6</td>
+<td align="center">重命名</td>
+</tr>
+
+<tr>
+<td align="right">cmd+y</td>
+<td align="center">删除行</td>
+</tr>
+
+<tr>
+<td align="right">cmd+o</td>
+<td align="center">重载父类方法</td>
+</tr>
+
+<tr>
+<td align="right">cmd+e</td>
+<td align="center">最近访问列表</td>
+</tr>
+
+<tr>
+<td align="right">cmd+b</td>
+<td align="center">跳转到声明</td>
+</tr>
+
+<tr>
+<td align="right">cmd+]</td>
+<td align="center">跳转到括号的结尾</td>
+</tr>
+
+<tr>
+<td align="right">alt+shift+c</td>
+<td align="center">对比最近代码</td>
+</tr>
+
+<tr>
+<td align="right">cmd+w</td>
+<td align="center">选择词，行，代码块</td>
+</tr>
+
+<tr>
+<td align="right">control+h</td>
+<td align="center">查看类的继承层次</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+t</td>
+<td align="center">surround with</td>
+</tr>
+
+<tr>
+<td align="right">ctrl+shift+t</td>
+<td align="center">建立测试类<br>或者在类与测试类中跳转</td>
+</tr>
+
+<tr>
+<td align="right">shift+cmd+delete</td>
+<td align="center">上次编辑位置</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+m</td>
+<td align="center">提取代码块为方法</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+p</td>
+<td align="center">提取变量为参数</td>
+</tr>
+
+<tr>
+<td align="right">cmd+alt+v</td>
+<td align="center">提取为局部变量</td>
+</tr>
+
+<tr>
+<td align="right">control+option+h</td>
+<td align="center">显示方法树</td>
+</tr>
+
+<tr>
+<td align="right">fn+option+f7</td>
+<td align="center">显示变量的调用处</td>
+</tr>
+
+<tr>
+<td align="right">cmd+shift+a</td>
+<td align="center">显示action 窗口</td>
+</tr>
+
+<tr>
+<td align="right">option+enter</td>
+<td align="center">创建Intention Actions</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="常用设置:7b43f692620268dd2f7ce71dcd669d96">常用设置</h2>
+
+<h3 id="在被修改的文件标签上显示星号:7b43f692620268dd2f7ce71dcd669d96">在被修改的文件标签上显示星号</h3>
+
+<p><code>Editor -&gt; General -&gt; Editor Tabs -&gt; 勾选 Mark modified tabs with asterisk</code></p>
+
+<h3 id="显示行号:7b43f692620268dd2f7ce71dcd669d96">显示行号</h3>
+
+<p><code>Editor -&gt; General -&gt; Appearance -&gt; 勾选 Show line numbers</code></p>
+
+<h3 id="自动导入引用的包:7b43f692620268dd2f7ce71dcd669d96">自动导入引用的包</h3>
+
+<p><code>Editor -&gt; General -&gt; Auto Import -&gt; 勾选 Add unambiguous improts on the fly</code></p>
+
+<h3 id="关闭重启后自动打开最后一个工程:7b43f692620268dd2f7ce71dcd669d96">关闭重启后自动打开最后一个工程</h3>
+
+<p><code>Appearance &amp; Behavior -&gt; System Settings -&gt; 去掉 Reopen last project on startup 的勾</code></p>
+
+<h3 id="设置编码格式:7b43f692620268dd2f7ce71dcd669d96">设置编码格式</h3>
+
+<p><code>Editor -&gt; File Encodings -&gt; IDE Encoding, Project Encoding, Default encoding for properties files 全部设置为 UTF-8</code></p>
+
+<h3 id="修改自动完成快捷键:7b43f692620268dd2f7ce71dcd669d96">修改自动完成快捷键</h3>
+
+<p><code>Appearance &amp; Behavior -&gt; Keymap -&gt; Main Menu -&gt; Code -&gt; Completion -&gt; 修改 Basic 的值</code></p>
+
+<h3 id="显示-quick-document:7b43f692620268dd2f7ce71dcd669d96">显示 Quick Document</h3>
+
+<p><code>Editor -&gt; General -&gt; Show quick doc on mouse Delay</code></p>
+
+<h3 id="多行-tab-页:7b43f692620268dd2f7ce71dcd669d96">多行 Tab 页</h3>
+
+<p><code>Editor -&gt; General -&gt; Editor Tabs -&gt;  去掉 Show tabs in single row 的勾，在 Tab limit 一栏填入最大的 Tab 个数</code></p>
+
+<h3 id="配置-quick-lists:7b43f692620268dd2f7ce71dcd669d96">配置 Quick Lists</h3>
+
+<p><code>Appearance &amp; Behavior -&gt; Quick Lists 设置自己的 Quick Lists</code>，然后到 <code>Keymap</code> 中设置对应的快捷键</p>
+
+<h2 id="使用技巧:7b43f692620268dd2f7ce71dcd669d96">使用技巧</h2>
+
+<h3 id="在命令行中通过-idea-打开指定文件:7b43f692620268dd2f7ce71dcd669d96">在命令行中通过 IDEA 打开指定文件</h3>
+
+<ol>
+<li><code>Tools -&gt; Create Command-line Launcher -&gt; 在弹出的对话框中修改 Name 为 “idea&quot;</code></li>
+<li>在命令中执行 <code>idea 文件名</code> 就可以使用 IDEA 打开指定文件。</li>
+</ol>
+
+<h3 id="修改-tostring-实现方式:7b43f692620268dd2f7ce71dcd669d96">修改 toString() 实现方式</h3>
+
+<p>IDEA 通过 <code>ctrl+n</code> 快捷键可以自动生成 <code>toString()</code>方法，但是默认的实现方式是通过加号进行字符串连接，因此不适合字段特别多的类。要想提高效率，可以在生成时 Template 属性选择 <code>StringBuilder (JDK1.5)</code> 来使用 StringBuilder 替换。</p>
+
+<h3 id="查看最近更改过的文件和内容:7b43f692620268dd2f7ce71dcd669d96">查看最近更改过的文件和内容</h3>
+
+<p>最近更改过的文件：<code>View → Recently Changed Files</code></p>
+
+<p>最近的变更点：<code>View → Recent Changes</code></p>
+
+<p>最近访问过的文件：<code>View → Recent Files</code></p>
+
+<h3 id="修改默认-gitignore:7b43f692620268dd2f7ce71dcd669d96">修改默认 .gitignore</h3>
+
+<p>IDEA 或 Android Studio 在生成 Android 项目时会自动生成 <code>.gitignore</code> 文件，但是默认的文件通常都不符合需求，每次都手动改也非常麻烦，这时可以修改默认的 <code>.gitignore</code> 模板。</p>
+
+<p>Mac 平台下 <code>.gitignore</code> 模板位置为 <code>/Applications/Android Studio.app(或 IDEA.app)/Contents/plugins/android/lib/templates/gradle-projects/NewAndroidProject/root/project_ignore</code></p>
+
+<h3 id="建立-live-template:7b43f692620268dd2f7ce71dcd669d96">建立 Live Template</h3>
+
+<p>所谓的 Live Template 是一种代码模板，比如说在 IDEA 中输入 <code>fori</code>就可以生成标准的 for 循环语句，输入 <code>psfi</code> 就可以生成 <code>public static final int</code>，输入 <code>sout</code> 就可以生成输出语句。通过建立自己的 Live Template 可以减少重复劳动，加速开发。</p>
+
+<p>以下以建立一个Android的Fragment模板来介绍如何建立 Live Template：</p>
+
+<ol>
+<li><p>选择 <code>Editor -&gt; Live Templates</code>
+<img src="http://7xlqqp.com1.z0.glb.clouddn.com/template.png" alt="" />
+</p></li>
+
+<li><p>点击右边的 <code>+</code> 号，选择 <code>Template Group</code>，输入 <code>group name</code> 为 &ldquo;android&rdquo;</p></li>
+
+<li><p>选择刚生成的 <code>android group</code>，继续点击 <code>+</code> 号，选择 <code>Live Template</code>，下方的 <code>Abbreviation</code> 表示快捷键，在这里输入 &ldquo;nfr”，<code>Description</code> 输入 &ldquo;create new fragment&rdquo;</p></li>
+
+<li><p>在 <code>Template text</code> 输入以下文字，其中 &ldquo;$&rdquo; 开头的字符表示变量</p></li>
+</ol>
+
+<pre><code class="language-java">  private static final String $ARG_PARAM$ = &quot;$CLASS_NAME$.$ARG_PARAM$&quot;;
+
+  private $ARG_CLASS_DITTO$ m$INST_VAR$;
+
+  public static $CLASS_NAME$ newInstance($ARG_CLASS$ $ARG_VAR$) {
+      $CLASS_NAME$ fragment = new $CLASS_NAME$();
+      Bundle args = new Bundle();
+      args.put$ARG_CLASS$($ARG_PARAM$, $ARG_VAR$);
+      fragment.setArguments(args);
+      return fragment;
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      m$INST_VAR$ = getArguments().get$ARG_CLASS$($ARG_PARAM$);
+  }
+</code></pre>
+
+<ol>
+<li><p>下方的 <code>No applicable contexts</code> 点击 <code>Define</code> 按钮，选择 <code>Java</code> - <code>Declaration</code>，这个选项表示在什么文件的什么位置允许使用该快捷方式，之所以只选择 &ldquo;Declaration&rdquo; 是因为我们需要建立的是方法的定义，所以这个快捷方式不应该出现在 &ldquo;Comments&rdquo;，&rdquo;String&rdquo; 或者其它方法内部。</p></li>
+
+<li><p>修改完毕后随意建立一个 Java 文件，输入 &ldquo;nfr&rdquo; 就可以直接生成上面模板定义的代码，并且光标自动定位到第一个变量处，修改变量名后按下回车就可以跳转到下一个变量处。</p></li>
+</ol>
+
+<h3 id="添加-file-template:7b43f692620268dd2f7ce71dcd669d96">添加 File Template</h3>
+
+<p>Live Template 主要用于在文件中生成代码，而 File Template 则是用于根据模板生成文件。</p>
+
+<p>以下以创建一个单例类来介绍详细步骤</p>
+
+<ol>
+<li><p>在工程的任意目录单击右键，选择 <code>New</code> - <code>Edit File Templates..</code></p></li>
+
+<li><p>单击 <code>+</code>号，<code>Name</code> 输入 “Singleton”，<code>Extension</code> 输入 <code>java</code></p></li>
+
+<li><p>内容处输入以下文本，点击 <code>OK</code>按钮</p></li>
+</ol>
+
+<pre><code class="language-java">   #if (${PACKAGE_NAME} &amp;&amp; ${PACKAGE_NAME} != &quot;&quot;)package ${PACKAGE_NAME};#end
+   #parse(&quot;File Header.java&quot;)
+   public class ${NAME}{
+       private static ${NAME} ourInstance = new ${NAME}();
+   
+       public static ${NAME} getInstance() {
+           return ourInstance;
+       }
+   
+       private ${NAME}() {
+       }
+   }
+</code></pre>
+
+<ol>
+<li>在工程任意目录单击右键，选择 <code>New</code> - <code>Java Class</code>，在弹出的对话框中 <code>Kind</code> 选择刚才建立的 “Singeleton” 就完成了所有操作。</li>
+</ol>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-11 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/dev">Dev</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/tools">tools</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/markdown-tools/"><i class="icon-arrow-left"></i> MARKDOWN工具评测</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/about/">About me <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="459">
+<meta itemprop="datePublished" content="2015-09-11">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/usage-of-idea/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/usage-of-idea\/';
+    var disqus_title = 'Intellj IDEA 的使用';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/usage-of-idea\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

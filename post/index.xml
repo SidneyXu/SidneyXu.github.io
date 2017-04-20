@@ -1,0 +1,2399 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Pixel Space</title>
+    <link>http://git.bookislife.com/post/</link>
+    <description>Recent content in Posts on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 19 Mar 2016 13:22:59 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>常用 adb 命令</title>
+      <link>http://git.bookislife.com/post/2016/adb-command/</link>
+      <pubDate>Sat, 19 Mar 2016 13:22:59 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/adb-command/</guid>
+      <description>
+
+&lt;p&gt;ADB 命令很多，本文只介绍实际常用的那些命令&lt;/p&gt;
+
+&lt;h2 id=&#34;常用-adb-命令:274207f69d1414b83d961bffbbaaab6f&#34;&gt;常用 adb 命令&lt;/h2&gt;
+
+&lt;h3 id=&#34;基本操作:274207f69d1414b83d961bffbbaaab6f&#34;&gt;基本操作&lt;/h3&gt;
+
+&lt;p&gt;列出当前所有设备名，包含真机和模拟器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb devices
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;开启 adb 调试桥&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;start-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;关闭 adb 调试桥，当 Logcat 显示设备 offline 时可用通过重启调试桥恢复功能&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;kill-server
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示手机硬件信息，包括 device model 等&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell cat system/build.prop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;应用相关:274207f69d1414b83d961bffbbaaab6f&#34;&gt;应用相关&lt;/h3&gt;
+
+&lt;p&gt;安装应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb install &amp;lt;apk&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;卸载应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;uninstall &amp;lt;packageName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示所有安装的应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell pm list packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打开 Schema&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell am start -W -a android.intent.action.VIEW -d &amp;lt;schema&amp;gt; &amp;lt;packageName&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-a&lt;/code&gt; 指定 action&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-d&lt;/code&gt; 指定 data uri&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;打开 Activity&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell am start -n &amp;lt;packageName&amp;gt;/&amp;lt;targetActivity&amp;gt; [-e somekey somevalue]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-e&lt;/code&gt; 相当于向 intent 放入 String 类型的 extra 参数，&lt;code&gt;-ei&lt;/code&gt; 则为 int 类型 value，&lt;code&gt;-el&lt;/code&gt; 为 long 类型 value，其它类推&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;注意：如果该 Activity 不是 Main Activity 的话，则必须设置 &lt;code&gt;android:export=“true”&lt;/code&gt; ，否则会报没有权限&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;文件操作:274207f69d1414b83d961bffbbaaab6f&#34;&gt;文件操作&lt;/h3&gt;
+
+&lt;p&gt;拷贝文件到手机&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb push &amp;lt;local_path&amp;gt; &amp;lt;remote_path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从手机拷贝文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb pull &amp;lt;remote_path&amp;gt; &amp;lt;local_path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;截图:274207f69d1414b83d961bffbbaaab6f&#34;&gt;截图&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell screencap -p &amp;lt;filename&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-p&lt;/code&gt; 表示保存为 png 格式，不指定的话 filename 必须指定后缀名。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;wakelock:274207f69d1414b83d961bffbbaaab6f&#34;&gt;wakelock&lt;/h3&gt;
+
+&lt;p&gt;显示所有 wakelock 情况&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell cat /sys/kernel/debug/wakeup_sources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;显示电源状况&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb shell dumpsys power
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查找一个应用是否错误地占用了 wakelock&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;按下电源键关闭屏幕&lt;/li&gt;
+&lt;li&gt;等待 20s&lt;/li&gt;
+&lt;li&gt;执行 &lt;code&gt;adb shell dumpsys power | grep PARTIAL&lt;/code&gt;，查看输出结果是否有这样的形式 &lt;code&gt;PARTIAL_WAKE_LOCK ‘AudioOut_2’ activated(minState=0, uid=1013, pid=157)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;重复 2-4 多次，如果还是一直能获得该锁则证明其存在 Bug，没有正常释放锁&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用 Scala 开发 Android 应用</title>
+      <link>http://git.bookislife.com/post/2016/dev-android-using-scala/</link>
+      <pubDate>Sun, 10 Jan 2016 20:01:39 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/dev-android-using-scala/</guid>
+      <description>
+
+&lt;h1 id=&#34;scala-android:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;Scala Android&lt;/h1&gt;
+
+&lt;h2 id=&#34;场景:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;场景&lt;/h2&gt;
+
+&lt;p&gt;之前介绍了使用 Groovy 和 Kotlin 开发 Android 程序，本节主要介绍如何使用 Scala 开发 Android 程序。&lt;/p&gt;
+
+&lt;h2 id=&#34;环境配置:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;环境配置&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在 IDEA 或 Android Studio 中安装 &lt;code&gt;Scala&lt;/code&gt; 插件。步骤：打开 &lt;code&gt;Settings&lt;/code&gt; 或 &lt;code&gt;Preferences&lt;/code&gt; 选择 &lt;code&gt;Plugins&lt;/code&gt;，点击 &lt;code&gt;Browser repositories&lt;/code&gt; 输入 &lt;code&gt;Scala&lt;/code&gt; 进行安装，安装完后重启 IDE。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;建立一个空的 Android 项目&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;p&gt;添加 &lt;code&gt;gradle-android-scala-plugin&lt;/code&gt; 插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3&#39;
+        classpath &amp;quot;jp.leafytree.gradle:gradle-android-scala-plugin:1.4&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 plugin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;apply plugin: &amp;quot;jp.leafytree.android-scala&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 runtime&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scala-lang:scala-library:2.11.7&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 sourceSets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;android {
+    sourceSets {
+       main.scala.srcDirs += &#39;src/main/scala&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加 &lt;code&gt;scaloid&lt;/code&gt; 作为 Android 的 Scala 扩展&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;dependencies {
+    compile &amp;quot;org.scaloid:scaloid_2.11:4.0&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;因为 Scala 环境过大会导致 65535 的错误，所以需要开启混淆。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;添加混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn scala.**
+-ignorewarnings
+# temporary workaround; see Scala issue SI-5397
+-keep class scala.collection.SeqLike {
+    public protected *;
+}
+
+# this can be omitted if current Android Build target is android-16
+-dontwarn org.scaloid.**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;开启混淆&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildTypes {
+    debug {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+    release {
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完整的 &lt;code&gt;build.gradle&lt;/code&gt; 文件可以见 &lt;a href=&#34;https://github.com/SidneyXu/templates/blob/master/ScalaAndroid/app/build.gradle&#34;&gt;示例&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;编写代码:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;编写代码&lt;/h2&gt;
+
+&lt;h3 id=&#34;使用-scala-的语法:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 Scala 的语法&lt;/h3&gt;
+
+&lt;p&gt;使用 Scala 后可以省略分号，也可以使用更优雅的类型转换方式。&lt;/p&gt;
+
+&lt;p&gt;Java 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+View getView(final int position, final View convertView, final ViewGroup parent) {
+    View view = super.getView(position, convertView, parent);
+    TextView title = view.findViewById(android.R.id.text1);
+    title.setText(getItem(position));
+    return view;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Scala&#34;&gt;override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
+    val view: View = super.getView(position, convertView, parent)
+    val title = view.findViewById(android.R.id.text1).asInstanceOf[TextView]
+    title.setText(getItem(position))
+    view
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-scaloid:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用 scaloid&lt;/h3&gt;
+
+&lt;p&gt;scaloid 中使用了大量的隐式参数和 DSL 语句，使 Android 程序的开发方便不少。&lt;/p&gt;
+
+&lt;p&gt;最简单的使用 scaloid 的方法就是继承 &lt;code&gt;SActivity&lt;/code&gt; 类。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import org.scaloid.common._
+
+class MainActivity extends SActivity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后就可以使用 scaloid 提供的方法来简化代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).text = &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而不使用此功能的话则需要使用以下代码，麻烦了很多&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;((TextView)findViewById(R.id.button1)).setText(&amp;quot;hello world&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代匿名类:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代匿名类&lt;/h3&gt;
+
+&lt;p&gt;匿名类的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;findViewById(android.R.id.button1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    void onClick(final View v) {
+        startActivity(new Intent(MainActivity.this, CountryListActivity.class))
+    }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;闭包的写法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;find[Button](android.R.id.button1).onClick((v: View) =&amp;gt;
+    startActivity[CountryListActivity]
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用闭包替代回调:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;使用闭包替代回调&lt;/h3&gt;
+
+&lt;p&gt;同 Groovy 一样，使用闭包替代回调也是一种通常的做法。&lt;/p&gt;
+
+&lt;p&gt;Java 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;//  定义回调接口
+public interface FindCallback {
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e);
+}
+//  定义耗时任务
+void findCountries(FindCallback doneCallback) {
+    try {
+        //  耗时任务
+        doneCallback.onFinish(results, null);
+    } catch (Exception e) {
+        doneCallback.onFinish(null, e);
+    }
+}
+//  调用该方法
+findCountries(new FindCallback(){
+    void onFinish(List&amp;lt;String&amp;gt; results, Exception e){
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 的方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  定义耗时任务
+def findCountries(doneCallback: (ArrayBuffer[String], Exception) =&amp;gt; Unit):Unit = {
+    try {
+        //  耗时任务
+        doneCallback(results, null)
+    } catch {
+        case e: Exception =&amp;gt; callback(null, e)
+    }
+}
+//  调用该方法
+findCountries((names: ArrayBuffer[String], e: Exception) =&amp;gt;
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用闭包后无需预先定义回调接口，方便很多。&lt;/p&gt;
+
+&lt;p&gt;完整的 Android 示例见 &lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/ScalaAndroid&#34;&gt;ScalaAndroid&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;参考资料:7bfeba4c498bcdcfccf91ff07c06adf4&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/saturday06/gradle-android-scala-plugin&#34;&gt;Github gradle-android-scala-plugin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pocorall/scaloid&#34;&gt;Github scaloid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android应用的重新打包与反编译</title>
+      <link>http://git.bookislife.com/post/2016/android-repack-and-decompiler/</link>
+      <pubDate>Mon, 04 Jan 2016 17:31:18 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2016/android-repack-and-decompiler/</guid>
+      <description>
+
+&lt;h2 id=&#34;android应用的重新打包与反编译:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;Android应用的重新打包与反编译&lt;/h2&gt;
+
+&lt;h3 id=&#34;应用的重新打包:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;应用的重新打包&lt;/h3&gt;
+
+&lt;p&gt;Android 开发中流传着所谓的“打包党”，即将其他开发者开发的畅销应用解开后修改部分内容（比如广告 Id 等）然后重新进行打包上传到商店以谋求暴利。以下就介绍以下如何对一个应用进行重新打包：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先任意准备一个应用用于进行测试，这里随意写了一个应用 &lt;code&gt;testapp.apk&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://ibotpeaches.github.io/Apktool/install/&#34;&gt;下载 Apktool&lt;/a&gt;，按照说明进行安装&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解开 &lt;code&gt;testapp.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./apktool d testapp.apk -o testapp
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;查看解开的目录下的 &lt;code&gt;META-INF/CERT.RSA&lt;/code&gt;，该文件存储有原应用的签名&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -printcert -file testapp/original/META-INF/CERT.RSA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;模仿“打包党”，尝试修改 &lt;code&gt;AndroidManifest.xml&lt;/code&gt; 中的包名和应用名。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;重新打包应用为 &lt;code&gt;new_testapp.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;./apktool b testapp -o new_testapp.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;生成一个新的 keystore&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;keytool -genkey -v -keystore androidse.keystore -alias androidsekey -keyalg RSA -keysize 2048 -validity 365
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;用刚刚生成的 keystore 对重新打包生成的 &lt;code&gt;new_testapp.apk&lt;/code&gt; 进行重新签名&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore androidse.keystore new_testapp.apk androidsekey
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;验证签名是否正确打到应用上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;jarsigner -verify -verbose -certs new_testapp.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;对齐 apk，应用要想上 Google Play 必须进行对齐操作，对齐后生成新的应用 &lt;code&gt;new_testapp_align.apk&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ANDROID_HOME/build-tools/23.0.2/zipalign -v 4 new_testapp.apk new_testapp_align.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以上就完成了最简单的重新打包操作。&lt;/p&gt;
+
+&lt;h3 id=&#34;反编译应用:ea1950e20e16c27fed887e28a6d47b1f&#34;&gt;反编译应用&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载必要软件&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;下载 dex2Jar&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jd.benow.ca/&#34;&gt;下载 j2-gui&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改权限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chmod +x jd-gui-1.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解压需要反编译的 apk 获得其中的 &lt;code&gt;classes.dex&lt;/code&gt; 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;反编译 dex 文件为 class 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;dex2jar-2.0/d2j-dex2jar.sh testapp/build/apk/classes.dex
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行完毕后会在当前文件夹下会生成 &lt;code&gt;classes-dex2jar.jar&lt;/code&gt; 文件，该文件包含所有该应用相关的 class 文件&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;打开 jd-gui，选择刚才生成的 jar 文件就可以看到反编译后获得的内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;java -jar jd-gui-1.4.0.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Kotlin - 08.Utils</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-kotlin-08-utils/</link>
+      <pubDate>Thu, 31 Dec 2015 07:02:22 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-kotlin-08-utils/</guid>
+      <description>
+
+&lt;h2 id=&#34;utils:588f0a949b6f820f718d945c8b39eee6&#34;&gt;Utils&lt;/h2&gt;
+
+&lt;p&gt;本章主要介绍一些 Kotlin 内置的工具类和方法。&lt;/p&gt;
+
+&lt;h3 id=&#34;preconditions:588f0a949b6f820f718d945c8b39eee6&#34;&gt;Preconditions&lt;/h3&gt;
+
+&lt;h4 id=&#34;基础概念:588f0a949b6f820f718d945c8b39eee6&#34;&gt;基础概念&lt;/h4&gt;
+
+&lt;p&gt;Preconditions（前提条件）主要用于对方法中传入的参数进行基础校验。&lt;/p&gt;
+
+&lt;h4 id=&#34;require-和-check:588f0a949b6f820f718d945c8b39eee6&#34;&gt;require 和 check&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;require&lt;/code&gt; 用于检查布尔表达式是否为真。其本身接收两个参数，第一个为等待校验的布尔值，第二个为当校验不通过时显示的消息，该消息将用于构造一个 &lt;code&gt;IllegalArgumentException&lt;/code&gt; 异常。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;require(msg.isNotEmpty()) {
+    &amp;quot;Message is empty!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;check&lt;/code&gt; 使用同 &lt;code&gt;require&lt;/code&gt;，只是返回的为 &lt;code&gt;IllegalStateException&lt;/code&gt; 异常。&lt;/p&gt;
+
+&lt;h4 id=&#34;requirenotnull-和-checknotnull:588f0a949b6f820f718d945c8b39eee6&#34;&gt;requireNotNull 和 checkNotNull&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;requireNotNull&lt;/code&gt; 用于检查参数是否为空。其本身接收两个参数，第一个为等待校验的参数，第二个为当校验不通过时显示的消息，该消息将用于构造一个 &lt;code&gt;IllegalArgumentException&lt;/code&gt; 异常。当校验通过后， &lt;code&gt;requireNotNull&lt;/code&gt; 会将传入的参数作为返回值进行原样返回。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val result = requireNotNull(msg) {
+    &amp;quot;Object is null!&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通用 &lt;code&gt;checkNotNull&lt;/code&gt; 使用同 &lt;code&gt;requireNotNull&lt;/code&gt;，只是返回的为 &lt;code&gt;IllegalStateException&lt;/code&gt; 异常。&lt;/p&gt;
+
+&lt;h4 id=&#34;各种校验实现的比较:588f0a949b6f820f718d945c8b39eee6&#34;&gt;各种校验实现的比较&lt;/h4&gt;
+
+&lt;p&gt;不使用前提条件时，一般的校验方式为如下形式，通过 &lt;code&gt;if&lt;/code&gt; 语句来实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;if (msg.isEmpty()) {
+    throw IllegalArgumentException(&amp;quot;Message is empty!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 Java 内置的断言机制&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;assert msg.isNotEmpty()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Google 的 Guava 包种的校验方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Preconditions.checkArgument(msg.isNotEmpty(), &amp;quot;Message is empty!&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中通过 &lt;code&gt;if&lt;/code&gt; 语句进行校验通常需要大量重复的语句。通过断言机制的话则只能检查表达式是否为真，并且无法定义易读的错误消息，此外断言是可以被禁止的。使用 Guava 的方式在与 Kotlin 提供的方式类似，但是 Kotlin 的消息构造是惰性加载的，所以效率上要高于 Guava。&lt;/p&gt;
+
+&lt;h3 id=&#34;notimplementederror:588f0a949b6f820f718d945c8b39eee6&#34;&gt;NotImplementedError&lt;/h3&gt;
+
+&lt;p&gt;一般而言在写程序时我们通常将有待实现的方法上加上注释 &lt;code&gt;// TODO&lt;/code&gt; 来标示该方法，但是对于调用者来说除非查看源码否则他没有办法知道这种信息。Kotlin 提供了 NotImplementedError&lt;code&gt;异常用于表示这种情况。除此之外，Kotlin 还提供了一个内部方法&lt;/code&gt;TODO()` 用于抛出这种异常。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;TODO(&amp;quot;Not implemented in current version&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;计算执行时间:588f0a949b6f820f718d945c8b39eee6&#34;&gt;计算执行时间&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 内部提供了工具方法 &lt;code&gt;measureTimeMillis()&lt;/code&gt; 可以用于计算代码块的耗时时间。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val duration = measureTimeMillis {
+    var counter = 0
+    repeat(100000000) {
+        counter++
+    }
+}
+println(&amp;quot;duration is $duration&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Kotlin - 07.内联函数</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-kotlin-07-inline-function/</link>
+      <pubDate>Wed, 30 Dec 2015 13:13:35 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-kotlin-07-inline-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;内联函数:1b34e32525c7e9224d713389da0255ad&#34;&gt;内联函数&lt;/h2&gt;
+
+&lt;h3 id=&#34;概念:1b34e32525c7e9224d713389da0255ad&#34;&gt;概念&lt;/h3&gt;
+
+&lt;p&gt;普通函数在执行时程序会跳转到函数定义处执行完毕后再返回调用处。而内联函数指的是函数定义被整个复制到了调用处，所以与普通函数相比，内联函数无需进行程序的跳转，有助于提高程序的运行速度。但是大量的内联函数会增大应用的体积，从而减慢应用的加载速度。&lt;/p&gt;
+
+&lt;p&gt;特别注意，内联函数不是内嵌函数，内嵌函数是函数中定义函数，两者只差一个字，但是意义完全不同。&lt;/p&gt;
+
+&lt;p&gt;Java 平台一直都是支持内联函数的，但是开发者无法自行指定任何函数为内联函数。内联这一操作本身是由 JVM 在运行时自动决定的。而 Kotlin 提供了在编译器进行内联的功能。&lt;/p&gt;
+
+&lt;h3 id=&#34;定义内联函数:1b34e32525c7e9224d713389da0255ad&#34;&gt;定义内联函数&lt;/h3&gt;
+
+&lt;p&gt;定义内联函数只需要在普通函数前面加上 &lt;code&gt;inline&lt;/code&gt; 关键字即可。需要特别注意的是内联操作不仅对函数体有效，也对函数参数有效。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;//  内联函数
+inline fun &amp;lt;T&amp;gt; inlineLock(lock: Lock, body: () -&amp;gt; T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+        lock.unlock()
+    }
+}
+
+//  普通函数
+fun echo() = println(&amp;quot;foo&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该内联函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val lock = ReentrantLock()
+inlineLock(lock, { echo() })
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码会被编译成以下代码，即函数体和作为参数的 Lambda 表达式都被替换成了实际代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val lock = ReentrantLock()
+lock.lock()
+try {
+    println(&amp;quot;foo&amp;quot;)
+} finally {
+    lock.unlock()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;noinline:1b34e32525c7e9224d713389da0255ad&#34;&gt;noinline&lt;/h3&gt;
+
+&lt;p&gt;有时我们希望定义内联函数时只要对函数体有效，不要对参数有效，可以在参数前加上 &lt;code&gt;noinline&lt;/code&gt; 关键字取消参数的内联操作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline fun &amp;lt;T&amp;gt; inlineLock(lock: Lock, body: () -&amp;gt; T,
+                          noinline notInlined: () -&amp;gt; T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+        lock.unlock()
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;non-local-returns:1b34e32525c7e9224d713389da0255ad&#34;&gt;Non-local Returns&lt;/h3&gt;
+
+&lt;p&gt;我们知道在函数中定义的函数或闭包如果调用 &lt;code&gt;return&lt;/code&gt; 语句只能退出其当前所在的闭合语句块，即本地返回，而无法退出外层函数。而内联函数由于是被直接复制到了调用处，所以其支持非本地返回(Non-local returns)，即调用 &lt;code&gt;return&lt;/code&gt; 时会退出外层函数。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个内联函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline fun contains(f: () -&amp;gt; Boolean): Boolean {
+    return f()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个调用内联函数的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun localReturn(list: List&amp;lt;Int&amp;gt;): Boolean {
+    contains {
+        for (i in list) {
+            if (i == 0) return true
+        }
+        return false
+    }
+    return false
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上 &lt;code&gt;contains&lt;/code&gt; 中的 &lt;code&gt;return&lt;/code&gt; 语句会直接返回到 &lt;code&gt;localReturn()&lt;/code&gt; 的调用处，而不是退出 &lt;code&gt;contains&lt;/code&gt; 语句块。&lt;/p&gt;
+
+&lt;p&gt;这种特性在很多时候很有用，但是有时我们定义的内联函数并不会立即在当前环境执行，而是放在诸如线程中执行，这时调用该函数的时候就不能依靠它的返回值来控制流程，为了标志这种情况可以在参数上加上关键字 &lt;code&gt;crossinline&lt;/code&gt;，这样调用处会在编译时就报错避免错误调用。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline fun crosslineFun(crossinline f: () -&amp;gt; Unit): Unit {
+    Thread {
+        f()
+    }.start()
+}
+fun crosslineReturn(list: List&amp;lt;Int&amp;gt;): Unit {
+    crosslineFun {
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;类型参数:1b34e32525c7e9224d713389da0255ad&#34;&gt;类型参数&lt;/h3&gt;
+
+&lt;p&gt;有时候我们希望将类型作为参数进行传递，在 Java 中主要依赖反射的机制，将 &lt;code&gt;Class&lt;/code&gt; 对象作为进行传递。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun &amp;lt;T&amp;gt; TreeNode.findParentOfType(clazz: Class&amp;lt;T&amp;gt;): T? {
+    var p = parent
+    while (p != null &amp;amp;&amp;amp; !clazz.isInstance(p)) {
+        p = p.parent
+    }
+    @Suppress(&amp;quot;UNCHECKED_CAST&amp;quot;)
+    return p as T
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用以上函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val root = DefaultMutableTreeNode(&amp;quot;root&amp;quot;)
+val node1 = DefaultMutableTreeNode(&amp;quot;node1&amp;quot;)
+val node1_1 = DefaultMutableTreeNode(&amp;quot;node1_1&amp;quot;)
+val node2 = DefaultMutableTreeNode(&amp;quot;node2&amp;quot;)
+node1.add(node1_1)
+root.add(node1)
+root.add(node2)
+
+var parent = node1_1.findParentOfType(DefaultMutableTreeNode::class.java)
+println(parent) //  node1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到由于依赖于反射，所以在函数体内不但要处理未检查类型转换的警告也很难处理具体类型的信息。&lt;/p&gt;
+
+&lt;p&gt;而内联函数由于是复制到调用处，所以实际在运行时无需依赖反射，可以直接得到真实类型。要开启此功能，只需在泛型参数前加上 &lt;code&gt;reified&lt;/code&gt; 关键字。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;inline fun &amp;lt;reified T&amp;gt; TreeNode.inlineFindParentOfType(): T? {
+    var p = parent
+    while (p != null &amp;amp;&amp;amp; p !is T) {
+        p = p.parent
+    }
+    return p as T
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;parent = node1_1.inlineFindParentOfType()
+println(parent) //  node1
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Kotlin - 06.DSL</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-kotlin-06-dsl/</link>
+      <pubDate>Wed, 30 Dec 2015 12:38:09 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-kotlin-06-dsl/</guid>
+      <description>
+
+&lt;h2 id=&#34;dsl:8feaa10a0f275f58a6767e04e3435ebe&#34;&gt;DSL&lt;/h2&gt;
+
+&lt;p&gt;DSL 即 domain-specific languages，领域特定语言。和一般的编程语言不同，领域特定语言只能用于特定的领域中并且表现形式有限。领域特定语言最大的功能就是可以让语言本身更容易阅读，方便开发者和领域专家进行交流。&lt;/p&gt;
+
+&lt;h3 id=&#34;实现-dsl:8feaa10a0f275f58a6767e04e3435ebe&#34;&gt;实现 DSL&lt;/h3&gt;
+
+&lt;p&gt;Java 中 DSL 的最简单实现方式就是构造器模式，而在 Kotlin 过去的版本中可以省略 &lt;code&gt;.&lt;/code&gt;，所以可以写成更易读的代码，但是现在的版本已经不支持了。&lt;/p&gt;
+
+&lt;p&gt;构造器模式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Machine machine = new Machine.Builder()
+    .setCore(8)
+    .setArch(&amp;quot;64 bits&amp;quot;)
+    .setOs(&amp;quot;Linux&amp;quot;)
+    .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;DSL 方式&lt;/p&gt;
+
+&lt;p&gt;定义必要的类和方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;data class Cpu(val core: Int, val arch: String)
+
+class Machine {
+    var cpu: Cpu? = null
+    var os: String? = null
+
+    fun having(cores: Int, arch: String): Machine {
+        cpu = Cpu(cores, arch)
+        return this
+    }
+
+    fun os(os: String): Machine {
+        this.os = os
+        return this
+    }
+
+    override fun toString(): String {
+        return &amp;quot;Machine{cpu=$cpu, os=&#39;$os&#39;&amp;quot;
+    }
+
+}  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;构建对象&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val m1 = Machine().having(8, &amp;quot;64 bits&amp;quot;).os(&amp;quot;linux&amp;quot;)
+val m2 = Machine().having(4, &amp;quot;32 bits&amp;quot;).os(&amp;quot;Windows&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用 DSL 后代码更加易读。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用闭包构建-dsl:8feaa10a0f275f58a6767e04e3435ebe&#34;&gt;使用闭包构建 DSL&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 像 Groovy 一样也能通过闭包构建 DSL，语法看起来很像 Groovy。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义必要的类和方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;class EmailSpec {
+    fun from(from: String) = println(&amp;quot;From: $from&amp;quot;)
+    fun to(to: String) = println(&amp;quot;To: $to&amp;quot;)
+    fun subject(subject: String) = println(&amp;quot;Subject: $subject&amp;quot;)
+    fun body(init: BodySpec.() -&amp;gt; Unit): BodySpec {
+        val body = BodySpec()
+        body.init()
+        return body
+    }
+}
+
+class BodySpec {
+    fun p(p: String) = println(&amp;quot;P: $p&amp;quot;)
+}
+
+fun email(init: EmailSpec.() -&amp;gt; Unit): EmailSpec {
+    val email = EmailSpec()
+    email.init()
+    return email
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用 DSL 语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;email {
+    from (&amp;quot;dsl-guru@mycompany.com&amp;quot;)
+    to (&amp;quot;john.doe@waitaminute.com&amp;quot;)
+    subject (&amp;quot;The pope has resigned!&amp;quot;)
+    body {
+        p (&amp;quot;Really, the pope has resigned!&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Kotlin - 05.高阶函数</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-kotlin-05-high-order-function/</link>
+      <pubDate>Tue, 29 Dec 2015 12:22:04 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-kotlin-05-high-order-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;高阶函数:587612d144dc356ef53d9fcc54339e98&#34;&gt;高阶函数&lt;/h2&gt;
+
+&lt;h3 id=&#34;函数字面量:587612d144dc356ef53d9fcc54339e98&#34;&gt;函数字面量&lt;/h3&gt;
+
+&lt;p&gt;所谓的函数字面量指的将函数本身赋值给一个变量。通过函数字面量，可以使函数本身表现得和普通变量一样。&lt;/p&gt;
+
+&lt;p&gt;定义一个函数字面量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt; val sum = { x: Int, y: Int -&amp;gt; x + y }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Kotlin 在定义函数字面量时支持参数的类型推断，只要确定了返回值的类型，编写参数时就可以省略类型。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val sum2: (Int, Int) -&amp;gt; Int = { x, y -&amp;gt; x + y }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上函数的返回值类型为 &lt;code&gt;(Int, Int) -&amp;gt; Int&lt;/code&gt;，表示函数有两个整型的输入和一个整型的返回值，所以定义参数 &lt;code&gt;x&lt;/code&gt; 和 &lt;code&gt;y&lt;/code&gt; 时可以省略参数类型。&lt;/p&gt;
+
+&lt;p&gt;Scala 中实现函数字面量的方法比较特别，是通过一个名为 &lt;code&gt;FunctionN&lt;/code&gt; (n 为 0 到 22 的整数)的特质的 &lt;code&gt;apply()&lt;/code&gt; 来实现的。其中 &lt;code&gt;Functon0&lt;/code&gt; 代表没有参数，&lt;code&gt;Function1&lt;/code&gt; 代表 1 个参数，以此类推。&lt;/p&gt;
+
+&lt;p&gt;所以以上 &lt;code&gt;sum2&lt;/code&gt; 实质上是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val sum2: Function2[Int, Int, Int] = new Function2[Int, Int, Int] {
+  override def apply(x: Int, y: Int): Int = x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;高阶函数-1:587612d144dc356ef53d9fcc54339e98&#34;&gt;高阶函数&lt;/h3&gt;
+
+&lt;p&gt;高级函数指的是将函数本身作为参数传递给另一个函数或者一个函数返回值是另一个函数。正是由于函数字面值的存在，高阶函数才能得以实现。&lt;/p&gt;
+
+&lt;h4 id=&#34;函数作为参数:587612d144dc356ef53d9fcc54339e98&#34;&gt;函数作为参数&lt;/h4&gt;
+
+&lt;p&gt;定义一个参数为函数类型的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun add10(f: (Int) -&amp;gt; Int) = f(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上定义了一个函数 &lt;code&gt;add10()&lt;/code&gt;，该函数接收一个以整型为输入并返回整型的函数类型参数，在函数体中会调用传入的函数并向其传入参数 10。&lt;/p&gt;
+
+&lt;p&gt;调用以上方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;add10({ it + 2 })   //  12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码可以简写成以下形式，省略掉参数外的括号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;add10 { it + 2 }   //  12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;函数作为返回值:587612d144dc356ef53d9fcc54339e98&#34;&gt;函数作为返回值&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun scale(factor: Double) = { x: Double -&amp;gt; x * factor }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;柯里化:587612d144dc356ef53d9fcc54339e98&#34;&gt;柯里化&lt;/h3&gt;
+
+&lt;p&gt;柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。令人惊讶的是 Kotlin 居然也没有柯里化的语法糖，所以必须自己实现层层嵌套的比较丑陋的语法结构。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;def show2(String prefix) {
+    return { String msg -&amp;gt;
+        return { String postfix -&amp;gt;
+            return prefix + msg + postfix
+        }
+    }
+}
+show2(&amp;quot;(&amp;quot;)(&amp;quot;foobar&amp;quot;)(&amp;quot;)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;函数的部分应用:587612d144dc356ef53d9fcc54339e98&#34;&gt;函数的部分应用&lt;/h3&gt;
+
+&lt;p&gt;函数的部分应用 (Function Partial Application) 指的是向一个接收多个参数的函数传入部分参数从而获得一个接收剩余参数的新函数的技术。&lt;/p&gt;
+
+&lt;p&gt;Kotlin 目前没有提供部分应用的语法糖。&lt;/p&gt;
+
+&lt;h3 id=&#34;扩展函数作为参数:587612d144dc356ef53d9fcc54339e98&#34;&gt;扩展函数作为参数&lt;/h3&gt;
+
+&lt;p&gt;由于 Kotlin 支持函数扩展，所以可以将扩展的函数作为函数的参数。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun accept(dec: Int.(other: Int) -&amp;gt; Int): Int {
+    //  定义了一个 Receiver
+    val i = 100
+    return i.dec(10)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上 &lt;code&gt;accept()&lt;/code&gt; 接收一个以 &lt;code&gt;Int&lt;/code&gt; 类型作为 Receiver 的函数，该函数接收一个 &lt;code&gt;Int&lt;/code&gt; 类型的参数并且返回 &lt;code&gt;Int&lt;/code&gt; 类型。在 &lt;code&gt;accept()&lt;/code&gt; 中定义了一个 值为 &lt;code&gt;100&lt;/code&gt; 的 Receiver。&lt;/p&gt;
+
+&lt;p&gt;调用该函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val a = accept { x -&amp;gt;
+    this + x
+}
+println(a)  //  110
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要特别注意其于将函数作为参数时的区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;fun accept2(f: (Int) -&amp;gt; Int): Int {
+    return f(10)
+}
+
+val b = accept2 { x -&amp;gt;
+    x + 10
+}
+println(b)  //  20
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - 35.集合的函数式编程</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-35-collection-function/</link>
+      <pubDate>Fri, 25 Dec 2015 11:48:59 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-35-collection-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;java:152af32176ddf9979e854df274b7c621&#34;&gt;Java&lt;/h2&gt;
+
+&lt;p&gt;从 Java 1.8 开始 Java 也支持了集合的函数式编程。&lt;/p&gt;
+
+&lt;h3 id=&#34;stream:152af32176ddf9979e854df274b7c621&#34;&gt;Stream&lt;/h3&gt;
+
+&lt;p&gt;Stream 是 Java 1.8 引入的类，主要用于进行 并行集合的流式操作。&lt;/p&gt;
+
+&lt;p&gt;集合可以使用调用 &lt;code&gt;stream()&lt;/code&gt; 方法或者使用 &lt;code&gt;Stream&lt;/code&gt; 类的静态方法来转换为 &lt;code&gt;Stream&lt;/code&gt; 对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;List&amp;lt;Integer&amp;gt; numbers1 = Arrays.asList(1, 2, 3, 4, 5, 6);
+List&amp;lt;Integer&amp;gt; numbers2 = Arrays.asList(10, 20, 30);
+List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; numbers3 = Arrays.asList(numbers1, numbers2);
+
+numbers1.stream();
+Stream.of(numbers1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;map-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; mapResult = numbers1.stream().map(x -&amp;gt; x * x);
+System.out.println(&amp;quot;map =&amp;gt; &amp;quot; + getString(mapResult));   //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; flatMapResult = numbers3.stream().flatMap(list -&amp;gt; list.stream().map(x -&amp;gt; x * 10));
+System.out.println(&amp;quot;flatMap =&amp;gt; &amp;quot; + getString(flatMapResult));   //  [10, 20, 30, 40, 50, 60, 100, 200, 300]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reduce-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Optional&amp;lt;Integer&amp;gt; reduceResult = numbers1.stream().reduce((n1, n2) -&amp;gt; n1 - n2;
+System.out.println(&amp;quot;reduce =&amp;gt; &amp;quot; + reduceResult.get());  //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; filterResult = numbers1.stream().filter(n -&amp;gt; n % 2 == 0);
+System.out.println(&amp;quot;filter =&amp;gt; &amp;quot; + getString(filterResult)); //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;collect-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Collect 操作&lt;/h3&gt;
+
+&lt;p&gt;Collect 操作接收偏函数并返回偏函数处理的分组的结果集。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Map&amp;lt;Boolean, List&amp;lt;Integer&amp;gt;&amp;gt; collectResult = numbers1.stream().collect(Collectors.partitioningBy(x -&amp;gt; x % 2 == 0));
+System.out.println(&amp;quot;collect =&amp;gt; &amp;quot; + collectResult);  //  {false=[1, 3, 5], true=[2, 4, 6]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;numbers1.stream().forEach(System.out::println);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Stream 操作默认都是单线程的。但是可以使用 ParallelStream 进行并发的流式操作，并发默认使用 &lt;code&gt;ForkJoinPool.commonPool&lt;/code&gt;。ParallelStream 和 Stream 在使用上唯一区别就是使用 &lt;code&gt;parallelStream()&lt;/code&gt; 替代 &lt;code&gt;stream()&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;numbers1.parallelStream().forEach(System.out::println);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用 ParallelStream 时集合中的某一个元素完成当前流的计算后就会立即进入下一个控制流，而不会像 Stream 一样只有集合的所有元素都完成操作后才会进行下一个控制流。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Stream&amp;lt;Integer&amp;gt; parallelResult = numbers1.parallelStream().map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream first: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream second: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+}).map(x -&amp;gt; {
+    System.out.println(&amp;quot;stream third: &amp;quot; + x + &amp;quot; on &amp;quot; + Thread.currentThread().getName());
+    return x;
+});
+System.out.println(getString(parallelResult));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;groovy:152af32176ddf9979e854df274b7c621&#34;&gt;Groovy&lt;/h2&gt;
+
+&lt;p&gt;Groovy 也提供了部分函数式操作的方法，不过这些方法的命名和其它语言相比都比较奇特，需要额外注意。&lt;/p&gt;
+
+&lt;h3 id=&#34;map-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。Groovy 中的 Map 操作称为 &lt;code&gt;collect&lt;/code&gt;，不要与 Scala 中的 Collect 操作搞混。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def numbers1 = [1, 2, 3, 4, 5, 6]
+def numbers2 = [10, 20, 30]
+def numbers3 = [numbers1, numbers2]
+def mapResult = numbers1.collect { it * it }
+println(&amp;quot;map =&amp;gt; ${mapResult}&amp;quot;)    //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。Groovy 中的 FlatMap 操作被称为 &lt;code&gt;collectMany&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def flatMapResult = numbers3.collectMany { it.collect { it * 10 } }
+println(&amp;quot;flatMap =&amp;gt; ${flatMapResult}&amp;quot;)    //   [10, 20, 30, 40, 50, 60, 100, 200, 300]              
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;println(&amp;quot;flatten =&amp;gt; ${numbers3.flatten()}&amp;quot;)    //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。Groovy 中的 Zip 操作被称作 &lt;code&gt;transpose&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def zipResult1 = [numbers1, numbers2].transpose()
+println(&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;)    //  [[1, 10], [2, 20], [3, 30]]
+
+def zipResult2 = [numbers2, numbers1].transpose()
+println(&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;)  //  [[10, 1], [20, 2], [30, 3]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。Groovy 中的 Fold 操作被称为 &lt;code&gt;inject&lt;/code&gt;，只有从左开始的版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def foldLeftResult = numbers1.inject(2) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;)  //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合。Groovy 中的 Filter 操作被称为 &lt;code&gt;findAll&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def filterResult = numbers1.findAll { it % 2 == 0 }
+println(&amp;quot;filter =&amp;gt; $filterResult&amp;quot;)  //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;numbers1.each { println(it) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Groovy 中的并发集合操作需要依赖于 &lt;code&gt;GPars&lt;/code&gt; 包，而且比较难用，所以不在本系列介绍范围中。&lt;/p&gt;
+
+&lt;h2 id=&#34;scala:152af32176ddf9979e854df274b7c621&#34;&gt;Scala&lt;/h2&gt;
+
+&lt;h3 id=&#34;map-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val numbers1 = List(1, 2, 3, 4, 5, 6)	
+val numbers2 = List(10, 20, 30)
+val numbers3 = List(numbers1, numbers2)
+val mapResult: List[Int] = numbers1.map(x =&amp;gt; x * x)
+println(s&amp;quot;map =&amp;gt; $mapResult&amp;quot;) //  List(1, 4, 9, 16, 25, 36)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val flatMapResult: List[Int] = numbers3.flatMap(list =&amp;gt; list.map(x =&amp;gt; x * 10))
+println(s&amp;quot;flatMap =&amp;gt; $flatMapResult&amp;quot;) //  List(10, 20, 30, 40, 50, 60, 100, 200, 300)       
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(s&amp;quot;flatten =&amp;gt; ${numbers3.flatten}&amp;quot;) //  List(1, 2, 3, 4, 5, 6, 10, 20, 30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val zipResult1: List[(Int, Int)] = numbers1.zip(numbers2)
+println(s&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;) //  List((1,10), (2,20), (3,30))
+
+val zipResult2: List[(Int, Int)] = numbers2.zip(numbers1)
+println(s&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;) //  List((10,1), (20,2), (30,3))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;除了 &lt;code&gt;zip()&lt;/code&gt; 方法外还有一个 &lt;code&gt;zipAll()&lt;/code&gt; 操作，该方法创建的集合以最长的集合为准，并且用指定值填充较短的集合。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val zipResult3: List[(Int, Any)] = numbers1.zipAll(numbers2, -1, &#39;a&#39;)
+println(s&amp;quot;zipAll =&amp;gt; $zipResult3&amp;quot;) //  List((1,10), (2,20), (3,30), (4,a), (5,a), (6,a))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子中当 &lt;code&gt;numbers1&lt;/code&gt; 较短时，新集合中就会以 &lt;code&gt;-1&lt;/code&gt; 填充不满足长度的位置，如果 &lt;code&gt;numbers2&lt;/code&gt; 较短，则以 &lt;code&gt;a&lt;/code&gt; 填充。&lt;/p&gt;
+
+&lt;h3 id=&#34;reduce-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;p&gt;Scala 有三个版本的 Reduce 操作，默认的版本第一个元素是集合的最左还是最右是不确定的，由 Scala 编译器自己决定。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceResult = numbers1.reduce((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduce =&amp;gt; $reduceResult&amp;quot;) //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以通过 &lt;code&gt;reduceLeff()&lt;/code&gt; 指定从左开始为集合的第一个元素。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceLeftResult = numbers1.reduceLeft((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduceLeft =&amp;gt; $reduceLeftResult&amp;quot;) //  -19
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同样还有 &lt;code&gt;reduceRight()&lt;/code&gt; 的版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val reduceRightResult = numbers1.reduceRight((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;reduceRight =&amp;gt; $reduceRightResult&amp;quot;) //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。&lt;/p&gt;
+
+&lt;p&gt;Fold 操作也有从左和从右两个版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val foldLeftResult = numbers1.foldLeft(2)((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;) //  -19
+
+val foldRightResult = numbers1.foldRight(0)((n1, n2) =&amp;gt; n1 - n2)
+println(s&amp;quot;foldRight =&amp;gt; $foldRightResult&amp;quot;) //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val filterResult = numbers1.filter(_ % 2 == 0)
+println(s&amp;quot;filter =&amp;gt; $filterResult&amp;quot;) //  List(2, 4, 6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;collect-操作-1:152af32176ddf9979e854df274b7c621&#34;&gt;Collect 操作&lt;/h3&gt;
+
+&lt;p&gt;Collect 操作接收偏函数并返回偏函数处理的分组的结果集。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val collectResult = numbers1.collect(PartialFunction[Int, Option[Int]] {
+	case x if x % 2 == 0 =&amp;gt; Some(x)
+    case _ =&amp;gt; None
+})
+println(s&amp;quot;collect =&amp;gt; $collectResult&amp;quot;) //  List(None, Some(2), None, Some(4), None, Some(6))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;numbers1.foreach(println)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;集合操作默认都是单线程的。但是可以使用 &lt;code&gt;par()&lt;/code&gt; 方法获得进行并发的流式操作的能力，并发使用的是 &lt;code&gt;ForkJoinPool&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;numbers1.par.foreach(println)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 中的并发流式操作和 Java 并不相同。虽然当前控制流中的操作是并发执行的，但是只有所有元素计算完毕后才会进行下一个控制流。且并发本身是不会被传递。而不像 Java 一个元素完成计算后就直接进入下一个控制流。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val parallelResult = numbers1.par.map((x) =&amp;gt; {
+    println(s&amp;quot;stream first: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+}).map((x) =&amp;gt; {
+    println(s&amp;quot;stream second: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+}).map((x) =&amp;gt; {
+    println(s&amp;quot;stream third: $x on ${Thread.currentThread().getName}&amp;quot;)
+    x
+})
+println(parallelResult)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;kotlin:152af32176ddf9979e854df274b7c621&#34;&gt;Kotlin&lt;/h2&gt;
+
+&lt;h3 id=&#34;map-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Map 操作&lt;/h3&gt;
+
+&lt;p&gt;Map 操作用于对集合中的每一个输入元素应用指定的函数从而得到另一种输出。输入类型和输出类型可以不一致。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val numbers1 = listOf(1, 2, 3, 4, 5, 6)
+val numbers2 = listOf(10, 20, 30)
+val numbers3 = listOf(numbers1, numbers2)
+//  Map
+val mapResult: List&amp;lt;Int&amp;gt; = numbers1.map { it * it }
+println(&amp;quot;map =&amp;gt; $mapResult&amp;quot;)    //  [1, 4, 9, 16, 25, 36]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;flatmap-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;FlatMap 操作&lt;/h3&gt;
+
+&lt;p&gt;FlatMap 操作用于对输入元素进行抽出，得到扁平化的输出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val flatMapResult: List&amp;lt;Int&amp;gt; = numbers3.flatMap { it.map { it * 10 } }
+println(&amp;quot;flatMap =&amp;gt; $flatMapResult&amp;quot;) //  [10, 20, 30, 40, 50, 60, 100, 200, 300]         
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果只是想简单的抽出的话，可以直接使用更简单的 &lt;code&gt;flatten()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;println(&amp;quot;flatten =&amp;gt; ${numbers3.flatten()}&amp;quot;) //  [1, 2, 3, 4, 5, 6, 10, 20, 30]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zip-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Zip 操作&lt;/h3&gt;
+
+&lt;p&gt;Zip 操作用于连接两个集合，新的集合以最短的集合为准。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val zipResult1: List&amp;lt;Pair&amp;lt;Int, Int&amp;gt;&amp;gt; = numbers1.zip(numbers2)
+println(&amp;quot;zip1 =&amp;gt; $zipResult1&amp;quot;)  //  [(1, 10), (2, 20), (3, 30)]
+
+val zipResult2: List&amp;lt;Pair&amp;lt;Int, Int&amp;gt;&amp;gt; = numbers2.zip(numbers1)
+println(&amp;quot;zip2 =&amp;gt; $zipResult2&amp;quot;)  //  [(10, 1), (20, 2), (30, 3)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reduce-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Reduce 操作&lt;/h3&gt;
+
+&lt;p&gt;Reduce 操作用于对集合中的每一个元素进行指定的计算从而得到计算结果。计算的过程是将第一个元素和第二个元素进行计算，得到的结果和第三个元素再进行计算，以此类推。&lt;/p&gt;
+
+&lt;p&gt;Kotlin 有两个个版本的 Reduce 操作，默认的版本从左开始。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val reduceLeftResult = numbers1.reduce { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;reduce =&amp;gt; $reduceLeftResult&amp;quot;)  //  -19
+
+val reduceRightResult = numbers1.reduceRight { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;reduceRight =&amp;gt; $reduceRightResult&amp;quot;)    //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;fold-操作-2:152af32176ddf9979e854df274b7c621&#34;&gt;Fold 操作&lt;/h3&gt;
+
+&lt;p&gt;Fold 操作是给定一个初始值，然后集合中的第一个元素与初始值进行计算，计算结果再与集合中的下一个元素进行计算，以此类推。这种过程看起来很像 Reduce 操作，事实上 Reduce 操作可以看着 Fold 操作的一个特例，只是初始值为集合第一个元素和第二个元素的计算结果。&lt;/p&gt;
+
+&lt;p&gt;Fold 操作也有从左和从右两个版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val foldLeftResult = numbers1.fold(2) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldLeft =&amp;gt; $foldLeftResult&amp;quot;)  //  -19
+
+val foldRightResult = numbers1.foldRight(0) { n1, n2 -&amp;gt; n1 - n2 }
+println(&amp;quot;foldRight =&amp;gt; $foldRightResult&amp;quot;)    //  -3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filter-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Filter 操作&lt;/h3&gt;
+
+&lt;p&gt;Filter 操作通过对集合中的每一个元素应用一个返回值是布尔值的函数来获得一个返回值都是 &lt;code&gt;true&lt;/code&gt; 的新的集合.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;val filterResult = numbers1.filter { it % 2 == 0 }
+println(&amp;quot;filter =&amp;gt; $filterResult&amp;quot;)  //  [2, 4, 6]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;foreach-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;ForEach 操作&lt;/h3&gt;
+
+&lt;p&gt;ForEach 操作用于对集合进行遍历。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-kotlin&#34;&gt;numbers1.forEach { println(it) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;parallel-操作-3:152af32176ddf9979e854df274b7c621&#34;&gt;Parallel 操作&lt;/h3&gt;
+
+&lt;p&gt;Kotlin 目前并没有并行集合，不过官方计划在将来实现。&lt;/p&gt;
+
+&lt;h2 id=&#34;总结:152af32176ddf9979e854df274b7c621&#34;&gt;总结&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Java 1.8 和 Scala 支持并行集合，但是效果完全不同&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;项目源码见 &lt;a href=&#34;https://github.com/SidneyXu/JGSK&#34;&gt;JGSK/_35_collection_function&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Groovy - 02.Memorized</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-groovy-02-memorized/</link>
+      <pubDate>Sun, 20 Dec 2015 16:08:20 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-groovy-02-memorized/</guid>
+      <description>
+
+&lt;h2 id=&#34;memoized:09b76da373ea281234252698449d40ec&#34;&gt;Memoized&lt;/h2&gt;
+
+&lt;p&gt;Memoized 即缓存功能。Groovy 可以对方法和闭包的结果进行缓存，从而再下次传入同样的参数时直接返回缓存的结果。对于那些耗时很久的计算过程来说这一点可以节约不少时间。&lt;/p&gt;
+
+&lt;h3 id=&#34;对闭包结果进行缓存:09b76da373ea281234252698449d40ec&#34;&gt;对闭包结果进行缓存&lt;/h3&gt;
+
+&lt;p&gt;调用 &lt;code&gt;memoize()&lt;/code&gt; 方法就可以对闭包结果进行缓存&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def closure1 = { Integer x -&amp;gt;
+    println &amp;quot;Closure argument $x&amp;quot;
+    x
+}.memoize()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用闭包&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;closure1(3)
+closure1(3)
+closure1(3)
+closure1(4)
+closure1(4)
+closure1(4)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;控制台只有两个输出语句，证明闭包结果被成功缓存了起来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Closure argument 3
+Closure argument 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;对方法的执行结果进行缓存:09b76da373ea281234252698449d40ec&#34;&gt;对方法的执行结果进行缓存&lt;/h3&gt;
+
+&lt;p&gt;对方法的执行结果进行缓存需要使用注解 &lt;code&gt;@Memoized&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;为了区分使用缓存和不使用缓存的区别，本次使用斐波那契数列进行测试。斐波那契数列指的是这样一个数列 &lt;code&gt;0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89&lt;/code&gt;，即从第 3 项开始每项的值都是其前两项之和。&lt;/p&gt;
+
+&lt;p&gt;斐波那契数列的 Groovy 实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;int fibonacci(int n) {
+    println(&amp;quot;fibonacci for $n&amp;quot;)
+    if (n == 0 || n == 1) return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于其中使用了递归所以该方法在使用时会被大量调用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;fibonacci(5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fibonacci for 5
+fibonacci for 4
+fibonacci for 3
+fibonacci for 2
+fibonacci for 1
+fibonacci for 0
+fibonacci for 1
+fibonacci for 2
+fibonacci for 1
+fibonacci for 0
+fibonacci for 3
+fibonacci for 2
+fibonacci for 1
+fibonacci for 0
+fibonacci for 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;换成使用缓存的实现&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Memoized
+static def memoFibonacci(int n) {
+    println(&amp;quot;memoFibonacci for $n&amp;quot;)
+    if (n == 0 || n == 1) return n
+    return memoFibonacci(n - 1) + memoFibonacci(n - 2)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;memoFibonacci(5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;memoFibonacci for 5
+memoFibonacci for 4
+memoFibonacci for 3
+memoFibonacci for 2
+memoFibonacci for 1
+memoFibonacci for 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到重复调用次数比起不使用缓存少了很多，并且接着调用 &lt;code&gt;memoFibonacci(4)&lt;/code&gt; 之类的都会直接返回结果，因为从 5 以下的结果都已经被缓存了。&lt;/p&gt;
+
+&lt;p&gt;Groovy 还可以通过以下方法控制缓存的数量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;@Memoized(maxCacheSize = 3)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Scala - 05.DSL</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-scala-05-dsl/</link>
+      <pubDate>Sat, 19 Dec 2015 12:14:24 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-scala-05-dsl/</guid>
+      <description>
+
+&lt;h2 id=&#34;dsl:8b50b0fe92a07b9e0a661f5042c6e4b1&#34;&gt;DSL&lt;/h2&gt;
+
+&lt;p&gt;DSL 即 domain-specific languages，领域特定语言。和一般的编程语言不同，领域特定语言只能用于特定的领域中并且表现形式有限。领域特定语言最大的功能就是可以让语言本身更容易阅读，方便开发者和领域专家进行交流。&lt;/p&gt;
+
+&lt;h3 id=&#34;实现-dsl:8b50b0fe92a07b9e0a661f5042c6e4b1&#34;&gt;实现 DSL&lt;/h3&gt;
+
+&lt;p&gt;Java 中 DSL 的最简单实现方式就是构造器模式，而在 Scala 中由于方法调用时可以省略 &lt;code&gt;.&lt;/code&gt;以及隐式转换的存在，所以可以写成更易读的代码。&lt;/p&gt;
+
+&lt;p&gt;构造器模式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Machine machine = new Machine.Builder()
+    .setCore(8)
+    .setArch(&amp;quot;64 bits&amp;quot;)
+    .setOs(&amp;quot;Linux&amp;quot;)
+    .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;DSL 方式&lt;/p&gt;
+
+&lt;p&gt;定义必要的类和方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;case class Cpu(core: Int, arch: String)
+
+class CpuInt(core: Int) {
+  def cores(arch: String): Cpu = {
+    Cpu(core, arch)
+  }
+}
+
+class Machine {
+  var cpu: Cpu = null
+  var os: String = null
+
+  def having(cpu: Cpu): Machine = {
+    this.cpu = cpu
+    this
+  }
+
+  def os(os: String): Machine = {
+    this.os = os
+    this
+  }
+
+  override def toString = s&amp;quot;Machine($cpu, $os)&amp;quot;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;构建对象&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit def int2CpuInt(i: Int): CpuInt = new CpuInt(i)
+
+val m1 = machine having (8 cores &amp;quot;64bit&amp;quot;) os &amp;quot;Linux&amp;quot;
+val m2 = machine having (4 cores &amp;quot;32bit&amp;quot;) os &amp;quot;Windows&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用 DSL 后代码更加易读。但是相比较而言还是 Groovy 更适合编写 DSL。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Scala - 03.鸭子类型</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-scala-03-duck-type/</link>
+      <pubDate>Fri, 18 Dec 2015 00:31:35 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-scala-03-duck-type/</guid>
+      <description>
+
+&lt;h2 id=&#34;鸭子类型:0628770db011d976127ce9f9e426e6c6&#34;&gt;鸭子类型&lt;/h2&gt;
+
+&lt;p&gt;Scala 中的鸭子类型其实就是结构类型。通过使用鸭子类型可以限定方法的参数只需要包含某种结构就行，而无需像 Java 一样为所有能传入方法的类型定义一个统一的父类。&lt;/p&gt;
+
+&lt;p&gt;定义一个包含鸭子类型作为参数的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def show(obj: {val name: String}): Unit = {
+    println(s&amp;quot;name is ${obj.name}&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中 &lt;code&gt;{val name: String}&lt;/code&gt; 就是鸭子类型，要求传入的类型必须包含一个名为 &lt;code&gt;name&lt;/code&gt; 的成员变量。&lt;/p&gt;
+
+&lt;p&gt;定义两个符合条件的类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Person(val name: String)
+class Currency(val name: String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val peter = new Person(&amp;quot;Peter&amp;quot;)
+show(peter) //  name is Peter
+
+val dollar = new Currency(&amp;quot;Dollar&amp;quot;)
+show(dollar) //  name is Dollar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果使用 Java 的话，必须为 &lt;code&gt;Person&lt;/code&gt; 和 &lt;code&gt;Currency&lt;/code&gt; 类创建一个父类并且作为 &lt;code&gt;show()&lt;/code&gt; 的参数才能实现此功能。&lt;/p&gt;
+
+&lt;p&gt;使用鸭子类型时甚至可以像以下例子连类都不用预先定义&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;show(new {
+     val name = &amp;quot;foobar&amp;quot;
+ }) // name is foobar
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Scala - 06.Actor</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-scala-06-actor/</link>
+      <pubDate>Fri, 18 Dec 2015 00:29:31 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-scala-06-actor/</guid>
+      <description>
+
+&lt;h2 id=&#34;actor:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;Actor&lt;/h2&gt;
+
+&lt;h3 id=&#34;概念:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;概念&lt;/h3&gt;
+
+&lt;p&gt;Actor 是 Scala 的并发模型。在 2.10 之后的版本中，Scala 抛弃了自身的 Actor 而是使用了 &lt;code&gt;Akka&lt;/code&gt; 作为其推荐的 &lt;code&gt;Actor&lt;/code&gt; 实现。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用-actor:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;使用 Actor&lt;/h3&gt;
+
+&lt;p&gt;定义一个 Actor 只需要继承 Actor 特质并实现其中的 &lt;code&gt;receive()&lt;/code&gt; 方法即可。除此之外，也可以实现其它的 Actor 的钩子方法 &lt;code&gt;preStart()&lt;/code&gt;, &lt;code&gt;postStop()&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;p&gt;创建一个 Actor&lt;/p&gt;
+
+&lt;p&gt;以下创建了一个回显的 Actor，其通过 &lt;code&gt;receive()&lt;/code&gt; 接收到消息并且打印在控制台上。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class EchoServer extends Actor {
+  def receive = {
+    case msg: String =&amp;gt; println(&amp;quot;echo &amp;quot; + msg)
+  }
+
+  @throws[Exception](classOf[Exception])
+  override def preStart(): Unit = {
+    super.preStart()
+    println(&amp;quot;preStart&amp;quot;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Actor 实例可以通过方法 &lt;code&gt;system.actorOf&lt;/code&gt; 来进行创建。&lt;code&gt;ActorSystem&lt;/code&gt; 可以用于创建多个基于同样配置的 Actor，也可以对 Actor 进行管理。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val system = ActorSystem()
+val echoServer = system.actorOf(Props[EchoServer])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建完 Actor 后可以通过 &lt;code&gt;!&lt;/code&gt; 向 Actor 内部的邮箱发消息。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;echoServer ! &amp;quot;hi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;控制台输出&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;preStart
+echo hi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过隐式转换，Scala 可以使用 DSL 语句将以上创建 Actor 的语句进行进一步简化&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit val system = ActorSystem()
+val echoServer = actor(new Act {
+  become {
+    case msg =&amp;gt; println(&amp;quot;echo &amp;quot; + msg)
+  }
+  whenStarting {
+    println(&amp;quot;preStart&amp;quot;)
+  }
+})
+echoServer ! &amp;quot;hi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;actor-和线程:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;Actor 和线程&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Scala 中 Actor 和线程是不同的抽象，他们的对应关系是由 Dispatcher 决定的。&lt;/li&gt;
+&lt;li&gt;Actor 比线程轻量。在 Scala 中可以创建数以百万级的 Actor。奥秘在于 Actor 直接可以复用线程。&lt;/li&gt;
+&lt;li&gt;Actor 和线程之间没有一对一的对应关系。一个 Actor 可以使用多个线程，一个线程也会被多个 Actor 复用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;配置-dispatcher:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;配置 Dispatcher&lt;/h3&gt;
+
+&lt;p&gt;每一个 ActorSystem 都有一个默认的 Dispatcher，但是也可以通过配置文件进行更改使用。&lt;/p&gt;
+
+&lt;p&gt;在工程的资源目录下创建 &lt;code&gt;application.conf&lt;/code&gt; 文件。内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;my-dispatcher {
+  # Dispatcher 的类型
+  type = Dispatcher
+  # ExecutionService 的类型
+  executor = &amp;quot;fork-join-executor&amp;quot;
+  # 配置 fork join 池
+  fork-join-executor {
+    # 最小线程数
+    parallelism-min = 2
+    # 线程增长因子
+    parallelism-factor = 2.0
+    # 最大线程数
+    parallelism-max = 10
+  }
+  # 线程切换到另一个actor之前处理的消息数上限，1 为尽可能公平
+  throughput = 100
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上就定义了一个名为 &lt;code&gt;my-dispatcher&lt;/code&gt; 的 Dispatcher。&lt;/p&gt;
+
+&lt;p&gt;Dispatcher 共有四种类型：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Dispatcher 默认类型，底层为 &lt;code&gt;java.util.concurrent.ExecutorService&lt;/code&gt;，为每个 Actor 创建一个邮箱&lt;/li&gt;
+&lt;li&gt;PinnedDispatcher 底层为 &lt;code&gt;akka.dispatch.ThreadPoolExecutorConfigurator&lt;/code&gt;，为每个 Actor 创建一个邮箱&lt;/li&gt;
+&lt;li&gt;BalancingDispatcher 底层为 &lt;code&gt;java.util.concurrent.ExecutorService&lt;/code&gt;，为所有 Actor 创建一个邮箱，只有同一类型的 Actor 可以进行共享&lt;/li&gt;
+&lt;li&gt;CallingThreadDispatcher 仅供测试&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用自定义的 Dispatcher&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val echoServers = (1 to 10).map(x =&amp;gt;
+  system.actorOf(Props(new EchoServer2(x.toString))
+    .withDispatcher(&amp;quot;my-dispatcher&amp;quot;)))
+
+(1 to 10).foreach(echoServers(Random.nextInt(10)) ! _)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子中创建了 10 个 基于 &lt;code&gt;my-dispatcher&lt;/code&gt; 的 Actor，每个 Actor 接收一个 0 到 10 的随机数作为消息。&lt;/p&gt;
+
+&lt;p&gt;除此之外，也可以通过 &lt;code&gt;lookup()&lt;/code&gt; 方法获得已定义好的 Dispatcher 的实例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit val executionContext = system.dispatchers.lookup(&amp;quot;my-dispatcher&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;actor-间通信:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;Actor 间通信&lt;/h3&gt;
+
+&lt;p&gt;Actor 间使用样本类可以发送更丰富的消息内容也能够轻易完成 Actor 间的通信。&lt;/p&gt;
+
+&lt;p&gt;定义作为消息的样本类，最后一个参数为发送消息的 Actor 的引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;case class Message[T &amp;lt;: ActorRef](content: String, sender: T)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该 Actor&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit val system = ActorSystem()
+val pingActor = actor(new Act {
+  become {
+    case Message(msg: String, sender: ActorRef) =&amp;gt;
+      println(s&amp;quot;$msg pang&amp;quot;)
+  }
+})
+pingActor ! Message(&amp;quot;ping&amp;quot;, pingActor)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;获得处理结果:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;获得处理结果&lt;/h3&gt;
+
+&lt;p&gt;Actor 发送消息后可以获得处理该消息的 Actor 的处理结果。要实现这功能，只需要使用 &lt;code&gt;ask()&lt;/code&gt; 代替 &lt;code&gt;!&lt;/code&gt; 发送消息就可以获得用于获得结果的 &lt;code&gt;Future&lt;/code&gt; 对象。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import akka.actor.ActorDSL._
+import akka.pattern.ask
+
+implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
+implicit val system = akka.actor.ActorSystem()
+
+val versionUrl = &amp;quot;https://github.com/SidneyXu&amp;quot;
+
+val fromURL = actor(new Act {
+  become {
+    case url: String =&amp;gt; sender ! scala.io.Source.fromURL(url)
+      .getLines().mkString(&amp;quot;\n&amp;quot;)
+  }
+})
+
+val versionFuture = fromURL.ask(versionUrl)(akka.util.Timeout(5, TimeUnit.SECONDS))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个例子通过调用 &lt;code&gt;ask&lt;/code&gt; 函数来获取一个 &lt;code&gt;Future&lt;/code&gt;。&lt;code&gt;ask&lt;/code&gt; 内部也是用 &lt;code&gt;!&lt;/code&gt; 来传递消息，但是其可以同时设置超时时间。&lt;/p&gt;
+
+&lt;p&gt;通过调用 &lt;code&gt;Future&lt;/code&gt; 的不同方法可以实现同步和异步操作：&lt;/p&gt;
+
+&lt;p&gt;获得同步结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;versionFuture.foreach(println)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;获得异步结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;versionFuture onComplete {
+  case msg =&amp;gt; println(msg)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;远程-actor:f4b76221ad421ce4a5c8747d30d12ae5&#34;&gt;远程 Actor&lt;/h3&gt;
+
+&lt;p&gt;Actor 可以进行远程调用，实现 RMI 的功能。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;服务端&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import akka.actor.{ActorSystem, Props}
+
+object RemoteServer extends App {
+
+  implicit val system = ActorSystem(&amp;quot;RemoteSystem&amp;quot;)
+  val remoteActor = system.actorOf(Props[EchoServer], name = &amp;quot;remoteServer&amp;quot;)
+  remoteActor ! &amp;quot;The RemoteActor is alive&amp;quot;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置文件&lt;/p&gt;
+
+&lt;p&gt;配置文件需要放在 &lt;code&gt;classpath&lt;/code&gt; 下， 系统默认读取的配置文件名为 &lt;code&gt;application.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;application.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;akka {
+  actor {
+    provider = &amp;quot;akka.remote.RemoteActorRefProvider&amp;quot;
+  }
+  remote {
+    transport = &amp;quot;akka.remote.netty.NettyRemoteTransport&amp;quot;
+    netty.tcp {
+      hostname = &amp;quot;127.0.0.1&amp;quot;
+      port = 5150
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;客户端&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;object Client extends App {
+
+  implicit val system = ActorSystem(&amp;quot;LocalSystem&amp;quot;, ConfigFactory.load(&amp;quot;client&amp;quot;))
+  val remote = system.actorSelection(&amp;quot;akka.tcp://RemoteSystem@127.0.0.1:5150/user/remoteServer&amp;quot;)
+  remote ! &amp;quot;Hello from the LocalActor&amp;quot;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置文件&lt;/p&gt;
+
+&lt;p&gt;可以通过 &lt;code&gt;ConfigFactory.load()&lt;/code&gt; 来读取指定的配置文件，文件名不包含后缀名。&lt;/p&gt;
+
+&lt;p&gt;只有服务器端需要知道端口号，所以客户端的端口号设为 &lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;client.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;akka {
+  actor {
+    provider = &amp;quot;akka.remote.RemoteActorRefProvider&amp;quot;
+  }
+  remote {
+    transport = &amp;quot;akka.remote.netty.NettyRemoteTransport&amp;quot;
+    netty.tcp {
+      hostname = &amp;quot;127.0.0.1&amp;quot;
+      port = 0
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;运行&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;先运行服务器端，控制台输出 &amp;ldquo;echo The RemoteActor is alive&amp;rdquo;，
+再运行客户端，服务器端控制台会接着输出 &amp;ldquo;echo Hello from the LocalActor&amp;rdquo;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Scala - 04.隐式转换及类型约束</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-scala-04-implict/</link>
+      <pubDate>Thu, 17 Dec 2015 07:28:35 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-scala-04-implict/</guid>
+      <description>
+
+&lt;h2 id=&#34;隐式转换与类型约束:4e02853b676946db3585dce8a815c3d4&#34;&gt;隐式转换与类型约束&lt;/h2&gt;
+
+&lt;h3 id=&#34;隐式操作:4e02853b676946db3585dce8a815c3d4&#34;&gt;隐式操作&lt;/h3&gt;
+
+&lt;h4 id=&#34;隐式转换:4e02853b676946db3585dce8a815c3d4&#34;&gt;隐式转换&lt;/h4&gt;
+
+&lt;p&gt;隐式转换是通过在指定的上下文环境中定义一个类型转换的函数来在必要时完成变量的自动类型转换。和子类到父类的自动类型转换不同，隐式转换是通过函数来实现的，所以原类型和目标类型可以没有任何关系。&lt;/p&gt;
+
+&lt;p&gt;Scala 中定义一个隐式转换函数只要在普通函数前加上关键字 &lt;code&gt;implicit&lt;/code&gt; 就可以了。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个对 &lt;code&gt;Int&lt;/code&gt; 类型扩展的类 &lt;code&gt;SuperInt&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class SuperInt(val i: Int) {
+    def triple = i * i * i
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个隐式转换函数，用于将 &lt;code&gt;Int&lt;/code&gt; 类型的参数转换为 &lt;code&gt;SuperInt&lt;/code&gt; 类型。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit def int2SuperInt(i: Int): SuperInt = new SuperInt(i)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个使用 &lt;code&gt;SuperInt&lt;/code&gt; 作为参数的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def showTripleResult(i: SuperInt): Unit = {
+    println(s&amp;quot;Result is ${i.triple}&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用隐式转换&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val i: Int = 3
+showTripleResult(i) //  Result is 27
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上例子中 &lt;code&gt;showTripleResult()&lt;/code&gt; 函数需要 &lt;code&gt;SuperInt&lt;/code&gt; 类型的参数，而传入的参数为 &lt;code&gt;Int&lt;/code&gt; 类型，此时编译器会在上下文环境中查找是否有能够将 &lt;code&gt;Int&lt;/code&gt; 类型参数转换为 &lt;code&gt;SuperInt&lt;/code&gt; 类型的隐式转换函数。&lt;/p&gt;
+
+&lt;p&gt;事实上隐式转换是完全自动完成的，以下例子可以完全体现这点&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(i.triple) //  27
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于隐式转换的功能过于强大，所以必须限定隐式转换的上下文，否则的话会使代码非常难以阅读。最常见的作法是直接定义一个 &lt;code&gt;Object&lt;/code&gt;，将转换函数都放在里面。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;object Context {
+    //  Implicit Conversion
+    implicit def int2SuperInt(i: Int): SuperInt = new SuperInt(i)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后在使用的地方先进行引用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import Context._
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;隐式参数与隐式值:4e02853b676946db3585dce8a815c3d4&#34;&gt;隐式参数与隐式值&lt;/h4&gt;
+
+&lt;p&gt;隐式参数指的是向函数传入部分参数，余下的参数由编译器自动从上下文环境中寻找符合需要的参数类型的隐式值。&lt;/p&gt;
+
+&lt;p&gt;Scala 中定义一个隐式参数只要在参数前加上关键字 &lt;code&gt;implicit&lt;/code&gt; 就可以了，隐式值也是类似。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个包含隐式参数的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def show(msg: String)(implicit prefix: String) = println(s&amp;quot;$prefix $msg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个隐式值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit val stringValue = &amp;quot;Hello&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用该函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;show(&amp;quot;World&amp;quot;) //  Hello World
+show(&amp;quot;Bye&amp;quot;)(&amp;quot;Good&amp;quot;) //  Good Bye
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;show()&lt;/code&gt; 函数需要接收两个参数，当调用 &lt;code&gt;show(&amp;quot;World&amp;quot;)&lt;/code&gt; 时由于缺少了 &lt;code&gt;String&lt;/code&gt; 类型的隐式参数 &lt;code&gt;prefix&lt;/code&gt;，Scala 会自动从上下文找寻找存在的 &lt;code&gt;String&lt;/code&gt; 类型的隐式值 &lt;code&gt;stringValue&lt;/code&gt; 传入 &lt;code&gt;show()&lt;/code&gt; 函数。&lt;/p&gt;
+
+&lt;p&gt;使用隐式参数时有以下两点需要注意&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;由于隐式参数是根据参数类型来寻找隐式值的，所以如果上下文环境中有多个相同类型的隐式值时，Scala 会报 &amp;ldquo;ambiguous implicit values&amp;rdquo; 错误。&lt;/li&gt;
+&lt;li&gt;隐式参数最好使用特别的数据类型，而不要使用 &lt;code&gt;String&lt;/code&gt; 等常用类型，否则可能会引发问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;隐式类:4e02853b676946db3585dce8a815c3d4&#34;&gt;隐式类&lt;/h4&gt;
+
+&lt;p&gt;隐式类可以看做是隐式转换的语法糖，Scala 能够在必要时将源类型自动转换为隐式类的类型。&lt;/p&gt;
+
+&lt;p&gt;定义一个隐式类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;object Context {
+    implicit class Calculator(i: Int) {
+        def add(a: Int) = a + i
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用该隐式类&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(3.add(5))   //  8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 发现 &lt;code&gt;Int&lt;/code&gt; 变量 &lt;code&gt;3&lt;/code&gt; 没有 &lt;code&gt;add()&lt;/code&gt; 方法时，会自动查找是否能够在上下文环境中将该变量转换为包含 &lt;code&gt;add()&lt;/code&gt; 方法的目标类型，这里就是类 &lt;code&gt;Calculator&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;隐式类在使用时有以下原则&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;隐式类必须定义在另外一个类中&lt;/li&gt;
+&lt;li&gt;隐式类的构造器有且只能有一个不是 &lt;code&gt;implicit&lt;/code&gt; 的参数&lt;/li&gt;
+&lt;li&gt;作用域中不能有任何标示符（方法名，变量名等）与隐式类同名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;类型约束:4e02853b676946db3585dce8a815c3d4&#34;&gt;类型约束&lt;/h3&gt;
+
+&lt;p&gt;类型约束用于对参数类型进行限制，看起来有些像泛型章节所提到的类型参数边界，但是类型约束更加严格。&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_6:4e02853b676946db3585dce8a815c3d4&#34;&gt;&amp;lt;:&amp;lt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;:&amp;lt;&lt;/code&gt; 用于限制参数类型必须为某一个类型本身或该类型的子类。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义三个类型&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class Person(val name: String)
+
+class Student(name: String) extends Person(name)
+
+class Animal(val name: String)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def makeFriends[A](a: A)(implicit ev: A &amp;lt;:&amp;lt; Person): Unit = {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上 &lt;code&gt;makeFriends()&lt;/code&gt; 方法限制其泛型参数 &lt;code&gt;A&lt;/code&gt; 必须为类型 &lt;code&gt;Person&lt;/code&gt; 或其子类&lt;/p&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  正常调用
+val peter = new Person(&amp;quot;Peter&amp;quot;)
+makeFriends(peter)
+
+//  错误调用，会报 type mismatch 异常，因为 Animal 不是 Person 的子类
+val cat = new Animal(&amp;quot;Cat&amp;quot;)
+makeFriends(cat)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过以上的例子可以看到 &lt;code&gt;&amp;lt;:&amp;lt;&lt;/code&gt; 的作用似乎与 &lt;code&gt;&amp;lt;:&lt;/code&gt; 非常类似，但是前者更为严格。&lt;/p&gt;
+
+&lt;p&gt;有如下两个方法，第一个方法使用了上边界，第二个方法使用了类型约束&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def foo[A, B &amp;lt;: A](a: A, b: B) {}
+def foo2[A, B](a: A, b: B)(implicit ev: B &amp;lt;:&amp;lt; A) {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;向以上方法传入参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;foo(peter, cat)
+foo2(peter, cat)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果第一行正常执行，因为 &lt;code&gt;Animal&lt;/code&gt; 类型虽然与 &lt;code&gt;Person&lt;/code&gt; 无关，但是编译器一旦发现 &lt;code&gt;B&lt;/code&gt; 需要为 &lt;code&gt;A&lt;/code&gt; 的子类时，就会将 &lt;code&gt;Animal&lt;/code&gt; 类型提升为 &lt;code&gt;Any&lt;/code&gt; 类型，此时自然 &lt;code&gt;Person&lt;/code&gt; 是其子类，所以方法通过了检查。而第二行则直接报错，因为类型约束只会直接检查，不会自动进行类型转换。&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_7:4e02853b676946db3585dce8a815c3d4&#34;&gt;=:=&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;=:=&lt;/code&gt; 用于限制参数类型必须为某一类型。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def bar[A](a: A)(implicit ev: A =:= Person): Unit = {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上指定了类型 &lt;code&gt;A&lt;/code&gt; 必须为 &lt;code&gt;Person&lt;/code&gt; 类型。&lt;/p&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;//  正常调用
+val peter = new Person(&amp;quot;Peter&amp;quot;)
+bar(peter)
+
+//  错误调用，Student 类型不是 Person 类型
+val jane = new Student(&amp;quot;Jane&amp;quot;)
+bar(jane)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到 &lt;code&gt;=:=&lt;/code&gt; 和 &lt;code&gt;&amp;lt;:&amp;lt;&lt;/code&gt; 一样不会进行类型转换，不会认为子类就是父类。&lt;/p&gt;
+
+&lt;h3 id=&#34;类型参数边界:4e02853b676946db3585dce8a815c3d4&#34;&gt;类型参数边界&lt;/h3&gt;
+
+&lt;p&gt;因为隐式操作的存在类型参数边界又多了几个，因此本节是对泛型一节中的类型参数边界的补充。&lt;/p&gt;
+
+&lt;h4 id=&#34;与-视图边界:4e02853b676946db3585dce8a815c3d4&#34;&gt;=&amp;gt; 与 视图边界&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;=&amp;gt;&lt;/code&gt; 用于限定对于参数类型 A 来说，必须存在一个隐式转换能够将 A 转变为目标类型。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt; def limitView[A](a: Person)(implicit ev1: A =&amp;gt; Person) {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上方法限定了上下文环境中必须存在一个转换函数能够将类型 &lt;code&gt;A&lt;/code&gt; 转换为类型 &lt;code&gt;Person&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val linda = new Teacher(&amp;quot;Linda&amp;quot;)
+implicit def teacher2Person(t: Teacher): Person = new Person(t.name)
+limitView(peter)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这种做法与视图边界(View Bound) 相同，不过视图边界早已经被废弃，但是还是有不少代码中使用了视图边界，所以还是需要知道以下，以下就是使用视图边界的写法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def limitViewOld[A &amp;lt;% Person](a: Person) {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;上下文边界:4e02853b676946db3585dce8a815c3d4&#34;&gt;上下文边界&lt;/h4&gt;
+
+&lt;p&gt;上下文边界用于限定对于类型 &lt;code&gt;[A: Bound]&lt;/code&gt; 来说，必须存在一个隐式转换可以使类型 &lt;code&gt;[A: Bound]&lt;/code&gt; 变为类型 &lt;code&gt;Bound[A]&lt;/code&gt;。上下文边界实际是 &lt;code&gt;def f[A](a: A)(implicit ev: Bound[A])&lt;/code&gt; 的语法糖。&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;定义一个方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def append[A: ArrayBuffer](a: A): Unit = {
+    var arrayBuffer = implicitly[ArrayBuffer[A]]
+    arrayBuffer += a
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中 &lt;code&gt;implicitly&lt;/code&gt; 用于从上下文环境中获得指定类型的隐式值。&lt;/p&gt;
+
+&lt;p&gt;调用该方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;implicit val persons = ArrayBuffer[Person]()
+append(peter)
+persons.foreach { p =&amp;gt; println(p.name) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上的例子即表示对于类型 &lt;code&gt;Person&lt;/code&gt; 来说，必须存在一个隐式转换能够将 &lt;code&gt;Person&lt;/code&gt; 转换为 &lt;code&gt;ArrayBuffer[Person]&lt;/code&gt;。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Scala - 02.高阶函数</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/</link>
+      <pubDate>Wed, 16 Dec 2015 01:10:31 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-scala-02-high-order-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;高阶函数:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;高阶函数&lt;/h2&gt;
+
+&lt;h3 id=&#34;函数字面量:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;函数字面量&lt;/h3&gt;
+
+&lt;p&gt;所谓的函数字面量指的将函数本身赋值给一个变量。通过函数字面量，可以使函数本身表现得和普通变量一样。&lt;/p&gt;
+
+&lt;p&gt;定义一个函数字面量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val sum = (x: Int, y: Int) =&amp;gt; x + y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 在定义函数字面量时支持参数的类型推断，只要确定了返回值的类型，编写参数时就可以省略类型。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val sum2: (Int, Int) =&amp;gt; Int = (x, y) =&amp;gt; x + y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上函数的返回值类型为 &lt;code&gt;(Int, Int) =&amp;gt; Int&lt;/code&gt;，表示函数有两个整型的输入和一个整型的返回值，所以定义参数 &lt;code&gt;x&lt;/code&gt; 和 &lt;code&gt;y&lt;/code&gt; 时可以省略参数类型。&lt;/p&gt;
+
+&lt;p&gt;Scala 中实现函数字面量的方法比较特别，是通过一个名为 &lt;code&gt;FunctionN&lt;/code&gt; (n 为 0 到 22 的整数)的特质的 &lt;code&gt;apply()&lt;/code&gt; 来实现的。其中 &lt;code&gt;Functon0&lt;/code&gt; 代表没有参数，&lt;code&gt;Function1&lt;/code&gt; 代表 1 个参数，以此类推。&lt;/p&gt;
+
+&lt;p&gt;所以以上 &lt;code&gt;sum2&lt;/code&gt; 实质上是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val sum2: Function2[Int, Int, Int] = new Function2[Int, Int, Int] {
+  override def apply(x: Int, y: Int): Int = x + y
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Scala 还有一个强大的特性就是可以通过符号 &lt;code&gt;_&lt;/code&gt; 获得一个已经定义好的方法的函数字面量。&lt;/p&gt;
+
+&lt;p&gt;在类中定义一个方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def multiple(x: Int, y: Int): Int = x * y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;获得该方法的函数字面量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val multi = multiple _
+//	调用方法
+println(multiple(3, 4)) //  12
+//	使用函数字面量
+println(multi(3, 4)) //  12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;高阶函数-1:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;高阶函数&lt;/h3&gt;
+
+&lt;p&gt;高级函数指的是将函数本身作为参数传递给另一个函数或者一个函数返回值是另一个函数。正是由于函数字面值的存在，高阶函数才能得以实现。&lt;/p&gt;
+
+&lt;h4 id=&#34;函数作为参数:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;函数作为参数&lt;/h4&gt;
+
+&lt;p&gt;定义一个参数为函数类型的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def add10(f: (Int) =&amp;gt; Int) = f(10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上定义了一个函数 &lt;code&gt;add10()&lt;/code&gt;，该函数接收一个以整型为输入并返回整型的函数类型参数，在函数体中会调用传入的函数并向其传入参数 10。&lt;/p&gt;
+
+&lt;p&gt;调用以上方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;add10({ i =&amp;gt; i + 2 })	//	12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码可以简写成以下形式，省略掉参数外的括号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;add10({ i =&amp;gt; i + 2 })	//	12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过使用占位符可以进一步缩减代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;add10(_ + 2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过此种形式可以传入不同的函数来完成不同的操作而不用像  Java 一样必须先定义好接口。&lt;/p&gt;
+
+&lt;h4 id=&#34;函数作为返回值:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;函数作为返回值&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def scale(factor: Double) = (x: Double) =&amp;gt; x * factor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;柯里化:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;柯里化&lt;/h3&gt;
+
+&lt;p&gt;柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。&lt;/p&gt;
+
+&lt;p&gt;Scala 中可以直接定义柯里化函数。&lt;/p&gt;
+
+&lt;p&gt;定义一个普通函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def minus(x: Int, y: Int) = x - y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;定义一个柯里化函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def minus2(x: Int)(y: Int) = x - y
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和普通函数 &lt;code&gt;minus()&lt;/code&gt; 不同，&lt;code&gt;minus2()&lt;/code&gt; 有两个参数列表，每个接收一个参数，也就是说 &lt;code&gt;minus2()&lt;/code&gt; 实际就是对 &lt;code&gt;minus()&lt;/code&gt; 进行柯里化后的结果。&lt;/p&gt;
+
+&lt;p&gt;调用以上函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;minus(5, 3)	//	2
+minus2(5)(3)	//	2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到使用普通函数时必须一次性传入所有参数，而对于柯里化函数可以每次只传入一个参数。&lt;/p&gt;
+
+&lt;p&gt;对于像 &lt;code&gt;minus()&lt;/code&gt; 这样已经定义好的函数在 Scala 中也可以通过 &lt;code&gt;curried()&lt;/code&gt; 函数将其转变为柯里化函数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val minusCurr=(minus _).curried
+minusCurr(5)(3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;函数的部分应用:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;函数的部分应用&lt;/h3&gt;
+
+&lt;p&gt;函数的部分应用 (Function Partial Application) 指的是向一个接收多个参数的函数传入部分参数从而获得一个接收剩余参数的新函数的技术。&lt;/p&gt;
+
+&lt;p&gt;定义一个多参数的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def show(prefix: String, msg: String, postfix: String) = prefix + msg + postfix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;部分应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val applyPrefix = show(&amp;quot;(&amp;quot;, _: String, _: String)
+println(applyPrefix(&amp;quot;foo&amp;quot;, &amp;quot;)&amp;quot;)) //  (foo)
+
+val applyPostfix = show(_: String, _: String, &amp;quot;)&amp;quot;)
+println(applyPostfix(&amp;quot;(&amp;quot;, &amp;quot;bar&amp;quot;)) //  (bar)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上 &lt;code&gt;applyPrefix()&lt;/code&gt; 是应用了 &lt;code&gt;show()&lt;/code&gt; 的第一个参数的新函数，&lt;code&gt;applyPostfix()&lt;/code&gt; 是应用了 &lt;code&gt;show()&lt;/code&gt; 的最后一个参数的新函数。&lt;/p&gt;
+
+&lt;p&gt;Scala 中使用符号 &lt;code&gt;_&lt;/code&gt; 表示暂时不应用的参数，需要注意这些参数必须明确指明参数类型，Scala 没有办法在这种场合做类型推断。&lt;/p&gt;
+
+&lt;h3 id=&#34;偏函数:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;偏函数&lt;/h3&gt;
+
+&lt;p&gt;函数指对于所有给定类型的输入，总是存在特定类型的输出。&lt;/p&gt;
+
+&lt;p&gt;偏函数指对于某些给定类型的输入，可能没有对应的输出，即偏函数无法处理给定类型范围内的所有值。&lt;/p&gt;
+
+&lt;p&gt;Scala 中偏函数使用 trait &lt;code&gt;PartialFunction&lt;/code&gt; 表示，该函数是个一元函数，以模式匹配的结果作为函数的最终结果&lt;/p&gt;
+
+&lt;p&gt;定义一个偏函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;val isEven: PartialFunction[Int, String] = {
+  case x if x != 0 &amp;amp;&amp;amp; x % 2 == 0 =&amp;gt; x + &amp;quot; is even&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上偏函数虽然接收 &lt;code&gt;Int&lt;/code&gt; 类型作为参数，但是只能处理 &lt;code&gt;Int&lt;/code&gt; 不为 0 或者参数为奇数的情况。&lt;/p&gt;
+
+&lt;p&gt;使用偏函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;isEven(20)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;偏函数可以通过 &lt;code&gt;isDefinedAt()&lt;/code&gt; 方法来判断其是否能够处理传入的参数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;println(isEven.isDefinedAt(4))  //  true
+println(isEven.isDefinedAt(3))  //  false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当某个偏函数无法处理输入的值后可以通过链式操作将其传递给其它偏函数进行处理&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val isOdd: PartialFunction[Int, String] = {
+    case x if x % 2 != 0 =&amp;gt; x + &amp;quot; is odd&amp;quot;
+}
+val other: PartialFunction[Int, String] = {
+    case _ =&amp;gt; &amp;quot;else&amp;quot;
+}
+val partial = isEven orElse isOdd orElse other
+println(partial(3)) //  3 is odd
+println(partial(0)) //  else
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;按名称传递:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;按名称传递&lt;/h3&gt;
+
+&lt;p&gt;定义这样一个函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def assert(predicate: () =&amp;gt; Boolean) =
+   if (assertionsEnabled &amp;amp;&amp;amp; !predicate())
+     println(&amp;quot;assert failed&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;该函数需要以以下方式使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;assert(() =&amp;gt; 1 == 2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;按名称传递时省略定义时的 &lt;code&gt;()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;def byNameAssert(predicate: =&amp;gt; Boolean) =
+    if (assertionsEnabled &amp;amp;&amp;amp; !predicate)
+      println(&amp;quot;assert failed&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;调用时&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;byNameAssert(1 == 2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;相比较而言，按名称传递看起来就像直接传入参数一样，但实质是传入一个函数。&lt;/p&gt;
+
+&lt;p&gt;和普通的按值传递的区别&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;var assertionsEnabled = false
+def booleanAssert(predicate: Boolean) =
+    if (assertionsEnabled &amp;amp;&amp;amp; !predicate)
+      println(&amp;quot;assert failed&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下第一行不会报错，第二行会直接奔溃&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;byNameAssert(1 / 0 == 0)
+booleanAssert(1 / 0 == 0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;控制抽象:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;控制抽象&lt;/h3&gt;
+
+&lt;p&gt;以上高级函数，柯理化，按名称传递等在 Scala 中都属于控制抽象的实现方式。个人觉得这名字很拗口，只要知道就行了。&lt;/p&gt;
+
+&lt;h3 id=&#34;柯里化函数-currying-function-与部分应用函数-partial-applied-function-与偏函数-partial-function:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;柯里化函数 (Currying Function)与部分应用函数(Partial Applied Function)与偏函数 (Partial Function)&lt;/h3&gt;
+
+&lt;h4 id=&#34;柯里化函数与部分应用函数:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;柯里化函数与部分应用函数&lt;/h4&gt;
+
+&lt;p&gt;这两种概念初次见到时非常容易让人迷惑，感觉好像差不多，但是实际上是完全不同的函数。&lt;/p&gt;
+
+&lt;p&gt;柯里化是将多参数函数分解成多个但参数的函数，即将 &lt;code&gt;function(x, y, z){...}&lt;/code&gt; 分解成 &lt;code&gt;function(x){ lambda(y){ lambda(z){...} } }&lt;/code&gt;。由于每次都是传入一个参数后获得包含其余参数的函数所以需要使用 &lt;code&gt;function(x)(y)(z)&lt;/code&gt; 完成完整调用。柯里化函数非常像责任链模式，参数必须依照定义的顺序由前之后传入，每个参数完成部分工作。&lt;/p&gt;
+
+&lt;p&gt;部分应用是只传入部分参数从而获得包含其余参数的函数，即将 &lt;code&gt;function(x, y, z){...}&lt;/code&gt; 变成 &lt;code&gt;function(x, _, _)&lt;/code&gt;。本质上部分应用函数用于固定多参数函数的某几个参数，从而在调用时不用每次都传入同样的参数。部分应用函数的参数之间没有任何关系，所以可以部分应用任意位置的参数。&lt;/p&gt;
+
+&lt;p&gt;最后，直观上看柯里化函数虽然有多个参数列表，但每个只接受一个参数。而部分应用函数只有一个参数列表，但参数个数至少为 2。&lt;/p&gt;
+
+&lt;h4 id=&#34;部分应用函数与偏函数:e7fa3e718381044762f1c1cd07004a4e&#34;&gt;部分应用函数与偏函数&lt;/h4&gt;
+
+&lt;p&gt;这两个名词虽然是不同的东西，但是由于英文名和部分应用函数的另一个名字（偏函数应用）非常相似所以不注意也容易搞混。&lt;/p&gt;
+
+&lt;p&gt;部分应用函数是固定多参数函数的部分参数得到一个新函数。&lt;/p&gt;
+
+&lt;p&gt;偏函数则表示算式无法处理传入的参数类型的某些特定值。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JGSK - Groovy - 01.高阶函数</title>
+      <link>http://git.bookislife.com/post/2015/jgsk-groovy-01-high-order-function/</link>
+      <pubDate>Tue, 15 Dec 2015 22:07:36 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/jgsk-groovy-01-high-order-function/</guid>
+      <description>
+
+&lt;h2 id=&#34;高阶函数:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;高阶函数&lt;/h2&gt;
+
+&lt;h3 id=&#34;函数字面量:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;函数字面量&lt;/h3&gt;
+
+&lt;p&gt;所谓的函数字面量指的将函数本身赋值给一个变量。在 Groovy 中，函数字面量是通过闭包来实现的。通过函数字面量，函数本身可以像普通变量一样进行各种操作。&lt;/p&gt;
+
+&lt;p&gt;定义一个函数字面量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def sum = { x, y -&amp;gt; x + y }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;高阶函数-1:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;高阶函数&lt;/h3&gt;
+
+&lt;p&gt;高级函数指的是将函数本身作为参数传递给另一个函数或者一个函数返回值是另一个函数。正是由于函数字面值的存在，高阶函数才能得以实现。&lt;/p&gt;
+
+&lt;h4 id=&#34;函数作为参数:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;函数作为参数&lt;/h4&gt;
+
+&lt;p&gt;由于 Groovy 中函数字面值通过闭包来实现，所以先定义一个参数为闭包的函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;static def add10(Closure closure) {
+  closure(10)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将满足条件（即能够接收整形 10）的闭包（函数）作为参数传入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;add10({ i -&amp;gt; i + 2 })	//	12
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码可以简写成以下形式，省略掉参数外的括号&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;add10 { it + 2 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过此种形式可以传入不同的函数来完成不同的操作而不用像  Java 一样必须先定义好接口。&lt;/p&gt;
+
+&lt;h4 id=&#34;函数作为返回值:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;函数作为返回值&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def scale(factor) {
+  return { x -&amp;gt;
+    x * factor
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;柯里化:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;柯里化&lt;/h3&gt;
+
+&lt;p&gt;柯里化 (Currying) 指的是将一个接收多个参数的函数分解成多个接收单个参数的函数的一种技术。Groovy 没有柯里化的语法糖，所以必须自己实现层层嵌套的比较丑陋的语法结构。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def show2(String prefix) {
+    return { String msg -&amp;gt;
+        return { String postfix -&amp;gt;
+            return prefix + msg + postfix
+        }
+    }
+}
+show2(&amp;quot;(&amp;quot;)(&amp;quot;foobar&amp;quot;)(&amp;quot;)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;函数的部分应用:3638c3c489d7c9afe55bdf53e9dc6f8d&#34;&gt;函数的部分应用&lt;/h3&gt;
+
+&lt;p&gt;函数的部分应用 (Function Partial Application) 指的是向一个接收多个参数的函数传入部分参数从而获得一个接收剩余参数的新函数的技术。&lt;/p&gt;
+
+&lt;p&gt;定义一个函数（闭包）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def show = { String prefix, String msg, String postfix -&amp;gt;
+  prefix + msg + postfix
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从左开始部分应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def applyPrefix = show.curry(&amp;quot;(&amp;quot;)
+println(applyPrefix(&amp;quot;foo&amp;quot;, &amp;quot;)&amp;quot;))    //  (foo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上从左开始应用了 &lt;code&gt;show()&lt;/code&gt; 函数的 &lt;code&gt;prefix&lt;/code&gt; 参数并返回了以 &lt;code&gt;msg&lt;/code&gt; 和 &lt;code&gt;postfix&lt;/code&gt; 为参数的新函数 &lt;code&gt;applyPrefix&lt;/code&gt;。需要注意的是从左开始部分应用的方法名为 &lt;code&gt;curry()&lt;/code&gt; ，这里非常容易让人引起歧义，尽管看起来像，但这绝对不是柯里化。不清楚具体是什么原因，Groovy 的这个方法的命名起得非常糟糕。&lt;/p&gt;
+
+&lt;p&gt;与从左开始部分应用一样，还有从右开始部分应用的版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def applyPostfix = show.rcurry(&amp;quot;)&amp;quot;)
+println(applyPostfix(&amp;quot;(&amp;quot;, &amp;quot;bar&amp;quot;))   //  (bar)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;还有一个从指定的索引值开始进行部分应用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;def applyIndex = show.ncurry(1, &amp;quot;foobar&amp;quot;, &amp;quot;)&amp;quot;)
+println(applyIndex(&amp;quot;(&amp;quot;))    //  (foobar)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

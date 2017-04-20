@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on Pixel Space</title>
+    <link>http://git.bookislife.com/tags/tools/</link>
+    <description>Recent content in Tools on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 11 Sep 2015 10:55:34 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MARKDOWN工具评测</title>
+      <link>http://git.bookislife.com/post/2015/markdown-tools/</link>
+      <pubDate>Fri, 11 Sep 2015 10:55:34 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/markdown-tools/</guid>
+      <description>
+
+&lt;h2 id=&#34;mou:a3fb180466ab27d486545f56328ddf37&#34;&gt;Mou&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://25.io/mou/img/1@2x.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://25.io/mou/&#34;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持 Mac&lt;/p&gt;
+
+&lt;p&gt;对于国内用户来说，Mou是Mac上最有名的Markdown工具，然而它的代码高亮功能并不好用，实时预览在文章较长时会产生难以忍受的卡顿效果，是被我最早使用并且很快抛弃的编辑器。&lt;/p&gt;
+
+&lt;h2 id=&#34;macdown:a3fb180466ab27d486545f56328ddf37&#34;&gt;MacDown&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://d.pr/i/PTTC+&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://macdown.uranusjr.com/&#34;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，开源&lt;/p&gt;
+
+&lt;p&gt;对Mou进行改良后的工具，比Mou要出色，支持快捷键操作，YAML *Front Matter* ，样式自定义，Toc（但是无法对每篇文章进行单独设置）。&lt;/p&gt;
+
+&lt;h2 id=&#34;ulysses:a3fb180466ab27d486545f56328ddf37&#34;&gt;Ulysses&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/write.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://itunes.apple.com/cn/app/ulysses/id623795237?mt=12&amp;amp;ign-mpt=uo%3D4&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥283.00&lt;/p&gt;
+
+&lt;p&gt;Mac上最有名的书写工具，体验很好，界面也很漂亮，支持文章的管理，但是使用的不是通用的Markdown语法，也不支持代码高亮，图片也只是显示为链接，适合专为书写的人，不适合码农。&lt;/p&gt;
+
+&lt;h2 id=&#34;byword:a3fb180466ab27d486545f56328ddf37&#34;&gt;Byword&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/byword.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://itunes.apple.com/app/byword/id420212497?mt=12&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥78.00&lt;/p&gt;
+
+&lt;p&gt;可以看做轻量级的Ulysses，没有代码高亮，也没有实时预览，虽然不适合码农，但是价格比Ulysses低不少。写完文章后也可以支持发布到 Wordpress，Blogger 和 Evernote 上，&lt;/p&gt;
+
+&lt;h2 id=&#34;write:a3fb180466ab27d486545f56328ddf37&#34;&gt;Write&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/write.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://writeapp.net/mac/download/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;仅支持Mac，¥68.00&lt;/p&gt;
+
+&lt;p&gt;不支持代码高亮，也没有实时预览，但是却支持文档管理，搜索功能和添加标签。默认创建的文件是 &lt;code&gt;txt&lt;/code&gt; 格式，需要手动进入设置修改为 &lt;code&gt;md&lt;/code&gt; 后缀，这也就说明了这款软件本质上在 Markdown 功能上并不抢眼。对于写手来说其写完文章后只需点个按钮就可以直接发布到 Wordpress了相比其它软件应该说方便不少。 不过其本身兼容性太差，空格回车等处理方式与其它编辑器并不一样，我曾用它码了2000多行字，然后用其它编辑器打开发现排版完全乱掉了，用 Jeklly 和 Hugo 生成的 Html也乱七八糟，所以试用了一下就直接被我抛弃了。&lt;/p&gt;
+
+&lt;h2 id=&#34;markdown-plus:a3fb180466ab27d486545f56328ddf37&#34;&gt;Markdown Plus&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/markdownplus.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://tylingsoft.com/mdp&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac和Windows，¥30.00&lt;/p&gt;
+
+&lt;p&gt;国人开发的编辑器，支持Task List，数学公式，流程图，颜文字和Vim模式，功能非常强大，小缺点是不支持Toc，YAML *Front Matter* ，没有自动完成功能和快捷键，不支持自定义样式。比较奇特的一点是这款编辑器采用的是基于标题的同步滚动方式，而不是一般基于距离的滚动方式，虽然奇特但是写长文时更好用。可惜的是试了下在编辑长文时还是会产生难以忍受的卡顿。&lt;/p&gt;
+
+&lt;h2 id=&#34;texts:a3fb180466ab27d486545f56328ddf37&#34;&gt;Texts&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/texts.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.texts.io/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac和Windows&lt;/p&gt;
+
+&lt;p&gt;很简洁的编辑器，支持双平台，快捷键。亮点是编辑时编辑栏即是预览栏，输入内容后按下快捷键即可立即生成预览效果。此外，在编辑长文时完全不会产生卡顿也值得好评。但是缺点也很明显，要想显示正确格式，必须使用快捷键，而不能手动输入如 &lt;code&gt;#&lt;/code&gt;,&lt;code&gt;-&lt;/code&gt;等符号，这意味着从其它地方拷贝文本到Texts时这些文本也不会显示为Markdown，而是作为普通文本。此外Texts打开其它编辑器编辑的&lt;code&gt;.md&lt;/code&gt;文本时会发现换行符的显示相当奇怪。&lt;/p&gt;
+
+&lt;h2 id=&#34;haroopad:a3fb180466ab27d486545f56328ddf37&#34;&gt;Haroopad&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/haroopad.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://pad.haroopress.com/user.html&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;支持Mac，Windows，Linux&lt;/p&gt;
+
+&lt;p&gt;由韩国人开发，支持多国语言，真正意义上的多平台编辑器，支持Linux这点特别好评。功能非常强大，支持Toc，Task List，数学公式，流程图，Vim模式，Markdown折叠，自动完成，自定义样式。最重要的是Haroopad渲染很快，编辑其它编辑器都无法胜任的长文时都不会产生卡顿。目前也是我使用时间最长的Markdown编辑器。当然其缺点也不少，在切换主题时有时会丢失高亮效果，在当初从0.13.0升级到0.13.1后我的Windows机器上的Haroopad界面从中文变为英文，使用部分特定主题会显示一片空白，而Mac机器上的Haroopad则丢失了自动完成功能。无论如何重装这些Bug还是依然存在于我的电脑上。尽管如此Haroopad还是非常优秀的，强烈推荐。&lt;/p&gt;
+
+&lt;h2 id=&#34;typora:a3fb180466ab27d486545f56328ddf37&#34;&gt;Typora&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/typora.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://typora.io/&#34;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;目前为Beta版，仅支持Mac，官方有支持Windows和Linux的计划&lt;/p&gt;
+
+&lt;p&gt;一款极简主义的Markdown编辑器，支持快捷键，Task List，Toc，YAML Front Matters，颜文字，数学公式，代码高亮。最大的亮点是所见即所得，你输入的Markdown格式的文字会被立即转换为预览效果，不用费心在两栏中切换或者点击专门的切换按钮，可以让你专注于当前的文章中。在编写长文时没有Haroopad那样流畅，些许卡顿，但已经比其它很多Markdown编辑器要好得多。由于目前只是 Beta 版，还是存在一些这样那样的问题。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;使用了那么多 Markdown 编辑器后，个人最推荐的还是 Haroopad 和 Typora，或者是以上没提到的 Sublime，GVim。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Intellj IDEA 的使用</title>
+      <link>http://git.bookislife.com/post/2015/usage-of-idea/</link>
+      <pubDate>Fri, 11 Sep 2015 08:03:34 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/usage-of-idea/</guid>
+      <description>
+
+&lt;h2 id=&#34;快捷键:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;快捷键&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;快捷键&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找类&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;生成代码&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+l&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;格式化&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+f&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找文本&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+r&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找替换&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+p&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;方法参数提示&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+j&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;quick doc&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+shift+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找文件&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+shift+n&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查找类中的成员&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;shift+f6&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重命名&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+y&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;删除行&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+o&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重载父类方法&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+e&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;最近访问列表&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+b&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;跳转到声明&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;跳转到括号的结尾&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;alt+shift+c&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;对比最近代码&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+w&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;选择词，行，代码块&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+h&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;查看类的继承层次&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+t&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;surround with&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;ctrl+shift+t&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;建立测试类&lt;br&gt;或者在类与测试类中跳转&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;shift+cmd+delete&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;上次编辑位置&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+m&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取代码块为方法&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+p&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取变量为参数&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+alt+v&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;提取为局部变量&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;control+option+h&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示方法树&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;fn+option+f7&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示变量的调用处&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;cmd+shift+a&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;显示action 窗口&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;option+enter&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;创建Intention Actions&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;常用设置:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;常用设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;在被修改的文件标签上显示星号:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;在被修改的文件标签上显示星号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Editor Tabs -&amp;gt; 勾选 Mark modified tabs with asterisk&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;显示行号:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;显示行号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Appearance -&amp;gt; 勾选 Show line numbers&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;自动导入引用的包:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;自动导入引用的包&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Auto Import -&amp;gt; 勾选 Add unambiguous improts on the fly&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;关闭重启后自动打开最后一个工程:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;关闭重启后自动打开最后一个工程&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; System Settings -&amp;gt; 去掉 Reopen last project on startup 的勾&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;设置编码格式:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;设置编码格式&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; File Encodings -&amp;gt; IDE Encoding, Project Encoding, Default encoding for properties files 全部设置为 UTF-8&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改自动完成快捷键:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改自动完成快捷键&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; Keymap -&amp;gt; Main Menu -&amp;gt; Code -&amp;gt; Completion -&amp;gt; 修改 Basic 的值&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;显示-quick-document:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;显示 Quick Document&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Show quick doc on mouse Delay&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;多行-tab-页:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;多行 Tab 页&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Editor -&amp;gt; General -&amp;gt; Editor Tabs -&amp;gt;  去掉 Show tabs in single row 的勾，在 Tab limit 一栏填入最大的 Tab 个数&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;配置-quick-lists:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;配置 Quick Lists&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Appearance &amp;amp; Behavior -&amp;gt; Quick Lists 设置自己的 Quick Lists&lt;/code&gt;，然后到 &lt;code&gt;Keymap&lt;/code&gt; 中设置对应的快捷键&lt;/p&gt;
+
+&lt;h2 id=&#34;使用技巧:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;使用技巧&lt;/h2&gt;
+
+&lt;h3 id=&#34;在命令行中通过-idea-打开指定文件:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;在命令行中通过 IDEA 打开指定文件&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Tools -&amp;gt; Create Command-line Launcher -&amp;gt; 在弹出的对话框中修改 Name 为 “idea&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在命令中执行 &lt;code&gt;idea 文件名&lt;/code&gt; 就可以使用 IDEA 打开指定文件。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;修改-tostring-实现方式:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改 toString() 实现方式&lt;/h3&gt;
+
+&lt;p&gt;IDEA 通过 &lt;code&gt;ctrl+n&lt;/code&gt; 快捷键可以自动生成 &lt;code&gt;toString()&lt;/code&gt;方法，但是默认的实现方式是通过加号进行字符串连接，因此不适合字段特别多的类。要想提高效率，可以在生成时 Template 属性选择 &lt;code&gt;StringBuilder (JDK1.5)&lt;/code&gt; 来使用 StringBuilder 替换。&lt;/p&gt;
+
+&lt;h3 id=&#34;查看最近更改过的文件和内容:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;查看最近更改过的文件和内容&lt;/h3&gt;
+
+&lt;p&gt;最近更改过的文件：&lt;code&gt;View → Recently Changed Files&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最近的变更点：&lt;code&gt;View → Recent Changes&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;最近访问过的文件：&lt;code&gt;View → Recent Files&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改默认-gitignore:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;修改默认 .gitignore&lt;/h3&gt;
+
+&lt;p&gt;IDEA 或 Android Studio 在生成 Android 项目时会自动生成 &lt;code&gt;.gitignore&lt;/code&gt; 文件，但是默认的文件通常都不符合需求，每次都手动改也非常麻烦，这时可以修改默认的 &lt;code&gt;.gitignore&lt;/code&gt; 模板。&lt;/p&gt;
+
+&lt;p&gt;Mac 平台下 &lt;code&gt;.gitignore&lt;/code&gt; 模板位置为 &lt;code&gt;/Applications/Android Studio.app(或 IDEA.app)/Contents/plugins/android/lib/templates/gradle-projects/NewAndroidProject/root/project_ignore&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立-live-template:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;建立 Live Template&lt;/h3&gt;
+
+&lt;p&gt;所谓的 Live Template 是一种代码模板，比如说在 IDEA 中输入 &lt;code&gt;fori&lt;/code&gt;就可以生成标准的 for 循环语句，输入 &lt;code&gt;psfi&lt;/code&gt; 就可以生成 &lt;code&gt;public static final int&lt;/code&gt;，输入 &lt;code&gt;sout&lt;/code&gt; 就可以生成输出语句。通过建立自己的 Live Template 可以减少重复劳动，加速开发。&lt;/p&gt;
+
+&lt;p&gt;以下以建立一个Android的Fragment模板来介绍如何建立 Live Template：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;选择 &lt;code&gt;Editor -&amp;gt; Live Templates&lt;/code&gt;
+&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/template.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;点击右边的 &lt;code&gt;+&lt;/code&gt; 号，选择 &lt;code&gt;Template Group&lt;/code&gt;，输入 &lt;code&gt;group name&lt;/code&gt; 为 &amp;ldquo;android&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;选择刚生成的 &lt;code&gt;android group&lt;/code&gt;，继续点击 &lt;code&gt;+&lt;/code&gt; 号，选择 &lt;code&gt;Live Template&lt;/code&gt;，下方的 &lt;code&gt;Abbreviation&lt;/code&gt; 表示快捷键，在这里输入 &amp;ldquo;nfr”，&lt;code&gt;Description&lt;/code&gt; 输入 &amp;ldquo;create new fragment&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在 &lt;code&gt;Template text&lt;/code&gt; 输入以下文字，其中 &amp;ldquo;$&amp;rdquo; 开头的字符表示变量&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;  private static final String $ARG_PARAM$ = &amp;quot;$CLASS_NAME$.$ARG_PARAM$&amp;quot;;
+
+  private $ARG_CLASS_DITTO$ m$INST_VAR$;
+
+  public static $CLASS_NAME$ newInstance($ARG_CLASS$ $ARG_VAR$) {
+      $CLASS_NAME$ fragment = new $CLASS_NAME$();
+      Bundle args = new Bundle();
+      args.put$ARG_CLASS$($ARG_PARAM$, $ARG_VAR$);
+      fragment.setArguments(args);
+      return fragment;
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      m$INST_VAR$ = getArguments().get$ARG_CLASS$($ARG_PARAM$);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下方的 &lt;code&gt;No applicable contexts&lt;/code&gt; 点击 &lt;code&gt;Define&lt;/code&gt; 按钮，选择 &lt;code&gt;Java&lt;/code&gt; - &lt;code&gt;Declaration&lt;/code&gt;，这个选项表示在什么文件的什么位置允许使用该快捷方式，之所以只选择 &amp;ldquo;Declaration&amp;rdquo; 是因为我们需要建立的是方法的定义，所以这个快捷方式不应该出现在 &amp;ldquo;Comments&amp;rdquo;，&amp;rdquo;String&amp;rdquo; 或者其它方法内部。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;修改完毕后随意建立一个 Java 文件，输入 &amp;ldquo;nfr&amp;rdquo; 就可以直接生成上面模板定义的代码，并且光标自动定位到第一个变量处，修改变量名后按下回车就可以跳转到下一个变量处。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;添加-file-template:7b43f692620268dd2f7ce71dcd669d96&#34;&gt;添加 File Template&lt;/h3&gt;
+
+&lt;p&gt;Live Template 主要用于在文件中生成代码，而 File Template 则是用于根据模板生成文件。&lt;/p&gt;
+
+&lt;p&gt;以下以创建一个单例类来介绍详细步骤&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在工程的任意目录单击右键，选择 &lt;code&gt;New&lt;/code&gt; - &lt;code&gt;Edit File Templates..&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;单击 &lt;code&gt;+&lt;/code&gt;号，&lt;code&gt;Name&lt;/code&gt; 输入 “Singleton”，&lt;code&gt;Extension&lt;/code&gt; 输入 &lt;code&gt;java&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;内容处输入以下文本，点击 &lt;code&gt;OK&lt;/code&gt;按钮&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;   #if (${PACKAGE_NAME} &amp;amp;&amp;amp; ${PACKAGE_NAME} != &amp;quot;&amp;quot;)package ${PACKAGE_NAME};#end
+   #parse(&amp;quot;File Header.java&amp;quot;)
+   public class ${NAME}{
+       private static ${NAME} ourInstance = new ${NAME}();
+   
+       public static ${NAME} getInstance() {
+           return ourInstance;
+       }
+   
+       private ${NAME}() {
+       }
+   }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在工程任意目录单击右键，选择 &lt;code&gt;New&lt;/code&gt; - &lt;code&gt;Java Class&lt;/code&gt;，在弹出的对话框中 &lt;code&gt;Kind&lt;/code&gt; 选择刚才建立的 “Singeleton” 就完成了所有操作。&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

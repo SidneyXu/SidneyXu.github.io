@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on Pixel Space</title>
+    <link>http://git.bookislife.com/topics/test/</link>
+    <description>Recent content in Test on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 25 Sep 2015 11:59:24 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/topics/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用Robolectric&#43;Assertj&#43;PowerMock搭建 Android 的逻辑测试环境</title>
+      <link>http://git.bookislife.com/post/2015/robolectricassertjpowermock-android-logic-test/</link>
+      <pubDate>Fri, 25 Sep 2015 11:59:24 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/robolectricassertjpowermock-android-logic-test/</guid>
+      <description>
+
+&lt;h2 id=&#34;编写-build-gradle-文件:c1a394b152ef0d4309188522b62d407d&#34;&gt;编写 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;dependencies {
+    //  Robolectric
+    testCompile &amp;quot;org.robolectric:robolectric:3.0&amp;quot;
+    
+    //  AssertJ 
+    testCompile &#39;com.squareup.assertj:assertj-android:1.1.0&#39;
+
+    //  PowerMock + Mockito
+    testCompile &#39;org.powermock:powermock-module-junit4:1.6.2&#39;
+    testCompile &amp;quot;org.powermock:powermock-module-junit4-rule:1.6.2&amp;quot;
+    testCompile &#39;org.powermock:powermock-api-mockito:1.6.2&#39;
+    testCompile &amp;quot;org.powermock:powermock-classloading-xstream:1.6.2&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;编写测试代码:c1a394b152ef0d4309188522b62d407d&#34;&gt;编写测试代码&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RunWith(RobolectricGradleTestRunner.class)
+@Config(sdk = 21,
+        constants = BuildConfig.class, manifest = &amp;quot;build/intermediates/bundles/debug/AndroidManifest.xml&amp;quot;)
+@PowerMockIgnore({&amp;quot;org.mockito.*&amp;quot;, &amp;quot;org.robolectric.*&amp;quot;, &amp;quot;android.*&amp;quot;})
+@PrepareForTest(Calc.class)
+public class RobolectricPowerMockTest {
+
+    @Rule
+    public PowerMockRule rule = new PowerMockRule();
+
+    @Before
+    public void setup() {
+    }
+
+    @After
+    public void teardown() {
+    }
+
+    @Test
+    public void sample() {
+        Context context = RuntimeEnvironment.application.getApplicationContext();
+        assertThat(
+                context.getString(R.string.app_name), is(&amp;quot;example-android-lib&amp;quot;));
+    }
+
+    @Test
+    public void testCalc() {
+        PowerMockito.mockStatic(Calc.class);
+        Mockito.when(Calc.add(1, 2)).thenReturn(10);
+
+        assertThat(Calc.add(1, 2), is(10));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;运行测试:c1a394b152ef0d4309188522b62d407d&#34;&gt;运行测试&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew clean testDebug
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;查看测试报告:c1a394b152ef0d4309188522b62d407d&#34;&gt;查看测试报告&lt;/h2&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/outputs/reports/tests/debug/index.html&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用Espresso&#43;Assertj&#43;Mockito搭建Android的UI测试环境</title>
+      <link>http://git.bookislife.com/post/2015/espressoassertjmockito-android-ui-test/</link>
+      <pubDate>Fri, 25 Sep 2015 11:58:50 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/espressoassertjmockito-android-ui-test/</guid>
+      <description>
+
+&lt;h2 id=&#34;编写-build-gradle-文件:b77b76b1cc744eb25e1afe37b2e6854d&#34;&gt;编写 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;android {
+    packagingOptions {
+        exclude &#39;LICENSE.txt&#39;
+        exclude &#39;LICENSE&#39;
+        exclude &#39;NOTICE&#39;
+        exclude &#39;asm-license.txt&#39;
+    }
+    defaultConfig {
+        testInstrumentationRunner &amp;quot;android.support.test.runner.AndroidJUnitRunner&amp;quot;
+    }
+}
+
+dependencies {
+    androidTestCompile &#39;com.squareup.assertj:assertj-android:1.1.0&#39;
+    androidTestCompile &#39;com.android.support.test:runner:0.3&#39;
+    androidTestCompile &#39;com.android.support.test:rules:0.3&#39;
+    androidTestCompile &#39;com.android.support.test.espresso:espresso-core:2.2&#39;
+
+    androidTestCompile &#39;org.mockito:mockito-core:1.9.5&#39;
+    androidTestCompile &#39;com.google.dexmaker:dexmaker:1.2&#39;
+    androidTestCompile &#39;com.google.dexmaker:dexmaker-mockito:1.2&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;编写测试代码:b77b76b1cc744eb25e1afe37b2e6854d&#34;&gt;编写测试代码&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class EspressoMockTest {
+
+    @Rule
+    public ActivityTestRule&amp;lt;CalculatorActivity&amp;gt; activityTestRule
+            = new ActivityTestRule&amp;lt;&amp;gt;(CalculatorActivity.class);
+
+    @Test
+    public void testAdd() {
+        onView(ViewMatchers.withId(R.id.number1)).perform(typeText(&amp;quot;2&amp;quot;));
+        onView(ViewMatchers.withId(R.id.number2)).perform(typeText(&amp;quot;20&amp;quot;));
+
+        onView(ViewMatchers.withId(R.id.calc)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.result)).check(matches(ViewMatchers.withText(&amp;quot;22&amp;quot;)));
+        
+        Bean bean = Mockito.mock(Bean.class);
+        Mockito.when(bean.getCount()).thenReturn(100);
+        Assertions.assertThat(bean.getCount()).isEqualTo(100);
+    }
+  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;运行测试:b77b76b1cc744eb25e1afe37b2e6854d&#34;&gt;运行测试&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew connectedAndroidTest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;查看测试报告:b77b76b1cc744eb25e1afe37b2e6854d&#34;&gt;查看测试报告&lt;/h2&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/outputs/reports/androidTests/connected/index.html&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android测试环境选型</title>
+      <link>http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/</link>
+      <pubDate>Fri, 25 Sep 2015 11:56:51 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/android%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E9%80%89%E5%9E%8B/</guid>
+      <description>
+
+&lt;h2 id=&#34;android-测试工具:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Android 测试工具&lt;/h2&gt;
+
+&lt;h3 id=&#34;分类:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;分类&lt;/h3&gt;
+
+&lt;p&gt;Android测试按测试范围通常可以分为两种：Logic Test和 UI Test，前者用于测试各种逻辑是否正常执行，很多情况下无需调用Android的api，后者用于测试UI控件的动作响应是否如预期。&lt;/p&gt;
+
+&lt;p&gt;按照测试手段也可以分为两种：Local Test 和 Instrument Test，前者指的是使用JVM直接进行本地测试，通常来说效率要高出不少，后者又称为Connected Test，需要连接模拟器或者才能进行测试。Local Test 的测试代码通常放在 &lt;code&gt;src/test&lt;/code&gt; 目录，且依赖使用 &lt;code&gt;testCompile&lt;/code&gt;声明，Instrument Test 的测试代码通常放在 &lt;code&gt;src/androidTes&lt;/code&gt;目录，且依赖使用 &lt;code&gt;androidTestCompile&lt;/code&gt; 声明。&lt;/p&gt;
+
+&lt;h3 id=&#34;logic-test:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Logic Test&lt;/h3&gt;
+
+&lt;h4 id=&#34;android-testing-framework:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Android Testing Framework&lt;/h4&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;p&gt;修改&lt;code&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;defaultConfig {
+    testInstrumentationRunner &amp;quot;android.support.test.runner.AndroidJUnitRunner&amp;quot;
+}
+
+dependencies {
+    androidTestCompile &#39;com.android.support.test:runner:0.3&#39;
+    androidTestCompile &#39;com.android.support.test:rules:0.3&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+@RunWith(AndroidJUnit4.class)
+public class JUnit4Test {
+
+    private Context mContext;
+
+    @Before
+    public void setUp() throws Exception {
+        mContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    }
+
+    @Test
+    public void add() {
+        assertThat(Calc.add(3, 5), is(8));
+    }
+
+    @Test
+    public void context() {
+        assertThat(mContext.getString(R.string.app_name), is(&amp;quot;example-android-lib&amp;quot;));
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew connectedAndroidTest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/outputs/reports/androidTests/connected/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;robolectric:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Robolectric&lt;/h4&gt;
+
+&lt;p&gt;Robolectric 运行于 JVM 上，所以效率比起需要连接到模拟器的测试方式要快不少。&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;p&gt;编辑 &lt;code&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;dependencies {
+    testCompile &amp;quot;org.robolectric:robolectric:3.0&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 21, manifest = &amp;quot;./src/main/AndroidManifest.xml&amp;quot;,
+        constants = BuildConfig.class)
+public class RobolectricTest {
+
+    @Before
+    public void setup() {
+    }
+
+    @After
+    public void teardown() {
+    }
+
+    @Test
+    public void sample() {
+        Context context = RuntimeEnvironment.application.getApplicationContext();
+        assertThat(
+                context.getString(R.string.app_name), is(&amp;quot;example-android-lib&amp;quot;));
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew clean test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/outputs/reports/tests/debug/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ui-test:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;UI Test&lt;/h3&gt;
+
+&lt;h4 id=&#34;activityinstrumentationtestcase2-android-instrumentation:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;ActivityInstrumentationTestCase2（Android Instrumentation）&lt;/h4&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;p&gt;修改&lt;code&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;defaultConfig {
+    testInstrumentationRunner &amp;quot;android.test.InstrumentationTestRunner&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class ActivityInstrumentationTestCaseTest extends ActivityInstrumentationTestCase2&amp;lt;CalculatorActivity&amp;gt; {
+
+    public ActivityInstrumentationTestCaseTest() {
+        super(CalculatorActivity.class);
+    }
+
+    public void testAdd() {
+         EditText num1EditText = (EditText) getActivity().findViewById(R.id.number1);
+        TouchUtils.clickView(this, num1EditText);
+        sendKeys(KeyEvent.KEYCODE_1);
+
+        EditText num2EditText = (EditText) getActivity().findViewById(R.id.number2);
+        TouchUtils.clickView(this, num2EditText);
+        sendKeys(KeyEvent.KEYCODE_1);
+        sendKeys(KeyEvent.KEYCODE_0);
+
+        //  Monitor ResultActivity
+        Instrumentation.ActivityMonitor monitor
+                = new Instrumentation.ActivityMonitor(ResultActivity.class.getCanonicalName(), null, false);
+        getInstrumentation().addMonitor(monitor);
+
+        Button calcButton = (Button) getActivity().findViewById(R.id.calc);
+        TouchUtils.clickView(this, calcButton);
+
+        Activity resultActivity = getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
+
+        assertEquals(monitor.getHits(), 1);
+        assertNotNull(resultActivity);
+
+        TextView resultTextView = (TextView) resultActivity.findViewById(R.id.result);
+        assertEquals(resultTextView.getText().toString(), &amp;quot;11&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew connectedAndroidTest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/reports/androidTests/connected/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;espresso:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Espresso&lt;/h4&gt;
+
+&lt;p&gt;基于 Android Instrumentation 实现，可以减少测试的代码量。&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;packagingOptions {
+    exclude &#39;LICENSE.txt&#39;
+}
+defaultConfig {
+    testInstrumentationRunner &amp;quot;android.support.test.runner.AndroidJUnitRunner&amp;quot;
+}
+dependencies {
+    androidTestCompile &#39;com.android.support.test:runner:0.3&#39;
+    androidTestCompile &#39;com.android.support.test:rules:0.3&#39;
+    androidTestCompile &#39;com.android.support.test.espresso:espresso-core:2.2&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class EspressoTest {
+
+    @Rule
+    public ActivityTestRule&amp;lt;CalculatorActivity&amp;gt; activityTestRule
+            = new ActivityTestRule&amp;lt;&amp;gt;(CalculatorActivity.class);
+
+    @Test
+    public void testAdd() {
+        onView(ViewMatchers.withId(R.id.number1)).perform(typeText(&amp;quot;2&amp;quot;));
+        onView(ViewMatchers.withId(R.id.number2)).perform(typeText(&amp;quot;20&amp;quot;));
+
+        onView(ViewMatchers.withId(R.id.calc)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.result)).check(matches(ViewMatchers.withText(&amp;quot;22&amp;quot;)));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew connectedAndroidTest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试结果位于 &lt;code&gt;build/reports/androidTests/connected/index.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;robotium:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Robotium&lt;/h4&gt;
+
+&lt;p&gt;基于 Android Instrumentation 开发，类似 Espresso。&lt;/p&gt;
+
+&lt;p&gt;使用方法&lt;/p&gt;
+
+&lt;p&gt;修改 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;defaultConfig {
+    testInstrumentationRunner &amp;quot;android.support.test.runner.AndroidJUnitRunner&amp;quot;
+}
+
+dependencies {
+    androidTestCompile &#39;com.jayway.android.robotium:robotium-solo:5.4.1&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class RobotiumTest extends ActivityInstrumentationTestCase2&amp;lt;CalculatorActivity&amp;gt; {
+
+    public RobotiumTest() {
+        super(CalculatorActivity.class);
+    }
+
+    @Before
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+    }
+
+    @Test
+    public void testAdd() {
+        Solo solo = new Solo(getInstrumentation(), getActivity());
+
+        solo.enterText(0, &amp;quot;3&amp;quot;);
+        solo.enterText(1, &amp;quot;30&amp;quot;);
+
+        solo.clickOnButton(&amp;quot;=&amp;quot;);
+
+        solo.assertCurrentActivity(&amp;quot;Current is ResultActivity&amp;quot;, ResultActivity.class);
+
+        assertThat(solo.searchText(&amp;quot;33&amp;quot;), is(true));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew connectedAndroidTest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;测试结果位于 `build/reports/androidTests/connected/index.html&lt;/p&gt;
+
+&lt;h4 id=&#34;uiautomator:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;UIAutomator&lt;/h4&gt;
+
+&lt;p&gt;需要Android 4.3以上机器才支持，所以暂时不做考虑&lt;/p&gt;
+
+&lt;h4 id=&#34;appium:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Appium&lt;/h4&gt;
+
+&lt;p&gt;支持 Java， Javascript 等多种编程语言编写测试用例，可以运行在 Android 和 IOS 上，底层实际是调用了对应平台的测试框架。本身搭建测试环境等相比较传统测试方法略微复杂。相比较而言更适合专门的测试人员测试多种平台的功能统一性，不是太适合只进行某一平台开发的开发人员。&lt;/p&gt;
+
+&lt;h3 id=&#34;总结:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;总结&lt;/h3&gt;
+
+&lt;h4 id=&#34;测试工具:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;测试工具&lt;/h4&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;工具&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;用途&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;测试方法&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Android Testing&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;logic&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;connect&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Robolectric&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;logic&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;local&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Instrumentation&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;ui&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;connect&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Espresso&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;ui&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;connect&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Robotium&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;ui&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;connect&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;Appium&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;ui&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;connect&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;断言工具:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;断言工具&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Hamcrest
+
+&lt;ul&gt;
+&lt;li&gt;junit 依赖的断言工具，语法类似 &lt;code&gt;assertThat(actual, is(expected))&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;AssertJ&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Java平台非常流行的断言工具，square还特别开发了android版本，语法类似 &lt;code&gt;assertThat(actual).isEqualTo(expected)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;mock-工具:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Mock 工具&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Mockito&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;老牌mock工具&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;PowerMock&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;对Mockito的工具进行了扩展，但是与Dexmaker相性并不好&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;ci-服务:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;CI 服务&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Travis CI&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Github上最有名的CI服务&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Wercker&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;支持 Bitbucket&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;选型:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;选型&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Logic Test&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;使用 Robolectric + AssertJ + PowerMock + Travis CI/Wercker&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UI Test&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;使用 Espresso + AssertJ + Mockito + Travis CI/Wercker&lt;/p&gt;
+
+&lt;h2 id=&#34;坑:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;坑&lt;/h2&gt;
+
+&lt;h3 id=&#34;发生异常-bad-class-file-magic-cafebabe-or-version-0034-0000:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;发生异常 bad class file magic (cafebabe) or version (0034.0000)&lt;/h3&gt;
+
+&lt;p&gt;UNEXPECTED TOP-LEVEL EXCEPTION:com.android.dx.cf.iface.ParseException: bad class file magic (cafebabe) or version (0034.0000)&lt;/p&gt;
+
+&lt;p&gt;原因：使用了 Java 1.8 进行编译&lt;/p&gt;
+
+&lt;p&gt;修复：&lt;/p&gt;
+
+&lt;p&gt;Android 项目&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;引用的 Java 项目&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;sourceCompatibility = &#39;1.7&#39;
+targetCompatibility = &#39;1.7&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;robolectric-报找不到-androidmanifest-xml-文件:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;Robolectric 报找不到 AndroidManifest.xml 文件&lt;/h3&gt;
+
+&lt;p&gt;报 &amp;ldquo;WARNING: No manifest file found at ./AndroidManifest.xml.Falling back to the Android OS resources only.&lt;/p&gt;
+
+&lt;p&gt;To remove this warning, annotate your test class with @Config(manifest=Config.NONE).&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;修复：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;manifest = &amp;quot;./src/main/AndroidManifest.xml&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;参考资料:d5e65750c7dbf671794d81ffb52c8428&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://qiita.com/shikato/items/071a4c879b5c3f0b46f0#espresso&#34;&gt;Androidのテスティングフレームワークを選定してみる&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.bignerdranch.com/blog/all-in-together-android-studio-gradle-and-robolectric/&#34;&gt;All in Together: Android Studio, Gradle and Robolectric&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

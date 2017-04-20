@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 07.String"/>
+<meta property="og:site_name" content="JGSK - 07.String"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-07-string/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-16"/>
+<meta property="article:modified_time" content="2015-09-16"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 07.String">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 07.String </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-07-string/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2007.String-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f&title=JGSK%20-%2007.String&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-07-string%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 07.String</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:bf4a5cf0c46846581812733f4eefaaae">Java 篇</a>
+<ul>
+<li><a href="#声明字面量:bf4a5cf0c46846581812733f4eefaaae">声明字面量</a></li>
+<li><a href="#遍历字符:bf4a5cf0c46846581812733f4eefaaae">遍历字符</a></li>
+<li><a href="#多行文本:bf4a5cf0c46846581812733f4eefaaae">多行文本</a></li>
+<li><a href="#模板-template:bf4a5cf0c46846581812733f4eefaaae">模板 Template</a></li>
+<li><a href="#常用方法:bf4a5cf0c46846581812733f4eefaaae">常用方法</a></li>
+<li><a href="#stringbuilder:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</a></li>
+</ul></li>
+<li><a href="#groovy-篇:bf4a5cf0c46846581812733f4eefaaae">Groovy 篇</a>
+<ul>
+<li><a href="#声明字面量-1:bf4a5cf0c46846581812733f4eefaaae">声明字面量</a></li>
+<li><a href="#遍历字符-1:bf4a5cf0c46846581812733f4eefaaae">遍历字符</a></li>
+<li><a href="#多行文本-1:bf4a5cf0c46846581812733f4eefaaae">多行文本</a></li>
+<li><a href="#模板-template-1:bf4a5cf0c46846581812733f4eefaaae">模板 Template</a></li>
+<li><a href="#gstring:bf4a5cf0c46846581812733f4eefaaae">GString</a></li>
+<li><a href="#常用方法-1:bf4a5cf0c46846581812733f4eefaaae">常用方法</a></li>
+<li><a href="#stringbuilder-1:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</a></li>
+</ul></li>
+<li><a href="#scala-篇:bf4a5cf0c46846581812733f4eefaaae">Scala 篇</a>
+<ul>
+<li><a href="#声明字面量-2:bf4a5cf0c46846581812733f4eefaaae">声明字面量</a></li>
+<li><a href="#遍历字符-2:bf4a5cf0c46846581812733f4eefaaae">遍历字符</a></li>
+<li><a href="#多行文本-2:bf4a5cf0c46846581812733f4eefaaae">多行文本</a></li>
+<li><a href="#模板-template-2:bf4a5cf0c46846581812733f4eefaaae">模板 Template</a></li>
+<li><a href="#常用方法-2:bf4a5cf0c46846581812733f4eefaaae">常用方法</a></li>
+<li><a href="#stringbuilder-2:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:bf4a5cf0c46846581812733f4eefaaae">Kotlin 篇</a>
+<ul>
+<li><a href="#声明字面量-3:bf4a5cf0c46846581812733f4eefaaae">声明字面量</a></li>
+<li><a href="#遍历字符-3:bf4a5cf0c46846581812733f4eefaaae">遍历字符</a></li>
+<li><a href="#多行文本-3:bf4a5cf0c46846581812733f4eefaaae">多行文本</a></li>
+<li><a href="#模板-template-3:bf4a5cf0c46846581812733f4eefaaae">模板 Template</a></li>
+<li><a href="#stringbuilder-3:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</a></li>
+<li><a href="#常用方法-3:bf4a5cf0c46846581812733f4eefaaae">常用方法</a></li>
+</ul></li>
+<li><a href="#总结:bf4a5cf0c46846581812733f4eefaaae">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java-篇:bf4a5cf0c46846581812733f4eefaaae">Java 篇</h2>
+
+<h3 id="声明字面量:bf4a5cf0c46846581812733f4eefaaae">声明字面量</h3>
+
+<pre><code class="language-java">String s = &quot;Hello World&quot;;
+</code></pre>
+
+<h3 id="遍历字符:bf4a5cf0c46846581812733f4eefaaae">遍历字符</h3>
+
+<pre><code class="language-java">for (char c : s.toCharArray()) {
+    System.out.println(c);
+}
+</code></pre>
+
+<h3 id="多行文本:bf4a5cf0c46846581812733f4eefaaae">多行文本</h3>
+
+<pre><code class="language-java">String text =
+        &quot;\t1, 2, 3\n&quot; +
+                &quot;\tone, two, three\n&quot; +
+                &quot;\t\&quot;x\&quot;, \&quot;y\&quot;, \&quot;z\&quot;&quot;;
+</code></pre>
+
+<p>在 Java 中表示多行文本和特殊字符时需要使用对应的转义符，看起来很不直观，尤其是碰到表示 XML 或者 JSON 的字符串更是让人头痛。</p>
+
+<h3 id="模板-template:bf4a5cf0c46846581812733f4eefaaae">模板 Template</h3>
+
+<p>所谓的字符串模板就是使用变量或表达式的结果来代替字符串中通过特殊符号包裹的子串。</p>
+
+<p>Java 并没有字符串模板，要想实现模板功能只有自己解析字符串，使用 <code>replace()</code> 等方法来进行模拟。</p>
+
+<pre><code class="language-java">String name = &quot;Peter&quot;;
+String str = &quot;name=$name, ${name.length()}&quot;;
+System.out.println(
+        str.replace(&quot;$name&quot;, name)
+                .replace(&quot;${name.length}&quot;, &quot;&quot; + name.length()))；
+</code></pre>
+
+<p>以上的例子中使用了变量 <code>name</code> 的值来代替字符串中的 <code>$name</code> 子串。</p>
+
+<h3 id="常用方法:bf4a5cf0c46846581812733f4eefaaae">常用方法</h3>
+
+<pre><code class="language-java">//  获取某一位置的字符
+System.out.println(s.charAt(2));    //  l
+
+//  截取子串
+System.out.println(s.substring(6, 9));  //  Wor
+</code></pre>
+
+<h3 id="stringbuilder:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</h3>
+
+<p>由于 Java 中字符串是不可变的，所以直接连接字符串会创建大量对象。因此 Java 提供了非同步版本的 <code>StringBuilder</code> 和同步的 <code>StringBuffer</code> 来用于创建字符串池。</p>
+
+<pre><code class="language-java">StringBuilder content = new StringBuilder();
+content.append(&quot;hello&quot;);
+content.append(&quot;,&quot;);
+content.append(&quot;\nworld&quot;);
+content.append(&quot;!&quot;).append(&quot;!&quot;);
+System.out.println(content);
+</code></pre>
+
+<p>需要注意不要使用 <code>append(&quot;foo&quot; + &quot;bar&quot;)</code> 这样的形式而是使用 <code>append(&quot;foo&quot;).append(&quot;bar&quot;)</code>，前者完全丧失了 <code>StringBuffer</code> 的功能。</p>
+
+<h2 id="groovy-篇:bf4a5cf0c46846581812733f4eefaaae">Groovy 篇</h2>
+
+<h3 id="声明字面量-1:bf4a5cf0c46846581812733f4eefaaae">声明字面量</h3>
+
+<pre><code class="language-groovy">def s = &quot;Hello World&quot;
+</code></pre>
+
+<h3 id="遍历字符-1:bf4a5cf0c46846581812733f4eefaaae">遍历字符</h3>
+
+<pre><code class="language-groovy">for (c in s) {
+    println(c)
+}
+</code></pre>
+
+<h3 id="多行文本-1:bf4a5cf0c46846581812733f4eefaaae">多行文本</h3>
+
+<pre><code class="language-groovy">def text =
+&quot;&quot;&quot;    1, 2, 3
+one, two, three
+&quot;x, &quot;y&quot;, &quot;z\&quot;&quot;&quot;&quot;
+</code></pre>
+
+<p>Groovy 中可以使用三个双引号表示原样输出，即在三个双引号之间可以任意换行，使用特殊字符等，这种设计使 Groovy 中表示 XML 和 JSON 文本时更加简单清晰。</p>
+
+<p>但是需要注意的是如果要输出的字符串结尾也是双引号，则必须像以上例子一样在最后一个双引号前加上转义符 &ldquo;\&ldquo;，否则编译器会将此双引号和三个双引号看做是两组双引号而报编译错误。</p>
+
+<h3 id="模板-template-1:bf4a5cf0c46846581812733f4eefaaae">模板 Template</h3>
+
+<pre><code class="language-groovy">def name = &quot;Peter&quot;
+def str = &quot;name=${name}, ${if (name.length() &gt; 10) 10 else name.length()}&quot;
+println(str)    //  name=Peter, 5
+</code></pre>
+
+<p>Groovy 中可以使用 <code>${}</code> 来实现字符串模板，大括号之间的字符会被解析为代码并执行，执行的结果会被当做字符串来输出，看起来就像是使用 Javascript 的 <code>eval</code> 函数一样，比起 Java 来说方便许多，再也不用使用一堆加号连接字符串和变量了。</p>
+
+<h3 id="gstring:bf4a5cf0c46846581812733f4eefaaae">GString</h3>
+
+<p>实际 Groovy 就像 Javascript 一样，可以使用单引号或双引号来表示字符串，大部分情况下这两者都是一样的用法。但是使用上述模板时必须使用双引号，因为使用引用符号 <code>${}</code> 的双引号字符串会被解析为 Groovy 内置的字符串类 GString。该类是 String 类的补充，拥有很多 Groovy 语言的方法。而单引号字符串或不包含引用符号的字符串都会被解析为普通的 Java String 类，也就没有模板等功能了。</p>
+
+<h3 id="常用方法-1:bf4a5cf0c46846581812733f4eefaaae">常用方法</h3>
+
+<pre><code class="language-groovy">//  获取某一位置的字符
+println(s[2])   //  l
+
+//  截取字符串，&quot;&lt;&quot; 表示不包含
+println(s[6..9])    //  Worl
+println(s[6..&lt;9])   //  Wor
+
+//  返回从字符串中减去某一部分的新字符串
+println(s - &quot;l&quot; - &quot;World&quot;)  //  Helo
+</code></pre>
+
+<h3 id="stringbuilder-1:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</h3>
+
+<p>Groovy 可以使用 <code>&lt;&lt;</code> 进行追加。</p>
+
+<pre><code class="language-groovy">def content = new StringBuilder()
+content.append &quot;hello&quot;
+content &lt;&lt; &quot;,&quot;
+content &lt;&lt; &quot;\nworld&quot;
+content &lt;&lt; &quot;!&quot; &lt;&lt; &quot;!&quot;
+</code></pre>
+
+<h2 id="scala-篇:bf4a5cf0c46846581812733f4eefaaae">Scala 篇</h2>
+
+<h3 id="声明字面量-2:bf4a5cf0c46846581812733f4eefaaae">声明字面量</h3>
+
+<pre><code class="language-scala">val s = &quot;Hello World&quot;
+</code></pre>
+
+<h3 id="遍历字符-2:bf4a5cf0c46846581812733f4eefaaae">遍历字符</h3>
+
+<pre><code class="language-scala">for (c &lt;- s) {
+  println(c)
+}
+</code></pre>
+
+<h3 id="多行文本-2:bf4a5cf0c46846581812733f4eefaaae">多行文本</h3>
+
+<pre><code class="language-scala">val text =
+  &quot;&quot;&quot;    1, 2, 3
+  one, two, three
+  &quot;x, &quot;y&quot;, &quot;z&quot;&quot;&quot;&quot;
+</code></pre>
+
+<p>Scala 的多行文本使用方式基本与 Groovy 一致。</p>
+
+<h3 id="模板-template-2:bf4a5cf0c46846581812733f4eefaaae">模板 Template</h3>
+
+<p>Scala 的字符串模板主要依赖于两种插值器（Interpolator）：s 插值器和 f 插值器</p>
+
+<p><em>s 插值器</em></p>
+
+<p>s 插值器主要用于进行简单的字符串替换，声明时直接使用字符 &ldquo;s&rdquo; 连接字符串且当中不要有空格。</p>
+
+<pre><code class="language-scala">val name = &quot;Peter&quot;
+val str = s&quot;name=$name, ${if (name.length() &gt; 10) 10 else name.length}&quot;
+println(str)  //  name=Peter, 5
+</code></pre>
+
+<p><em>f 插值器</em></p>
+
+<p>f 插值器主要用于进行格式化输出，类似 <code>String.format()</code> 的功能。</p>
+
+<pre><code class="language-scala">val salary = 100.1
+println(f&quot;$name%s has $salary%.5f&quot;) //  Peter has 100.10000
+</code></pre>
+
+<h3 id="常用方法-2:bf4a5cf0c46846581812733f4eefaaae">常用方法</h3>
+
+<pre><code class="language-scala">//  获取某一位置的字符
+println(s.charAt(2))  //  l
+
+//  截取字符串
+println(s.substring(6,9)) //  Wor
+</code></pre>
+
+<h3 id="stringbuilder-2:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</h3>
+
+<p>Scala 中除了 <code>append()</code> 方法也可以用重载的操作符进行修改。</p>
+
+<pre><code class="language-scala">val content = new StringBuilder
+ content append &quot;hello&quot;
+ content += ','
+ content ++= &quot;\nworld&quot;
+ content ++= &quot;!&quot; ++= &quot;!&quot;
+</code></pre>
+
+<p><code>+=</code> 用于添加字符，由于 Scala 中将字符串视为字符的集合所以可以用 <code>++=</code> 添加字符串。</p>
+
+<h2 id="kotlin-篇:bf4a5cf0c46846581812733f4eefaaae">Kotlin 篇</h2>
+
+<h3 id="声明字面量-3:bf4a5cf0c46846581812733f4eefaaae">声明字面量</h3>
+
+<pre><code class="language-kotlin">val s = &quot;Hello World&quot;
+</code></pre>
+
+<h3 id="遍历字符-3:bf4a5cf0c46846581812733f4eefaaae">遍历字符</h3>
+
+<pre><code class="language-kotlin">for (c in s) {
+    println(c)
+}
+</code></pre>
+
+<h3 id="多行文本-3:bf4a5cf0c46846581812733f4eefaaae">多行文本</h3>
+
+<pre><code class="language-kotlin">val text =
+&quot;&quot;&quot;     1, 2, 3
+    one, two, three
+    &quot;x, &quot;y&quot;, &quot;z&quot;&quot;&quot;&quot;
+</code></pre>
+
+<p>在使用多行文本时可以设置前缀边距符号以便进行更便捷的排版方式</p>
+
+<pre><code class="language-kotlin">val textWithMargin =
+            &quot;&quot;&quot;
+            |Tell me and I forget.
+    |Teach me and I remember.
+|Involve me and I learn.
+    |(Benjamin Franklin)
+            &quot;&quot;&quot;.trimMargin()
+</code></pre>
+
+<p>默认边距符号为 <code>|</code>，在文本中使用其对齐文本后再使用 <code>trimMargin()</code> 方法去除符号。</p>
+
+<h3 id="模板-template-3:bf4a5cf0c46846581812733f4eefaaae">模板 Template</h3>
+
+<pre><code class="language-kotlin">val name = &quot;Peter&quot;
+val str = &quot;name=${name}, ${if (name.length &gt; 10) 10 else name.length}&quot;
+println(str)    //  name=Peter, 5
+</code></pre>
+
+<p>如果希望在字符串模板中使用 <code>$</code> 符号需要使用 <code>${'$'}</code> 这样的形式才可以正常显示</p>
+
+<pre><code class="language-kotlin">&quot;name=${'$'}{name}&quot;
+</code></pre>
+
+<h3 id="stringbuilder-3:bf4a5cf0c46846581812733f4eefaaae">StringBuilder</h3>
+
+<p>Kotlin 中可以直接使用 Lambda 表达式来生成可变字符串。</p>
+
+<pre><code class="language-kotlin">val content = buildString {
+    append(&quot;hello&quot;)
+    appendln(',') // 添加换行
+    append(&quot;world&quot;)
+    append(&quot;!&quot;, &quot;!&quot;) // 添加多参数
+}
+</code></pre>
+
+<h3 id="常用方法-3:bf4a5cf0c46846581812733f4eefaaae">常用方法</h3>
+
+<pre><code class="language-kotlin">//  获取某一位置的字符
+println(s[2])
+
+//  截取字符串
+println(s.substring(5, 8))
+</code></pre>
+
+<h2 id="总结:bf4a5cf0c46846581812733f4eefaaae">总结</h2>
+
+<ul>
+<li>除了 Java 之外，其它三种语言都支持多行文本</li>
+<li>除了 Java 之外，其它三种语言都支持字符串模板，其中 Scala 的语法略微不一样</li>
+<li>Groovy 支持 String 和 GString 两种字符串</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_07_string</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-16 </h4>
+          <h5 id="wc"> 500 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-08-gramma/"><i class="icon-arrow-left"></i> JGSK - 08.基本语法</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-06-variable/">JGSK - 06.变量与常量 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="496">
+<meta itemprop="datePublished" content="2015-09-16">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-07-string/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-07-string\/';
+    var disqus_title = 'JGSK - 07.String';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-07-string\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

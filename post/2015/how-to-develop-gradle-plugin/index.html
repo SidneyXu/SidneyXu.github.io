@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="groovy, gradle, plugin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="如何开发 Gradle 插件"/>
+<meta property="og:site_name" content="如何开发 Gradle 插件"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-30"/>
+<meta property="article:modified_time" content="2015-09-30"/>
+
+
+
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="gradle">
+<meta property="article:tag" content="plugin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="如何开发 Gradle 插件">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> 如何开发 Gradle 插件 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=%e5%a6%82%e4%bd%95%e5%bc%80%e5%8f%91%20Gradle%20%e6%8f%92%e4%bb%b6-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f&title=%e5%a6%82%e4%bd%95%e5%bc%80%e5%8f%91%20Gradle%20%e6%8f%92%e4%bb%b6&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fhow-to-develop-gradle-plugin%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">如何开发 Gradle 插件</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#概述:faf20ad1f82b4d891536522b8dae51c9">概述</a></li>
+<li><a href="#开发步骤:faf20ad1f82b4d891536522b8dae51c9">开发步骤</a>
+<ul>
+<li><a href="#建立工程:faf20ad1f82b4d891536522b8dae51c9">建立工程</a></li>
+<li><a href="#修改子工程的-build-gradle-文件:faf20ad1f82b4d891536522b8dae51c9">修改子工程的 <code>build.gradle</code> 文件</a></li>
+<li><a href="#编写-plugin-代码:faf20ad1f82b4d891536522b8dae51c9">编写 Plugin 代码</a></li>
+<li><a href="#运行代码:faf20ad1f82b4d891536522b8dae51c9">运行代码</a></li>
+<li><a href="#发布插件:faf20ad1f82b4d891536522b8dae51c9">发布插件</a>
+<ul>
+<li><a href="#编写-groovy-文件:faf20ad1f82b4d891536522b8dae51c9">编写 Groovy 文件</a></li>
+<li><a href="#指定-short-plugin-id:faf20ad1f82b4d891536522b8dae51c9">指定 Short Plugin Id</a></li>
+<li><a href="#发布插件到本地:faf20ad1f82b4d891536522b8dae51c9">发布插件到本地</a></li>
+</ul></li>
+<li><a href="#使用插件:faf20ad1f82b4d891536522b8dae51c9">使用插件</a></li>
+</ul></li>
+<li><a href="#log-系统:faf20ad1f82b4d891536522b8dae51c9">Log 系统</a></li>
+<li><a href="#debug-插件:faf20ad1f82b4d891536522b8dae51c9">Debug 插件</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="概述:faf20ad1f82b4d891536522b8dae51c9">概述</h2>
+
+<p>基于 Gradle 进行构建的程序离不开 Gradle 插件。有时现存的插件没有办法满足我们的需求，这时就需要我们自定义 Gradle 插件。本文就是从头编写 Gradle 插件的一个简单例子。</p>
+
+<p>使用的开发环境为 IDEA，开发语言为 Groovy，尽管也可以用 Java 来开发 Gradle 插件，但是开发时配置繁琐且效率低，所以还是推荐使用 Groovy。</p>
+
+<h2 id="开发步骤:faf20ad1f82b4d891536522b8dae51c9">开发步骤</h2>
+
+<h3 id="建立工程:faf20ad1f82b4d891536522b8dae51c9">建立工程</h3>
+
+<p>使用 IDEA 建立一个基于 Gradle 构建的工程 <code>sample-plugin</code>，并建立子工程 <code>plugin</code>。</p>
+
+<h3 id="修改子工程的-build-gradle-文件:faf20ad1f82b4d891536522b8dae51c9">修改子工程的 <code>build.gradle</code> 文件</h3>
+
+<pre><code class="language-gradle">apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+}
+</code></pre>
+
+<h3 id="编写-plugin-代码:faf20ad1f82b4d891536522b8dae51c9">编写 Plugin 代码</h3>
+
+<p>在 plugin 工程下新建包含插件代码的 gradle 文件： <code>greeting.gradle</code></p>
+
+<pre><code class="language-gradle">apply plugin: GreetingPlugin
+
+greeting {
+    message = 'Hi'
+    greeter = 'Gradle'
+}
+
+class GreetingPlugin implements Plugin&lt;Project&gt; {
+    void apply(Project project) {
+        // Add the 'greeting' extension object
+        project.extensions.create(&quot;greeting&quot;, GreetingPluginExtension)
+
+        // Add a task that uses the configuration
+        project.task('hello') &lt;&lt; {
+            println &quot;${project.greeting.message} from ${project.greeting.greeter}&quot;
+        }
+    }
+}
+
+class GreetingPluginExtension {
+    String message
+    String greeter
+}
+</code></pre>
+
+<p>以上代码创建了一个名为 <code>GreetingPlugin</code> 的插件，该插件包含一个名为 <code>hello</code> 的 task。此 Task 负责输出工程的 <code>project</code> 对象下的 <code>greeting.message</code> 和 <code>greeting.greeter</code>。</p>
+
+<p>继续修改 <code>build.gradle</code>，导入以上编写的代码</p>
+
+<pre><code class="language-gradle">apply from: &quot;greeting.gradle&quot;
+</code></pre>
+
+<h3 id="运行代码:faf20ad1f82b4d891536522b8dae51c9">运行代码</h3>
+
+<p>在 plugin 工程下执行以下语句</p>
+
+<pre><code class="language-bash">gradle tasks
+</code></pre>
+
+<p>可以看到控制台有输出语句</p>
+
+<pre><code>Other tasks
+-----------
+hello
+</code></pre>
+
+<p>这就是刚才创建的 Gradle Task。接着执行以下语句运行该 Task：</p>
+
+<pre><code class="language-bash">gradle -q hello
+</code></pre>
+
+<p>成功的话控制台会输出 &ldquo;Hi from Gradle&rdquo;。至此一个简单的插件已经开发完毕，接下来为了在其它工程中使用我们可以将插件发布到本地路径。</p>
+
+<h3 id="发布插件:faf20ad1f82b4d891536522b8dae51c9">发布插件</h3>
+
+<h4 id="编写-groovy-文件:faf20ad1f82b4d891536522b8dae51c9">编写 Groovy 文件</h4>
+
+<p><code>greeting.gradle</code> 文件只是用于快速开发时使用，正式开发或发布时我们需要编写单独的 Groovy 文件。</p>
+
+<p>新建 <code>GreetingPlugin.groovy</code> 文件，将之前的 <code>greeting.build</code> 中的除了 <code>apply</code> 和 <code>greeting()</code> 之外的代码都拷贝到该文件。</p>
+
+<h4 id="指定-short-plugin-id:faf20ad1f82b4d891536522b8dae51c9">指定 Short Plugin Id</h4>
+
+<p>使用插件时我们需要指定插件的 id，如 <code>apply plugin: &quot;Java&quot;</code>，默认的插件 ID 为包名+类名，这个默认的命名规则太长了，使用时很不方便，我们可以指定一个 Short ID 作为别名。</p>
+
+<p>步骤如下</p>
+
+<p>在 plugin 工程的 <code>resources</code> 目录下建立 <code>META-INF/gradle-plugins</code> 文件夹，在其中建立名为 <code>&lt;shortId&gt;.properties</code> 的文件</p>
+
+<p>例</p>
+
+<p>greeting.properties</p>
+
+<pre><code>implementation-class=com.bookislife.example.GreetingPlugin
+</code></pre>
+
+<p>此文件名即为 <code>implementation-class</code> 对应的插件的Short ID。</p>
+
+<h4 id="发布插件到本地:faf20ad1f82b4d891536522b8dae51c9">发布插件到本地</h4>
+
+<p>修改 plugin 下的 <code>build.gradle</code> 文件，追加以下代码</p>
+
+<pre><code class="language-gradle">group &quot;com.test&quot;
+version &quot;1.0-SNAPSHOT&quot;
+</code></pre>
+
+<p>以上指定了插件发布的 group 和 version，而插件的 name 则默认为模块名，即 <code>plugin</code>，继续修改 <code>build.gradle</code> 追加 maven 发布插件</p>
+
+<pre><code class="language-gradle">apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}
+</code></pre>
+
+<p>运行</p>
+
+<pre><code class="language-bash">gradle -q upload
+</code></pre>
+
+<p>此时编写好的插件就会被发布到工程根目录下的 <code>repo</code> 文件夹下。</p>
+
+<h3 id="使用插件:faf20ad1f82b4d891536522b8dae51c9">使用插件</h3>
+
+<p>在父工程的根目录下建立新的基于 Gradle 的工程 &ldquo;test&rdquo;，修改该工程下的 <code>build.gradle</code> 文件</p>
+
+<pre><code class="language-gradle">buildscript {
+    repositories {
+        maven {
+            url uri('../repo')
+        }
+        mavenCentral()
+    }
+    dependencies {
+        //  group:name:version
+        classpath 'com.test:plugin:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'greeting'
+
+greeting {
+    message = 'Hello'
+    greeter = 'a test module'
+}
+</code></pre>
+
+<p>接着定位到 test 工程下，在控制台执行以下语句</p>
+
+<pre><code class="language-bash">gradle -q hello
+</code></pre>
+
+<p>成功的话可以看到控制台输出 <code>Hello from  a test module</code>。</p>
+
+<h2 id="log-系统:faf20ad1f82b4d891536522b8dae51c9">Log 系统</h2>
+
+<p>在开发 Gradle 插件时可以使用 Gradle 自身的日志系统进行输出，如 <code>project.logger.error(msg)</code>。</p>
+
+<p>Log 共有以下几个级别</p>
+
+<ul>
+<li>quiet</li>
+<li>error</li>
+<li>warn</li>
+<li>lifecycle</li>
+<li>info</li>
+<li>debug</li>
+<li>trace</li>
+</ul>
+
+<p>运行时可以通过加上级别或其缩写来只输出某个级别以上的日志，如</p>
+
+<pre><code class="language-bash">gradle -q build
+</code></pre>
+
+<p>或</p>
+
+<pre><code class="language-bash">gradle --quiet build
+</code></pre>
+
+<p>同时也可以使用内置的 <code>println()</code> 方法进行输出，Gradle 内部会将其重定向为 quiet 级别的日志。</p>
+
+<h2 id="debug-插件:faf20ad1f82b4d891536522b8dae51c9">Debug 插件</h2>
+
+<ol>
+<li>在对应的代码处打上断点</li>
+<li>执行需要 Debug 的 task<br />
+<code>bash
+gradle -Dorg.gradle.debug=true hello
+</code><br /></li>
+<li>选择 IDEA 的 <code>Run Configurations</code> -&gt; 建立 <code>Remote</code>，创建完后点击 <code>Debug</code> 按钮，程序就会在断点处中断运行了。</li>
+</ol>
+
+<p>完整的 Gradle Plugin 示例见 [hello-gradle][<a href="https://github.com/SidneyXu/templates/tree/master/hello-gradle">https://github.com/SidneyXu/templates/tree/master/hello-gradle</a>]</p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-30 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/plugin">Plugin</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/gradle">gradle</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-25-regex/"><i class="icon-arrow-left"></i> JGSK - 25.正则表达式</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-24-enum/">JGSK - 24.枚举 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="357">
+<meta itemprop="datePublished" content="2015-09-30">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/how-to-develop-gradle-plugin\/';
+    var disqus_title = '如何开发 Gradle 插件';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/how-to-develop-gradle-plugin\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

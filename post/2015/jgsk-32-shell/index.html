@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 32.Shell"/>
+<meta property="og:site_name" content="JGSK - 32.Shell"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-32-shell/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-11-24"/>
+<meta property="article:modified_time" content="2015-11-24"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 32.Shell">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 32.Shell </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-32-shell/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2032.Shell-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f&title=JGSK%20-%2032.Shell&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-32-shell%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 32.Shell</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java:29779a60c91f08acea56b272103543be">Java</a>
+<ul>
+<li><a href="#执行-shell-命令:29779a60c91f08acea56b272103543be">执行 Shell 命令</a></li>
+<li><a href="#pipe-操作:29779a60c91f08acea56b272103543be">Pipe 操作</a></li>
+<li><a href="#从控制台读取输入:29779a60c91f08acea56b272103543be">从控制台读取输入</a></li>
+</ul></li>
+<li><a href="#groovy:29779a60c91f08acea56b272103543be">Groovy</a>
+<ul>
+<li><a href="#执行-shell-命令-1:29779a60c91f08acea56b272103543be">执行 Shell 命令</a></li>
+<li><a href="#pipe-操作-1:29779a60c91f08acea56b272103543be">Pipe 操作</a></li>
+<li><a href="#从控制台读取输入-1:29779a60c91f08acea56b272103543be">从控制台读取输入</a></li>
+</ul></li>
+<li><a href="#scala:29779a60c91f08acea56b272103543be">Scala</a>
+<ul>
+<li><a href="#执行-shell-命令-2:29779a60c91f08acea56b272103543be">执行 Shell 命令</a></li>
+<li><a href="#pipe-操作-2:29779a60c91f08acea56b272103543be">Pipe 操作</a></li>
+<li><a href="#从控制台读取输入-2:29779a60c91f08acea56b272103543be">从控制台读取输入</a></li>
+</ul></li>
+<li><a href="#kotlin:29779a60c91f08acea56b272103543be">Kotlin</a>
+<ul>
+<li><a href="#执行-shell-命令-3:29779a60c91f08acea56b272103543be">执行 Shell 命令</a></li>
+<li><a href="#从控制台读取输入-3:29779a60c91f08acea56b272103543be">从控制台读取输入</a></li>
+</ul></li>
+<li><a href="#总结:29779a60c91f08acea56b272103543be">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java:29779a60c91f08acea56b272103543be">Java</h2>
+
+<h3 id="执行-shell-命令:29779a60c91f08acea56b272103543be">执行 Shell 命令</h3>
+
+<p>Java 中执行 Shell 命令主要依靠 Runtime 和 Process 两个类。</p>
+
+<pre><code class="language-java"> try {
+    Runtime runtime = Runtime.getRuntime();
+    Process process = runtime.exec(&quot;ls -al ..&quot;);
+    //	等待 Shell 执行的结果，0 为正常执行完毕
+    int exitValue = process.waitFor();
+    if (exitValue != 0) {
+        System.out.println(&quot;exit with &quot; + exitValue);
+        return;
+    }
+    //	输出 Shell 执行的结果
+    try (InputStream in = process.getInputStream();
+         InputStreamReader isr = new InputStreamReader(in);
+         BufferedReader reader = new BufferedReader(isr)) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>以上例子可以看到在 Java 中执行 Shell 命令还是比较复杂的，简单的 <code>ls</code> 也需要不少代码，不过其中大部分都是普通的 IO 流操作。</p>
+
+<h3 id="pipe-操作:29779a60c91f08acea56b272103543be">Pipe 操作</h3>
+
+<p>Pipe 操作在 Shell 命令中非常常见，可惜的是 Java 无法直接通过执行 Shell 命令来实现此功能，而必须使用执行脚本的方式才能正常执行。</p>
+
+<pre><code class="language-java">try {
+    Runtime runtime = Runtime.getRuntime();
+    String[] cmd = {&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;ls -al .. | grep JGSK&quot;};
+    Process process = runtime.exec(cmd);
+
+    int exitValue = process.waitFor();
+    if (exitValue != 0) {
+        System.out.println(&quot;exit with &quot; + exitValue);
+        return;
+    }
+
+    try (InputStream in = process.getInputStream();
+         InputStreamReader isr = new InputStreamReader(in);
+         BufferedReader reader = new BufferedReader(isr)) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+</code></pre>
+
+<p>相比较直接执行命令而言，只是 <code>runtime.exec()</code> 这个方法的参数有了变化。</p>
+
+<h3 id="从控制台读取输入:29779a60c91f08acea56b272103543be">从控制台读取输入</h3>
+
+<pre><code class="language-java">Scanner scanner = new Scanner(System.in);
+System.out.println(scanner.nextLine());
+</code></pre>
+
+<h2 id="groovy:29779a60c91f08acea56b272103543be">Groovy</h2>
+
+<h3 id="执行-shell-命令-1:29779a60c91f08acea56b272103543be">执行 Shell 命令</h3>
+
+<p>Groovy 中对 Java 的方法做了一些包装，使用起来更加简单。</p>
+
+<pre><code class="language-groovy">def p = &quot;ls -al ..&quot;.execute()
+def exitValue = p.waitFor()
+if (exitValue != 0) {
+    println(&quot;exit with $exitValue&quot;)
+    return
+}
+println &quot;${p.text}&quot;
+</code></pre>
+
+<h3 id="pipe-操作-1:29779a60c91f08acea56b272103543be">Pipe 操作</h3>
+
+<p>Groovy 也无法直接在命令中执行 Pipe 操作，但是却提供了 <code>pipe()</code> 方法用以连接两个 <code>Process</code>。</p>
+
+<pre><code class="language-groovy">def p1 = &quot;ls -al ..&quot;.execute()
+def p2 = &quot;grep JGSK&quot;.execute()
+def p3 = p1.pipeTo(p2)
+exitValue = p3.waitFor()
+if (exitValue != 0) {
+    println(&quot;exit with $exitValue&quot;)
+    return
+}
+println &quot;${p3.text}&quot;
+</code></pre>
+
+<h3 id="从控制台读取输入-1:29779a60c91f08acea56b272103543be">从控制台读取输入</h3>
+
+<pre><code class="language-groovy">def scanner = new Scanner(System.in)
+println(scanner.nextLine())
+</code></pre>
+
+<h2 id="scala:29779a60c91f08acea56b272103543be">Scala</h2>
+
+<h3 id="执行-shell-命令-2:29779a60c91f08acea56b272103543be">执行 Shell 命令</h3>
+
+<p>Scala 执行 Shell 命令只要使用 <code>!</code> 方法就可以了。</p>
+
+<pre><code class="language-scala">val exitValue = &quot;ls -al ..&quot; !
+</code></pre>
+
+<p>以上例子会进行阻塞并返回执行结果，0 表示正常执行完毕。</p>
+
+<pre><code class="language-scala">val result = &quot;ls -al ..&quot; !!
+</code></pre>
+
+<p>以上例子会进行阻塞并返回执行完毕的输出结果，如果没有正常执行完毕则抛出异常。</p>
+
+<p>通过以上两个例子可以看到 Scala 操作 Shell 简简单单一句话就可以搞定。</p>
+
+<h3 id="pipe-操作-2:29779a60c91f08acea56b272103543be">Pipe 操作</h3>
+
+<p>Scala 进行 Pipe 操作非常接近实际在 Shell 中执行的命令，只是使用 <code>#|</code> 替换了 <code>|</code>。</p>
+
+<pre><code class="language-scala">&quot;ls -al ..&quot; #| &quot;grep JGSK&quot; !
+</code></pre>
+
+<p>实际上 <code>#</code> 可以与各种操作结合用在多种地方，比如说文件的输出。</p>
+
+<pre><code class="language-scala">&quot;ls -al ..&quot; #&gt; new File(&quot;shell.txt&quot;) !
+&quot;ls -al ..&quot; #&gt;&gt; new File(&quot;shell.txt&quot;) !
+</code></pre>
+
+<h3 id="从控制台读取输入-2:29779a60c91f08acea56b272103543be">从控制台读取输入</h3>
+
+<pre><code class="language-scala">println(StdIn.readLine())
+</code></pre>
+
+<h2 id="kotlin:29779a60c91f08acea56b272103543be">Kotlin</h2>
+
+<h3 id="执行-shell-命令-3:29779a60c91f08acea56b272103543be">执行 Shell 命令</h3>
+
+<p>Kotlin 目前貌似没有自己的 Api，所以只能调用 Java 的方法。</p>
+
+<pre><code class="language-kotlin">val runtime: Runtime = Runtime.getRuntime()
+val process: Process = runtime.exec(&quot;ls -al ..&quot;)
+val exitValue = process.waitFor()
+if (exitValue != 0) {
+    println(&quot;exit with $exitValue&quot;)
+    return
+}
+
+process.inputStream.bufferedReader().lines().forEach {
+    println(it)
+}
+</code></pre>
+
+<h3 id="从控制台读取输入-3:29779a60c91f08acea56b272103543be">从控制台读取输入</h3>
+
+<pre><code class="language-kotlin">println(readLine())
+</code></pre>
+
+<h2 id="总结:29779a60c91f08acea56b272103543be">总结</h2>
+
+<ul>
+<li>各种语言都可以进行 Shell 操作，但是只有 Scala 和 Groovy 的 api 具有实际生产力。</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_32_shell</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-11-24 </h4>
+          <h5 id="wc"> 400 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  2 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-33-reflect-annotation/"><i class="icon-arrow-left"></i> JGSK - 33.Reflect 与 Annotation</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jgsk-31-test/">JGSK - 31.Test <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="383">
+<meta itemprop="datePublished" content="2015-11-24">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-32-shell/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-32-shell\/';
+    var disqus_title = 'JGSK - 32.Shell';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-32-shell\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

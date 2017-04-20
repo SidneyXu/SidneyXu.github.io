@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gradle on Pixel Space</title>
+    <link>http://git.bookislife.com/tags/gradle/</link>
+    <description>Recent content in Gradle on Pixel Space</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>Copyright (c) 2015, Sidney Xu; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 30 Sep 2015 07:07:36 +0800</lastBuildDate>
+    <atom:link href="http://git.bookislife.com/tags/gradle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>如何开发 Gradle 插件</title>
+      <link>http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/</link>
+      <pubDate>Wed, 30 Sep 2015 07:07:36 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/how-to-develop-gradle-plugin/</guid>
+      <description>
+
+&lt;h2 id=&#34;概述:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;概述&lt;/h2&gt;
+
+&lt;p&gt;基于 Gradle 进行构建的程序离不开 Gradle 插件。有时现存的插件没有办法满足我们的需求，这时就需要我们自定义 Gradle 插件。本文就是从头编写 Gradle 插件的一个简单例子。&lt;/p&gt;
+
+&lt;p&gt;使用的开发环境为 IDEA，开发语言为 Groovy，尽管也可以用 Java 来开发 Gradle 插件，但是开发时配置繁琐且效率低，所以还是推荐使用 Groovy。&lt;/p&gt;
+
+&lt;h2 id=&#34;开发步骤:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;开发步骤&lt;/h2&gt;
+
+&lt;h3 id=&#34;建立工程:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;建立工程&lt;/h3&gt;
+
+&lt;p&gt;使用 IDEA 建立一个基于 Gradle 构建的工程 &lt;code&gt;sample-plugin&lt;/code&gt;，并建立子工程 &lt;code&gt;plugin&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&#34;修改子工程的-build-gradle-文件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;修改子工程的 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: &#39;groovy&#39;
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile &#39;org.codehaus.groovy:groovy-all:2.3.11&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;编写-plugin-代码:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;编写 Plugin 代码&lt;/h3&gt;
+
+&lt;p&gt;在 plugin 工程下新建包含插件代码的 gradle 文件： &lt;code&gt;greeting.gradle&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: GreetingPlugin
+
+greeting {
+    message = &#39;Hi&#39;
+    greeter = &#39;Gradle&#39;
+}
+
+class GreetingPlugin implements Plugin&amp;lt;Project&amp;gt; {
+    void apply(Project project) {
+        // Add the &#39;greeting&#39; extension object
+        project.extensions.create(&amp;quot;greeting&amp;quot;, GreetingPluginExtension)
+
+        // Add a task that uses the configuration
+        project.task(&#39;hello&#39;) &amp;lt;&amp;lt; {
+            println &amp;quot;${project.greeting.message} from ${project.greeting.greeter}&amp;quot;
+        }
+    }
+}
+
+class GreetingPluginExtension {
+    String message
+    String greeter
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上代码创建了一个名为 &lt;code&gt;GreetingPlugin&lt;/code&gt; 的插件，该插件包含一个名为 &lt;code&gt;hello&lt;/code&gt; 的 task。此 Task 负责输出工程的 &lt;code&gt;project&lt;/code&gt; 对象下的 &lt;code&gt;greeting.message&lt;/code&gt; 和 &lt;code&gt;greeting.greeter&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;继续修改 &lt;code&gt;build.gradle&lt;/code&gt;，导入以上编写的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply from: &amp;quot;greeting.gradle&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;运行代码:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;运行代码&lt;/h3&gt;
+
+&lt;p&gt;在 plugin 工程下执行以下语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle tasks
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到控制台有输出语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Other tasks
+-----------
+hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这就是刚才创建的 Gradle Task。接着执行以下语句运行该 Task：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;成功的话控制台会输出 &amp;ldquo;Hi from Gradle&amp;rdquo;。至此一个简单的插件已经开发完毕，接下来为了在其它工程中使用我们可以将插件发布到本地路径。&lt;/p&gt;
+
+&lt;h3 id=&#34;发布插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;发布插件&lt;/h3&gt;
+
+&lt;h4 id=&#34;编写-groovy-文件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;编写 Groovy 文件&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;greeting.gradle&lt;/code&gt; 文件只是用于快速开发时使用，正式开发或发布时我们需要编写单独的 Groovy 文件。&lt;/p&gt;
+
+&lt;p&gt;新建 &lt;code&gt;GreetingPlugin.groovy&lt;/code&gt; 文件，将之前的 &lt;code&gt;greeting.build&lt;/code&gt; 中的除了 &lt;code&gt;apply&lt;/code&gt; 和 &lt;code&gt;greeting()&lt;/code&gt; 之外的代码都拷贝到该文件。&lt;/p&gt;
+
+&lt;h4 id=&#34;指定-short-plugin-id:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;指定 Short Plugin Id&lt;/h4&gt;
+
+&lt;p&gt;使用插件时我们需要指定插件的 id，如 &lt;code&gt;apply plugin: &amp;quot;Java&amp;quot;&lt;/code&gt;，默认的插件 ID 为包名+类名，这个默认的命名规则太长了，使用时很不方便，我们可以指定一个 Short ID 作为别名。&lt;/p&gt;
+
+&lt;p&gt;步骤如下&lt;/p&gt;
+
+&lt;p&gt;在 plugin 工程的 &lt;code&gt;resources&lt;/code&gt; 目录下建立 &lt;code&gt;META-INF/gradle-plugins&lt;/code&gt; 文件夹，在其中建立名为 &lt;code&gt;&amp;lt;shortId&amp;gt;.properties&lt;/code&gt; 的文件&lt;/p&gt;
+
+&lt;p&gt;例&lt;/p&gt;
+
+&lt;p&gt;greeting.properties&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;implementation-class=com.bookislife.example.GreetingPlugin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此文件名即为 &lt;code&gt;implementation-class&lt;/code&gt; 对应的插件的Short ID。&lt;/p&gt;
+
+&lt;h4 id=&#34;发布插件到本地:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;发布插件到本地&lt;/h4&gt;
+
+&lt;p&gt;修改 plugin 下的 &lt;code&gt;build.gradle&lt;/code&gt; 文件，追加以下代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;group &amp;quot;com.test&amp;quot;
+version &amp;quot;1.0-SNAPSHOT&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以上指定了插件发布的 group 和 version，而插件的 name 则默认为模块名，即 &lt;code&gt;plugin&lt;/code&gt;，继续修改 &lt;code&gt;build.gradle&lt;/code&gt; 追加 maven 发布插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: &#39;maven&#39;
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri(&#39;../repo&#39;))
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q upload
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此时编写好的插件就会被发布到工程根目录下的 &lt;code&gt;repo&lt;/code&gt; 文件夹下。&lt;/p&gt;
+
+&lt;h3 id=&#34;使用插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;使用插件&lt;/h3&gt;
+
+&lt;p&gt;在父工程的根目录下建立新的基于 Gradle 的工程 &amp;ldquo;test&amp;rdquo;，修改该工程下的 &lt;code&gt;build.gradle&lt;/code&gt; 文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;buildscript {
+    repositories {
+        maven {
+            url uri(&#39;../repo&#39;)
+        }
+        mavenCentral()
+    }
+    dependencies {
+        //  group:name:version
+        classpath &#39;com.test:plugin:1.0-SNAPSHOT&#39;
+    }
+}
+
+apply plugin: &#39;greeting&#39;
+
+greeting {
+    message = &#39;Hello&#39;
+    greeter = &#39;a test module&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着定位到 test 工程下，在控制台执行以下语句&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;成功的话可以看到控制台输出 &lt;code&gt;Hello from  a test module&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;log-系统:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;Log 系统&lt;/h2&gt;
+
+&lt;p&gt;在开发 Gradle 插件时可以使用 Gradle 自身的日志系统进行输出，如 &lt;code&gt;project.logger.error(msg)&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;Log 共有以下几个级别&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;quiet&lt;/li&gt;
+&lt;li&gt;error&lt;/li&gt;
+&lt;li&gt;warn&lt;/li&gt;
+&lt;li&gt;lifecycle&lt;/li&gt;
+&lt;li&gt;info&lt;/li&gt;
+&lt;li&gt;debug&lt;/li&gt;
+&lt;li&gt;trace&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;运行时可以通过加上级别或其缩写来只输出某个级别以上的日志，如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle -q build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gradle --quiet build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同时也可以使用内置的 &lt;code&gt;println()&lt;/code&gt; 方法进行输出，Gradle 内部会将其重定向为 quiet 级别的日志。&lt;/p&gt;
+
+&lt;h2 id=&#34;debug-插件:faf20ad1f82b4d891536522b8dae51c9&#34;&gt;Debug 插件&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在对应的代码处打上断点&lt;/li&gt;
+&lt;li&gt;执行需要 Debug 的 task&lt;br /&gt;
+&lt;code&gt;bash
+gradle -Dorg.gradle.debug=true hello
+&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;选择 IDEA 的 &lt;code&gt;Run Configurations&lt;/code&gt; -&amp;gt; 建立 &lt;code&gt;Remote&lt;/code&gt;，创建完后点击 &lt;code&gt;Debug&lt;/code&gt; 按钮，程序就会在断点处中断运行了。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;完整的 Gradle Plugin 示例见 [hello-gradle][&lt;a href=&#34;https://github.com/SidneyXu/templates/tree/master/hello-gradle&#34;&gt;https://github.com/SidneyXu/templates/tree/master/hello-gradle&lt;/a&gt;]&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>如何上传 Library 到 Maven 仓库</title>
+      <link>http://git.bookislife.com/post/2015/how-to-upload-library-to-maven-central/</link>
+      <pubDate>Thu, 17 Sep 2015 15:54:44 +0800</pubDate>
+      
+      <guid>http://git.bookislife.com/post/2015/how-to-upload-library-to-maven-central/</guid>
+      <description>
+
+&lt;h2 id=&#34;注册账号:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;注册账号&lt;/h2&gt;
+
+&lt;p&gt;登录 &lt;a href=&#34;https://issues.sonatype.org/secure/Dashboard.jspa&#34;&gt;issues.sonatype.org&lt;/a&gt; 注册账号&lt;/p&gt;
+
+&lt;p&gt;创建一个 Issue，申请发布权限&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/create_issue.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/create_issue2.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;创建完 issue 后，等候 1-2 天就会接收到 sonatype 发来的邮件表示审核通过&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/mail.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;编写-gradle-发布脚本:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;编写 Gradle 发布脚本&lt;/h2&gt;
+
+&lt;p&gt;在项目根目录创建 &lt;code&gt;mvn_publish.gradle&lt;/code&gt; 文件，内容如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;apply plugin: &#39;maven&#39;
+apply plugin: &#39;signing&#39;
+
+def isReleaseBuild = !VERSION_NAME.endsWith(&#39;-SNAPSHOT&#39;)
+
+def getReleaseRepositoryUrl() {
+    return hasProperty(&#39;RELEASE_REPOSITORY_URL&#39;) ? RELEASE_REPOSITORY_URL
+            : &amp;quot;https://oss.sonatype.org/service/local/staging/deploy/maven2/&amp;quot;
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty(&#39;SNAPSHOT_REPOSITORY_URL&#39;) ? SNAPSHOT_REPOSITORY_URL
+            : &amp;quot;https://oss.sonatype.org/content/repositories/snapshots/&amp;quot;
+}
+
+def getRepositoryUsername() {
+    return hasProperty(&#39;NEXUS_USERNAME&#39;) ? NEXUS_USERNAME : &amp;quot;&amp;quot;
+}
+
+def getRepositoryPassword() {
+    return hasProperty(&#39;NEXUS_PASSWORD&#39;) ? NEXUS_PASSWORD : &amp;quot;&amp;quot;
+}
+
+afterEvaluate { project -&amp;gt;
+    uploadArchives {
+
+        repositories {
+//            flatDir {
+//                dirs &amp;quot;file://${localReleaseDest}&amp;quot;
+//            }
+
+            mavenDeployer {
+                beforeDeployment {
+                    MavenDeployment deployment -&amp;gt; signing.signPom(deployment)
+                }
+
+//            repository(url: &amp;quot;file://${localReleaseDest}&amp;quot;)
+
+                repository(url: getReleaseRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+                snapshotRepository(url: getSnapshotRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+
+                pom.groupId = POM_GROUP_ID
+                pom.artifactId = POM_ARTIFACT_ID
+                pom.version = VERSION_NAME
+
+                pom.project {
+                    name POM_NAME
+                    packaging POM_PACKAGING
+                    description POM_DESCRIPTION
+                    url POM_URL
+                    inceptionYear POM_INCEPTION_YEAR
+
+                    scm {
+                        url POM_SCM_URL
+                        connection POM_SCM_CONNECTION
+                        developerConnection POM_SCM_DEV_CONNECTION
+                    }
+
+                    licenses {
+                        license {
+                            name POM_LICENCE_NAME
+                            url POM_LICENCE_URL
+                            distribution POM_LICENCE_DIST
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id POM_DEVELOPER_ID
+                            name POM_DEVELOPER_NAME
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseBuild &amp;amp;&amp;amp; gradle.taskGraph.hasTask(&amp;quot;uploadArchives&amp;quot;) }
+        sign configurations.archives
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接着在工程根目录创建 &lt;code&gt;gradle.properties&lt;/code&gt;，填写如下内容，各属性需要修改成自己的，其中 VERSION_NAME 以 “-SNAPSHOT” 结尾的话就会被发布到 “SNAPSHOT” 仓库，否则的话会发布到 “RELEASE” 仓库。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POM_GROUP_ID=yourGroupId
+VERSION_NAME=0.0.1-SNAPSHOT
+VERSION_CODE=1
+
+POM_DEVELOPER_ID=sidneyxu
+POM_DEVELOPER_NAME=Sidney Xu
+POM_INCEPTION_YEAR=2015
+
+POM_LICENCE_NAME=The Apache Software License, Version 2.0
+POM_LICENCE_URL=http://www.apache.org/licenses/LICENSE-2.0.txt
+POM_LICENCE_DIST=repo
+
+SNAPSHOT_REPOSITORY_URL=https://oss.sonatype.org/content/repositories/snapshots
+RELEASE_REPOSITORY_URL=https://oss.sonatype.org/service/local/staging/deploy/maven2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;编写模块的发布脚本:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;编写模块的发布脚本&lt;/h2&gt;
+
+&lt;p&gt;接着在需要发布的模块下创建 &lt;code&gt;gradle.properties&lt;/code&gt; 文件，填入以下内容，各属性需要修改成自己的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POM_NAME=SauceCoreLibrary
+POM_ARTIFACT_ID=sauce-core
+POM_PACKAGING=jar   # or aar
+
+POM_DESCRIPTION=SauceCoreLibrary is a core lib of sauce. Other libraries must base on it.
+POM_URL=https://github.com/SidneyXu/sauce
+POM_SCM_URL=https://github.com/SidneyXu/sauce
+POM_SCM_CONNECTION=scm:git@github.com:SidneyXu/sauce.git
+POM_SCM_DEV_CONNECTION=scm:git@github.com:SidneyXu/sauce.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果需要发布的为 Java Library，则修改该模块下的 &lt;code&gt;build.gradle&lt;/code&gt; 文件，添加如下代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;// 发布到本地目录，非必须
+ext.localReleaseDest = &amp;quot;${buildDir}/release/${VERSION_NAME}&amp;quot;
+
+task javadocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+    options.encoding = &amp;quot;UTF-8&amp;quot;
+}
+
+task javadocsJar(type: Jar, dependsOn: javadoc) {
+    classifier = &#39;javadoc&#39;
+    from javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+    classifier = &#39;sources&#39;
+    from sourceSets.main.allJava
+}
+
+artifacts {
+    archives javadocsJar
+    archives sourcesJar
+}
+
+apply from: &#39;../mvn_publish.gradle&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果需要发布的为 Android Library，则修改为如下内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;// 发布到本地目录，非必须
+ext.localReleaseDest = &amp;quot;${buildDir}/release/${VERSION_NAME}&amp;quot;
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = &#39;javadoc&#39;
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = &#39;sources&#39;
+    from android.sourceSets.main.java.sourceFiles
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;下载-gpgtools-创建-signing-key:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;下载 GPGTools，创建 Signing Key&lt;/h2&gt;
+
+&lt;p&gt;Windows 下载地址为&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.gnupg.org/download/index.html&#34;&gt;GPG&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gpg4win.org/&#34;&gt;GPG for Windows&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Mac 版本下载地址为&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gpgtools.org/&#34;&gt;GPG Tools&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;安装完后可以执行以下命令验证是否安装成功&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gpg --version
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后可以使用对应平台的 GUI 工具创建 Signing Key，也可以通过命令行创建。GUI 创建异常简单，所以以下只介绍命令行方式。&lt;/p&gt;
+
+&lt;p&gt;创建 Key&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gpg --gen-key
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行完成后根据提示一步步创建 Key&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+RSA keys may be between 1024 and 8192 bits long.
+What keysize do you want? (2048)
+Requested keysize is 2048 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      &amp;lt;n&amp;gt;  = key expires in n days
+      &amp;lt;n&amp;gt;w = key expires in n weeks
+      &amp;lt;n&amp;gt;m = key expires in n months
+      &amp;lt;n&amp;gt;y = key expires in n years
+Key is valid for? (0) 0
+Key does not expire at all
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Sidney
+Email address: sidney@test.com
+Comment: This is just a testing key.
+You selected this USER-ID:
+    &amp;quot;Sidney (This is just a testing key.) &amp;lt;sidney@test.com&amp;gt;&amp;quot;
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建完的 Signing Key 分为 public key 和 secret key&lt;/p&gt;
+
+&lt;p&gt;查看创建的公钥 public key&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gpg --list-keys
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出内容中的 &amp;ldquo;pub   xxxx/yyyyyyyy&amp;rdquo; 即为创建的公钥记录，其中的 &amp;ldquo;yyyyyyyy&amp;rdquo; 8位16进制数为对应的 KEY ID，之后需要配置在 &lt;code&gt;~/.gradle/gradle.properties&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;查看创建的密钥 serect key&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gpg --list-secret-keys
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出内容的第一行 &amp;ldquo;&amp;hellip;/gnupg/secring.gpg&amp;rdquo; 为密钥路径，之后需要填写到 &lt;code&gt;~/.gradle/gradle.properties&lt;/code&gt;文件中。&lt;/p&gt;
+
+&lt;p&gt;首先需要上传 public key 到 keyservers.net&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;gpg --keyserver hkp://pool.sks-keyservers.net --send-keys &amp;lt;YOUR KEY ID&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后将 Signing Key 的信息填写到 &lt;code&gt;~/.gradle/gradle.properties&lt;/code&gt; 中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;signing.keyId=&amp;lt;Your Key Id&amp;gt;
+signing.password=&amp;lt;Your Key Password&amp;gt;
+signing.secretKeyRingFile=&amp;lt;Your Secret GPG File Location&amp;gt;
+NEXUS_USERNAME=&amp;lt;Sonatype Username&amp;gt;
+NEXUS_PASSWORD=&amp;lt;Sonatype Password&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;执行发布脚本:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;执行发布脚本&lt;/h2&gt;
+
+&lt;p&gt;定位到需要发布的模块目录下执行以下语句就可以完成发布&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;../gradlew upload
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果发布的是 SNAPSHOT 版本，执行到这一步就可以了，之后可以到 &lt;a href=&#34;https://oss.sonatype.org/content/repositories/snapshots&#34;&gt;snaphost&lt;/a&gt; 查看是否上传成功。&lt;/p&gt;
+
+&lt;h2 id=&#34;发布-release-版本:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;发布 Release 版本&lt;/h2&gt;
+
+&lt;p&gt;SNAPSHOT 版本只要执行以上操作就行了，但如果发布的是 RLEASE 版本的话则还需要进行以下操作。&lt;/p&gt;
+
+&lt;p&gt;首先需要登陆 &lt;a href=&#34;https://oss.sonatype.org&#34;&gt;oss.sonatype.org&lt;/a&gt;，选择 &lt;code&gt;Staging Repositories&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;接着在搜索框输入你的 &amp;ldquo;group id&amp;rdquo; ，之前上传成功的话可以看到 &lt;code&gt;repository&lt;/code&gt; 一栏显示的是你 &lt;code&gt;groupid-1000&lt;/code&gt;，之后你每上传一次该数字都会递增。该 &lt;code&gt;repository&lt;/code&gt; 为临时仓库，并不是 Maven 的中央仓库，所以还需要进行同步操作。&lt;/p&gt;
+
+&lt;p&gt;先确认该仓库的 &lt;code&gt;Status&lt;/code&gt; 为 &lt;code&gt;open&lt;/code&gt; 状态，接着选择 &lt;code&gt;Content&lt;/code&gt; 选项卡确认上传的文件是否如预想一样。都确认好后可以点击 &lt;code&gt;Close&lt;/code&gt; 按钮。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/release.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;然后回到最开始创建的 Issue 处，添加一条评论，申请开启到 Maven 仓库的同步服务。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://7xlqqp.com1.z0.glb.clouddn.com/add_comment.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;等待几个小时后会收到工作人员的邮件，然后会发现原来的 &lt;code&gt;Release&lt;/code&gt; 按钮变成了可用状态，点击后就完成了发布操作。接着在回到 Issue 处添加以下评论等待几个小时就可以在 Maven 中央仓库看到你的劳动成果了。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考资料:7e0585b887992e81cb36eb1ec4186ea5&#34;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://central.sonatype.org/pages/ossrh-guide.html&#34;&gt;OSSRH Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://central.sonatype.org/pages/gradle.html&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

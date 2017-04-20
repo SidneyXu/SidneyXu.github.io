@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 17.内部类"/>
+<meta property="og:site_name" content="JGSK - 17.内部类"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-17-innerclass/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-22"/>
+<meta property="article:modified_time" content="2015-09-22"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 17.内部类">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 17.内部类 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-17-innerclass/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2017.%e5%86%85%e9%83%a8%e7%b1%bb-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f&title=JGSK%20-%2017.%e5%86%85%e9%83%a8%e7%b1%bb&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-17-innerclass%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 17.内部类</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#共同篇:5b139c2fac2e2a312b86a19b62cb93bc">共同篇</a></li>
+<li><a href="#java-篇:5b139c2fac2e2a312b86a19b62cb93bc">Java 篇</a>
+<ul>
+<li><a href="#静态内部类:5b139c2fac2e2a312b86a19b62cb93bc">静态内部类</a></li>
+<li><a href="#匿名内部类:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</a></li>
+<li><a href="#非静态内部类:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</a></li>
+</ul></li>
+<li><a href="#groovy-篇:5b139c2fac2e2a312b86a19b62cb93bc">Groovy 篇</a>
+<ul>
+<li><a href="#静态内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">静态内部类</a></li>
+<li><a href="#匿名内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</a></li>
+<li><a href="#非静态内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</a></li>
+</ul></li>
+<li><a href="#scala-篇:5b139c2fac2e2a312b86a19b62cb93bc">Scala 篇</a>
+<ul>
+<li><a href="#匿名内部类-2:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</a></li>
+<li><a href="#非静态内部类-2:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</a></li>
+</ul></li>
+<li><a href="#kotlin-篇:5b139c2fac2e2a312b86a19b62cb93bc">Kotlin 篇</a>
+<ul>
+<li><a href="#匿名内部类-3:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</a></li>
+<li><a href="#非静态内部类-3:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</a></li>
+</ul></li>
+<li><a href="#总结:5b139c2fac2e2a312b86a19b62cb93bc">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="共同篇:5b139c2fac2e2a312b86a19b62cb93bc">共同篇</h2>
+
+<p>所谓的内部类即定义在类内部的类，而包含这个内部类的类则被称作外部类。通常来说内部类可以访问外部类的私有成员，作为外部类的内部扩展而存在。</p>
+
+<h2 id="java-篇:5b139c2fac2e2a312b86a19b62cb93bc">Java 篇</h2>
+
+<h3 id="静态内部类:5b139c2fac2e2a312b86a19b62cb93bc">静态内部类</h3>
+
+<p>静态内部类即以 <code>static</code> 关键字声明的内部类。静态内部类不属于外部类的成员，使用上与普通的外部类没有什么区别。</p>
+
+<p>定义一个静态内部类</p>
+
+<pre><code class="language-java">class Outter {
+    static class StaticInner {
+    }
+}
+</code></pre>
+
+<p>创建静态内部类的实例</p>
+
+<pre><code class="language-java">Outter.StaticInner staticInner = new Outter.StaticInner();
+</code></pre>
+
+<h3 id="匿名内部类:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</h3>
+
+<p>匿名内部类即没有指明名字的内部类，通常用于监听器和线程的创建。</p>
+
+<pre><code class="language-java">Thread thread = new Thread(new Runnable() {
+    @Override
+    public void run() {
+
+    }
+});
+</code></pre>
+
+<p>以上 <code>new Runnable()</code> 即定义了一个没有名字的实现了 <code>Runnalbe</code> 接口的内部类并立即创建该类的实例作为 <code>Thread</code> 的构造方法的参数。</p>
+
+<h3 id="非静态内部类:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</h3>
+
+<p>非静态内部类属于外部类，可以被看做为外部类的一个成员，和外部类定义的普通方法和成员变量没有什么区别，所以在该内部类中可以访问外部类的所有成员。也正是这个原因，创建内部类的实例时必须先有外部类的实例。</p>
+
+<p>定义一个非静态内部类</p>
+
+<p>如果内部类和外部类拥有同名成员变量，如果直接使用变量名访问，遵循就近原则，方法的只可能是内部类自身的成员。但是可以通过 <code>外部类.this.变量名</code> 的方式来明确指明需要调用的是外部类成员而不是内部类的成员。</p>
+
+<pre><code class="language-java">class Outter {
+
+    private String name;
+
+    public Outter(String name) {
+        this.name = name;
+    }
+
+    public class Inner {
+        private String name;
+
+        public Inner(String name) {
+            this.name = name;
+        }
+
+        public String desc() {
+            return Outter.this.name + &quot;-&quot; + name;
+        }
+    }
+
+    public void foo(Inner bar) {
+        System.out.println(bar.desc());
+    }
+}
+</code></pre>
+
+<p>使用该内部类</p>
+
+<pre><code class="language-java">Outter outter1 = new Outter(&quot;Outter1&quot;);
+Outter.Inner inner1 = outter1.new Inner(&quot;Inner1&quot;);
+
+Outter outter2 = new Outter(&quot;Outter2&quot;);
+Outter.Inner inner2 = outter2.new Inner(&quot;Inner2&quot;);
+
+System.out.println(&quot;outter1 is &quot; + outter1.getClass()); //  _innerclass.Outter
+System.out.println(&quot;outter2 is &quot; + outter2.getClass()); //  _innerclass.Outter
+System.out.println(&quot;inner1 is &quot; + inner1.getClass());   //  _innerclass.Outter$Inner
+System.out.println(&quot;inner2 is &quot; + inner2.getClass());   //  _innerclass.Outter$Inner
+
+outter1.foo(inner1);    //  Outter1-Inner1
+outter1.foo(inner2);    //  Outter2-Inner2
+</code></pre>
+
+<p>以上可以看到 <code>inner1</code> 和 <code>inner2</code> 两个通过不同外部类实例创建的内部类对象并没有什么区别，可见内部类是属于外部类的。</p>
+
+<h2 id="groovy-篇:5b139c2fac2e2a312b86a19b62cb93bc">Groovy 篇</h2>
+
+<h3 id="静态内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">静态内部类</h3>
+
+<p>使用同 Java</p>
+
+<p>定义一个静态内部类</p>
+
+<pre><code class="language-groovy">class Outter {
+    static class StaticInner {
+    }
+}
+</code></pre>
+
+<p>创建静态内部类的实例</p>
+
+<pre><code class="language-groovy">def staticInner = new Outter.StaticInner()
+</code></pre>
+
+<h3 id="匿名内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</h3>
+
+<p>匿名内部类使用也同 Java</p>
+
+<pre><code class="language-groovy">def thread = new Thread(new Runnable() {
+    @Override
+    void run() {
+
+    }
+})
+</code></pre>
+
+<h3 id="非静态内部类-1:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</h3>
+
+<p>非静态内部类使用也同 Java。但是，在 Groovy 中创建内部类的实例时语法与 Java 不同，使用的是 <code>new 外部类.内部类(外部类的实例 [, 内部类的构造方法的参数])</code>，且此时指明内部类的构造方法参数时不能使用带名参数。</p>
+
+<p>定义一个非静态内部类</p>
+
+<pre><code class="language-groovy">class Outter {
+
+    def name
+
+    static class StaticInner {
+    }
+
+    class Inner {
+        def name
+        Inner(def name) {
+            this.name = name
+        }
+        def desc = &quot;${Outter.this.name}-${name}&quot;
+    }
+
+    def foo(Inner bar) {
+        println(bar.desc)
+    }
+}
+</code></pre>
+
+<p>使用该内部类</p>
+
+<pre><code class="language-groovy">def outter1 = new Outter(name: &quot;Outter1&quot;)
+//  Wrong!! 不能使用带名参数
+//        def inner1 = new Outter.Inner(outter1, name: &quot;Inner1&quot;)
+def inner1 = new Outter.Inner(outter1, &quot;Inner1&quot;)
+
+def outter2 = new Outter(name: &quot;Outter2&quot;)
+def inner2 = new Outter.Inner(outter2, &quot;Inner2&quot;)
+
+println(&quot;outter1 is ${outter1.getClass()}&quot;) //  _innerclass.Outter
+println(&quot;outter2 is ${outter2.getClass()}&quot;) //  _innerclass.Outter
+println(&quot;inner1 is ${inner1.getClass()}&quot;)   //  _innerclass.Outter$Inner
+println(&quot;inner2 is ${inner2.getClass()}&quot;)   //  _innerclass.Outter$Inner
+
+outter1.foo(inner1) //  Outter1-Inner1
+outter1.foo(inner2) //  Outter2-Inner2
+</code></pre>
+
+<p>由以上例子可见在 Groovy 中内部类也是属于外部类的。</p>
+
+<h2 id="scala-篇:5b139c2fac2e2a312b86a19b62cb93bc">Scala 篇</h2>
+
+<h3 id="匿名内部类-2:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</h3>
+
+<p>匿名内部类使用也同 Java</p>
+
+<pre><code class="language-scala">val thread = new Thread(new Runnable {
+  def run(): Unit = {
+
+  }
+})
+</code></pre>
+
+<h3 id="非静态内部类-2:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</h3>
+
+<p>Scala 中非静态内部类与 Java 中有很大不同。Scala 中非静态内部类是属于外部类的实例，而不是外部类自身。</p>
+
+<p>定义一个非静态内部类</p>
+
+<p>Scala 中内部类也可以通过 <code>外部类.this.成员名</code> 来访问外部类的成员，或者也可以通过像如下的 <code>outter =&gt;</code> 定义一个 <code>外部类.this</code> 的别名来访问。</p>
+
+<pre><code class="language-scala">class Outter(val name: String) {
+  outter =&gt;
+
+  class Inner(val name: String) {
+    def desc = s&quot;${Outter.this.name}-$name&quot;
+
+    def desc2 = s&quot;${outter.name}-$name&quot;
+  }
+
+  def foo(bar: Inner): Unit = {
+    println(bar.desc)
+  }
+}
+</code></pre>
+
+<p>使用该内部类</p>
+
+<pre><code class="language-scala">val outter1 = new Outter(&quot;Outter1&quot;)
+val inner1 = new outter1.Inner(&quot;Inner1&quot;)
+
+val outter2 = new Outter(&quot;Outter2&quot;)
+val inner2 = new outter2.Inner(&quot;Inner2&quot;)
+
+println(s&quot;outter1 is ${outter1.getClass}&quot;) //  _innerclass.Outter
+println(s&quot;outter2 is ${outter2.getClass}&quot;) //  _innerclass.Outter
+println(s&quot;inner1 is ${inner1.getClass}&quot;)  //  _innerclass.Outter$Inner
+println(s&quot;inner2 is ${inner2.getClass}&quot;)  //  _innerclass.Outter$Inner
+</code></pre>
+
+<p>以上打印时可以看到 <code>inner1</code> 和 <code>inner2</code> 的类型看起来是一样的。但是调用以下方法后会发现报 <code>type mismatch</code> 错误。</p>
+
+<pre><code class="language-scala">outter1.foo(inner1)
+//  Wrong!! type mismatch
+//  outter1.foo(inner2)  
+</code></pre>
+
+<p>实际上这是由于 Scala 中存在着一种被称作 &ldquo;路径依赖类型&rdquo; 的概念，即 &ldquo;A.this.B&rdquo; 随着 A 是不同的实例而不同。所以以上定义的 <code>foo()</code> 方法只能接受特定路径的 <code>Inner</code> 类的实例。</p>
+
+<p>如果希望 <code>foo()</code> 方法接收所有 <code>Outter</code> 实例路径下的 <code>Inner</code> 类型，可以使用类型投影。类型投影使用符号 <code>#</code> 来定义。</p>
+
+<p>例</p>
+
+<p>将 <code>foo()</code> 方法换成以下形式</p>
+
+<pre><code class="language-scala">def foo(bar: Outter#Inner): Unit = {
+  println(bar.desc2)
+}
+</code></pre>
+
+<p>再调用以下方法就不会报错了</p>
+
+<pre><code class="language-scala">outter1.foo(inner1)
+outter1.foo(inner2)
+</code></pre>
+
+<h2 id="kotlin-篇:5b139c2fac2e2a312b86a19b62cb93bc">Kotlin 篇</h2>
+
+<h3 id="匿名内部类-3:5b139c2fac2e2a312b86a19b62cb93bc">匿名内部类</h3>
+
+<p>匿名内部类使用也同 Java</p>
+
+<pre><code class="language-kotlin">val thread = Thread(Runnable {
+
+})
+</code></pre>
+
+<h3 id="非静态内部类-3:5b139c2fac2e2a312b86a19b62cb93bc">非静态内部类</h3>
+
+<p>Kotlin 中非静态内部类与 Java 相似。</p>
+
+<p>定义一个非静态内部类</p>
+
+<p>Kotlin 中内部类使用语法 <code>this@外部类.成员名</code> 来调用外部成员。</p>
+
+<pre><code class="language-kotlin">class Outter(val name: String) {
+
+    inner class Inner(val name: String) {
+        fun desc() = &quot;${this@Outter.name}-${name}&quot;
+    }
+
+    fun foo(bar: Inner) {
+        println(bar.desc())
+    }
+}
+</code></pre>
+
+<p>使用该内部类</p>
+
+<pre><code class="language-kotlin">val outter1 = Outter(&quot;Outter1&quot;)
+val inner1 = outter1.Inner(&quot;Inner1&quot;)
+
+val outter2 = Outter(&quot;Outter2&quot;)
+val inner2 = outter1.Inner(&quot;Inner2&quot;)
+
+println(&quot;outter1 is ${outter1.javaClass}&quot;)  //  _innerclass.Outter
+println(&quot;outter2 is ${outter2.javaClass}&quot;)  //  _innerclass.Outter
+println(&quot;inner1 is ${inner1.javaClass}&quot;)    //  _innerclass.Outter$Inner
+println(&quot;inner2 is ${inner2.javaClass}&quot;)    //  _innerclass.Outter$Inner
+
+outter1.foo(inner1) //  Outter1-Inner1
+outter1.foo(inner2) //  Outter1-Inner2
+</code></pre>
+
+<h2 id="总结:5b139c2fac2e2a312b86a19b62cb93bc">总结</h2>
+
+<ul>
+<li>Scala 中非静态内部类属于外部类的对象而非外部类本身，而其它三种语言中则属于外部类</li>
+<li>Scala 中可以定义外部类this的别名</li>
+<li>Scala 与 Kotlin 没有静态外部类</li>
+<li>Groovy 中内部类使用方法与 Java 基本一致，只是创建内部类语法的方式不一样</li>
+<li>Kotlin 使用 this 的语法和其它三种语言都不一样</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_17_innerclass</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-22 </h4>
+          <h5 id="wc"> 600 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-18-classobject-scalakotlin/"><i class="icon-arrow-left"></i> JGSK - 18.类相关:Object - Scala &amp; Kotlin篇</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/jsgk-15-class-kotlin/">JGSK - 15.类 - Kotlin 篇 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="575">
+<meta itemprop="datePublished" content="2015-09-22">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-17-innerclass/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-17-innerclass\/';
+    var disqus_title = 'JGSK - 17.内部类';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-17-innerclass\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+

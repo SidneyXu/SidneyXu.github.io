@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="java, groovy, scala, kotlin, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="JGSK - 21.异常"/>
+<meta property="og:site_name" content="JGSK - 21.异常"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://git.bookislife.com/post/2015/jgsk-21-exception/">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2015-09-29"/>
+<meta property="article:modified_time" content="2015-09-29"/>
+
+
+
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="kotlin">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@">
+<meta name="twitter:title" content="JGSK - 21.异常">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="http://git.bookislife.com/">
+
+
+    
+    <title> JGSK - 21.异常 </title>
+    <link rel="canonical" href="http://git.bookislife.com/post/2015/jgsk-21-exception/">
+    
+
+    
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="/static/css/highlight/androidstudio.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body lang="zh" itemscope itemtype="http://schema.org/Article">
+<header id="header">
+    <figure>
+      
+		<a href="/" border=0 id="logolink"><div id="log"><img src="http://7xlqqp.com1.z0.glb.clouddn.com/6219353%20%281%29.png"></div></a>
+      
+    </figure>
+    <div id="byline">by Sidney Xu</div>
+    <nav id="nav">
+            <ul id="mainnav">
+            <li>
+                <a href="/post/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-book"></i></span>
+                <span> blog </span>
+            </a>
+            </li>
+            <li>
+                <a href="/project/">
+                    <span class="icon"> <i aria-hidden="true" class="fa fa-code"></i></span>
+                    <span> code </span>
+                </a>
+            </li>
+            <li>
+            <a href="/lifestyle/">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-coffee"></i></span>
+                <span> lifestyle </span>
+            </a>
+            </li>
+            <li>
+            <a href="/about">
+                <span class="icon"> <i aria-hidden="true" class="fa fa-user"></i></span>
+                <span> me </span>
+            </a>
+            </li>
+            
+        </ul>
+
+            <ul id="social">
+            <li id="share">
+                <span class="icon icon-bubbles"> </span>
+                <span class="title"> share </span>
+                <div class="dropdown share">
+                    <ul class="social">
+                      <li> <a href="https://twitter.com/intent/tweet?status=JGSK%20-%2021.%e5%bc%82%e5%b8%b8-http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="Follow me on Twitter" class="twitter"><span class="icon icon-twitter"></span>Twitter</a> </li>
+                        <li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="Join me on Facebook" class="facebook"><span class="icon icon-facebook"></span>Facebook</a> </li>
+                        <li> <a href="https://plus.google.com/share?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="Google+" class="googleplus"><span class="icon icon-google-plus"></span>Google+</a> </li>
+                        <li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f&title=JGSK%20-%2021.%e5%bc%82%e5%b8%b8&source=" target="_blank" title="LinkedIn" class="linkedin"><span class="icon icon-linkedin"></span>LinkedIn</a> </li>
+                        <li> <a href="http://del.icio.us/post?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="Delicious" class="delicious"><span class="icon icon-delicious"></span>Delicious</a> </li>
+                        <li> <a href="http://www.reddit.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="Reddit" class="reddit"><span class="icon icon-reddit"></span>Reddit</a> </li>
+                        <li> <a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fgit.bookislife.com%2fpost%2f2015%2fjgsk-21-exception%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="icon icon-stumbleupon"></span>StumbleUpon</a> </li>
+                    </ul>
+                    <span class="subcount">sharing is caring</span>
+                </div>
+            </li>
+            <li id="follow">
+                <span class="icon icon-rocket"> </span>
+                <span class="title"> follow </span>
+                <div class="dropdown follow">
+                    <ul class="social">
+                        <li> <a href="/index.xml" target="_blank" title="Subscribe by RSS" class="rss"><span class="icon icon-feed-2"></span>RSS</a> </li>
+                        
+                        
+                        
+                        
+                        <li> <a href="http://github.com/SidneyXu" target="_blank" title="GitHub" class="github"><span class="icon icon-github"></span>GitHub</a> </li>
+                        
+                        
+                        
+                        <li> <a href="http://slideshare.com/siriuseddy" target="_blank" title="SlideShare" class="slideshare"><span class="icon icon-slideshare"></span>SlideShare</a> </li>
+                        
+                    </ul>
+                    <span class="subcount">join 10k+ subscribers &amp; followers</span>
+                </div>
+            </li>
+        </ul>
+
+    </nav>
+    
+</header>
+
+
+
+<section id="main">
+  <h1 itemprop="name" id="title">JGSK - 21.异常</h1>
+  
+  
+  <div class="toc">
+    <h5 style="margin-left: 1em;">Table Of Contents</h5>
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#java-篇:894c2d8f8b61bb874e30a4c317ef9db4">Java 篇</a></li>
+<li><a href="#groovy-篇:894c2d8f8b61bb874e30a4c317ef9db4">Groovy 篇</a></li>
+<li><a href="#scala-篇:894c2d8f8b61bb874e30a4c317ef9db4">Scala 篇</a></li>
+<li><a href="#kotlin-篇:894c2d8f8b61bb874e30a4c317ef9db4">Kotlin 篇</a></li>
+<li><a href="#总结:894c2d8f8b61bb874e30a4c317ef9db4">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+
+  <div>
+        <article itemprop="articleBody" id="content">
+           
+
+<h2 id="java-篇:894c2d8f8b61bb874e30a4c317ef9db4">Java 篇</h2>
+
+<p>Java 中异常是种特殊对象，可以分为检查异常和非检查异常，所有 RuntimeException 都属于非检查异常。</p>
+
+<p>非检查异常表示程序正常运行时不应该会发生的异常，所以无需对非检查异常进行额外的检查。</p>
+
+<pre><code class="language-java">int i = 5/0;
+</code></pre>
+
+<p>检查异常属于程序正常运行时也可能会发生的异常，Java 要求必须对检查异常手动进行try..catch 或者通过方法声明向上抛出。</p>
+
+<p>通过方法声明抛出异常</p>
+
+<pre><code class="language-java">public void test() throws MyException, FileNotFoundException {
+}
+</code></pre>
+
+<p>手动抛出异常</p>
+
+<pre><code class="language-java">throw new FileNotFoundException(&quot;File not found.&quot;);
+</code></pre>
+
+<p>一般来说可以在每个方法中都使用方法声明抛出异常然后在最上层使用 try..catch 捕获异常</p>
+
+<pre><code class="language-java">try {
+    // do something
+} catch (MyException e) {
+} catch (FileNotFoundException e) {
+} finally {}
+</code></pre>
+
+<p>其中无论异常是否会发生，finally 的代码块总是会被执行。</p>
+
+<p>在 Java 1.7 后以上代码还可以简写为</p>
+
+<pre><code class="language-java">try {
+    // do something
+} catch (MyException | FileNotFoundException e) {
+} finally {}
+</code></pre>
+
+<p>Java 这种处理方式有时会让程序变得非常啰嗦，毫无美感，如果遇到回调的话就更是如此</p>
+
+<pre><code class="language-java">class MyBean {
+    interface Callbacks {
+        void done();
+    }
+    public void when(Callbacks callbacks) {
+        callbacks.done();
+    }
+}
+
+try {
+    new MyBean().when(() -&gt; {
+        try {
+        } catch (MyException | FileNotFoundException e) {
+            System.out.println(&quot;Some errors occur in callback.&quot;);
+        }
+    });
+} catch (FileNotFoundException | MyException e) {
+    System.out.println(&quot;Some errors occur.&quot;);
+}
+</code></pre>
+
+<p>以上可以看到由于 try..catch 无法捕获回调中的异常，所以回调外和回调内部都要编写 try..catch 语句，如果程序逻辑或者回调更加复杂的话程序简直毫无可读性。</p>
+
+<h2 id="groovy-篇:894c2d8f8b61bb874e30a4c317ef9db4">Groovy 篇</h2>
+
+<p>Groovy 中所有异常均为非检查异常，所以无需添加额外的方法声明。</p>
+
+<p>如果你希望的话，也可以像 Java 一样通过方法声明抛出异常，</p>
+
+<pre><code class="language-groovy">def test() throws MyException {}
+</code></pre>
+
+<p>手动抛出异常</p>
+
+<pre><code class="language-groovy">throw new FileNotFoundException(&quot;File not found.&quot;)
+</code></pre>
+
+<p>try..catch..finally 语句</p>
+
+<pre><code class="language-groovy">try {
+    // do something
+} catch (MyException | FileNotFoundException e) {}
+} finally {}
+</code></pre>
+
+<p>同 Java 一样当遇到回调时 try..catch 语句会变得非常难看，不过在 Groovy 中可以通过闭包来较优雅的解决这个问题</p>
+
+<pre><code class="language-groovy">class MyBean {
+
+    interface Callbacks {
+        def done()
+    }
+
+    def when(Callbacks callbacks) {
+        tryCatchClosure {
+            callbacks.done()
+        }
+    }
+
+    def tryCatchClosure(Closure closure) {
+        try {
+            closure();
+        } catch (MyException | FileNotFoundException e) {
+            println(&quot;Some errors occur in closure.&quot;)
+        }
+    }
+}
+
+try {
+    uncheckedException()
+    checkedException()
+
+    new MyBean().when(new MyBean.Callbacks() {
+
+        @Override
+        def done() {
+            checkedException()
+        }
+    })
+} catch (ArithmeticException | FileNotFoundException | MyException e) {
+    println(&quot;Some errors occur.&quot;)
+}
+</code></pre>
+
+<h2 id="scala-篇:894c2d8f8b61bb874e30a4c317ef9db4">Scala 篇</h2>
+
+<p>Scala 中所有异常也都为非检查异常。</p>
+
+<p>尽管没有必要，如果你希望的话，也可以通过注解声明抛出异常</p>
+
+<pre><code class="language-scala">@throws(classOf[MyException])
+def test(): Unit = {
+}
+</code></pre>
+
+<p>手动抛出异常</p>
+
+<pre><code class="language-scala">throw new FileNotFoundException(&quot;File not found.&quot;)
+</code></pre>
+
+<p>try..catch..finally 语句</p>
+
+<pre><code class="language-scala">try {
+  // do something
+} catch {
+  case e: MyException =&gt;
+  case e: FileNotFoundException =&gt;
+} finally {}
+</code></pre>
+
+<p>同 Groovy 一样，Scala 中也可以通过闭包来处理回调中的异常</p>
+
+<pre><code class="language-scala">class MyBean {
+
+  def when(callback: () =&gt; Unit): Unit = {
+    try {
+      callback()
+    } catch {
+      case _: Throwable =&gt; println(&quot;Some errors occur in closure.&quot;)
+    }
+  }
+}
+
+try {
+  checkedException()
+
+  new MyBean().when2(() =&gt; {
+    checkedException()
+  })
+} catch {
+  case _: Exception =&gt; println(&quot;Some errors occur.&quot;)
+} finally {}
+</code></pre>
+
+<p>在 Scala 中 throw 异常也是由返回值的，并且返回值为 Nothing，所以可以写出以下语句</p>
+
+<pre><code class="language-scala">val n = 4
+val half =
+  if (n % 2 == 0)
+    n / 2
+  else
+    throw new RuntimeException(&quot;n must be even&quot;)
+println(half) //  2
+</code></pre>
+
+<p>或者在 try..catch 中处理返回值</p>
+
+<pre><code class="language-scala">val m = try {
+  &quot;99&quot;.toInt
+} catch {
+  case e: Exception =&gt; -99
+}
+println(m)
+</code></pre>
+
+<p>但是需要注意的是不要在 finally 中处理返回值，这是一种很糟的处理方式，会引发不可预知的错误，相信以下例子就可以很好证明这一点</p>
+
+<pre><code class="language-scala">def f(): Int = try {
+  return 1
+} finally {
+  return 2
+}
+
+def g(): Int = try {
+  1
+} finally {
+  2
+}
+
+def q(): Int = try {
+  return 1
+} finally {
+}
+
+println(f()) //  2
+println(g()) //  1
+println(q()) //  1
+</code></pre>
+
+<h2 id="kotlin-篇:894c2d8f8b61bb874e30a4c317ef9db4">Kotlin 篇</h2>
+
+<p>Kotlin 中所有异常也都为非检查异常。</p>
+
+<p>尽管没有必要，如果你希望的话，也可以通过注解声明抛出异常</p>
+
+<pre><code class="language-kotlin">@Throws(MyException::class, FileNotFoundException::class)
+fun test() {
+}
+</code></pre>
+
+<p>手动抛出异常</p>
+
+<pre><code class="language-kotlin">throw FileNotFoundException(&quot;File not found.&quot;)
+</code></pre>
+
+<p>try..catch..finally 语句</p>
+
+<pre><code class="language-kotlin">try {
+    // do something
+} catch(e: FileNotFoundException) {
+} catch(e: MyException) {
+} finally {}
+</code></pre>
+
+<p>同 Scala 一样，Kotlin 中也可以通过闭包来处理回调中的异常</p>
+
+<pre><code class="language-kotlin">class MyBean {
+    fun callback(callback: () -&gt; Unit) {
+        try {
+            callback()
+        } catch(e: FileNotFoundException) {
+            println(&quot;Some errors occur in closure.&quot;)
+        } catch(e: MyException) {
+            println(&quot;Some errors occur in closure.&quot;)
+        }
+    }
+}
+
+try {
+  checkedException()
+
+  new MyBean().callback {
+    checkedException()
+  })
+} catch(e: Exception) {
+    println(&quot;Some errors occur.&quot;)
+} finally {}
+</code></pre>
+
+<p>在 Kotlin 中同 Scala 一样 throw 异常也是有返回值的</p>
+
+<pre><code class="language-kotlin">val n = 4
+val half =
+  if (n % 2 == 0)
+    n / 2
+  else
+    throw new RuntimeException(&quot;n must be even&quot;)
+println(half) //  2
+</code></pre>
+
+<p>或者在 try..catch 中处理返回值</p>
+
+<pre><code class="language-kotlin">val m = try {
+    &quot;99&quot;.toInt()
+} catch(e: Exception) {
+    -99
+}
+println(m)
+</code></pre>
+
+<p>Kotlin 中并不允许直接在 try..catch..finally 中使用 return 语句，但是还是会发生难以预料的错误</p>
+
+<pre><code class="language-kotlin">fun f2(): Int {
+    try {
+        return 1
+    } finally {
+        return 2
+    }
+}
+
+fun g(): Int = try {
+    1
+} finally {
+    2
+}
+println(f2()) //  2
+println(g()) //  1
+</code></pre>
+
+<h2 id="总结:894c2d8f8b61bb874e30a4c317ef9db4">总结</h2>
+
+<ul>
+<li>除了 Java 外，其它语言都可以使用闭包来处理回调中的异常</li>
+<li>只有 Java 拥有检查异常</li>
+<li>Scala 的 try..catch 语句与其它语言都不一样</li>
+<li>Scala 和 Kotlin 中 try..catch 都是表达式，所以可以由返回结果</li>
+</ul>
+
+<hr />
+
+<p>项目源码见 <a href="https://github.com/SidneyXu/JGSK">JGSK/_21_exception</a></p>
+
+        </article>
+  </div> 
+</section>
+
+
+
+
+<aside id="meta">
+
+    <div>
+        <section id="datecount">
+          
+          <h4 id="date"> 2015-09-29 </h4>
+          <h5 id="wc"> 700 单词 </h5>
+          <h5 id="readtime">
+            阅读了大约  3 分钟
+        </h5>
+        </section>
+        <ul id="categories">
+          
+            <li><a href="http://git.bookislife.com//topics/jgsk">JGSK</a> </li>
+          
+        </ul>
+        <ul id="tags">
+          
+            <li> <a href="http://git.bookislife.com//tags/java">java</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/groovy">groovy</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/scala">scala</a> </li>
+          
+            <li> <a href="http://git.bookislife.com//tags/kotlin">kotlin</a> </li>
+          
+        </ul>
+    </div>
+
+    <div>
+        <section id="prev">
+            &nbsp;<a class="previous" href="http://git.bookislife.com/post/2015/jgsk-22-package/"><i class="icon-arrow-left"></i> JGSK - 22.包与访问权限</a><br>
+        </section><section id="next">
+            &nbsp;<a class="next" href="http://git.bookislife.com/post/2015/robolectricassertjpowermock-android-logic-test/">使用Robolectric&#43;Assertj&#43;PowerMock搭建 Android 的逻辑测试环境 <i class="icon-arrow-right"></i></a>
+        </section>
+    </div>
+
+    
+
+</aside>
+
+
+<meta itemprop="wordCount" content="629">
+<meta itemprop="datePublished" content="2015-09-29">
+<meta itemprop="url" content="http://git.bookislife.com/post/2015/jgsk-21-exception/">
+
+
+	<aside id=comments>
+	
+    <div><h2> 评论 </h2></div>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'gitpixelspace';
+    var disqus_identifier = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-21-exception\/';
+    var disqus_title = 'JGSK - 21.异常';
+    var disqus_url = 'http:\/\/git.bookislife.com\/post\/2015\/jgsk-21-exception\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+
+<footer>
+  <div>
+    <p>
+    &copy; 2015 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Sidney Xu.</span></span>
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; 
+    please attribute properly and link back. <br>
+    Powered by <a href="http://gohugo.io">Hugo</a>.
+        Original layout created by Steve Francia<a href="http://spf13.com/">http://spf13.com/</a>, derived from <a href="https://github.com/spf13/spf13.com">https://github.com/spf13/spf13.com</a>.
+    </p>
+	
+	  <a href="http://bit.ly/1fWDHae"><img src="http://s01.flagcounter.com/count2/1fWDHae/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="margin-top:20px;"></a>
+	  
+  </div>
+</footer>
+<script type="text/javascript">
+(function(){var j=function(a,b){return window.getComputedStyle?getComputedStyle(a).getPropertyValue(b):a.currentStyle[b]};var k=function(a,b,c){if(a.addEventListener)a.addEventListener(b,c,false);else a.attachEvent('on'+b,c)};var l=function(a,b){for(key in b)if(b.hasOwnProperty(key))a[key]=b[key];return a};window.fitText=function(d,e,f){var g=l({'minFontSize':-1/0,'maxFontSize':1/0},f);var h=function(a){var b=e||1;var c=function(){a.style.fontSize=Math.max(Math.min(a.clientWidth/(b*10),parseFloat(g.maxFontSize)),parseFloat(g.minFontSize))+'px'};c();k(window,'resize',c)};if(d.length)for(var i=0;i<d.length;i++)h(d[i]);else h(d);return d}})();
+fitText(document.getElementById('title'), 1)
+</script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-66541663-1', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+  </script>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?1dcca96f408870b7c0b33bb3ad210577";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+</body>
+</html>
+
